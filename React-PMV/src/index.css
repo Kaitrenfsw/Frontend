@@ -1,0 +1,63 @@
+.navbar-header{
+    height: 60px;
+}
+
+
+.divider{
+    border: 1px solid blue;
+}
+
+.content-info{
+     float: left;
+    
+}
+
+.titles {
+     font:Roboto;
+     font-weight: bold;
+
+}
+  
+.navbar-fixed-left {
+  width: 250px;
+  position: fixed;
+  border-radius: 0;
+  border-width: 0;
+  background-color: #1464f6;
+
+
+}
+
+
+
+.navbar-fixed-left .navbar-nav > li {
+  float: none;  /* Cancel default li float: left */
+  width: 250px;
+  margin-top: 5%;
+  margin-bottom: 5%; 
+  
+
+}
+
+.navbar-fixed-left .navbar-nav > li a {
+  color: white;
+  font-size: 10px;
+  font:helvetica;
+  font-weight: bold;
+  width: 250px;
+}
+
+.sidebar{
+  background-color: #1464f6;
+  height: 100%;
+  width: 250px;
+  position: fixed;
+ 
+}
+
+.content{
+  margin-left: 300px;
+
+}
+
+
