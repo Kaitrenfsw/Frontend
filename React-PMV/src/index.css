@@ -1,63 +1,219 @@
+
+
+
+
+/* Barra superior */
+
 .navbar-header{
     height: 60px;
-}
-
-
-.divider{
-    border: 1px solid blue;
-}
-
-.content-info{
-     float: left;
-    
-}
-
-.titles {
-     font:Roboto;
-     font-weight: bold;
 
 }
-  
+
+
+
+/* Imagen marca Barra superior */
+.navbar-brand > img {
+      max-height: 120%;
+      height: 120%;
+      -o-object-fit: contain;
+      object-fit: contain;
+
+}
+
+/* Barra de navegación izquierda*/
 .navbar-fixed-left {
   width: 250px;
   position: fixed;
   border-radius: 0;
   border-width: 0;
-  background-color: #1464f6;
-
-
+  background-color: white;
+  margin-top: 60px;
 }
 
-
-
-.navbar-fixed-left .navbar-nav > li {
-  float: none;  /* Cancel default li float: left */
-  width: 250px;
-  margin-top: 5%;
-  margin-bottom: 5%; 
-  
-
-}
-
-.navbar-fixed-left .navbar-nav > li a {
-  color: white;
-  font-size: 10px;
-  font:helvetica;
-  font-weight: bold;
-  width: 250px;
-}
-
+/* div que contiene a barra navegación izquierda */
 .sidebar{
-  background-color: #1464f6;
-  height: 100%;
+  background-color: white;
+  min-height: 100%;
   width: 250px;
   position: fixed;
- 
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  z-index: 10;
 }
 
+
+
+/* Colores item seleccionado Barra de navegación izquierda*/
+.navbar-fixed-left  .navbar-nav > .active > a,
+.navbar-fixed-left  .navbar-nav > .active > a:hover,
+.navbar-fixed-left  .navbar-nav > .active > a:focus {
+    color: white;
+    background: #58ACFA;
+
+}
+
+
+/* Colores al hacer hoover sobre item Barra de navegación izquierda */
+.navbar-fixed-left  .navbar-nav  > li:hover,
+.navbar-fixed-left  .navbar-nav > li:focus {
+    background: #58ACFA;
+
+}
+
+
+
+/* items de barra navegación izquierda */
+
+.navbar-fixed-left .navbar-nav > li a {
+  color: #444444;
+  font-size: 15px;
+  font-weight: bold;
+  width: 250px;
+  font-weight: 300;
+}
+
+
+/* Titulo de cada sección */
+.main h1{
+  font-size: 40px;
+  color: #0B173B;
+  
+  }
+
+h4{
+  font-weight: bold;
+}
+
+/* linea de subrayado del titulo de la seccón */
+
+.main h1:after{
+    content:' ';
+    display:block;
+    border:1px solid #0B173B;
+}
+
+
+
+
+
+/* iconos de bootstrap */
+.glyphicon {
+   margin-right: 15px;
+}
+
+
+/* div que contiene a todo el contenido */
+.main{
+  background-color: #F2F2F2;
+  min-height: 100%;
+  margin-left: 250px;
+  width: calc(100vw - 250px);
+  font-weight: 300;
+  margin-top: 60px;
+}
+
+/* panel que contiene la lista de topicos */
+
+.content-panel{
+  margin-top: 10px;
+  padding-bottom: 20px;
+  background-color: white;
+  border-color: white;
+
+}
+
+/* panel que contiene el titulo */
+
+.title-panel {
+  background-color: transparent;
+  border-color: transparent;
+  border-width: 0;
+}
+
+/* separacion en el panel de la lista de topicos */
+
+.panel .panel-heading{
+  background-color: white;
+}
+
+/*  rutas de acceso */
+.breadcrumb{
+  background-color: #E6E6E6;
+  color: #444444;
+}
+
+/* div dentro del panel que contiene lista de topicos */
+.lista{
+  padding-left: 20px;
+  padding-top: 20px;
+
+}
+
+
+
+input[type=checkbox].css-checkbox {
+              position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
+              
+            }
+
+            input[type=checkbox].css-checkbox + label.css-label {
+              padding-left:35px;
+              height:30px; 
+              display:inline-block;
+              line-height:30px;
+              background-repeat:no-repeat;
+              background-position: 0 0;
+              font-size:30px;
+              vertical-align:middle;
+              cursor:pointer;
+              margin-left: 22px;
+
+            }
+
+            input[type=checkbox].css-checkbox:checked + label.css-label {
+              background-position: 0 -30px;
+              margin-left: 22px;
+
+            }
+            label.css-label {
+        background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_f60067e68146be412873f96f1d2458cd.png);
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+}
+
+
+/* texto de la marca kompaz*/
+.name {
+  font-size: 23px;
+  color: white;
+  padding-top: 10.5px;
+}
+
+
+/* div que agrupa todo el content*/
 .content{
-  margin-left: 300px;
+  background-color: #F2F2F2;
+  width: 100%;
+  min-height: 100vh;
+}
+
+
+.add-on .input-group-btn > .btn {
+  
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 
 }
 
+.search{
+  width: 300px;
+  margin-top: 10px;
+  margin-right: 10px;
+  float:right;
+
+}
 

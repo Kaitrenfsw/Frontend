@@ -10,7 +10,7 @@ class Sidenav extends Component{
 		  <ul className="nav navbar-nav">
 		   <li><a ><span className="glyphicon glyphicon-home" ></span> Home</a></li>
 		   <li><a ><span className="glyphicon glyphicon-dashboard" ></span> Dashboard</a></li>
-		   <li><a ><span className="glyphicon glyphicon-check" ></span> Topicos</a></li>
+		   <li className="active"><a ><span className="glyphicon glyphicon-check" ></span> Topicos</a></li>
 		   <li><a ><span className="glyphicon glyphicon-search" ></span> Fuentes</a></li>
 		  </ul>
 		</div>	

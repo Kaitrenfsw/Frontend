@@ -7,9 +7,9 @@ class Header extends Component{
     return ( 
       <header>
 	  <div className="wrap">
-	    <div className="conten nav" style={{'backgroundColor': '#444444'}}>
+	    <div className="navbar navbar-default navbar-fixed-top" style={{'backgroundColor': '#0B173B'}}>
 	    	<div className="navbar-header">
-	      		<a className="navbar-brand" style={{color: 'white',fontsize: '25px', margin: '3% 20%'}} >  Kompaz</a>
+	      		<a className="navbar-brand" > <img src="compass2.ico"  ></img>  </a><span className="name pull-left">Kompaz</span>
 	    	</div>
 		 
 	    </div>

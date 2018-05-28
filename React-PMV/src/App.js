@@ -16,7 +16,7 @@ class App extends Component {
       <div>
         <Header />
         <Sidenav />
-	      <Content/>
+	    <Content/>
       </div>
     );
   }
