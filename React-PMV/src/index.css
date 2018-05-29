@@ -5,16 +5,18 @@
 /* Barra superior */
 
 .navbar-header{
-    height: 60px;
+    height: 5vh;
 
 }
 
 
+.navbar {min-height:30px;}
 
 /* Imagen marca Barra superior */
 .navbar-brand > img {
-      max-height: 120%;
-      height: 120%;
+
+      height: 2.5vh;
+      margin-top: calc(-14px + 1vh);
       -o-object-fit: contain;
       object-fit: contain;
 
@@ -22,22 +24,25 @@
 
 /* Barra de navegación izquierda*/
 .navbar-fixed-left {
-  width: 250px;
+  width: 13vw;
   position: fixed;
   border-radius: 0;
   border-width: 0;
   background-color: white;
-  margin-top: 60px;
+  margin-top: 5vh;
 }
+.navbar-nav > li > a {padding-top:10px; padding-bottom:10px;}
+
 
 /* div que contiene a barra navegación izquierda */
 .sidebar{
   background-color: white;
   min-height: 100%;
-  width: 250px;
+  width: 13vw;
   position: fixed;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   z-index: 10;
+  margin-top: 0;
 }
 
 
@@ -57,6 +62,7 @@
 .navbar-fixed-left  .navbar-nav > li:focus {
     background: #58ACFA;
 
+
 }
 
 
@@ -65,22 +71,23 @@
 
 .navbar-fixed-left .navbar-nav > li a {
   color: #444444;
-  font-size: 15px;
+  font-size: 1.7vh;
   font-weight: bold;
-  width: 250px;
+  width: 13vw;
   font-weight: 300;
 }
 
 
 /* Titulo de cada sección */
 .main h1{
-  font-size: 40px;
+  font-size: 5vh;
   color: #0B173B;
-  
+
   }
 
 h4{
   font-weight: bold;
+  font-size: 2vh;
 }
 
 /* linea de subrayado del titulo de la seccón */
@@ -104,11 +111,13 @@ h4{
 /* div que contiene a todo el contenido */
 .main{
   background-color: #F2F2F2;
-  min-height: 100%;
-  margin-left: 250px;
-  width: calc(100vw - 250px);
+  min-height: 100;
+  margin-left: 13vw;
+  width: calc(100vw - 13vw);
   font-weight: 300;
-  margin-top: 60px;
+  margin-top: 5vh;
+  overflow-y:scroll;
+  overflow-x:hidden;
 }
 
 /* panel que contiene la lista de topicos */
@@ -127,51 +136,55 @@ h4{
   background-color: transparent;
   border-color: transparent;
   border-width: 0;
+  margin-top: 0px;
 }
 
 /* separacion en el panel de la lista de topicos */
 
 .panel .panel-heading{
   background-color: white;
+  padding-bottom: 0;
 }
 
 /*  rutas de acceso */
 .breadcrumb{
   background-color: #E6E6E6;
   color: #444444;
+  font-size: 1.5vh;
+  height: 4vh;
+  margin-bottom: 0;
 }
 
 /* div dentro del panel que contiene lista de topicos */
 .lista{
   padding-left: 20px;
   padding-top: 20px;
-
+  font-size: 2vh;
 }
 
 
 
 input[type=checkbox].css-checkbox {
               position:absolute; z-index:-1000; left:-1000px; overflow: hidden; clip: rect(0 0 0 0); height:1px; width:1px; margin:-1px; padding:0; border:0;
-              
+
             }
 
             input[type=checkbox].css-checkbox + label.css-label {
               padding-left:35px;
-              height:30px; 
+              height:3vh;
               display:inline-block;
               line-height:30px;
               background-repeat:no-repeat;
-              background-position: 0 0;
-              font-size:30px;
               vertical-align:middle;
               cursor:pointer;
-              margin-left: 22px;
+              margin-left: 4vh;
+              background-size: 3vh 6vh;
 
             }
 
             input[type=checkbox].css-checkbox:checked + label.css-label {
-              background-position: 0 -30px;
-              margin-left: 22px;
+              background-position: 0 -3vh;
+              margin-left: 4vh;
 
             }
             label.css-label {
@@ -183,37 +196,40 @@ input[type=checkbox].css-checkbox {
         -ms-user-select: none;
         user-select: none;
 
+
 }
 
 
 /* texto de la marca kompaz*/
 .name {
-  font-size: 23px;
+  font-size: 3vh;
   color: white;
-  padding-top: 10.5px;
+  padding-top: 2px;
+  margin-left: -10px;
+
 }
 
 
 /* div que agrupa todo el content*/
 .content{
   background-color: #F2F2F2;
-  width: 100%;
+  min-width: 100vw;
   min-height: 100vh;
 }
 
 
 .add-on .input-group-btn > .btn {
-  
+
   -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
 
 }
 
 .search{
-  width: 300px;
+  width: 13vw;
   margin-top: 10px;
-  margin-right: 10px;
+  margin-right: 40px;
   float:right;
 
-}
 
+}
