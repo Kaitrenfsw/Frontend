@@ -117,7 +117,7 @@ h4{
 /* div que contiene a todo el contenido */
 .main{
   background-color: #F2F2F2;
-  min-height: 100;
+  min-height: 100vh;
   margin-left: 13vw;
   width: calc(100vw - 13vw);
   font-weight: 300;
@@ -133,6 +133,7 @@ h4{
   background-color: white;
   border-color: white;
   padding-right: 20px;
+  width: 99%;
 
 }
 
@@ -143,6 +144,7 @@ h4{
   border-color: transparent;
   border-width: 0;
   margin-top: 0px;
+  width: 99%;
 }
 
 /* separacion en el panel de la lista de topicos */
@@ -223,7 +225,7 @@ input[type=checkbox].css-checkbox {
 .content{
   background-color: #F2F2F2;
   overflow-x: hidden;
-  overflow-y: hidden;
+  overflow-y:hidden;
 }
 
 

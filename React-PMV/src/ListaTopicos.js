@@ -151,7 +151,7 @@ class ListaTopicos extends Component {
           ofText= 'of'
           filterable
           defaultFilterMethod={(filter, row) =>
-          String(row[filter.id]).includes(filter.value)}
+          String(row[filter.id]).toLowerCase().includes(filter.value.toString().toLowerCase())}
           columns= {[{
             Header: 'Nombre',
             accessor: 'name' // String-based value accessors!
@@ -168,7 +168,24 @@ class ListaTopicos extends Component {
                  onChange={this.handleInputChange}/><label htmlFor={row.value} className="css-label"></label>
                </div>
              ),
-             filterable: false
+             filterMethod: (filter, row) => {
+                   if (filter.value === "all") {
+                     return true;
+                   }
+                   if (filter.value === "mis") {
+                     return this.state.checkboxValues[row.id];
+                   }
+                 },
+                 Filter: ({ filter, onChange }) =>
+                   <select
+                     onChange={event => onChange(event.target.value)}
+                     style={{ width: "100%" }}
+                     value={filter ? filter.value : "all"}
+                   >
+                     <option value="all">Todas</option>
+                     <option value="mis">Mis suscripciones</option>
+
+                   </select>
            }
            ]}
 
