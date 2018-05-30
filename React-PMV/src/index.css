@@ -1,10 +1,5 @@
 
 
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
 
 
 /* Barra superior */
@@ -227,8 +222,8 @@ input[type=checkbox].css-checkbox {
 /* div que agrupa todo el content*/
 .content{
   background-color: #F2F2F2;
-  min-width: 100vw;
-  min-height: 100vh;
+  overflow-x: hidden;
+  overflow-y: hidden;
 }
 
 

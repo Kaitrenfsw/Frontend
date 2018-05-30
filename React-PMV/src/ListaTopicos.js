@@ -17,7 +17,7 @@ class ListaTopicos extends Component {
   tags(keyword_topic) {
     var keys = "";
     for (var j = 0; j < keyword_topic.length; j++){
-        if(j  == keyword_topic.length -1){
+        if(j  === keyword_topic.length -1){
             keys = keys.concat(keyword_topic[j].name);
         }
         else{
@@ -28,11 +28,13 @@ class ListaTopicos extends Component {
   }
 
   tags2(data) {
-     data.map((val, i, arr) => {
+    data.map((val, i, arr) => {
      val.keyword_topic = val.keyword_topic.map((val2,j,val)=> {
       return val2.name + " ";
       });
+     return 0;
     });
+
 
   }
 
