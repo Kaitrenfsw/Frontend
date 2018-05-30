@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import ReactTable from "react-table";
 
 
 
@@ -27,6 +27,17 @@ class ListaTopicos extends Component {
     return keys;
   }
 
+  tags2(data) {
+     data.map((val, i, arr) => {
+     val.keyword_topic = val.keyword_topic.map((val2,j,val)=> {
+      return val2.name + " ";
+      });
+    });
+
+  }
+
+
+
   async componentDidMount() {
     this.setState({
       user_id:1
@@ -35,6 +46,7 @@ class ListaTopicos extends Component {
       if(typeof this.state.checkboxValues==='undefined'){
         const res = await fetch('http://127.0.0.1:8000/topic/');
         const topicos = await res.json();
+        this.tags2(topicos)
         this.setState({
           topicos
         });
@@ -126,35 +138,42 @@ class ListaTopicos extends Component {
     return (
 
     <form>
-    <table className="table table-hover">
-      <thead>
-            <tr>
-                <th>Nombre</th>
-                <th>Tags</th>
-                <th>Suscribirme</th>
-            </tr>
-      </thead>
-      <tbody>
-     {this.state.topicos.map(item => (
+    <ReactTable
 
-            <tr>
-                <td>{item.id}{item.name}</td>
-                <td>{this.tags(item.keyword_topic)}</td>
-                <td ><input
-                  type="checkbox"
-                  name={item.id}
-                  id={item.id}
-                  className="css-checkbox"
-                  value={item.id}
-                  checked={this.state.checkboxValues? this.state.checkboxValues[item.id]: '' }
-                  onChange={this.handleInputChange}
-                  />
-                <label for={item.id} className="css-label"></label></td>
-            </tr>
+          data={this.state.topicos}
+          nextText= 'Siguiente'
+          previousText= 'Anterior'
+          rowsText = "filas"
+          noDataText= 'No hay datos'
+          pageText= 'Pagina'
+          ofText= 'of'
+          filterable
+          defaultFilterMethod={(filter, row) =>
+          String(row[filter.id]).includes(filter.value)}
+          columns= {[{
+            Header: 'Nombre',
+            accessor: 'topic_name' // String-based value accessors!
+            },{
+            Header: 'Tags',
+            accessor: 'keyword_topic', // String-based value accessors
+             },
+             {
+             Header: 'Suscribirme',
+             accessor: 'id',
+             Cell: row => (
+               <div className="spancheck">
+               <input type="checkbox" name={row.value} id={row.value} className="css-checkbox" value={row.value}   checked={this.state.checkboxValues? this.state.checkboxValues[row.value]: '' }
+                 onChange={this.handleInputChange}/><label htmlFor={row.value} className="css-label"></label>
+               </div>
+             ),
+             filterable: false
+           }
+           ]}
 
-     ))}
-    </tbody>
-    </table>
+          defaultPageSize={10}
+          className="-striped -highlight"
+       />
+       <br/>
       <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Guardar Cambios</button>
    </form>
 

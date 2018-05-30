@@ -1,22 +1,29 @@
 
 
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 
 
 /* Barra superior */
 
 .navbar-header{
-    height: 5vh;
+    height: 35px;
 
 }
 
-
+.spancheck{
+  text-align: center;
+}
 .navbar {min-height:30px;}
 
 /* Imagen marca Barra superior */
 .navbar-brand > img {
 
-      height: 2.5vh;
-      margin-top: calc(-14px + 1vh);
+      height: 16px;
+      margin-top: -6px;
       -o-object-fit: contain;
       object-fit: contain;
 
@@ -29,7 +36,7 @@
   border-radius: 0;
   border-width: 0;
   background-color: white;
-  margin-top: 5vh;
+  margin-top: 35px;
 }
 .navbar-nav > li > a {padding-top:10px; padding-bottom:10px;}
 
@@ -79,14 +86,18 @@
 
 
 /* Titulo de cada sección */
-.main h1{
+h1{
   font-size: 5vh;
   color: #0B173B;
+  font-family: ‘GearedSlab’, Helvetica, Arial, sans-serif;
+  font-weight: 300;
 
   }
 
 h4{
-  font-weight: bold;
+  font-family: 'Work Sans', sans-serif;
+  font-weight: 300 ;
+
   font-size: 2vh;
 }
 
@@ -115,9 +126,8 @@ h4{
   margin-left: 13vw;
   width: calc(100vw - 13vw);
   font-weight: 300;
-  margin-top: 5vh;
-  overflow-y:scroll;
-  overflow-x:hidden;
+  margin-top: 35px;
+
 }
 
 /* panel que contiene la lista de topicos */
@@ -127,6 +137,7 @@ h4{
   padding-bottom: 20px;
   background-color: white;
   border-color: white;
+  padding-right: 20px;
 
 }
 
@@ -160,6 +171,7 @@ h4{
   padding-left: 20px;
   padding-top: 20px;
   font-size: 2vh;
+
 }
 
 
@@ -177,18 +189,18 @@ input[type=checkbox].css-checkbox {
               background-repeat:no-repeat;
               vertical-align:middle;
               cursor:pointer;
-              margin-left: 4vh;
+
               background-size: 3vh 6vh;
 
             }
 
             input[type=checkbox].css-checkbox:checked + label.css-label {
               background-position: 0 -3vh;
-              margin-left: 4vh;
+
 
             }
             label.css-label {
-        background-image:url(http://csscheckbox.com/checkboxes/u/csscheckbox_f60067e68146be412873f96f1d2458cd.png);
+        background-image:url(checkbox.png);
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -202,12 +214,14 @@ input[type=checkbox].css-checkbox {
 
 /* texto de la marca kompaz*/
 .name {
-  font-size: 3vh;
+  font-size: 21px;
   color: white;
   padding-top: 2px;
   margin-left: -10px;
 
 }
+
+
 
 
 /* div que agrupa todo el content*/
