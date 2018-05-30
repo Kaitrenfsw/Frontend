@@ -8,6 +8,12 @@ class ListaTopicos extends Component {
     topicos: []
   };
 
+  constructor(){
+    super();
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
   tags(keyword_topic) {
     var keys = "";
     for (var j = 0; j < keyword_topic.length; j++){
@@ -22,17 +28,100 @@ class ListaTopicos extends Component {
   }
 
   async componentDidMount() {
+    this.setState({
+      user_id:1
+    });
     try {
-      const res = await fetch('http://127.0.0.1:8000/topic/');
-      const topicos = await res.json();
-      this.setState({
-        topicos
-      });
+      if(typeof this.state.checkboxValues==='undefined'){
+        const res = await fetch('http://127.0.0.1:8000/topic/');
+        const topicos = await res.json();
+        this.setState({
+          topicos
+        });
+        var i;
+        var checkboxValues={};
+        for (i=0;i<Object.keys(topicos).length;i++){
+          checkboxValues[topicos[i]['id']]=false;
+        }
+        this.setState({
+          checkboxValues
+        });
+        console.log(checkboxValues);
+
+        fetch("http://127.0.0.1:8000/topicUser/", {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+
+          //make sure to serialize your JSON body
+          body: JSON.stringify({
+            "user_id": this.state.user_id
+          })
+        })
+        .then( (usrRes) => {
+          usrRes.json().then( (usrTopics)=>{
+            console.log(usrTopics);
+            this.setState({usrTopics});
+            var i;
+            const checkboxValues=this.state.checkboxValues;
+            for (i=0;i< Object.keys(usrTopics).length ;i++){
+              checkboxValues[usrTopics[i]['id']]=true
+            }
+            this.setState({
+              checkboxValues
+            });
+          })
+        });
+
+        console.log(this.state);
+
+      }
     } catch (e) {
       console.log(e);
     }
   }
 
+  handleInputChange(event) {
+    console.log(this.state);
+    const checkboxValues= this.state.checkboxValues;
+    const target = event.target;
+    const id_topico = target.name;
+
+    checkboxValues[id_topico]= target.checked;
+
+
+    this.setState({
+      checkboxValues
+    });
+  }
+  //Envia los topicos seleccionados para que se actualicen en la base de datos
+  handleSubmit(event){
+
+    const checkboxValues=this.state.checkboxValues;
+    const topicos=this.state.topicos
+    const user_id=this.state.user_id
+    var i;
+    var newUsrTopics=[];
+    for (i=0;i<Object.keys(topicos).length;i++){
+      if (checkboxValues[topicos[i]['id']]) newUsrTopics.push(topicos[i]['id'])
+    }
+    console.log(newUsrTopics);
+
+    fetch("http://127.0.0.1:8000/topicUser/", {
+      method: "put",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'user_id': user_id,
+        'user_topics_id':newUsrTopics
+      })
+    })
+    window.alert("Topicos actualizados correctamente.");
+  }
   render() {
     return (
 
@@ -49,16 +138,24 @@ class ListaTopicos extends Component {
      {this.state.topicos.map(item => (
 
             <tr>
-                <td>{item.name}</td>
+                <td>{item.id}{item.name}</td>
                 <td>{this.tags(item.keyword_topic)}</td>
-                <td ><input type="checkbox" name={item.id} id={item.id} className="css-checkbox" value={item.id} /><label for={item.id} className="css-label"></label></td>
+                <td ><input
+                  type="checkbox"
+                  name={item.id}
+                  id={item.id}
+                  className="css-checkbox"
+                  value={item.id}
+                  checked={this.state.checkboxValues? this.state.checkboxValues[item.id]: '' }
+                  onChange={this.handleInputChange}
+                  />
+                <label for={item.id} className="css-label"></label></td>
             </tr>
 
      ))}
     </tbody>
     </table>
-       <button type="button" className="btn btn-primary">Guardar Cambios</button>
-
+      <button type="button" className="btn btn-primary" onClick={this.handleSubmit}>Guardar Cambios</button>
    </form>
 
     );
