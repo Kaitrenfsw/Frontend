@@ -152,7 +152,7 @@ class ListaTopicos extends Component {
           String(row[filter.id]).includes(filter.value)}
           columns= {[{
             Header: 'Nombre',
-            accessor: 'topic_name' // String-based value accessors!
+            accessor: 'name' // String-based value accessors!
             },{
             Header: 'Tags',
             accessor: 'keyword_topic', // String-based value accessors
