@@ -1,0 +1,177 @@
+
+
+
+
+ 
+
+.paginacion{margin-top: 20px;}
+
+
+
+
+#search{
+	background-color: #151E25;
+	border-color: #151E25;
+	border-radius: 10px;
+	height:30px;
+	font-size: 12px;
+	color: #6B828F;
+}
+
+
+
+
+
+.ListasTopicos{ 
+	list-style-type: none ; 
+	padding:0;
+}
+
+.NavBarTopicos li{	text-align: center;padding-bottom: 10px;margin: 0;font-size: 0.9em !important;}
+.NavBarTopicos a{color: #6B828F;font-weight: bold; }
+.NavBarTopicos li.active{ border-bottom: 2px solid #6C8491;}
+.NavBarTopicos li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none; }
+
+
+
+.row{
+	margin: 0;
+}
+
+
+.keywords {
+	background-color: #23313A;
+	height: 80px;
+	padding: 20px;
+}
+
+
+
+.relacion{
+	background-color:#35424E;
+	height: 80px;
+	padding-left: 10px;
+	padding-top: 25px;
+	padding-right: 0;
+}
+.relacion.relacion-mf{border-left: 6px solid #5CACC4;}
+.relacion.relacion-d{border-left: 6px solid #ECB775;}
+.relacion.relacion-f{border-left: 6px solid #87D597;}
+.relacion.relacion-md{border-left: 6px solid #FF5C55;}
+
+.relacion-d{color: #ECB775; font-weight: bold; margin-top: 0;}
+.relacion-f{color: #87D597; font-weight: bold; margin-top: 0;}
+.relacion-mf{color: #5CACC4; font-weight: bold; margin-top: 0;}
+.relacion-md{color: #FF5C55; font-weight: bold; margin-top: 0;}
+
+
+
+
+.gradient-button {
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 15px;
+    padding-top: 8px;
+    text-align: center;
+    font-weight: bold;
+    transition: 0.5s;
+    background-size: 200% auto;
+    color: #FFF;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    width: 180px;
+    height: 40px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 25px;
+    text-decoration: none; 
+}
+
+.gradient-button-1 {background-image: linear-gradient(to right, #E95875 0%, #F89C87 51%, #F89C87 100%) ; text-decoration: none; }
+.gradient-button-1:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-2 {background-image: linear-gradient(to right, #55ADC5 0%, #75CEB2 51%, #75CEB2 100%) ; text-decoration: none; }
+.gradient-button-2:hover { background-position: right center;text-decoration: none;  }
+
+
+
+
+
+.dot {
+  height:4px;
+  width: 4px;
+  background-color: red;
+  border-radius: 50%;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+.keywords  h5{color: #6B828F;margin-top: 0;font-weight: bold}
+.ContenidoVistaTopicos  h6{	color: #6B828F;font-weight: bold;}
+.ContenidoVistaTopicos  h4{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
+.ContenidoVistaTopicos p{color: #6B828F; font-size: 9px; margin-bottom: 0; font-weight: bold; } 
+.ContenidoVistaTopicos h2{color: #EDEEEF; font-weight: bold; }
+
+
+.keywords > a.gradient-button {
+	float: right;
+	position: absolute;
+	top: 25%;
+	right: 5%;
+}
+
+.row-no-padding > [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.ContenidoVistaTopicos .col-lg-6{
+	padding: 0;
+}
+
+.topico{
+	margin-bottom: 25px;
+}
+/*color letra #FCFCFC, color borde amarillo #FEDD34*/
+
+@media (max-width: 1366px) {
+    .gradient-button {
+      font-size: 11px;
+      padding-top: 7px;
+      width: 130px;
+      height: 31px;
+    }
+    .keywords > a.gradient-button {
+      float: right;
+      position: absolute;
+      top: 27%;
+      right: 3%;
+    }
+
+    .keywords  h5{font-size: 12px; margin-bottom: 0;}
+    .ContenidoVistaTopicos  h6{ color: #6B828F;font-weight: bold;}
+    .ContenidoVistaTopicos  h4{font-size: 14px; margin-bottom: 3px; margin-top: 5px;  }
+    .ContenidoVistaTopicos p{color: #6B828F; font-size: 7px; margin-bottom: 0; font-weight: bold; } 
+    .ContenidoVistaTopicos h2{color: #EDEEEF; font-weight: bold; }
+    .relacion-d{font-size: 12px}
+    .relacion-f{font-size: 12px}
+    .relacion-mf{font-size: 12px; margin: 0; padding: 0;}
+    .relacion-md{font-size: 12px}
+
+    .keywords {
+      height: 70px;
+      padding: 13px;
+    }
+
+
+
+    .relacion{
+      
+      height: 70px;
+      padding-left: 8px;
+      padding-top: 20px;
+      padding-right: 0;
+     
+    }
+
+  
+}
