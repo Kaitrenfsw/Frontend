@@ -1,32 +1,14 @@
 import React, { Component } from 'react'
-import logo from './kom2.svg';
-
+import logo from './Assets/kom2.svg';
+import perfil from './Assets/perfil.png';
+import { NavLink } from 'react-router-dom';
 
 
 class Header extends Component{
 
 
-	VistaActiva(vista) {
-        
- 		if(vista === 'TOPICOS')
- 			return (
- 				<ul className="nav navbar-nav navbar-center">
- 				<li><a href="">Home</a></li>
-			    <li><a href="">Dashboard</a></li>
-			    <li className = "active" ><a href="">Tópicos</a></li>
-			    <li><a href="">Fuentes</a></li>
-			    </ul>
-        )
-
-	}
-
   render(){
-    return ( 
-
-    	
-
-
-
+    return (
      	<div className="main">
 			<nav className="navbar navbar-default" >
 			    <div className="navbar-header">
@@ -34,30 +16,24 @@ class Header extends Component{
 			       <span className="icon-bar"></span>
 			       <span className="icon-bar"></span>
 			       <span className="icon-bar"></span>
-			       </button>    
+			       </button>
 			    </div>
 			    <div className="navbar-collapse collapse">
 			        <ul className="nav navbar-nav navbar-left ">
-			        	<img id = "logo" src={logo} alt="suscribirme" />
+			        	<img id = "logo" src={logo} alt="kompaz" />
 			    	</ul>
-			    	{this.VistaActiva(this.props.VistaActiva)}
+						<ul className="nav navbar-nav navbar-center">
+						<li ><NavLink exact to='/'>Home</NavLink></li>
+						<li><NavLink to='/dashboard'>Dashboard</NavLink></li>
+						<li  ><NavLink to='/topicos'>Tópicos</NavLink></li>
+						<li><NavLink to='/configuracion'>Fuentes</NavLink></li>
+						</ul>
 			    <ul className="nav navbar-nav navbar-right">
-			        <li><a href="">Perfil</a></li>
+			        	<img  src={perfil}  alt="perfil" />
 			    </ul>
 			  </div>
 			</nav>
 		</div>
-
-    	
-
-
-
-
-
-
-
-
-
     );
   }
 }
