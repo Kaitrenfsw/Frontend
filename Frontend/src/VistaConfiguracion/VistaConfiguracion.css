@@ -1,0 +1,81 @@
+
+
+/* Css generales de la vista*/
+.ContenidoVistaConfiguracion {position: absolute;left: 0;right: 0;}
+.ContenidoVistaConfiguracion .no-padding{padding: 0;}
+.ContenidoVistaConfiguracion #titulo-vista{color: #EDEEEF; font-weight: bold; }
+.ContenidoVistaConfiguracion #subtitulo-vista{color: #EDEEEF; margin-top: 2vh;}
+
+
+
+/*Sección Fuentes*/
+.ContenidoVistaFuentes .col-izq{padding-left: 0}
+.ContenidoVistaFuentes .col-der{padding-right: 0}
+.ContenidoVistaFuentes .nombre-fuente{color: #EDEEEF; padding-top: 25px; font-size: 20px;}
+.ContenidoVistaFuentes .url-fuente{color: #627E89;  padding-bottom:  15px; font-size: 16px; margin-top: 30px;}
+.ContenidoVistaFuentes .Div-Fuente{background-color: #25353C;  padding-left: 20px; padding-right: 20px; padding-top: 15px; margin-bottom:30px;}
+.ContenidoVistaFuentes .margin-top{margin-top: 10vh;}
+.ContenidoVistaFuentes .glyphicon-option-vertical{margin-left: 15px;}
+.ContenidoVistaFuentes span{font-size: 25px;color:#EDEEEF;float: right;}
+.ContenidoVistaFuentes span.inside{position:absolute;font-size: 20px;color:#25353C;left:3px;top:0px;float: right;}
+.ContenidoVistaFuentes {position: absolute;right: 0;left: 0; top: 0;}
+
+
+/*Sección Contrasena*/
+
+
+.Contrasena label { color: #6B828F; font-size: 15px; margin-top:4vh; margin-bottom: 1.5vh;}
+.Contrasena input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}
+.Contrasena form {margin-top: 6vh}
+.Contrasena {position: absolute;right: 0;left: 0; top: 0;}
+.Contrasena .boton_guardar { margin-top: 5vh; margin-left: 0;}
+
+
+/*Seccion Datos*/
+
+
+.Datos label { color: #6B828F; font-size: 15px; margin-bottom: 15px;}
+.Datos input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5); padding-right:0;}
+.Datos form {margin-top:40px}
+.Datos .row {margin-top:10vh}
+.Datos #subir-foto{color:#D64F6F; font-size:17px; text-decoration: underline;}
+.Datos .no-margin{margin: 0;}
+.Datos #imagen-profile{  width: 150px;  height: 150px;}
+.Datos .col-imagen-perfil{text-align: center;}
+.Datos {position: absolute;right: 0;left: 0; top: 0;}
+.Datos .boton_guardar { margin-left: 15px; margin-top: 50px;}
+.Datos  .boton_bloquear { float: right; margin-right: 15px;}
+.Datos  .boton_eliminar { float: right; }
+
+
+.Entrenamiento .boton_entrenar { margin-top: 7vh; margin-left: 0;}
+.Entrenamiento {position: absolute;}
+.Entrenamiento .texto-entrenamiento { color: #EDEEEF; margin-top:9vh;}
+
+
+
+
+
+
+@media (max-width: 1199px) {
+
+  .ContenidoVistaFuentes .Div-Fuente{margin-left: 0; margin-right: 0;}
+  .Datos .row {margin-top:40px}
+  .Contrasena form {margin-top: 30px}
+  .NavBar  li{ margin-bottom: 30px;}
+  .NavBar {margin-top: 50px;}
+  .ContenidoVistaFuentes .col-izq{padding-left: 15px}
+  .ContenidoVistaFuentes .col-der{padding-right: 15px}
+
+
+
+
+
+
+}
+
+@media (max-width: 1500px) {
+  .ContenidoVistaFuentes h4{ font-size: 15px;}
+  .ContenidoVistaFuentes p{ font-size: 11px; }
+
+}
