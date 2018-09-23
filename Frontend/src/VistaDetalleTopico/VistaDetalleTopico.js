@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import SeccionGraficos from './SeccionGraficos';
 import left_icon from '../Assets/left.png';
 import './VistaDetalleTopico.css';
+import SeccionNoticias from './SeccionNoticias';
 import { NavLink } from 'react-router-dom';
 class VistaDetalleTopico extends Component{
 
@@ -105,6 +106,7 @@ class VistaDetalleTopico extends Component{
       <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Tópicos</h5></NavLink>
       <h2 id="titulo-vista">{topico.name}</h2>
         <SeccionGraficos words = {topico.keyword_topic}/>
+ 	<SeccionNoticias />
      </div>
     );
   }
