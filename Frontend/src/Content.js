@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import VistaTopicos from './VistaTopicos/VistaTopicos';
-
+import VistaHome from './VistaHome/VistaHome';
 
 
 
@@ -39,7 +39,7 @@ render(){
                  classNames="fade"
                >
    <Switch location = {location}>
-       <Route exact path='/'  component= {() => <VistaTopicos user = {this.props.user}/>}/>
+       <Route exact path='/'  component= {() => <VistaHome user = {this.props.user}/>}/>
        <Route exact path='/topicos' component= {() => <VistaTopicos user = {this.props.user}/>}/>
    </Switch>
    </CSSTransition>
