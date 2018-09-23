@@ -3,7 +3,7 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import VistaTopicos from './VistaTopicos/VistaTopicos';
 import VistaHome from './VistaHome/VistaHome';
-
+import VistaDetalleTopico from './VistaDetalleTopico/VistaDetalleTopico';
 
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -41,6 +41,7 @@ render(){
    <Switch location = {location}>
        <Route exact path='/'  component= {() => <VistaHome user = {this.props.user}/>}/>
        <Route exact path='/topicos' component= {() => <VistaTopicos user = {this.props.user}/>}/>
+	<Route path='/topicos/:id' component= {() => <VistaDetalleTopico user = {this.props.user}/>}/>   
    </Switch>
    </CSSTransition>
    </TransitionGroup>)}
