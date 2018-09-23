@@ -1,0 +1,76 @@
+
+
+/*Css generales de la vista */
+.ContenidoVistaTopicos #titulo-vista{color: #EDEEEF; font-weight: bold; }
+.ListasTopicos{ list-style-type: none ; padding:0; }
+.ContenidoVistaTopicos .row{ margin-left:0; margin-right: 0;}
+.ContenidoVistaTopicos .row-no-padding > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
+.ContenidoVistaTopicos .col-lg-6{ padding: 0; }
+.ContenidoVistaTopicos {position: absolute;left: 0;right: 0;}
+
+
+
+
+
+
+
+/*Sección MostrarTopicos*/
+
+
+.div-keywords { background-color: #23313A; height: 80px; padding: 20px; }
+.div-relacion{ background-color:#35424E; height: 80px; padding-left: 10px; padding-top: 25px; padding-right: 0; }
+.div-relacion.relacion-mf{border-left: 6px solid #5CACC4;}
+.div-relacion.relacion-d{border-left: 6px solid #ECB775;}
+.div-relacion.relacion-f{border-left: 6px solid #87D597;}
+.div-relacion.relacion-md{border-left: 6px solid #FF5C55;}
+.relacion-d{color: #ECB775; font-weight: bold; margin-top: 0;}
+.relacion-f{color: #87D597; font-weight: bold; margin-top: 0;}
+.relacion-mf{color: #5CACC4; font-weight: bold; margin-top: 0;}
+.relacion-md{color: #FF5C55; font-weight: bold; margin-top: 0;}
+.div-keywords  .keywords{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
+.ContenidoVistaTopicos  h6{	color: #6B828F;font-weight: bold;}
+.ContenidoVistaTopicos  .nombre-topico{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
+.ContenidoVistaTopicos .titulo-relacion{color: #6B828F; font-size: 11px; margin-bottom: 0; font-weight: bold; }
+.div-keywords > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
+.topico{ margin-bottom: 25px; }
+
+
+
+
+
+
+
+
+@media (max-width: 1366px) {
+    .ContenidoVistaTopicos gradient-button { font-size: 11px; padding-top: 7px; width: 130px; height: 31px; }
+    .div-keywords > a.gradient-button { float: right; position: absolute; top: 27%; right: 3%; }
+    .div-keywords  .keywords{font-size: 12px; margin-bottom: 0;}
+    .div-keywords  .nombre-topico{font-size: 14px; margin-bottom: 3px; margin-top: 5px;  }
+    .div-keywords { height: 70px; padding: 13px; }
+    .div-relacion .titulo-relacion{color: #6B828F; font-size: 8px; margin-bottom: 0; font-weight: bold; }
+    .relacion-d{font-size: 12px}
+    .relacion-f{font-size: 12px}
+    .relacion-mf{font-size: 12px; margin: 0; padding: 0;}
+    .relacion-md{font-size: 12px}
+    .div-relacion{ height: 70px; padding-left: 8px; padding-top: 20px; padding-right: 0; }
+}
+
+
+@media (max-width: 1000px) {
+  .div-relacion{ width: 11%; }
+  .div-relacion h5{ font-size: 9px; }
+	.ContenidoVistaTopicos .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 90px; height: 21.46px; }
+	.div-keywords > a.gradient-button { top: 30%; }
+  .div-keywords{ width: 89%; }
+	.div-keywords .keywords{font-size: 9px; margin-bottom: 0;}
+
+}
+
+
+@media (max-width: 500px) {
+  .div-relacion{ width: 20%; height:85px; padding-top: 27px; }
+	.div-keywords{ width: 80%; height: 85px; }
+	.ContenidoVistaTopicos .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 60px; height: 17.46px; }
+	.div-keywords a.gradient-button{ top:38% }
+
+}
