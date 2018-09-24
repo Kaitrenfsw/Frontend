@@ -3,6 +3,7 @@ import SideNavBar from '../SideNavBar';
 import Contrasena from './Contrasena';
 import Datos from './Datos';
 import VistaCuentas from '../VistaCuentas/VistaCuentas';
+import Entrenamiento from './Entrenamiento';
 import {
   CSSTransition,
   TransitionGroup,
@@ -41,6 +42,9 @@ class VistaConfiguracion extends Component{
     if(activo === 'Cuentas'){
       return <VistaCuentas user = {this.props.user}/>
     }
+    if(activo === 'Entrenamiento'){
+      return <Entrenamiento/>
+    }
 
   }
 
@@ -56,7 +60,7 @@ class VistaConfiguracion extends Component{
       activo = 'Datos personales';
     }
     if(this.props.user.permissions[0].group === 'admin'){
-      options = ['Cuentas'];
+      options = ['Cuentas','Entrenamiento'];
     }
     if(this.props.user.permissions[0].group === 'owner'){
       options =  ['Cuentas','Datos personales','Contraseña'];
