@@ -15,7 +15,7 @@ class VistaLogin extends Component{
   }
    handleClick(event){
 
-     fetch("http://10.11.1.21:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
+     fetch("http://localhost:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -28,14 +28,24 @@ class VistaLogin extends Component{
     })
     .then((response) => {
       if(response.ok) {
-          console.log('Respuesta de red OK.');
-          var user = response.json();
-          this.setState({user:user});
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+
+
+          console.log(res.data.user);
+          this.props.HandleUser(res.data.user);
+          this.props.HandleNavBar(event,'LOGGED');
+        });
+
       } else {
+    
         console.log('bad request');
       }
     })
-    .catch(function(error) {
+    .catch(error => {
       console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
    }
@@ -60,7 +70,7 @@ class VistaLogin extends Component{
             <span className="checkmark"></span>
             </label>
             <h5 id = "olvidaste">¿Olvidaste tu contraseña?</h5>
-            <a   id = "log-button" className="gradient-button gradient-button-1" /* Coneccion onClick={(event) => this.handleClick(event)}*/ onClick={(event) => this.props.HandleNavBar(event,'LOGGED')} >Ingresar</a>
+            <a   id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)} /*onClick={(event) => this.props.HandleNavBar(event,'LOGGED')}*/ >Ingresar</a>
           </div>
           </div>
         </div>

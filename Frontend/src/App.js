@@ -22,7 +22,7 @@ class App extends Component {
     },
     "permissions": [
       {
-        "group": "owner"
+        "group": "admin"
       }
     ],
     "id": 2,
@@ -38,13 +38,19 @@ class App extends Component {
 		}
 	}
 
+  HandleUser(valor) {
+			if(this.state.user !== valor){
+			this.setState({	user: valor});
+		}
+	}
+
 	RenderContent(){
 		var VistaActiva = this.state.VistaActiva;
 	  var user = this.state.user;
 		if(VistaActiva === "LOGIN" ){
 			return (
 				<div>
-				    <VistaLogin HandleNavBar= {this.HandleNavBar.bind(this)} />
+				    <VistaLogin HandleUser= {this.HandleUser.bind(this)}  HandleNavBar= {this.HandleNavBar.bind(this)} />
 				</div>
 			);
 		}

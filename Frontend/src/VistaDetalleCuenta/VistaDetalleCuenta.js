@@ -24,7 +24,7 @@ class VistaDetalleCuenta extends Component{
       return <Contrasena user = {this.props.user} adm_cuenta = {true}/>
     }
     if(activo === 'Datos'){
-      return  <Datos adm_cuenta={true} user = {this.props.user}/>
+      return  <Datos  id = {this.props.match.params.id} adm_cuenta={true} user = {this.props.user}/>
     }
   }
 

@@ -10,7 +10,9 @@ class WordCloud extends Component{
         super(props)
         this.createWordCloud = this.createWordCloud.bind(this)
      }
+
      componentDidMount() {
+       
         this.createWordCloud()
      }
 

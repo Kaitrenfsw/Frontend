@@ -42,11 +42,11 @@ render(){
                  classNames="fade"
                >
    <Switch location = {location}>
-       <Route exact path='/'  component= {() => <VistaHome user = {this.props.user}/>}/>
-       <Route path='/configuracion'   component= {() => <VistaConfiguracion user = {this.props.user}/>}/>
-       <Route exact path='/topicos' component= {() => <VistaTopicos user = {this.props.user}/>}/>
-       <Route path='/topicos/:id' component= {() => <VistaDetalleTopico user = {this.props.user}/>}/>
-       <PrivateRoute  user_group = {this.props.user.permissions[0].group} path='/cuentas/:id'  component= {() => <VistaDetalleCuenta user = {this.props.user}/>}/>
+       <Route exact path='/'  render= {() => <VistaHome user = {this.props.user}/>}/>
+       <Route path='/configuracion'   render= {() => <VistaConfiguracion user = {this.props.user}/>}/>
+       <Route exact path='/topicos' render= {() => <VistaTopicos user = {this.props.user}/>}/>
+       <Route location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
+       <PrivateRoute location={this.props.location}  user_group = {this.props.user.permissions[0].group} path='/cuentas/:id'  render= {(props) => <VistaDetalleCuenta {...props} user = {this.props.user}/>}/>
    </Switch>
    </CSSTransition>
    </TransitionGroup>)}

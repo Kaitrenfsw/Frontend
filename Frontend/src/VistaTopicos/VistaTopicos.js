@@ -61,7 +61,7 @@ class VistaTopicos extends Component{
              timeout={500}
              classNames="fade"
            >
-           <MostrarTopicos usrTopics = {this.state.usrTopics} topicos = {this.state.topicos} HandleDetalleTopico= {this.HandleDetalleTopico.bind(this)} activo = {this.state.activo}  search = {this.state.search} orden = {this.state.orden}/>
+           <MostrarTopicos user_id = {this.props.user.id} usrTopics = {this.state.usrTopics} topicos = {this.state.topicos} HandleDetalleTopico= {this.HandleDetalleTopico.bind(this)} activo = {this.state.activo}  search = {this.state.search} orden = {this.state.orden}/>
           </CSSTransition>
         </TransitionGroup>
      </div>

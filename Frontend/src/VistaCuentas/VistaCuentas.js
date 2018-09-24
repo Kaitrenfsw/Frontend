@@ -48,7 +48,7 @@ class VistaCuentas extends Component{
 				<div className = "page">
 			  <Paginacion search_text= {"ingresa un nombre"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {["Nombre"]}/>
 
-				<MostrarCuentas tipo_cuentas = {tipo_cuentas} search = {this.state.search} orden = {this.state.orden} />
+				<MostrarCuentas user = {this.props.user} tipo_cuentas = {tipo_cuentas} search = {this.state.search} orden = {this.state.orden} />
 				</div>
 				</div>
     }

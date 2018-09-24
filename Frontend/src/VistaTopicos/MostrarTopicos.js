@@ -19,7 +19,7 @@ class MostrarTopicos extends Component{
 
 
   componentDidMount() {
-      fetch('http://127.0.0.1:8000/topic/') /* http://10.6.42.104:4000/api/content*/
+      fetch('http://localhost:4000/api/topics/') /* http://10.6.42.104:4000/api/content*/
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -40,16 +40,7 @@ class MostrarTopicos extends Component{
       });
 
 
-       fetch("http://127.0.0.1:8000/topicUser/", { /*http://10.6.42.104:4000/api/user_content*/
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "user_id": 1
-        })
-      })
+       fetch("http://localhost:4000/api/topicUser/" + this.props.user_id)
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -57,8 +48,9 @@ class MostrarTopicos extends Component{
                 status: response.status
             })
           ).then(res => {
+            console.log(res.data);
             this.FormatoKeywords(res.data);
-            this.setState({usrTopics:res.data})
+            this.setState({usrTopics:res.data});
           });
 
         } else {
@@ -193,7 +185,7 @@ class MostrarTopicos extends Component{
     this.setState({
             usrTopics: UsrTopics
     });
-    fetch("http://127.0.0.1:8000/topicUser/", {
+    fetch("http://localhost:4000/api/topicUser/"  + this.props.user_id , {
       method: "put",
       headers: {
         'Accept': 'application/json',
@@ -225,7 +217,7 @@ class MostrarTopicos extends Component{
       this.setState({
               usrTopics: UsrTopics
       });
-      fetch("http://127.0.0.1:8000/topicUser/", {
+      fetch("http://localhost:4000/api/topicUser/" + this.props.user_id , {
         method: "put",
         headers: {
           'Accept': 'application/json',

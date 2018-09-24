@@ -12,7 +12,44 @@ class Datos extends Component{
     apellido: "",
     email: "",
     foto: "",
+    telefono: ""
   }
+
+
+
+  componentDidMount() {
+         fetch("http://localhost:4000/api/profile", {
+             method: 'GET',
+             headers: {
+               'Content-Type': 'multipart/form-data',
+               'Accept': 'application/json',
+               'authorization': 'Bearer ' + this.props.user.token
+             },
+             body: null
+         })
+         .then((response) => {
+           if(response.ok) {
+             response.json().then(data => ({
+                   data: data,
+                   status: response.status
+               })
+             ).then(res => {
+               console.log(res.data,res.status)
+               this.setState({nombre:res.data.profile.name,
+                 apellido:res.data.profile.last_name,
+                 telefono:res.data.profile.phone
+               })
+             });
+
+           } else {
+             console.log('bad request');
+           }
+         })
+         .catch(function(error) {
+           console.log('Hubo un problema con la petición Fetch:' + error.message);
+         });
+    }
+
 
 
 
@@ -21,26 +58,44 @@ class Datos extends Component{
   HandleModalConfirm(event,action) {
     if(action==="eliminar"){
       let formData = new FormData();
-      formData.append('id', this.props.user.id);
+      formData.append('id', this.props.id);
       fetch('http://localhost:4000/api/users', {
           method: 'DELETE',
           headers: {
             'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
-            'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjIiLCJleHAiOjE1Mzc1ODE0NjgsImlhdCI6MTUzNzMyMjI2OCwiaXNzIjoibnVyc29mdC5hdXRoIiwianRpIjoiZmI1MjM3ZWYtMTRlMS00ODljLThiM2YtMTMyMDNlZjNhYWU2IiwicGVtIjp7fSwic3ViIjoiVXNlcjoyIiwidHlwIjoiYWNjZXNzIn0.h7dAs9a9cspHzCZagwKyGzrtSzh6Qr6hyza7Xks9mriCTVLH7R64D6tyx9uVs2zTvGHzmDL7zu6TIifLBjX90g'
+            'authorization': 'Bearer ' + this.props.user.token
           },
           body: formData
       })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            console.log(res.data,res.status)
+          });
+
+        } else {
+          console.log('bad request');
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      });
     }
     if(action==="bloquear"){
       let formData = new FormData();
-      formData.append('id', this.props.user.id);
-      fetch('http://localhost:4000/api/users', {
+      formData.append('id', this.props.id);
+      formData.append('active', false);
+      fetch('localhost:4001/api/account/activate', {
           method: 'Post',
           headers: {
             'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
-            'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjIiLCJleHAiOjE1Mzc1ODE0NjgsImlhdCI6MTUzNzMyMjI2OCwiaXNzIjoibnVyc29mdC5hdXRoIiwianRpIjoiZmI1MjM3ZWYtMTRlMS00ODljLThiM2YtMTMyMDNlZjNhYWU2IiwicGVtIjp7fSwic3ViIjoiVXNlcjoyIiwidHlwIjoiYWNjZXNzIn0.h7dAs9a9cspHzCZagwKyGzrtSzh6Qr6hyza7Xks9mriCTVLH7R64D6tyx9uVs2zTvGHzmDL7zu6TIifLBjX90g'
+            'authorization': 'Bearer ' + this.props.user.token
           },
           body: formData
       })
@@ -52,14 +107,13 @@ class Datos extends Component{
     formData.append('id', this.props.user.id);
     formData.append('name', this.state.nombre);
     formData.append('last_name', this.state.apellido);
-    formData.append('mail', this.state.mail);
     formData.append('phone', this.state.telefono);
     fetch('http://localhost:4000/api/users', {
-        method: 'DELETE',
+        method: 'PUT',
         headers: {
           'Content-Type': 'multipart/form-data',
           'Accept': 'application/json',
-          'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjIiLCJleHAiOjE1Mzc1ODE0NjgsImlhdCI6MTUzNzMyMjI2OCwiaXNzIjoibnVyc29mdC5hdXRoIiwianRpIjoiZmI1MjM3ZWYtMTRlMS00ODljLThiM2YtMTMyMDNlZjNhYWU2IiwicGVtIjp7fSwic3ViIjoiVXNlcjoyIiwidHlwIjoiYWNjZXNzIn0.h7dAs9a9cspHzCZagwKyGzrtSzh6Qr6hyza7Xks9mriCTVLH7R64D6tyx9uVs2zTvGHzmDL7zu6TIifLBjX90g'
+          'authorization': 'Bearer ' + this.props.user.token
         },
         body: formData
     })
@@ -110,11 +164,11 @@ class Datos extends Component{
               <div className="col-sm-6">
                 <div className="form-group">
                   <label>Nombre</label>
-                  <input onChange= {(event) => this.setState({nombre:event.target.value})}  className="form-control" />
+                  <input value = {this.state.nombre} onChange= {(event) => this.setState({nombre:event.target.value})}  className="form-control" />
                 </div>
                 <div className="form-group">
                   <label>Apellidos</label>
-                  <input onChange= {(event) => this.setState({apellido:event.target.value})}  className="form-control" />
+                  <input value = {this.state.apellido} onChange= {(event) => this.setState({apellido:event.target.value})}  className="form-control" />
                 </div>
               </div>
           </div>
@@ -122,13 +176,13 @@ class Datos extends Component{
               <div className="col-sm-4">
                 <div className="form-group">
                   <label>E-mail</label>
-                  <input onChange= {(event) => this.setState({email:event.target.value})}  type = "email" className="form-control" />
+                  <input value = {this.state.email} onChange= {(event) => this.setState({email:event.target.value})}  type = "email" className="form-control" />
                 </div>
                 </div>
                 <div className="col-sm-4  col-sm-offset-1">
                 <div className="form-group">
                   <label>Telefono</label>
-                  <input  onChange= {(event) => this.setState({telefono:event.target.value})}  className="form-control" type="tel" />
+                  <input  value = {this.state.telefono} onChange= {(event) => this.setState({telefono:event.target.value})}  className="form-control" type="tel" />
                 </div>
                 </div>
             </div>
