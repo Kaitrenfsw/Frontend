@@ -42,7 +42,7 @@ class VistaDetalleCuenta extends Component{
               <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Datos","Contraseña"]}/>
             </div>
             <div className="col-lg-9 col-lg-offset-1 no-padding">
-              <TransitionGroup component={null} appear = {true}>
+              <TransitionGroup component={null}>
                  <CSSTransition
                             key = {this.state.activo}
                              timeout={500}
