@@ -69,6 +69,25 @@ class MostrarCuentas extends Component{
     }
   }
 
+DesplegarCuentasIDM(cuenta,search){
+    if (cuenta.user_type==="idm" && String(cuenta.nombre + " " + cuenta.apellido).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
+      return (
+        <div key = {cuenta.id } className="row row-cuenta-idm no-margin" >
+          <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
+            <div className="div-cuenta-idm  ">
+              <img  src={profile}  alt="foto-perfil"/>
+              <div className="div-datos-idm">
+                <h4 className="nombre-idm">{cuenta.nombre} {cuenta.apellido}</h4>
+                <h5 className="email-idm">{cuenta.email}</h5>
+              </div>
+              <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>
+            </div>
+          </div>
+        </div>
+        )
+    }
+  }
+
 
 
 
@@ -111,7 +130,11 @@ class MostrarCuentas extends Component{
     var search = this.props.search;
     if(tipo_cuentas === "idm"){
       return (
-        <div></div>
+        <div className="lista-cuentas">
+           {this.state.cuentas.map((cuenta,i,arr) => (
+            this.DesplegarCuentasIDM(cuenta,search)
+          ))}
+        </div>
       );
 
     }

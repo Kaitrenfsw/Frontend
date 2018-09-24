@@ -22,7 +22,7 @@ class App extends Component {
     },
     "permissions": [
       {
-        "group": "admin"
+        "group": "owner"
       }
     ],
     "id": 2,
