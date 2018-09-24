@@ -1,0 +1,110 @@
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+}
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/*Css generales de la vista */
+.ContenidoVistaCuentas #titulo-vista{color: #EDEEEF; font-weight: bold;}
+.ContenidoVistaCuentas .row-no-padding > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
+.ContenidoVistaCuentas .col-lg-6{ padding: 0; }
+.ContenidoVistaCuentas {position: absolute;left: 0;right: 0;top: 0;}
+.ContenidoVistaCuentas .margin-top {margin-top: 60px;}
+.ContenidoVistaCuentas {position: absolute;left: 0;right: 0;}
+.ContenidoVistaCuentas section {padding: 50px 0; margin: 0 auto;}
+
+
+
+/*Sección paginación*/
+.paginacion{margin-top: 58px;}
+
+
+
+/*Sección Cuentas DDS*/
+
+
+.div-datos { background-color: #23313A; height: 80px; padding: 20px; display: inline-block; width: 89%;}
+.div-estado{ background-color:#35424E;height: 80px; padding: 20px; display: inline-block; width: 11%; float:left;}
+.div-estado.estado-mf{border-left: 6px solid #5CACC4;}
+.div-estado.estado-d{border-left: 6px solid #ECB775;}
+.div-estado.estado-f{border-left: 6px solid #87D597;}
+.div-estado.estado-md{border-left: 6px solid #FF5C55;}
+.estado-d{color: #ECB775; font-weight: bold; margin-top: 0; font-size: 17px;}
+.estado-f{color: #87D597; font-weight: bold; margin-top: 0;font-size: 17px;}
+.estado-mf{color: #5CACC4; font-weight: bold; margin-top: 0;font-size: 17px;}
+.estado-md{color: #FF5C55; font-weight: bold; margin-top: 0;font-size: 17px;}
+.div-datos  .email-cuenta{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
+.ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
+.ContenidoVistaCuentas .nombre-cuenta{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
+.ContenidoVistaCuentas .titulo-estado{color: #6B828F; font-size: 11px; margin-bottom: 0; font-weight: bold; }
+.div-datos > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
+.cuenta{ margin-bottom: 25px; }
+.div-datos img {height: 100%}
+.ContenidoVistaCuentas .col-izq { padding-left: 0; padding-right: 20px;}
+.ContenidoVistaCuentas .col-der { padding-left: 0; padding-right: 0;}
+
+
+
+/*Cuenta IDM*/
+
+.div-cuenta-idm { background-color: #23313A; height: 80px;  padding-left: 20px; padding-right: 20px;}
+.div-cuenta-idm  .email-idm{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
+.ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
+.ContenidoVistaCuentas .nombre-idm{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; padding-top: 20px;}
+.div-cuenta-idm > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
+.row-cuenta-idm{ margin-bottom: 25px; }
+.div-cuenta-idm img {height: 100%; float: left;}
+.ContenidoVistaCuentas .col-izq{padding-left: 0; padding-top: 0;}
+.ContenidoVistaCuentas .col-der{padding-right: 0; padding-top: 0;}
+
+
+/*Crear Cuenta*/
+.CrearCuenta label { color: #6B828F; font-size: 15px; margin-top:4vh; margin-bottom:1.5vh;}
+.CrearCuenta input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5); padding-right:0;}
+.CrearCuenta form {margin-top:20px}
+.CrearCuenta .boton_crear { margin-top: 5vh; margin-left: 0;}
+.CrearCuenta #label-email {margin-top: 0px;}
+.page {position: absolute;left: 0;right: 0; }
+
+
+
+
+
+
+
+
+@media (max-width: 1366px) {
+    .ContenidoVistaCuentas gradient-button { font-size: 11px; padding-top: 7px; width: 130px; height: 31px; }
+    .div-datos > a.gradient-button { float: right; position: absolute; top: 27%; right: 3%; }
+    .div-datos  .email-cuenta{font-size: 12px; margin-bottom: 0;}
+    .div-datos  .nombre-cuenta{font-size: 14px; margin-bottom: 3px; margin-top: 5px;  }
+    .div-datos { height: 70px; padding: 13px; }
+    .div-estado .titulo-estado{color: #6B828F; font-size: 7px; margin-bottom: 0; font-weight: bold; }
+    .estado-d{font-size: 12px}
+    .estado-f{font-size: 12px}
+    .estado-mf{font-size: 12px; margin: 0; padding: 0;}
+    .estado-md{font-size: 12px}
+    .div-estado{ height: 70px; padding-left: 8px; padding-top: 20px; padding-right: 0; }
+}
+
+
+@media (max-width: 1000px) {
+  .div-estado{ width: 11%; }
+  .div-estado h5{ font-size: 9px; }
+	.ContenidoVistaCuentas .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 90px; height: 21.46px; }
+	.div-datos > a.gradient-button { top: 30%; }
+  .div-datos{ width: 89%; }
+	.div-datos .email-cuenta{font-size: 9px; margin-bottom: 0;}
+
+}
+
+
+@media (max-width: 500px) {
+  .div-estado{ width: 20%; height:85px; padding-top: 27px; }
+	.div-datos{ width: 80%; height: 85px; }
+	.ContenidoVistaCuentas .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 60px; height: 17.46px; }
+	.div-datos a.gradient-button{ top:38% }
+
+}
