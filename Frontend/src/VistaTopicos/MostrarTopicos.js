@@ -19,7 +19,7 @@ class MostrarTopicos extends Component{
 
 
   componentDidMount() {
-      fetch('http://127.0.0.1:8000/topic/') /* http://10.6.42.104:4000/api/content*/
+      fetch('http://localhost:4000/api/topics/') /* http://10.6.42.104:4000/api/content*/
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -29,6 +29,7 @@ class MostrarTopicos extends Component{
           ).then(res => {
             this.FormatoKeywords(res.data);
             this.setState({topicos:res.data})
+            this.OrdenarTopicos(this.props.orden);
           });
 
         } else {
@@ -40,16 +41,7 @@ class MostrarTopicos extends Component{
       });
 
 
-       fetch("http://127.0.0.1:8000/topicUser/", { /*http://10.6.42.104:4000/api/user_content*/
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          "user_id": 1
-        })
-      })
+       fetch("http://localhost:4000/api/topicUser/" + this.props.user_id)
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -57,8 +49,10 @@ class MostrarTopicos extends Component{
                 status: response.status
             })
           ).then(res => {
+            console.log(res.data);
             this.FormatoKeywords(res.data);
-            this.setState({usrTopics:res.data})
+            this.setState({usrTopics:res.data});
+            this.OrdenarTopicosUsr(this.props.orden);
           });
 
         } else {
@@ -74,19 +68,18 @@ class MostrarTopicos extends Component{
 
 
   DesplegarMisTopicos(topico,search){
-    var rand= Math.floor(Math.random() * 4);
     var ClaseRelacion,TextoRelacion,nombre_topico;
-    if(rand ===0){ClaseRelacion = "relacion-d";TextoRelacion = "Debíl";}
-    if(rand ===1) {ClaseRelacion = "relacion-f";TextoRelacion = "Fuerte";}
-    if(rand ===2){ClaseRelacion = "relacion-mf";TextoRelacion = "Muy Fuerte";}
-    if(rand ===3){ClaseRelacion = "relacion-md";TextoRelacion = "Muy Debíl";}
+    if(topico.coherence >= 0.75){ClaseRelacion = "relacion-mf";TextoRelacion = "Muy Fuerte";}
+    else if(topico.coherence >= 0.50) {ClaseRelacion = "relacion-f";TextoRelacion = "Fuerte";}
+    else if(topico.coherence >= 0.25){ClaseRelacion = "relacion-d";TextoRelacion = "Debíl";}
+    else if(topico.coherence >= 0.0){ClaseRelacion = "relacion-md";TextoRelacion = "Muy Debíl";}
     if (String(topico.keyword_topic + " " + topico.name ).toLowerCase().includes(search.toString().toLowerCase())) {
       if(topico.name){nombre_topico =topico.name; }
       else{nombre_topico = "Unnamed"}
       return (
             <div key = {topico.id} className="row topico" >
               <div className= {"col-xs-1 div-relacion " + ClaseRelacion}>
-                <p className = "titulo-relacion">Relación</p>
+                <p className = "titulo-relacion">Coherencia</p>
                 <h5 className={ClaseRelacion}>{TextoRelacion}</h5>
               </div>
               <div className="col-xs-11 div-keywords"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -100,12 +93,11 @@ class MostrarTopicos extends Component{
   }
 
   DesplegarTopicosExplorar(topico,search){
-    var rand= Math.floor(Math.random() * 4);
     var ClaseRelacion,TextoRelacion,nombre_topico,sub_button;
-    if(rand ===0){ClaseRelacion = "relacion-d";TextoRelacion = "Debíl";}
-    if(rand ===1) {ClaseRelacion = "relacion-f";TextoRelacion = "Fuerte";}
-    if(rand ===2){ClaseRelacion = "relacion-mf";TextoRelacion = "Muy Fuerte";}
-    if(rand ===3){ClaseRelacion = "relacion-md";TextoRelacion = "Muy Debíl";}
+    if(topico.coherence >= 0.75){ClaseRelacion = "relacion-mf";TextoRelacion = "Muy Fuerte";}
+    else if(topico.coherence >= 0.50) {ClaseRelacion = "relacion-f";TextoRelacion = "Fuerte";}
+    else if(topico.coherence >= 0.25){ClaseRelacion = "relacion-d";TextoRelacion = "Debíl";}
+    else if(topico.coherence >= 0.0){ClaseRelacion = "relacion-md";TextoRelacion = "Muy Debíl";}
     if (String(topico.keyword_topic + " " + topico.name ).toLowerCase().includes(search.toString().toLowerCase())) {
       var topicos_usuario = this.state.usrTopics;
       var EsTopicoDeUsuario = false;
@@ -121,7 +113,7 @@ class MostrarTopicos extends Component{
       return (
             <div key = {topico.id} className="row topico" >
               <div className= {"col-xs-1 div-relacion " + ClaseRelacion}>
-                <p className = "titulo-relacion">Relación</p>
+                <p className = "titulo-relacion">Coherencia</p>
                 <h5 className={ClaseRelacion}>{TextoRelacion}</h5>
               </div>
               <div className="col-xs-11 div-keywords"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -140,6 +132,34 @@ class MostrarTopicos extends Component{
         var topicos_ordenados = topicos.sort(this.OrdenarNombre);
         this.setState({
           topicos: topicos_ordenados
+        });
+        return topicos_ordenados;
+    }
+    if(orden ==='Coherencia'){
+        var topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
+        this.setState({
+          topicos: topicos_ordenados
+        });
+        return topicos_ordenados;
+    }
+    else {
+      return topicos;
+    }
+  }
+
+  OrdenarTopicosUsr(orden) {
+    var topicos = this.state.usrTopics;
+    if(orden ==='Nombre'){
+        var topicos_ordenados = topicos.sort(this.OrdenarNombre);
+        this.setState({
+          usrTopics: topicos_ordenados
+        });
+        return topicos_ordenados;
+    }
+    if(orden ==='Coherencia'){
+        var topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
+        this.setState({
+          usrTopics: topicos_ordenados
         });
         return topicos_ordenados;
     }
@@ -168,11 +188,23 @@ class MostrarTopicos extends Component{
     return 1;
   }
 
+  OrdenarCoherencia(a,b) {
+      var nameA=a.coherence;
+      var nameB=b.coherence;
+      if (nameA > nameB)
+        return -1;
+      if (nameA < nameB)
+        return 1;
+      return 0;
+  }
+
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
         this.OrdenarTopicos(this.props.orden);
+        this.OrdenarTopicosUsr(this.props.orden);
     }
   }
+
 
 
   handleSubscripcion(event){
@@ -193,7 +225,7 @@ class MostrarTopicos extends Component{
     this.setState({
             usrTopics: UsrTopics
     });
-    fetch("http://127.0.0.1:8000/topicUser/", {
+    fetch("http://localhost:4000/api/topicUser/"  + this.props.user_id , {
       method: "put",
       headers: {
         'Accept': 'application/json',
@@ -225,7 +257,7 @@ class MostrarTopicos extends Component{
       this.setState({
               usrTopics: UsrTopics
       });
-      fetch("http://127.0.0.1:8000/topicUser/", {
+      fetch("http://localhost:4000/api/topicUser/" + this.props.user_id , {
         method: "put",
         headers: {
           'Accept': 'application/json',

@@ -10,6 +10,7 @@ class WordCloud extends Component{
         super(props)
         this.createWordCloud = this.createWordCloud.bind(this)
      }
+
      componentDidMount() {
         this.createWordCloud()
      }
@@ -88,7 +89,7 @@ class WordCloud extends Component{
 
      }
   render() {
-        return <svg ref={node => this.node = node}
+        return <svg  ref={node => this.node = node}
         width={550} height={300}>
         </svg>
      }

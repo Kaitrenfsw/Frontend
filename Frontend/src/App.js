@@ -6,14 +6,24 @@ import {
   CSSTransition,
   TransitionGroup,
 } from 'react-transition-group';
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    const cachedUser = JSON.parse(localStorage.getItem('user'));
+    console.log(cachedUser);
+    if(cachedUser) {this.setState({VistaActiva:'HOME'}) }
+    else {this.setState({VistaActiva:'LOGIN'}) }
+  }
+
+
 
 	state = {
-      VistaActiva: 'LOGIN',
 			user:  {
     "profile": {
       "phone": "+56976152763",
@@ -22,7 +32,7 @@ class App extends Component {
     },
     "permissions": [
       {
-        "group": "owner"
+        "group": "admin"
       }
     ],
     "id": 2,
@@ -38,13 +48,21 @@ class App extends Component {
 		}
 	}
 
+  HandleUser(valor) {
+			if(this.state.user !== valor){
+			this.setState({	user: valor});
+		}
+	}
+
 	RenderContent(){
-		var VistaActiva = this.state.VistaActiva;
-	  var user = this.state.user;
-		if(VistaActiva === "LOGIN" ){
+    const cachedUser = JSON.parse(localStorage.getItem('user'));
+    var user = this.state.user;
+    var VistaActiva = this.state.VistaActiva;
+    if(cachedUser) {user = cachedUser;VistaActiva='HOME'; }
+		if(VistaActiva === "LOGIN" || !(VistaActiva)){
 			return (
 				<div>
-				    <VistaLogin HandleNavBar= {this.HandleNavBar.bind(this)} />
+				    <VistaLogin HandleUser= {this.HandleUser.bind(this)}  HandleNavBar= {this.HandleNavBar.bind(this)} />
 				</div>
 			);
 		}
@@ -54,7 +72,7 @@ class App extends Component {
  				 <div className="container-fluid">
   	        <Header  {...this.state} HandleNavBar= {this.HandleNavBar.bind(this)} user = {user} />
   	      </div>
- 				<div>
+ 				<div><ToastContainer />
   					<Content {...this.state} user = {user}/>
   				</div>
  				</div>
@@ -66,10 +84,13 @@ class App extends Component {
 
 
   render() {
+    const cachedUser = JSON.parse(localStorage.getItem('user'));
+    var VistaActiva = this.state.VistaActiva;
+    if(cachedUser) {VistaActiva='HOME'; }
 		return(
 			<TransitionGroup appear={true}>
 				 <CSSTransition
-					 key = {this.state.VistaActiva}
+					 key = {VistaActiva}
 					 timeout={500}
 					 classNames="fade"
 				 >

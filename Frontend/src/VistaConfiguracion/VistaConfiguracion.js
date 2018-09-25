@@ -56,17 +56,17 @@ class VistaConfiguracion extends Component{
 
     var activo = this.state.activo;
     var options = [];
-    if(this.props.user.permissions[0].group=== 'idm' && activo === 'Cuentas'){
+    if((this.props.user.permissions[0].group=== 'idm' || this.props.user.permissions[0].group==='owner') && activo === 'Cuentas'){
       activo = 'Datos personales';
     }
     if(this.props.user.permissions[0].group === 'admin'){
       options = ['Cuentas','Entrenamiento'];
     }
     if(this.props.user.permissions[0].group === 'owner'){
-      options =  ['Cuentas','Datos personales','Contraseña'];
+      options =  ['Datos personales'];
     }
     if(this.props.user.permissions[0].group === 'idm'){
-      options =  ['Datos personales','Contraseña'];
+      options =  ['Datos personales'];
     }
     return (
       <div className = "container-fluid ContenidoVistaConfiguracion">

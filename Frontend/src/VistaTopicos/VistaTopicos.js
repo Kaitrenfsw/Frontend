@@ -12,16 +12,12 @@ class VistaTopicos extends Component{
 	state = {
 	      activo: 'Explorar tópicos',
         search: '',
-        orden: "Fecha",
+        orden: "Nombre",
         topicos: [],
         usrTopics: [],
 	 };
 
-   componentDidUpdate(prevProps,prevState){
-     if (prevProps.orden !== this.props.orden) {
-         this.OrdenarTopicos(this.props.orden);
-     }
-   }
+
 
   HandleNavTabs(event,valor) {
     if(this.state.activo !== valor){
@@ -53,7 +49,7 @@ class VistaTopicos extends Component{
         <h2 id = "titulo-vista">Tópicos</h2>
         <ul className="ListasTopicos">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis tópicos","Explorar tópicos"]} />
-          <Paginacion  search_text= {"busca un tópico"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Fecha','Nombre']}/>
+          <Paginacion  search_text= {"busca un tópico"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Nombre','Coherencia']}/>
         </ul>
         <TransitionGroup appear={true}>
            <CSSTransition
@@ -61,7 +57,7 @@ class VistaTopicos extends Component{
              timeout={500}
              classNames="fade"
            >
-           <MostrarTopicos usrTopics = {this.state.usrTopics} topicos = {this.state.topicos} HandleDetalleTopico= {this.HandleDetalleTopico.bind(this)} activo = {this.state.activo}  search = {this.state.search} orden = {this.state.orden}/>
+           <MostrarTopicos user_id = {this.props.user.id} usrTopics = {this.state.usrTopics} topicos = {this.state.topicos} HandleDetalleTopico= {this.HandleDetalleTopico.bind(this)} activo = {this.state.activo}  search = {this.state.search} orden = {this.state.orden}/>
           </CSSTransition>
         </TransitionGroup>
      </div>

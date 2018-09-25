@@ -37,7 +37,7 @@ li a:hover{
 .gradient-button-4:hover { background-position: right center;text-decoration: none;  }
 .gradient-button-5 {background-color:   #FF8A75; text-decoration: none;  }
 .gradient-button-5:hover { background-position: right center;text-decoration: none;  }
-
+.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active {border: solid 2px black}
 
 @media (min-width: 768px) {
  .navbar-nav.navbar-center {
@@ -52,6 +52,17 @@ li a:hover{
 .navbar-collapse{
 	padding-left: 0px;
 	padding-right: 0px;
+}
+
+.Toastify__toast--success {
+	background-image: linear-gradient(to right, #EA5576 0%,  #EA5576  41%, #FF8A75 100%);
+	font-weight: bold;
+}
+
+
+.Toastify__toast--error {
+	background-color: #67848F;
+	font-weight: bold;
 }
 
 .navbar-center > li{

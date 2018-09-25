@@ -24,7 +24,7 @@ class VistaDetalleCuenta extends Component{
       return <Contrasena user = {this.props.user} adm_cuenta = {true}/>
     }
     if(activo === 'Datos'){
-      return  <Datos adm_cuenta={true} user = {this.props.user}/>
+      return  <Datos  id = {this.props.match.params.id} adm_cuenta={true} user = {this.props.user}/>
     }
   }
 
@@ -36,10 +36,10 @@ class VistaDetalleCuenta extends Component{
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
         <NavLink to='/configuracion'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
-        <h2 id="titulo-vista" >{this.props.user.name}</h2>
+        <h2 id="titulo-vista" >Cuenta</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
-              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Datos","Contraseña"]}/>
+              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Datos"]}/>
             </div>
             <div className="col-lg-9 col-lg-offset-1 no-padding">
               <TransitionGroup component={null}>

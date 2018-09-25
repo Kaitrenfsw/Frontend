@@ -4,9 +4,16 @@ import { NavLink } from 'react-router-dom';
 
 class MostrarCuentas extends Component{
   state = {
-      cuentas: [{"id":1,"nombre":"Michael","apellido":"Jackson","Bloqueada":1,"email":"MJ@cl", "telefono":"+98762517","user_type":"idm"},{"id":2,"nombre":"Elvis","apellido":"Presley","Bloqueada":0,"email":"EP@cl", "telefono":"+98762517","user_type":"owner"},{"id":3,"nombre":"John","apellido":"Lenon","Bloqueada":1,"email":"JL@cl", "telefono":"+98762517","user_type":"idm"},{"id":3,"nombre":"John","apellido":"Lenon","Bloqueada":1,"email":"JL@cl", "telefono":"+98762517","user_type":"owner"}]
+      cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}]
 
   };
+
+  componentDidUpdate(prevProps,prevState){
+    if (prevProps.orden !== this.props.orden) {
+        this.OrdenarCuentas(this.props.orden);
+    }
+  }
+
 
 
 
@@ -17,7 +24,7 @@ class MostrarCuentas extends Component{
        headers: {
          'Accept': 'application/json',
          'Content-Type': 'application/json',
-         'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjIiLCJleHAiOjE1Mzc1ODE0NjgsImlhdCI6MTUzNzMyMjI2OCwiaXNzIjoibnVyc29mdC5hdXRoIiwianRpIjoiZmI1MjM3ZWYtMTRlMS00ODljLThiM2YtMTMyMDNlZjNhYWU2IiwicGVtIjp7fSwic3ViIjoiVXNlcjoyIiwidHlwIjoiYWNjZXNzIn0.h7dAs9a9cspHzCZagwKyGzrtSzh6Qr6hyza7Xks9mriCTVLH7R64D6tyx9uVs2zTvGHzmDL7zu6TIifLBjX90g'
+         'authorization': 'Bearer ' + this.props.user.token
        },
        body: null
      })
@@ -28,7 +35,9 @@ class MostrarCuentas extends Component{
                 status: response.status
             })
           ).then(res => {
-            this.setState({cuentas:res.data})
+            console.log(res.data.users);
+            this.setState({cuentas:res.data.users})
+            this.OrdenarCuentas(this.props.orden);
           });
 
         } else {
@@ -47,9 +56,9 @@ class MostrarCuentas extends Component{
 
     var ClaseEstado = "";
     var TextoEstado = "";
-    if(cuenta.Bloqueada ===0){ClaseEstado = "estado-f";TextoEstado = "Activa";}
-    if(cuenta.Bloqueada ===1) {ClaseEstado = "estado-md";TextoEstado = "Bloqueada";}
-    if (cuenta.user_type==="owner" && String(cuenta.nombre + " " + cuenta.apellido).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
+    if(cuenta.active ===true){ClaseEstado = "estado-f";TextoEstado = "Activa";}
+    if(cuenta.active ===false) {ClaseEstado = "estado-md";TextoEstado = "Bloqueada";}
+    if (cuenta.permissions[0].group==="owner" && String(cuenta.profile.name + " " + cuenta.profile.last_name + " " + cuenta.email).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
       return (
             <div key = {cuenta.id } className="row cuenta no-margin" >
               <div className="col-md-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -58,7 +67,7 @@ class MostrarCuentas extends Component{
                   <h5 className={ClaseEstado}>{TextoEstado}</h5>
                 </div>
                 <div className="div-datos"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
-                  <h4 className="nombre-cuenta">{cuenta.nombre} {cuenta.apellido}</h4>
+                  <h4 className="nombre-cuenta">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                   <h5 className="email-cuenta">{cuenta.email}</h5>
                   <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>
                 </div>
@@ -70,14 +79,14 @@ class MostrarCuentas extends Component{
   }
 
 DesplegarCuentasIDM(cuenta,search){
-    if (cuenta.user_type==="idm" && String(cuenta.nombre + " " + cuenta.apellido).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
+    if (cuenta.permissions[0].group==="idm" && String(cuenta.profile.name + " " + cuenta.profile.last_name + " " + cuenta.email).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
       return (
         <div key = {cuenta.id } className="row row-cuenta-idm no-margin" >
           <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
             <div className="div-cuenta-idm  ">
               <img  src={profile}  alt="foto-perfil"/>
               <div className="div-datos-idm">
-                <h4 className="nombre-idm">{cuenta.nombre} {cuenta.apellido}</h4>
+                <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>
               </div>
               <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>
@@ -91,24 +100,50 @@ DesplegarCuentasIDM(cuenta,search){
 
 
 
-  OrdenarTopicos(orden) {
+  OrdenarCuentas(orden) {
     if(orden ==='Nombre'){
-        var topicos_ordenados = this.state.topicos.sort(this.OrdenarNombre);
-        this.setState({topicos: topicos_ordenados});
+        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarNombre);
+        this.setState({cuentas: cuentas_ordenadas});
+    }
+    if(orden ==='Email'){
+        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarEmail);
+        this.setState({cuentas: cuentas_ordenadas});
     }
   }
 
 
   OrdenarNombre(a,b) {
-    if(!a.name){
+    if(a.profile.name && !(b.profile.name)){
       return -1;
     }
-    if(!b.name){
+    if(!(a.profile.name) && b.profile.name){
       return 1;
     }
-    if(a.name && b.name){
-      var nameA=a.name.toLowerCase();
-      var nameB=b.name.toLowerCase();
+    if(a.profile.name && b.profile.name){
+      return 0;
+    }
+    if(a.profile.name && b.profile.name){
+      var nameA=a.profile.name.toLowerCase();
+      var nameB=b.profile.name.toLowerCase();
+      if (nameA < nameB)
+        return -1;
+      if (nameA > nameB)
+        return 1;
+      return 0;
+    }
+    return 1;
+  }
+
+  OrdenarEmail(a,b) {
+    if(!a.email){
+      return -1;
+    }
+    if(!b.email){
+      return 1;
+    }
+    if(a.email && b.email){
+      var nameA=a.email.toLowerCase();
+      var nameB=b.email.toLowerCase();
       if (nameA < nameB)
         return -1;
       if (nameA > nameB)
@@ -131,8 +166,8 @@ DesplegarCuentasIDM(cuenta,search){
     if(tipo_cuentas === "idm"){
       return (
         <div className="lista-cuentas">
-           {this.state.cuentas.map((cuenta,i,arr) => (
-            this.DesplegarCuentasIDM(cuenta,search)
+        {this.state.cuentas.map((cuenta,i,arr) => (
+         this.DesplegarCuentasIDM(cuenta,search)
           ))}
         </div>
       );
