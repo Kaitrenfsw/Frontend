@@ -6,7 +6,10 @@ import { NavLink } from 'react-router-dom';
 
 class Header extends Component{
 
-
+ handleClick(event){
+   localStorage.setItem('user', null);
+   this.props.HandleNavBar(event,'LOGIN');
+ }
   render(){
     return (
      	<div className="main">
@@ -28,8 +31,9 @@ class Header extends Component{
 						<li  ><NavLink to='/topicos'>Tópicos</NavLink></li>
 						<li><NavLink to='/configuracion'>Configuración</NavLink></li>
 						</ul>
-			    <ul className="nav navbar-nav navbar-right">
-			        	<img  src={perfil}  alt="perfil" />
+			    <ul  className="nav navbar-nav navbar-right">
+          	<li ><a onClick={this.handleClick.bind(this) }>Salir</a></li>
+
 			    </ul>
 			  </div>
 			</nav>

@@ -35,7 +35,7 @@ render(){
   return(
 
     <Route render = {({location}) => (
-    <TransitionGroup component={null}>
+    <TransitionGroup component={null} >
      <CSSTransition
                  key = {location.key}
                  timeout={400}
@@ -46,7 +46,7 @@ render(){
        <Route path='/configuracion'   render= {() => <VistaConfiguracion user = {this.props.user}/>}/>
        <Route exact path='/topicos' render= {() => <VistaTopicos user = {this.props.user}/>}/>
        <Route location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
-       <PrivateRoute location={this.props.location}  user_group = {this.props.user.permissions[0].group} path='/cuentas/:id'  render= {(props) => <VistaDetalleCuenta {...props} user = {this.props.user}/>}/>
+       <Route location={this.props.location}  user_group = {this.props.user.permissions[0].group} path='/cuentas/:id'  component= {(props) => <VistaDetalleCuenta {...props} user = {this.props.user}/>}/>
    </Switch>
    </CSSTransition>
    </TransitionGroup>)}

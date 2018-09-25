@@ -11,7 +11,7 @@ class VistaCuentas extends Component{
 	state = {
         activo: 'Explorar cuentas',
         search: '',
-        orden: "Fecha",
+        orden: "Email",
 	 };
 
   HandleNavTabs(event,valor) {
@@ -46,7 +46,7 @@ class VistaCuentas extends Component{
     if(this.state.activo === 'Explorar cuentas'){
       return <div>
 				<div className = "page">
-			  <Paginacion search_text= {"ingresa un nombre"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {["Nombre"]}/>
+			  <Paginacion search_text= {"ingresa un nombre"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {["Email","Nombre"]}/>
 
 				<MostrarCuentas user = {this.props.user} tipo_cuentas = {tipo_cuentas} search = {this.state.search} orden = {this.state.orden} />
 				</div>

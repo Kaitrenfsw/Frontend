@@ -48,10 +48,11 @@
 .Datos  .boton_eliminar { float: right; }
 
 
+/* Entrenamiento */
 .Entrenamiento .boton_entrenar { margin-top: 7vh; margin-left: 0;}
 .Entrenamiento {position: absolute;}
-.Entrenamiento .texto-entrenamiento { color: #EDEEEF; margin-top:9vh;}
-
+.Entrenamiento .texto-entrenamiento { color: #EDEEEF; margin-top:9vh; font-size: 1.9vh;}
+.Entrenamiento .div-wrap-entrenamiento {padding-left: 0; text-align: justify;}
 
 
 

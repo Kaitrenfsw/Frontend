@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import profile from '../Assets/profile.png';
 import Modal from '../Modal';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import {withRouter} from "react-router-dom";
 
 
 
@@ -15,39 +18,88 @@ class Datos extends Component{
     telefono: ""
   }
 
+  notify_success = (texto) => {
+
+      toast.success(texto, {
+        position: toast.POSITION.TOP_CENTER
+      });
+    }
+
 
 
   componentDidMount() {
-         fetch("http://localhost:4000/api/profile", {
-             method: 'GET',
-             headers: {
-               'Content-Type': 'multipart/form-data',
-               'Accept': 'application/json',
-               'authorization': 'Bearer ' + this.props.user.token
-             },
-             body: null
-         })
-         .then((response) => {
-           if(response.ok) {
-             response.json().then(data => ({
-                   data: data,
-                   status: response.status
-               })
-             ).then(res => {
-               console.log(res.data,res.status)
-               this.setState({nombre:res.data.profile.name,
-                 apellido:res.data.profile.last_name,
-                 telefono:res.data.profile.phone
-               })
-             });
+        if(this.props.adm_cuenta){
+          fetch("http://localhost:4000/api/users/" + this.props.id, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'authorization': 'Bearer ' + this.props.user.token
+              },
+              body: null
+          })
+          .then((response) => {
+            if(response.ok) {
+              response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+              ).then(res => {
+                console.log(res.data,res.status)
+                const user = res.data.user;
+                this.setState({nombre:user.profile.name,
+                  apellido:user.profile.last_name,
+                  telefono:user.profile.phone,
+                  email:user.email
+                })
+              });
 
-           } else {
-             console.log('bad request');
-           }
-         })
-         .catch(function(error) {
-           console.log('Hubo un problema con la petición Fetch:' + error.message);
-         });
+            } else {
+              console.log('bad request');
+            }
+          })
+          .catch(function(error) {
+            console.log('Hubo un problema con la petición Fetch:' + error.message);
+          });
+
+       }
+       else{
+           fetch("http://localhost:4000/api/profile", {
+               method: 'GET',
+               headers: {
+                 'Content-Type': 'multipart/form-data',
+                 'Accept': 'application/json',
+                 'authorization': 'Bearer ' + this.props.user.token
+               },
+               body: null
+           })
+           .then((response) => {
+             if(response.ok) {
+               response.json().then(data => ({
+                     data: data,
+                     status: response.status
+                 })
+               ).then(res => {
+                 console.log(res.data,res.status)
+                 const user = res.data.user;
+                 this.setState({nombre:user.profile.name,
+                   apellido:user.profile.last_name,
+                   telefono:user.profile.phone,
+                   email:user.email
+                 })
+               });
+
+             } else {
+               console.log('bad request');
+             }
+           })
+           .catch(function(error) {
+             console.log('Hubo un problema con la petición Fetch:' + error.message);
+           });
+       }
+
+
+
     }
 
 
@@ -57,16 +109,16 @@ class Datos extends Component{
 
   HandleModalConfirm(event,action) {
     if(action==="eliminar"){
-      let formData = new FormData();
-      formData.append('id', this.props.id);
       fetch('http://localhost:4000/api/users', {
           method: 'DELETE',
           headers: {
-            'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'authorization': 'Bearer ' + this.props.user.token
           },
-          body: formData
+          body: JSON.stringify({
+            'id': this.props.id,
+          })
       })
       .then((response) => {
         if(response.ok) {
@@ -76,6 +128,8 @@ class Datos extends Component{
             })
           ).then(res => {
             console.log(res.data,res.status)
+            this.notify_success('Cuenta eliminada exitosamente');
+            this.props.history.push('/configuracion');
           });
 
         } else {
@@ -87,53 +141,107 @@ class Datos extends Component{
       });
     }
     if(action==="bloquear"){
-      let formData = new FormData();
-      formData.append('id', this.props.id);
-      formData.append('active', false);
-      fetch('localhost:4001/api/account/activate', {
-          method: 'Post',
+      fetch('http://localhost:4000/api/account/activate', {
+          method: 'PUT',
           headers: {
-            'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'authorization': 'Bearer ' + this.props.user.token
           },
-          body: formData
+          body: JSON.stringify({'user':{
+            'id': this.props.id,
+            'active': false
+          }})
       })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            console.log(res.data,res.status)
+            this.notify_success('Cuenta Bloqueada exitosamente');
+            this.props.history.push('/configuracion');
+          });
+
+        } else {
+          console.log('bad request');
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      });
     }
   }
 
   HandleGuardarCambios(event){
-    let formData = new FormData();
-    formData.append('id', this.props.user.id);
-    formData.append('name', this.state.nombre);
-    formData.append('last_name', this.state.apellido);
-    formData.append('phone', this.state.telefono);
-    fetch('http://localhost:4000/api/users', {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'authorization': 'Bearer ' + this.props.user.token
-        },
-        body: formData
-    })
-    .then((response) => {
-      if(response.ok) {
-        response.json().then(data => ({
-              data: data,
-              status: response.status
-          })
-        ).then(res => {
-          console.log(res.data,res.status)
-        });
+    if(this.props.adm_cuenta){
+      fetch('http://localhost:4000/api/users', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
+          },
+          body: JSON.stringify({'profile' : {
+            'name': this.state.nombre,
+            'last_name': this.state.apellido,
+            'phone': this.state.telefono
+          },'id':this.props.id})
+      })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            console.log(res.data,res.status);
+            this.notify_success('Datos guardados exitosamente');
+          });
 
-      } else {
-        console.log('bad request');
-      }
-    })
-    .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
-    });
+        } else {
+          console.log('bad request');
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      });
+    }
+    else{
+      fetch('http://localhost:4000/api/profile', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
+          },
+          body: JSON.stringify({'profile' : {
+            'name': this.state.nombre,
+            'last_name': this.state.apellido,
+            'phone': this.state.telefono
+          }})
+      })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            console.log(res.data,res.status);
+            this.notify_success('Datos guardados exitosamente');
+          });
+
+        } else {
+          console.log('bad request');
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      });
+    }
   }
 
 
@@ -153,15 +261,7 @@ class Datos extends Component{
             {(user_type === 'admin'  )  && adm_cuenta && <a   data-toggle="modal" data-target="#ModalBloquear" className="gradient-button gradient-button-3 boton_bloquear">Bloquear</a>}
             </div>
             <div className="row row-no-padding">
-              <div className="col-sm-3 col-imagen-perfil">
-                <label>Foto Perfil</label>
-                <br/>
-                <img id = "imagen-profile" src={profile}  alt="foto-perfil" />
-                <br/>
-                <br/>
-                <a id="subir-foto">Subir foto</a>
-              </div>
-              <div className="col-sm-6">
+              <div className="col-sm-12">
                 <div className="form-group">
                   <label>Nombre</label>
                   <input value = {this.state.nombre} onChange= {(event) => this.setState({nombre:event.target.value})}  className="form-control" />
@@ -194,4 +294,4 @@ class Datos extends Component{
     }
 }
 
-export default Datos;
+export default withRouter(Datos);

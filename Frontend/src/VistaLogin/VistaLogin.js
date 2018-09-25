@@ -13,6 +13,13 @@ class VistaLogin extends Component{
     password:''
     }
   }
+
+  handleKeyPress = (event) => {
+    if(event.key == 'Enter'){
+      this.handleClick(event)
+    }
+  }
+
    handleClick(event){
 
      fetch("http://localhost:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
@@ -34,14 +41,14 @@ class VistaLogin extends Component{
           })
         ).then(res => {
 
-
+          localStorage.setItem('user', JSON.stringify(res.data.user));
           console.log(res.data.user);
           this.props.HandleUser(res.data.user);
           this.props.HandleNavBar(event,'LOGGED');
         });
 
       } else {
-    
+
         console.log('bad request');
       }
     })
@@ -59,11 +66,11 @@ class VistaLogin extends Component{
             <h4 id="texto-inica-sesion">Para continuar, inicia sesión</h4>
             <div className="form-group">
               <label>E-mail</label>
-              <input onChange = {(event) => this.setState({username:event.target.value})} id = "email" type = "email" className="form-control" />
+              <input name="email" onKeyPress={this.handleKeyPress.bind(this)} onChange = {(event) => this.setState({username:event.target.value})} id = "email" type = "email" className="form-control" />
             </div>
             <div className="form-group">
               <label>Contraseña</label>
-              <input onChange = {(event) => this.setState({password:event.target.value})} id= "contraseña" type = "password" className="form-control" />
+              <input name="password" onKeyPress={this.handleKeyPress.bind(this)} onChange = {(event) => this.setState({password:event.target.value})} id= "contraseña" type = "password" className="form-control" />
             </div>
             <label className="container1"><h5 id = "recordarme"> Recordame</h5>
             <input type="checkbox" />

@@ -8,6 +8,13 @@ class MostrarCuentas extends Component{
 
   };
 
+  componentDidUpdate(prevProps,prevState){
+    if (prevProps.orden !== this.props.orden) {
+        this.OrdenarCuentas(this.props.orden);
+    }
+  }
+
+
 
 
 
@@ -30,6 +37,7 @@ class MostrarCuentas extends Component{
           ).then(res => {
             console.log(res.data.users);
             this.setState({cuentas:res.data.users})
+            this.OrdenarCuentas(this.props.orden);
           });
 
         } else {
@@ -50,7 +58,7 @@ class MostrarCuentas extends Component{
     var TextoEstado = "";
     if(cuenta.active ===true){ClaseEstado = "estado-f";TextoEstado = "Activa";}
     if(cuenta.active ===false) {ClaseEstado = "estado-md";TextoEstado = "Bloqueada";}
-    if (cuenta.permissions[0].group==="owner" && String(cuenta.profile.name + " " + cuenta.profile.last_name).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
+    if (cuenta.permissions[0].group==="owner" && String(cuenta.profile.name + " " + cuenta.profile.last_name + " " + cuenta.email).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
       return (
             <div key = {cuenta.id } className="row cuenta no-margin" >
               <div className="col-md-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -71,7 +79,7 @@ class MostrarCuentas extends Component{
   }
 
 DesplegarCuentasIDM(cuenta,search){
-    if (cuenta.permissions[0].group==="idm" && String(cuenta.profile.name + " " + cuenta.profile.last_name).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
+    if (cuenta.permissions[0].group==="idm" && String(cuenta.profile.name + " " + cuenta.profile.last_name + " " + cuenta.email).toLowerCase().includes(this.props.search.toString().toLowerCase())) {
       return (
         <div key = {cuenta.id } className="row row-cuenta-idm no-margin" >
           <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -92,24 +100,50 @@ DesplegarCuentasIDM(cuenta,search){
 
 
 
-  OrdenarTopicos(orden) {
+  OrdenarCuentas(orden) {
     if(orden ==='Nombre'){
-        var topicos_ordenados = this.state.topicos.sort(this.OrdenarNombre);
-        this.setState({topicos: topicos_ordenados});
+        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarNombre);
+        this.setState({cuentas: cuentas_ordenadas});
+    }
+    if(orden ==='Email'){
+        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarEmail);
+        this.setState({cuentas: cuentas_ordenadas});
     }
   }
 
 
   OrdenarNombre(a,b) {
-    if(!a.name){
+    if(a.profile.name && !(b.profile.name)){
       return -1;
     }
-    if(!b.name){
+    if(!(a.profile.name) && b.profile.name){
       return 1;
     }
-    if(a.name && b.name){
-      var nameA=a.name.toLowerCase();
-      var nameB=b.name.toLowerCase();
+    if(a.profile.name && b.profile.name){
+      return 0;
+    }
+    if(a.profile.name && b.profile.name){
+      var nameA=a.profile.name.toLowerCase();
+      var nameB=b.profile.name.toLowerCase();
+      if (nameA < nameB)
+        return -1;
+      if (nameA > nameB)
+        return 1;
+      return 0;
+    }
+    return 1;
+  }
+
+  OrdenarEmail(a,b) {
+    if(!a.email){
+      return -1;
+    }
+    if(!b.email){
+      return 1;
+    }
+    if(a.email && b.email){
+      var nameA=a.email.toLowerCase();
+      var nameB=b.email.toLowerCase();
       if (nameA < nameB)
         return -1;
       if (nameA > nameB)
@@ -132,7 +166,9 @@ DesplegarCuentasIDM(cuenta,search){
     if(tipo_cuentas === "idm"){
       return (
         <div className="lista-cuentas">
-           
+        {this.state.cuentas.map((cuenta,i,arr) => (
+         this.DesplegarCuentasIDM(cuenta,search)
+          ))}
         </div>
       );
 
