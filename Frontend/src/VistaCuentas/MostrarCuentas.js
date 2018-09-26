@@ -101,12 +101,13 @@ DesplegarCuentasIDM(cuenta,search){
 
 
   OrdenarCuentas(orden) {
+    var cuentas_ordenadas;
     if(orden ==='Nombre'){
-        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarNombre);
+        cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarNombre);
         this.setState({cuentas: cuentas_ordenadas});
     }
     if(orden ==='Email'){
-        var cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarEmail);
+        cuentas_ordenadas = this.state.cuentas.sort(this.OrdenarEmail);
         this.setState({cuentas: cuentas_ordenadas});
     }
   }

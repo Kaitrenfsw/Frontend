@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-
+import React, { Component } from 'react';
+import InfiniteScroll from "react-infinite-scroll-component";
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -233,6 +233,37 @@ class MostrarArticulos extends Component{
     ]
 
   };
+  fetchMoreData = () => {
+    // a fake async api call like which sends
+    // 20 more records in 1.5 secs
+
+    setTimeout(() => {
+      var cuentas = this.state.recomendados_filtrados;
+      cuentas.push({
+          "id": Math.floor(Math.random() * 1000) + 100,
+          "titulo": "The 2018 Software Testing Showcase",
+          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
+          "fuente":  "Sdtimes",
+          "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
+          "topicos": ["Software Testing", "Software Development"]},
+          {
+              "id": Math.floor(Math.random() * 1000) + 100,
+              "titulo": "The 2018 Software Testing Showcase",
+              "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
+              "fuente":  "Sdtimes",
+              "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
+              "topicos": ["Software Testing", "Software Development"]},
+              {
+                  "id": Math.floor(Math.random() * 1000) + 100,
+                  "titulo": "The 2018 Software Testing Showcase",
+                  "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
+                  "fuente":  "Sdtimes",
+                  "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
+                  "topicos": ["Software Testing", "Software Development"]})
+      this.setState({
+        recomendados_filtrados: cuentas});
+    }, 1000);
+  };
 
 
   componentDidUpdate(prevProps,prevState){
@@ -298,7 +329,9 @@ class MostrarArticulos extends Component{
             {topico3}
             <h4 className="titulo-articulo">{grupo_articulos[0].titulo}</h4>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[0].fuente}</h5>
+            <div className="div-resumen">
             <p className="resumen-articulo">{grupo_articulos[0].resumen}</p>
+            </div>
             </div>
           </div>
 
@@ -322,7 +355,9 @@ class MostrarArticulos extends Component{
             {topico3}
             <h4 className="titulo-articulo">{grupo_articulos[1].titulo}</h4>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[1].fuente}</h5>
+            <div className="div-resumen">
             <p className="resumen-articulo">{grupo_articulos[1].resumen}</p>
+            </div>
             </div>
           </div>
 
@@ -349,7 +384,9 @@ class MostrarArticulos extends Component{
             {topico3}
             <h4 className="titulo-articulo">{grupo_articulos[2].titulo}</h4>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[2].fuente}</h5>
+            <div className="div-resumen">
             <p className="resumen-articulo">{grupo_articulos[2].resumen}</p>
+            </div>
             </div>
           </div>
     }
@@ -406,7 +443,26 @@ class MostrarArticulos extends Component{
       for (var j = 0; j< groups.length; j++){
           articulos.push(this.Desplegar(groups[j]))
       }
-      return(<div className="ContenidoArticulos">{articulos}</div>);
+      return(
+
+        <div className="ContenidoArticulos">
+        <InfiniteScroll
+         dataLength={articulos.length}
+         next={this.fetchMoreData}
+         hasMore={true}
+         loader={<h1 className="texto-cargando">...</h1>}
+       >
+         {articulos.map((i, index) => (
+           <div  key={index}>
+            {i}
+           </div>
+         ))}
+       </InfiniteScroll>
+
+       </div>
+
+
+    );
     }
     if(activo === 'Guardados'){
       return(<div className="ContenidoArticulos"></div>);

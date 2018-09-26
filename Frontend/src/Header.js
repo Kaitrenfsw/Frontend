@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import logo from './Assets/kom2.svg';
-import perfil from './Assets/perfil.png';
 import { NavLink } from 'react-router-dom';
 
 

@@ -25,6 +25,8 @@ li a:hover{
 
 .no-padding{padding: 0;}
 
+
+
 /*botones*/
 .gradient-button { font-family: "Arial Black", Gadget, sans-serif; font-size: 15px; padding-top: 8px; margin: auto; text-align: center; font-weight:bold;max-width: 600px; transition: 0.5s; background-size: 200% auto; color: #FFF; box-shadow: 0 0 20px #eee; border-radius: 10px; width: 180px; height: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.3s cubic-bezier(.25,.8,.25,1); cursor: pointer; display: block; border-radius: 25px; text-decoration:none;}
 .gradient-button-1 {background-image: linear-gradient(to right, #EA5576 0%, #FF8A75 41%, #FF8A75 100%) ; text-decoration: none; }
@@ -33,11 +35,20 @@ li a:hover{
 .gradient-button-2:hover { background-position: right center;text-decoration: none;  }
 .gradient-button-3 {background-color: #67848F; text-decoration: none; }
 .gradient-button-3:hover { background-position: right center;text-decoration: none;  }
-.gradient-button-4 {background-color: white; text-decoration: none; color: black;}
-.gradient-button-4:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-4 {background-color:  #67848F; text-decoration: none; cursor: default;}
+.gradient-button-4:hover { background-position: right center;text-decoration: none;color: white; }
 .gradient-button-5 {background-color:   #FF8A75; text-decoration: none;  }
 .gradient-button-5:hover { background-position: right center;text-decoration: none;  }
-.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active {border: solid 2px black}
+.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active {border: solid 2px #1A252D;}
+
+
+@media (max-width: 1366px) {
+    .gradient-button { font-size: 11px; padding-top: 7px; width: 130px; height: 31px; }
+		.Datos label {font-size: 13px;}
+		.CrearCuenta label {font-size: 13px;}
+		.ContenidoVistaLogin label {font-size: 13px;}
+}
+
 
 @media (min-width: 768px) {
  .navbar-nav.navbar-center {
@@ -165,8 +176,13 @@ li a:hover{
 /*Navbar */
 
 
-.NavBar  li{ padding-right: 3px; height: 30px; max-width: 900px;margin-bottom: 60px; list-style-type: none ; text-align: right; padding-top: 5px; margin-left: 70px}
-.NavBar  a{color: #6B828F;font-weight: bold; padding-right: 20px; font-size: 15px;}
+.NavBar  li{ padding-right: 3px; height: 30px; max-width: 900px;margin-bottom: 60px; list-style-type: none ; text-align: right; padding-top: 5px; margin-left: 4vw;}
+.NavBar  a{color: #6B828F;font-weight: bold; padding-right: 20px; font-size: 0.8vw;}
 .NavBar  li.active{ background-color: #25353C; border-right: 3px solid #E95476; padding-right: 0px;}
 .NavBar  li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none;  }
 .NavBar {margin-top: 15vh;}
+
+
+@media (max-width: 1199px) {
+	.NavBar  a{font-size: 14px;}
+}

@@ -6,7 +6,7 @@ import {
   CSSTransition,
   TransitionGroup,
 } from 'react-transition-group';
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 
 
 

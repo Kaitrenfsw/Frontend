@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import profile from '../Assets/profile.png';
 import Modal from '../Modal';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
 
@@ -15,7 +14,8 @@ class Datos extends Component{
     apellido: "",
     email: "",
     foto: "",
-    telefono: ""
+    telefono: "",
+    activa: true,
   }
 
   notify_success = (texto) => {
@@ -50,7 +50,8 @@ class Datos extends Component{
                 this.setState({nombre:user.profile.name,
                   apellido:user.profile.last_name,
                   telefono:user.profile.phone,
-                  email:user.email
+                  email:user.email,
+                  activa:user.active
                 })
               });
 
@@ -150,7 +151,7 @@ class Datos extends Component{
           },
           body: JSON.stringify({'user':{
             'id': this.props.id,
-            'active': false
+            'active': !(this.state.activa)
           }})
       })
       .then((response) => {
@@ -251,14 +252,15 @@ class Datos extends Component{
   render(){
     var user_type = this.props.user.permissions[0].group;
     var adm_cuenta = this.props.adm_cuenta;
-
+    var bloquear = "Bloquear";
+    if(this.state.activa===false) {bloquear="Desbloquear"}
     return (
           <div className="Datos">
 
             <h3 id ="subtitulo-vista">Datos personales</h3>
             <div className="col-sm-7 col-sm-offset-2">
             {(user_type === 'owner' || user_type === 'admin'  ) && adm_cuenta && <a    data-toggle="modal" data-target="#ModalEliminar"  className="gradient-button gradient-button-3 boton_eliminar">Eliminar</a>}
-            {(user_type === 'admin'  )  && adm_cuenta && <a   data-toggle="modal" data-target="#ModalBloquear" className="gradient-button gradient-button-3 boton_bloquear">Bloquear</a>}
+            {(user_type === 'admin'  )  && adm_cuenta && <a   data-toggle="modal" data-target="#ModalBloquear" className="gradient-button gradient-button-3 boton_bloquear">{bloquear}</a>}
             </div>
             <div className="row row-no-padding">
               <div className="col-sm-12">
