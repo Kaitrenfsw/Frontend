@@ -128,15 +128,16 @@ class MostrarTopicos extends Component{
 
   OrdenarTopicos(orden) {
     var topicos = this.state.topicos;
+    var topicos_ordenados;
     if(orden ==='Nombre'){
-        var topicos_ordenados = topicos.sort(this.OrdenarNombre);
+        topicos_ordenados = topicos.sort(this.OrdenarNombre);
         this.setState({
           topicos: topicos_ordenados
         });
         return topicos_ordenados;
     }
     if(orden ==='Coherencia'){
-        var topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
+        topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
         this.setState({
           topicos: topicos_ordenados
         });
@@ -149,15 +150,16 @@ class MostrarTopicos extends Component{
 
   OrdenarTopicosUsr(orden) {
     var topicos = this.state.usrTopics;
+    var topicos_ordenados;
     if(orden ==='Nombre'){
-        var topicos_ordenados = topicos.sort(this.OrdenarNombre);
+        topicos_ordenados = topicos.sort(this.OrdenarNombre);
         this.setState({
           usrTopics: topicos_ordenados
         });
         return topicos_ordenados;
     }
     if(orden ==='Coherencia'){
-        var topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
+        topicos_ordenados = topicos.sort(this.OrdenarCoherencia);
         this.setState({
           usrTopics: topicos_ordenados
         });

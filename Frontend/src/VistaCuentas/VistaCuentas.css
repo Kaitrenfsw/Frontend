@@ -1,5 +1,5 @@
 html {
-    overflow: scroll;
+    overflow-y: scroll;
     overflow-x: hidden;
 }
 ::-webkit-scrollbar {
@@ -61,10 +61,10 @@ html {
 
 
 /*Crear Cuenta*/
-.CrearCuenta label { color: #6B828F; font-size: 15px; margin-top:4vh; margin-bottom:1.5vh;}
+.CrearCuenta label { color: #6B828F; font-size: 15px; margin-top:2vh; margin-bottom:1vh;}
 .CrearCuenta input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5); padding-right:0;}
-.CrearCuenta form {margin-top:20px}
-.CrearCuenta .boton_crear { margin-top: 5vh; margin-left: 0;}
+.CrearCuenta form {margin-top: 5vh}
+.CrearCuenta .boton_crear { margin-top: 3vh; margin-left: 0;}
 .CrearCuenta #label-email {margin-top: 0px;}
 .page {position: absolute;left: 0;right: 0; }
 

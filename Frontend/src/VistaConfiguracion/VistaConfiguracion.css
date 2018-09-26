@@ -24,11 +24,11 @@
 /*Sección Contrasena*/
 
 
-.Contrasena label { color: #6B828F; font-size: 15px; margin-top:4vh; margin-bottom: 1.5vh;}
+.Contrasena label { color: #6B828F; font-size: 15px; margin-top:2vh; margin-bottom: 1vh;}
 .Contrasena input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}
 .Contrasena form {margin-top: 6vh}
 .Contrasena {position: absolute;right: 0;left: 0; top: 0;}
-.Contrasena .boton_guardar { margin-top: 5vh; margin-left: 0;}
+.Contrasena .boton_guardar { margin-top: 2vh; margin-left: 0;}
 
 
 /*Seccion Datos*/
@@ -36,16 +36,18 @@
 
 .Datos label { color: #6B828F; font-size: 15px; margin-bottom: 15px;}
 .Datos input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5); padding-right:0;}
-.Datos form {margin-top:40px}
+.Datos form {margin-top:6vh}
 .Datos .row {margin-top:10vh}
 .Datos #subir-foto{color:#D64F6F; font-size:17px; text-decoration: underline;}
 .Datos .no-margin{margin: 0;}
 .Datos #imagen-profile{  width: 150px;  height: 150px;}
 .Datos .col-imagen-perfil{text-align: center;}
 .Datos {position: absolute;right: 0;left: 0; top: 0;}
-.Datos .boton_guardar { margin-left: 15px; margin-top: 50px;}
+.Datos .boton_guardar { margin-left: 15px; margin-top: 3vh;}
 .Datos  .boton_bloquear { float: right; margin-right: 15px;}
 .Datos  .boton_eliminar { float: right; }
+.Datos .row > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
+.Datos .gradient-button {margin-left: 0px;}
 
 
 /* Entrenamiento */

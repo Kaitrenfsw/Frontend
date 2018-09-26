@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route} from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import VistaTopicos from './VistaTopicos/VistaTopicos';
 import VistaConfiguracion from './VistaConfiguracion/VistaConfiguracion';
@@ -8,7 +8,7 @@ import VistaDetalleCuenta from './VistaDetalleCuenta/VistaDetalleCuenta';
 import VistaDetalleTopico from './VistaDetalleTopico/VistaDetalleTopico';
 
 
-
+/*
 const PrivateRoute = ({ component: Component, ...rest }) => (
 
   <Route
@@ -27,7 +27,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     }
   />
 );
-
+*/
 class Content extends Component {
 
 
