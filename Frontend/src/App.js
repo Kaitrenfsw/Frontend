@@ -62,6 +62,7 @@ class App extends Component {
 		if(VistaActiva === "LOGIN" || !(VistaActiva)){
 			return (
 				<div>
+            <ToastContainer />
 				    <VistaLogin HandleUser= {this.HandleUser.bind(this)}  HandleNavBar= {this.HandleNavBar.bind(this)} />
 				</div>
 			);

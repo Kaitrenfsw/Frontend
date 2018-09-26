@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import logo from '../Assets/kom2.svg';
 import lineas from '../Assets/linea.png';
 import './VistaLogin.css';
+import { toast } from 'react-toastify';
 
 class VistaLogin extends Component{
 
@@ -12,6 +13,11 @@ class VistaLogin extends Component{
     username:'',
     password:''
     }
+  }
+  notify_error = (texto) => {
+        toast.error(texto, {
+          position: toast.POSITION.TOP_CENTER
+        });
   }
 
   handleKeyPress = (event) => {
@@ -48,6 +54,19 @@ class VistaLogin extends Component{
         });
 
       } else {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          if(res.data.errors.detail=="Cuenta bloqueada"){
+            this.notify_error("Cuenta bloqueada")}
+          else{
+            this.notify_error("Email o contraseña incorrecta")
+          }
+          console.log(res.data,res.status);
+
+        });
 
         console.log('bad request');
       }
