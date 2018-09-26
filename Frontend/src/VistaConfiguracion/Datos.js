@@ -163,7 +163,7 @@ class Datos extends Component{
           ).then(res => {
             console.log(res.data,res.status)
             this.notify_success('Cuenta Bloqueada exitosamente');
-            this.props.history.push('/configuracion');
+            this.setState({activa:!(this.state.activa)});
           });
 
         } else {
