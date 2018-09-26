@@ -162,7 +162,9 @@ class Datos extends Component{
             })
           ).then(res => {
             console.log(res.data,res.status)
-            this.notify_success('Cuenta Bloqueada exitosamente');
+            var texto_bloquear = "Cuenta Bloqueada exitosamente";
+            if(this.state.activa===false){texto_bloquear = "Cuenta Desbloqueada exitosamente"}
+            this.notify_success(texto_bloquear);
             this.setState({activa:!(this.state.activa)});
           });
 

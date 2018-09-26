@@ -31,8 +31,7 @@ class Header extends Component{
 						<li><NavLink to='/configuracion'>Configuración</NavLink></li>
 						</ul>
 			    <ul  className="nav navbar-nav navbar-right">
-          	<li ><a onClick={this.handleClick.bind(this) }>Salir</a></li>
-
+          	<li ><a href = "/ "onClick={this.handleClick.bind(this) }>Salir</a></li>
 			    </ul>
 			  </div>
 			</nav>
