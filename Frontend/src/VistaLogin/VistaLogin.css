@@ -16,7 +16,7 @@
 .ContenidoVistaLogin input {font-size: 17px; color: white; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}
 .ContenidoVistaLogin #lineas {bottom: 0; width: 100vw; height: 20vh;}
 .ContenidoVistaLogin .form-group{text-align: left;}
-.ContenidoVistaLogin #contraseña { font-size: 30px;}
+.ContenidoVistaLogin #contraseña { font-size: 14px;}
 .ContenidoVistaLogin .max-width { width: 80%; margin-left: 10%; margin-left: 10%; text-align: center;}
 .ContenidoVistaLogin #recordarme { color: #6B828F; float: left;display: inline;  font-size: 13px}
 .ContenidoVistaLogin #olvidaste { color: #6B828F; float: right;display: inline; text-decoration: underline; font-size: 13px}
@@ -83,4 +83,14 @@
   opacity: 0;
   cursor: pointer;
 
+}
+
+/* Inputs border color*/
+input[type=number].react-inputs-validation__textbox__input___20hDL, input[type=password].react-inputs-validation__textbox__input___20hDL, input[type=phone].react-inputs-validation__textbox__input___20hDL, input[type=text].react-inputs-validation__textbox__input___20hDL{
+  font-size: 17px; color: white; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5);
+}
+
+input[type=number].react-inputs-validation__textbox__input___20hDL:focus, input[type=password].react-inputs-validation__textbox__input___20hDL:focus, input[type=phone].react-inputs-validation__textbox__input___20hDL:focus, input[type=text].react-inputs-validation__textbox__input___20hDL:focus {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(81, 203, 238, 1);
+  outline: 0 none;
 }

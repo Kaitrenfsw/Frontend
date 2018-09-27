@@ -12,6 +12,7 @@
     "react-d3-cloud": "^0.6.0",
     "react-dom": "^16.4.1",
     "react-infinite-scroll-component": "^4.2.0",
+    "react-inputs-validation": "^1.2.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.4",
     "react-toastify": "^4.3.2",
