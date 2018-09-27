@@ -417,8 +417,8 @@ class Datos extends Component{
                 </div>
             </div>
           <a onClick={this.HandleGuardarCambios.bind(this)}  className="gradient-button gradient-button-1 boton_guardar" >Guardar cambios</a>
-          <Modal action = {"eliminar"} modal_content = {"¿Estas seguro que deseas continuar?"} modal_id = {"ModalEliminar"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
-          <Modal action = {"bloquear"} modal_content = {"¿Estas seguro que deseas continuar?"} modal_id = {"ModalBloquear"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
+          <Modal action = {"eliminar"} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalEliminar"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
+          <Modal action = {"bloquear"} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalBloquear"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
           </div>
       );
     }
