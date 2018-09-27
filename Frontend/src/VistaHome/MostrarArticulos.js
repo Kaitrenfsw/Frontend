@@ -167,7 +167,7 @@ class MostrarArticulos extends Component{
             <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[0].summary}</p>
+            <p className="resumen-articulo">{grupo_articulos[0].summary.substring(0, 150)}</p>
             </div>
             </div>
           </div>
@@ -187,7 +187,7 @@ class MostrarArticulos extends Component{
             <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[1].summary}</p>
+            <p className="resumen-articulo">{grupo_articulos[1].summary.substring(0, 150)}</p>
             </div>
             </div>
           </div>
@@ -210,7 +210,7 @@ class MostrarArticulos extends Component{
               <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
             <h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[2].summary}</p>
+            <p className="resumen-articulo">{grupo_articulos[2].summary.substring(0, 150)}</p>
             </div>
             </div>
           </div>
