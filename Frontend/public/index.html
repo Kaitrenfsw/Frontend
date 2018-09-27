@@ -19,7 +19,30 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
-    <title>React App</title>
+    <title>Kompaz - Tu guía en el oceano de información</title>
+      <script type="text/javascript">
+      window.REACT_INPUTS_VALIDATION = {
+   customErrorMessage: {
+     "en-US": {
+       textbox: {
+         empty: function empty(name) {
+           return "El campo "+name + " no puede estar vacio";
+         },
+         inBetween: function inBetween(name) {
+           return function (min) {
+             return function (max) {
+               return name + " debe tener entre " + min + " y " + max + " caracteres";
+             };
+           };
+         }
+       }
+
+
+       }
+     }
+
+ };
+  </script>
   </head>
   <body>
     <noscript>

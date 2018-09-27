@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import logo from '../Assets/kom2.svg';
 import lineas from '../Assets/linea.png';
-import './VistaLogin.css';
+
 import { toast } from 'react-toastify';
+import { Textbox, Textarea, Radiobox, Checkbox, Select } from 'react-inputs-validation';
+import 'react-inputs-validation/lib/react-inputs-validation.min.css';
+import './VistaLogin.css';
 
 class VistaLogin extends Component{
 
@@ -11,7 +14,10 @@ class VistaLogin extends Component{
     super(props);
     this.state={
     username:'',
-    password:''
+    password:'',
+    validate:false,
+    EmailError:true,
+    PasswordError:true
     }
   }
   notify_error = (texto) => {
@@ -28,7 +34,12 @@ class VistaLogin extends Component{
 
    handleClick(event){
 
-     fetch("http://localhost:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
+    this.setState({validate:true});
+    //console.log(this.state.EmailError);
+    if (this.state.EmailError) {console.log("Mail error ");}
+    else if (this.state.PasswordError){console.log("Pwd error ");}
+    else {
+      fetch("http://localhost:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -74,6 +85,7 @@ class VistaLogin extends Component{
     .catch(error => {
       console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
+    }
    }
   render(){
     return (
@@ -85,18 +97,77 @@ class VistaLogin extends Component{
             <h4 id="texto-inica-sesion">Para continuar, inicia sesión</h4>
             <div className="form-group">
               <label>E-mail</label>
-              <input name="email" onKeyPress={this.handleKeyPress.bind(this)} onChange = {(event) => this.setState({username:event.target.value})} id = "email" type = "email" className="form-control" />
-            </div>
+
+                <Textbox
+                  tabIndex="1" //Optional.[String or Number].Default: -1.
+                  id={'email'} //Optional.[String].Default: "".  Input ID.
+                  name="email" //Optional.[String].Default: "". Input name.
+                  type="text" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                  value={this.state.username} //Optional.[String].Default: "".
+                  onKeyPress={this.handleKeyPress.bind(this)}
+                  className="form-control"
+
+                  validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                  validationCallback={res => this.setState({ EmailError: res, validate: false })}
+
+                  onChange={(username, e) => {
+                    this.setState({ username });
+                    console.log(e);
+                  }} //Required.[Func].Default: () => {}. Will return the value.
+                  onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                  validationOption={{
+                    name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                    check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                    required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                    reg : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    msgOnError: "Ingrese un Email válido",
+                  }}
+                />
+
+          </div>
             <div className="form-group">
               <label>Contraseña</label>
-              <input name="password" onKeyPress={this.handleKeyPress.bind(this)} onChange = {(event) => this.setState({password:event.target.value})} id= "contraseña" type = "password" className="form-control" />
+
+                <Textbox
+                  tabIndex="2" //Optional.[String or Number].Default: -1.
+                  id={'contraseña'} //Optional.[String].Default: "".  Input ID.
+                  name="password" //Optional.[String].Default: "". Input name.
+                  type="password" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                  value={this.state.password} //Optional.[String].Default: "".
+                  onKeyPress={this.handleKeyPress.bind(this)}
+                  className="form-control"
+
+                  validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                  validationCallback={res => this.setState({ PasswordError: res, validate: false })}
+
+                  onChange={(password, e) => {
+                    this.setState({ password });
+                    console.log(e);
+                  }} //Required.[Func].Default: () => {}. Will return the value.
+                  onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                  validationOption={{
+                    name: 'Password', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                    check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                    required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                    msgOnError: "La contraseña no puede estar vacía",
+                  }}
+                />
+
+
+
             </div>
             <label className="container1"><h5 id = "recordarme"> Recordame</h5>
             <input type="checkbox" />
             <span className="checkmark"></span>
             </label>
             <h5 id = "olvidaste">¿Olvidaste tu contraseña?</h5>
-            <a   id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)} /*onClick={(event) => this.props.HandleNavBar(event,'LOGGED')}*/ >Ingresar</a>
+            <a   id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)}  >Ingresar</a>
           </div>
           </div>
         </div>

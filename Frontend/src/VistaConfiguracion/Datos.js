@@ -3,6 +3,8 @@ import Modal from '../Modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
+import { Textbox, Textarea, Radiobox, Checkbox, Select } from 'react-inputs-validation';
+import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 
 
 
@@ -16,6 +18,11 @@ class Datos extends Component{
     foto: "",
     telefono: "",
     activa: true,
+    validate:false,
+    NameError:true,
+    SurnameError:true,
+    EmailError:true,
+    PhoneError:true
   }
 
   notify_success = (texto) => {
@@ -179,6 +186,15 @@ class Datos extends Component{
   }
 
   HandleGuardarCambios(event){
+    this.setState({validate:true});
+    //console.log(this.state.EmailError);
+    if (this.state.NameError) {console.log("Name error ");}
+    else if (this.state.SurnameError) {console.log("surname error ");}
+    else if (this.state.EmailError) {console.log("Mail error ");}
+    else if (this.state.PhoneError){console.log("phone error ");}
+    else {
+
+
     if(this.props.adm_cuenta){
       fetch('http://localhost:4000/api/users', {
           method: 'PUT',
@@ -246,6 +262,7 @@ class Datos extends Component{
       });
     }
   }
+  }
 
 
 
@@ -268,11 +285,63 @@ class Datos extends Component{
               <div className="col-sm-12">
                 <div className="form-group">
                   <label>Nombre</label>
-                  <input value = {this.state.nombre} onChange= {(event) => this.setState({nombre:event.target.value})}  className="form-control" />
+
+                    <Textbox
+                      tabIndex="1" //Optional.[String or Number].Default: -1.
+                      id={'nombre'} //Optional.[String].Default: "".  Input ID.
+                      name="nombre" //Optional.[String].Default: "". Input name.
+                      type="text" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                      value={this.state.nombre} //Optional.[String].Default: "".
+                      className="form-control"
+
+                      validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                      validationCallback={res => this.setState({ NameError: res, validate: false })}
+
+                      onChange={(nombre, e) => {
+                        this.setState({ nombre });
+                        console.log(e);
+                      }} //Required.[Func].Default: () => {}. Will return the value.
+                      onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                      validationOption={{
+                        name: 'Nombre', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                        check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                        required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                      }}
+                    />
+
                 </div>
                 <div className="form-group">
                   <label>Apellidos</label>
-                  <input value = {this.state.apellido} onChange= {(event) => this.setState({apellido:event.target.value})}  className="form-control" />
+
+                    <Textbox
+                      tabIndex="1" //Optional.[String or Number].Default: -1.
+                      id={'apellido'} //Optional.[String].Default: "".  Input ID.
+                      name="apellido" //Optional.[String].Default: "". Input name.
+                      type="text" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                      value={this.state.apellido} //Optional.[String].Default: "".
+                      className="form-control"
+
+                      validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                      validationCallback={res => this.setState({ SurnameError: res, validate: false })}
+
+                      onChange={(apellido, e) => {
+                        this.setState({ apellido });
+                        console.log(e);
+                      }} //Required.[Func].Default: () => {}. Will return the value.
+                      onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                      validationOption={{
+                        name: 'Apellidos', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                        check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                        required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                      }}
+                    />
+
                 </div>
               </div>
           </div>
@@ -280,13 +349,70 @@ class Datos extends Component{
               <div className="col-sm-4">
                 <div className="form-group">
                   <label>E-mail</label>
-                  <input value = {this.state.email} onChange= {(event) => this.setState({email:event.target.value})}  type = "email" className="form-control" />
+                    <Textbox
+                      tabIndex="1" //Optional.[String or Number].Default: -1.
+                      id={'email'} //Optional.[String].Default: "".  Input ID.
+                      name="email" //Optional.[String].Default: "". Input name.
+                      type="text" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                      value={this.state.email} //Optional.[String].Default: "".
+                      className="form-control"
+
+                      validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                      validationCallback={res => this.setState({ EmailError: res, validate: false })}
+
+                      onChange={(email, e) => {
+                        this.setState({ email });
+                        console.log(e);
+                      }} //Required.[Func].Default: () => {}. Will return the value.
+                      onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                      validationOption={{
+                        name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                        check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                        required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                        reg : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        msgOnError: "Ingrese un Email válido",
+                      }}
+                    />
+
+
+
                 </div>
                 </div>
                 <div className="col-sm-4  col-sm-offset-1">
                 <div className="form-group">
                   <label>Telefono</label>
-                  <input  value = {this.state.telefono} onChange= {(event) => this.setState({telefono:event.target.value})}  className="form-control" type="tel" />
+
+                    <Textbox
+                      tabIndex="1" //Optional.[String or Number].Default: -1.
+                      id={'telefono'} //Optional.[String].Default: "".  Input ID.
+                      name="telefono" //Optional.[String].Default: "". Input name.
+                      type="text" //Optional.[String].Default: "text". Input type [text, password, phone, number].
+                      value={this.state.telefono} //Optional.[String].Default: "".
+                      className="form-control"
+
+                      validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
+                      validationCallback={res => this.setState({ PhoneError: res, validate: false })}
+
+                      onChange={(telefono, e) => {
+                        this.setState({ telefono });
+                        console.log(e);
+                      }} //Required.[Func].Default: () => {}. Will return the value.
+                      onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
+
+
+
+                      validationOption={{
+                        name: 'Telefono', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
+                        check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
+                        required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
+                        reg : /^(\+?56)?(\s?)(0?9)(\s?)[98765]\d{7}$/,
+                        msgOnError: "Ingrese un numero valido (ex. +569 12345678)",
+                      }}
+                    />
+
                 </div>
                 </div>
             </div>
