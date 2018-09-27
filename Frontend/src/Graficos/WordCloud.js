@@ -73,7 +73,7 @@ class WordCloud extends Component{
                      .append("g")
                      // without the transform, words words would get cutoff to the left and top, they would
                      // appear outside of the SVG area
-                     .attr("transform", "translate(240,150)")
+                     .attr("transform", "translate(240,180)")
                      .selectAll("text")
                      .data(words)
                      .enter().append("text")
@@ -90,7 +90,7 @@ class WordCloud extends Component{
      }
   render() {
         return <svg  ref={node => this.node = node}
-        width={550} height={300}>
+        width={550} height={320}>
         </svg>
      }
   }

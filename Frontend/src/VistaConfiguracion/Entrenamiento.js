@@ -48,25 +48,8 @@ class Entrenamiento extends Component{
           },
           body: null
       })
-      .then((response) => {
-        if(response.ok) {
-          response.json().then(data => ({
-                data: data,
-                status: response.status
-            })
-          ).then(res => {
-            console.log(res.data,res.status);
-            this.notify_success('Ha comenzado el entrenamiento');
-            this.setState({isTraining:true});
-          });
-
-        } else {
-          console.log('bad request');
-        }
-      })
-      .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
-      });
+      this.notify_success('Ha comenzado el entrenamiento');
+      this.setState({isTraining:true});
     }
   }
 

@@ -11,8 +11,13 @@
 
 
 
-.ContenidoVistaDetalleTopico .imagen-articulo {width: 300px; height: 176px; float: left; position: absolute; margin-bottom: 100px}
-.ContenidoVistaDetalleTopico .titulo-articulo {font-weight: bold;color: #EDEEEF;  font-size: 20px; margin-left: 320px;}
-.ContenidoVistaDetalleTopico .resumen-articulo {color: #6B828F;  margin-left: 320px;}
-.ContenidoVistaDetalleTopico .Div-Articulo {margin-bottom:  120px}
+.ContenidoVistaDetalleTopico .imagen-articulo {width:100%; object-fit: cover; height: 180px;}
+.ContenidoVistaDetalleTopico .titulo-articulo {font-weight: bold;color: #EDEEEF;  font-size: 20px; margin-top: 0;}
+.ContenidoVistaDetalleTopico .resumen-articulo {color: #6B828F;  }
+.ContenidoVistaDetalleTopico .Div-Articulo {margin-bottom:  3vh}
 .ContenidoVistaDetalleTopico #subtitulo-vista-noticias {color: #EDEEEF; margin-top: 4vh; font-weight: bold;}
+.ContenidoVistaDetalleTopico .no-padding-left {padding-left: 0}
+.ContenidoVistaDetalleTopico .no-padding {padding: 0}
+.ContenidoVistaDetalleTopico .margin-top {margin-top: 1vh}
+.ContenidoVistaDetalleTopico .resumen-articulo{color: #EDEEEF; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.2em;        /* fallback */ max-height: 5.8em; font-size: 1.1em}
+.ContenidoVistaDetalleTopico .resumen-articulo:after {content: '...'; margin-left: -0.3em;}
