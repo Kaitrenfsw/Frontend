@@ -137,10 +137,11 @@ class MostrarArticulos extends Component{
   FiltrarArticulos(search) {
     var recomendados_filtrados = this.state.recomendados.filter(function (el) {
       var bool = false;
-      for(var i=0;i<3;i++){
+      for(var i=0;i<el.topics.length;i++){
+        if(i<3){
         if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
           bool = true;
-        }
+        }}
       }
       if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
       if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
