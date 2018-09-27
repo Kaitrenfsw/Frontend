@@ -4,13 +4,16 @@ import { NavLink } from 'react-router-dom';
 
 class MostrarCuentas extends Component{
   state = {
-      cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}]
-
+      cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
+      isLoading: true
   };
 
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
         this.OrdenarCuentas(this.props.orden);
+      }
+    if(prevState.isLoading !== this.state.isLoading){
+          this.OrdenarCuentas(this.props.orden);
     }
   }
 
@@ -36,8 +39,8 @@ class MostrarCuentas extends Component{
             })
           ).then(res => {
             console.log(res.data.users);
-            this.setState({cuentas:res.data.users})
-            this.OrdenarCuentas(this.props.orden);
+            this.setState({cuentas:res.data.users, isLoading:false});
+
           });
 
         } else {
@@ -164,7 +167,7 @@ DesplegarCuentasIDM(cuenta,search){
   render(){
     var tipo_cuentas = this.props.tipo_cuentas;
     var search = this.props.search;
-    if(tipo_cuentas === "idm"){
+    if(tipo_cuentas === "idm" && !(this.state.isLoading)){
       return (
         <div className="lista-cuentas">
         {this.state.cuentas.map((cuenta,i,arr) => (
@@ -174,7 +177,7 @@ DesplegarCuentasIDM(cuenta,search){
       );
 
     }
-    else {
+    else if(!(this.state.isLoading)) {
       return (
         <div className ="lista-cuentas">
            {this.state.cuentas.map((cuenta,i,arr) => (
@@ -184,6 +187,7 @@ DesplegarCuentasIDM(cuenta,search){
       );
 
     }
+    else {return(null)}
   }
 }
 
