@@ -29,7 +29,7 @@
 .ContenidoArticulos img {width:100%; object-fit: cover; max-height: 120px;}
 .ContenidoArticulos .titulo-articulo {font-weight: bold;color: #EDEEEF;  font-size: 19px; padding-left: 10px; padding-right: 10px; margin-top: 55px;  overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2; /* number of lines to show */ line-height: 22px;        /* fallback */ max-height: 44px;}
 .ContenidoArticulos .fuente-articulo {color: #627E89;padding-left: 10px; padding-right: 10px; font-weight: bold; font-style:italic; font-size: 14px;}
-.ContenidoArticulos .resumen-articulo{color: #EDEEEF; padding-left: 10px; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.1em;        /* fallback */ max-height: 3.3em; font-size: 1.0em}
+.ContenidoArticulos .resumen-articulo{color: #EDEEEF; padding-left: 10px; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.1em;        /* fallback */ max-height: 3.3em; font-size: 1.0}
 .resumen-articulo:after {content: '...'; margin-left: -0.3em;}
 .ContenidoArticulos .Blue {float:left; background-color: #46ADC1; border-radius: 10px;width: max-content; height: 25px; margin-top: 20px; margin-left: 10px; display: flex; align-items: center;}
 .ContenidoArticulos .Green {float:left; background-color: #80CF9F; border-radius: 10px;width: max-content; height: 25px; margin-top: 20px; margin-left: 10px; display: flex; align-items: center;}

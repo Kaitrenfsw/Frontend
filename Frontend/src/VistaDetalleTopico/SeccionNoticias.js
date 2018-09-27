@@ -1,38 +1,59 @@
 import React, { Component } from 'react'
-import Paginacion from '../Paginacion';
 class SeccionNoticias extends Component{
 
   state = {
       search: "",
       orden: "Nombre",
-      guardados: [
-        {
-            "id": 61,
-            "titulo": "How to use Terraform, Go, and AWS to build a scalable and resilient REST API",
-            "imagen": "https://cdn-images-1.medium.com/max/2000/1*Xiu_m1OdtgTMxQ5q1tZezQ.png",
-            "fuente": "Medium",
-            "resumen": "I’ve recently been exploring the power of Terraform — and wanted to apply what I’ve learned to build a scalable and resilient REST API. In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go. I’ve recently been exploring the power of Terraform — and wanted to apply what I’ve learned to build a scalable and resilient REST API. In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go."
-
-        },
-        {
-            "id": 62,
-            "titulo": "BFF platform: system of (contacts) ",
-            "imagen": "https://cdn-images-1.medium.com/max/1000/1*RDc0q4axrPYEhJrQaxm89w.jpeg",
-            "fuente":  "Medium",
-            "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go."
-
-        },
-        {
-            "id": 63,
-            "titulo": "BFF is on blockchain, and it’s upsides",
-            "imagen": "https://cdn-images-1.medium.com/max/600/1*QPj0Lor0UKH5qIFfOvB-eA.jpeg",
-            "fuente":  "Medium",
-            "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go."
-
-        },
-
-      ]
+      isLoading: true
   };
+    DesplegarNoticia(noticia,search){
+      return(
+
+      <div className="Div-Articulo">
+      <div className="row">
+      <div className="col-sm-2 no-padding-left">
+      <img alt = {noticia.title} className= "imagen-articulo" src={noticia.main_image} />
+      </div>
+      <div className="col-sm-10 no-padding">
+      <h4 className="titulo-articulo">{noticia.title}</h4>
+      <p className="resumen-articulo">{noticia.summary}</p>
+      </div>
+      </div>
+      </div>);
+    }
+
+
+      componentDidMount() {
+               fetch("http://localhost:4000/api/relevant_suggestions?topic_id=" + this.props.id, {
+                   method: 'GET',
+                   headers: {
+                     'Content-Type': 'application/json',
+                     'Accept': 'application/json',
+                     'authorization': 'Bearer ' + this.props.user.token
+                   },
+                   body: null
+               })
+               .then((response) => {
+                 if(response.ok) {
+                   response.json().then(data => ({
+                         data: data,
+                         status: response.status
+                     })
+                   ).then(res => {
+                     console.log(res.data,res.status)
+                     this.setState({noticias:res.data,isLoading:false});
+
+                   });
+
+                 } else {
+                   console.log('bad request');
+                 }
+               })
+               .catch(function(error) {
+                 console.log('Hubo un problema con la petición Fetch:' + error.message);
+               });
+           }
+
 
   HandleSearch(event) {
     if (true) {
@@ -52,32 +73,26 @@ class SeccionNoticias extends Component{
 
   render(){
 
+    if(!(this.state.isLoading)){
+      return(
+        <div >
+        <h4 id="subtitulo-vista-noticias">Últimos artículos</h4>
+        <div className="margin-top">
+      {this.state.noticias.map((noticia,i,arr) => (
+       this.DesplegarNoticia(noticia,this.props.search)
+     ))}  </div> </div>);
+    }
+    else{
+
 
 
     return (
 
         <div >
         <h4 id="subtitulo-vista-noticias">Últimos artículos</h4>
-        <Paginacion search_text= {"busca un artículo"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {["Nombre"]}/>
-        <div className="Div-Articulo">
-        <img alt = {this.state.guardados[0].titulo} className= "imagen-articulo" src={this.state.guardados[1].imagen} />
-        <h4 className="titulo-articulo">{this.state.guardados[1].titulo}</h4>
-        <p className="resumen-articulo">{this.state.guardados[0].resumen}</p>
-        </div>
-        <div className="Div-Articulo">
-        <img alt = {this.state.guardados[1].titulo} className= "imagen-articulo" src={this.state.guardados[2].imagen} />
-        <h4 className="titulo-articulo">{this.state.guardados[2].titulo}</h4>
-        <p className="resumen-articulo">{this.state.guardados[0].resumen}</p>
-        </div>
-        <div className="Div-Articulo">
-        <img alt = {this.state.guardados[2].titulo} className= "imagen-articulo" src={this.state.guardados[0].imagen} />
-        <h4 className="titulo-articulo">{this.state.guardados[0].titulo}</h4>
-        <p className="resumen-articulo">{this.state.guardados[0].resumen}</p>
         </div>
 
-        </div>
-
-    );
+    );}
   }
 }
 

@@ -9,7 +9,7 @@ import VistaDetalleTopico from './VistaDetalleTopico/VistaDetalleTopico';
 
 
 /*
-const PrivateRoute = ({ component: Component, ...rest }) => (
+const CheckRoute = ({ component: Component, ...rest }) => (
 
   <Route
     {...rest}
@@ -45,7 +45,7 @@ render(){
        <Route exact path='/'  render= {() => <VistaHome user = {this.props.user}/>}/>
        <Route path='/configuracion'   render= {() => <VistaConfiguracion user = {this.props.user}/>}/>
        <Route exact path='/topicos' render= {() => <VistaTopicos user = {this.props.user}/>}/>
-       <Route location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
+       <Route location={this.props.location} path='/topicos/:id' component= {(props) => <VistaDetalleTopico {...props} user = {this.props.user}/>}/>
        <Route location={this.props.location}  user_group = {this.props.user.permissions[0].group} path='/cuentas/:id'  component= {(props) => <VistaDetalleCuenta {...props} user = {this.props.user}/>}/>
    </Switch>
    </CSSTransition>

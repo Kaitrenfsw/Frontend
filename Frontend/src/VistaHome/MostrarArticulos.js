@@ -10,259 +10,64 @@ class MostrarArticulos extends Component{
 
 
   state = {
-      recomendados: [
-        {
-            "id": 61,
-            "titulo": "How to use Terraform and AWS to build a scalable and resilient REST API",
-            "imagen": "https://cdn-images-1.medium.com/max/2000/1*Xiu_m1OdtgTMxQ5q1tZezQ.png",
-            "fuente": "Medium",
-            "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed.",
-            "topicos": ["Api Development", "Terraform", "AWS"]
-        },
+      isLoading: true,
+      index: 0,
+      hasMore: true
+  }
 
 
 
-        {
-            "id": 63,
-            "titulo": "Why Businesses Can’t Afford to Miss Chatbot Development",
-            "imagen": "https://d3olfrdxinh85x.cloudfront.net/cdn/es/wp-content/uploads/chatbots-the-key-to-efficient-customer-service.jpg",
-            "fuente":  "Dzone",
-            "resumen": "Chatbots are seen all over. Let's check out why your business can't afford to miss out on chatbot development.",
-            "topicos": [ "Chatbots","AI"]
-        },
 
-        {
-            "id": 62,
-            "titulo": "BFF platform: system of (contacts) ",
-            "imagen": "https://cdn-images-1.medium.com/max/1000/1*RDc0q4axrPYEhJrQaxm89w.jpeg",
-            "fuente":  "Medium",
-            "resumen": "Bitcoin is history’s first immutable, decentralized, global digital ledger of records. The underlying technology, blockchain on which bitcoin runs is a revolution in structured database management. ",
-            "topicos": ["BFF", "Bitcoin", "Blockchain"]
-        },
+    componentDidMount() {
+             fetch("http://localhost:4000/api/suggestions", {
+                 method: 'GET',
+                 headers: {
+                   'Content-Type': 'application/json',
+                   'Accept': 'application/json',
+                   'authorization': 'Bearer ' + this.props.user.token
+                 },
+                 body: null
+             })
+             .then((response) => {
+               if(response.ok) {
+                 response.json().then(data => ({
+                       data: data,
+                       status: response.status
+                   })
+                 ).then(res => {
+                   console.log(res.data,res.status)
+                   this.setState({recomendados_filtrados:res.data,isLoading:false,recomendados:res.data });
+                 });
 
-        {
-            "id": 64,
-            "titulo": "A look at the Nexus Framework",
-            "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/nexis-framework-490x300.png",
-            "fuente":  "Sdtimes",
-            "resumen": "Nexus, created by Scrum co-creator Ken Schwaber and his Scrum.org team, extends Scrum to guide multiple Scrum teams on how they need to work together to deliver working software in every Sprint.",
-            "topicos": ["Nexus", "Agile"]
-        },
-
-
-        {
-            "id": 65,
-            "titulo": "MapR unveils six new data science offerings for AI initiatives",
-            "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/icon-ai-advantage-490x264.png",
-            "fuente":  "sdtimes",
-            "resumen": "MapR is introducing six new data science offerings aimed at customers that are at varying points in their data science journey at the Strata Data Conference happening in NYC today.",
-            "topicos": ["AI", "Data Science"]
-        },
-        {
-            "id": 66,
-            "titulo": "The Web 3.0: The Web Transition Is Coming",
-            "imagen": "https://cdn-images-1.medium.com/max/1600/1*yH0yrqHy8vyT_Y5Jo_uhTw.jpeg",
-            "fuente":  "Medium",
-            "resumen": "Transitioning from web 2.0 to the 3.0 version is going to likely go unnoticed by most people. The applications are going to look almost exactly like what you are currently using, but the change will be done.",
-            "topicos": ["Web 3.0", "Applications"]
-        },
-
-        {
-            "id": 67,
-            "titulo": "World-first quantum computer simulation of chemical bonds using trapped ions",
-            "imagen": "https://www.sciencedaily.com/images/2018/07/180724110028_1_540x360.jpg",
-            "fuente":  "ScienceDaily",
-            "resumen": "Quantum chemistry expected to be one of the first applications of full-scale quantum computers.",
-            "topicos": ["Quantum"]
-        },
-
-        {
-                    "id": 68,
-                    "titulo": "BFF is on blockchain, and it’s upsides",
-                    "imagen": "https://cdn-images-1.medium.com/max/600/1*QPj0Lor0UKH5qIFfOvB-eA.jpeg",
-                    "fuente":  "Medium",
-                    "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go.",
-                    "topicos": ["BFF","Blockchain"]
-        },
-        {
-            "id": 69,
-            "titulo": "Ytterbium: The quantum memory of tomorrow",
-            "imagen": "https://cdn6.bigcommerce.com/s-wepv6/product_images/uploaded_images/ytterbiummetal.jpg?t=1516971552",
-            "fuente":  "ScienceDaily",
-            "resumen": "Quantum communication and cryptography are the future of high-security communication. But many challenges lie ahead before a worldwide quantum network can be set up.",
-            "topicos": ["Quantum", "Cryptography"]
-        },
-
-        {
-            "id": 70,
-            "titulo": "Scaling Scrum is just Scrum",
-            "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/scrum-1-490x275.jpg",
-            "fuente":  "Sdtimes",
-            "resumen": "One of the hottest questions these days, whether online or in the boardroom, is “How does the organization become more ‘agile’?” As the discussion evolves, it leads to, “How do we scale agility to multiple teams.",
-            "topicos": ["Scrum", "Agile"]
-        },
-
-
-        {
-            "id": 71,
-            "titulo": "Why the net giants are worried about the Web 3.0",
-            "imagen": "https://cdn-images-1.medium.com/max/2000/1*AijBTLBMdE27iMOU7iVlnQ.png",
-            "fuente":  "Medium",
-            "resumen": "The birth of blockchain spawned a movement which is set to disrupt the entire tech industry. Blockchain and crypto enthusiasts are calling it the Web 3.0 and it’s looking to make all traditional business models defunct.",
-            "topicos": ["Web 3.0", "Blockchain", "Technology Industry"]
-        },
-
-        {
-            "id": 72,
-            "titulo": "The 2018 Software Testing Showcase",
-            "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
-            "fuente":  "Sdtimes",
-            "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
-            "topicos": ["Software Testing", "Software Development"]
-        },
-      ],
-      recomendados_filtrados: [{
-          "id": 61,
-          "titulo": "How to use Terraform and AWS to build a scalable and resilient REST API",
-          "imagen": "https://cdn-images-1.medium.com/max/2000/1*Xiu_m1OdtgTMxQ5q1tZezQ.png",
-          "fuente": "Medium",
-          "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed.",
-          "topicos": ["Api Development", "Terraform", "AWS"]
-      },
+               } else {
+                 console.log('bad request');
+               }
+             })
+             .catch(function(error) {
+               console.log('Hubo un problema con la petición Fetch:' + error.message);
+             });
+         }
 
 
 
-      {
-          "id": 63,
-          "titulo": "Why Businesses Can’t Afford to Miss Chatbot Development",
-          "imagen": "https://d3olfrdxinh85x.cloudfront.net/cdn/es/wp-content/uploads/chatbots-the-key-to-efficient-customer-service.jpg",
-          "fuente":  "Dzone",
-          "resumen": "Chatbots are seen all over. Let's check out why your business can't afford to miss out on chatbot development.",
-          "topicos": [ "Chatbots","AI"]
-      },
-
-      {
-          "id": 62,
-          "titulo": "BFF platform: system of (contacts) ",
-          "imagen": "https://cdn-images-1.medium.com/max/1000/1*RDc0q4axrPYEhJrQaxm89w.jpeg",
-          "fuente":  "Medium",
-          "resumen": "Bitcoin is history’s first immutable, decentralized, global digital ledger of records. The underlying technology, blockchain on which bitcoin runs is a revolution in structured database management. ",
-          "topicos": ["BFF", "Bitcoin", "Blockchain"]
-      },
-
-      {
-          "id": 64,
-          "titulo": "A look at the Nexus Framework",
-          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/nexis-framework-490x300.png",
-          "fuente":  "Sdtimes",
-          "resumen": "Nexus, created by Scrum co-creator Ken Schwaber and his Scrum.org team, extends Scrum to guide multiple Scrum teams on how they need to work together to deliver working software in every Sprint.",
-          "topicos": ["Nexus", "Agile"]
-      },
 
 
-      {
-          "id": 65,
-          "titulo": "MapR unveils six new data science offerings for AI initiatives",
-          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/icon-ai-advantage-490x264.png",
-          "fuente":  "sdtimes",
-          "resumen": "MapR is introducing six new data science offerings aimed at customers that are at varying points in their data science journey at the Strata Data Conference happening in NYC today.",
-          "topicos": ["AI", "Data Science"]
-      },
-      {
-          "id": 66,
-          "titulo": "The Web 3.0: The Web Transition Is Coming",
-          "imagen": "https://cdn-images-1.medium.com/max/1600/1*yH0yrqHy8vyT_Y5Jo_uhTw.jpeg",
-          "fuente":  "Medium",
-          "resumen": "Transitioning from web 2.0 to the 3.0 version is going to likely go unnoticed by most people. The applications are going to look almost exactly like what you are currently using, but the change will be done.",
-          "topicos": ["Web 3.0", "Applications"]
-      },
 
-      {
-          "id": 67,
-          "titulo": "World-first quantum computer simulation of chemical bonds using trapped ions",
-          "imagen": "https://www.sciencedaily.com/images/2018/07/180724110028_1_540x360.jpg",
-          "fuente":  "ScienceDaily",
-          "resumen": "Quantum chemistry expected to be one of the first applications of full-scale quantum computers.",
-          "topicos": ["Quantum"]
-      },
-
-      {
-                  "id": 68,
-                  "titulo": "BFF is on blockchain, and it’s upsides",
-                  "imagen": "https://cdn-images-1.medium.com/max/600/1*QPj0Lor0UKH5qIFfOvB-eA.jpeg",
-                  "fuente":  "Medium",
-                  "resumen": "In just a few simple steps, we’ll be using Terraform to provision our underlying AWS infrastructure and deploy our microservice developed with Go.",
-                  "topicos": ["BFF","Blockchain"]
-      },
-      {
-          "id": 69,
-          "titulo": "Ytterbium: The quantum memory of tomorrow",
-          "imagen": "https://cdn6.bigcommerce.com/s-wepv6/product_images/uploaded_images/ytterbiummetal.jpg?t=1516971552",
-          "fuente":  "ScienceDaily",
-          "resumen": "Quantum communication and cryptography are the future of high-security communication. But many challenges lie ahead before a worldwide quantum network can be set up.",
-          "topicos": ["Quantum", "Cryptography"]
-      },
-
-      {
-          "id": 70,
-          "titulo": "Scaling Scrum is just Scrum",
-          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/scrum-1-490x275.jpg",
-          "fuente":  "Sdtimes",
-          "resumen": "One of the hottest questions these days, whether online or in the boardroom, is “How does the organization become more ‘agile’?” As the discussion evolves, it leads to, “How do we scale agility to multiple teams.",
-          "topicos": ["Scrum", "Agile"]
-      },
-
-
-      {
-          "id": 71,
-          "titulo": "Why the net giants are worried about the Web 3.0",
-          "imagen": "https://cdn-images-1.medium.com/max/2000/1*AijBTLBMdE27iMOU7iVlnQ.png",
-          "fuente":  "Medium",
-          "resumen": "The birth of blockchain spawned a movement which is set to disrupt the entire tech industry. Blockchain and crypto enthusiasts are calling it the Web 3.0 and it’s looking to make all traditional business models defunct.",
-          "topicos": ["Web 3.0", "Blockchain", "Technology Industry"]
-      },
-
-      {
-          "id": 72,
-          "titulo": "The 2018 Software Testing Showcase",
-          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
-          "fuente":  "Sdtimes",
-          "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
-          "topicos": ["Software Testing", "Software Development"]
-      },
-    ]
-
-  };
   fetchMoreData = () => {
     // a fake async api call like which sends
     // 20 more records in 1.5 secs
 
     setTimeout(() => {
-      var cuentas = this.state.recomendados_filtrados;
-      cuentas.push({
-          "id": Math.floor(Math.random() * 1000) + 100,
-          "titulo": "The 2018 Software Testing Showcase",
-          "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
-          "fuente":  "Sdtimes",
-          "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
-          "topicos": ["Software Testing", "Software Development"]},
-          {
-              "id": Math.floor(Math.random() * 1000) + 100,
-              "titulo": "The 2018 Software Testing Showcase",
-              "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
-              "fuente":  "Sdtimes",
-              "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
-              "topicos": ["Software Testing", "Software Development"]},
-              {
-                  "id": Math.floor(Math.random() * 1000) + 100,
-                  "titulo": "The 2018 Software Testing Showcase",
-                  "imagen": "https://sdtimes.com/wp-content/uploads/2018/09/TestingShowcase-490x275.jpg",
-                  "fuente":  "Sdtimes",
-                  "resumen": "These are many technologies available to organizations looking to bring their testing up to the speed of software development.",
-                  "topicos": ["Software Testing", "Software Development"]})
-      this.setState({
-        recomendados_filtrados: cuentas});
-    }, 1000);
+      if(this.state.index + 3 < this.state.recomendados_filtrados.length ){
+          this.setState({index: this.state.index + 3});
+      }
+      else if(this.state.index  === this.state.recomendados_filtrados.length ){
+        this.setState({hasMore:false});
+      }
+      else{ this.setState({index: this.state.recomendados_filtrados.length}); }
+      console.log(this.state.index);
+
+    }, 1500);
   };
 
 
@@ -272,6 +77,18 @@ class MostrarArticulos extends Component{
     }
     if (prevProps.search !== this.props.search) {
         this.FiltrarArticulos(this.props.search);
+    }
+
+    if (prevState.isLoading !== this.state.isLoading) {
+      if(!(this.state.isLoading)){
+        this.OrdenarArticulos(this.props.orden);
+        if(this.state.recomendados_filtrados.length > 9){
+          this.setState({index: 9, hasMore:true});
+        }
+        else{
+            this.setState({index: this.state.recomendados_filtrados.length, hasMore:false});
+        }
+      }
     }
   }
 
@@ -285,25 +102,50 @@ class MostrarArticulos extends Component{
         });
         return recomendados_ordenados;
     }
+    if(orden ==='Fecha'){
+        var recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFecha);
+        this.setState({
+          recomendados_filtrados: recomendados_ordenados
+        });
+        return recomendados_ordenados;
+    }
     else {
       return recomendados_filtrados;
     }
   }
 
   OrdenarFuente(a,b) {
-      var nameA=a.fuente.toLowerCase();
-      var nameB=b.fuente.toLowerCase();
+      var nameA=a.source_name.toLowerCase();
+      var nameB=b.source_name.toLowerCase();
       if (nameA < nameB)
         return -1;
       if (nameA > nameB)
         return 1;
       return 0;
   }
+
+  OrdenarFecha(a,b) {
+      var nameA=a.published;
+      var nameB=b.published;
+      if (nameA < nameB)
+        return 1;
+      if (nameA > nameB)
+        return -1;
+      return 0;
+  }
+
   FiltrarArticulos(search) {
     var recomendados_filtrados = this.state.recomendados.filter(function (el) {
-      return String(el.titulo + " " + el.resumen ).toLowerCase().includes(search.toString().toLowerCase())
+      var bool = false;
+      for(var i=0;i<el.topics.length;i++){
+        if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
+          bool = true;
+        }
+      }
+      if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+      if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+      return bool;
     });
-    console.log(recomendados_filtrados);
     this.setState({recomendados_filtrados:recomendados_filtrados});
   }
 
@@ -311,26 +153,21 @@ class MostrarArticulos extends Component{
 
   /**/
   Desplegar(grupo_articulos){
-    var topico1,topico2,topico3;
+    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
     if (grupo_articulos.length >= 1){
-      if(grupo_articulos[0].topicos[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topicos[0]}</h5></div>
-      if(grupo_articulos[0].topicos[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topicos[1]}</h5></div>
-      if(grupo_articulos[0].topicos[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topicos[2]}</h5></div>
-      var articulo_1 =  <div className="col-md-4 col-izq">
+      if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
+            articulo_1 =  <div className="col-md-4 col-izq">
             <div className="Div-Articulo">
-            <div className="botones">
-            <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-            <span className="glyphicon glyphicon-thumbs-up"></span>
-            <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <img src={grupo_articulos[0].imagen} alt={grupo_articulos[0].fuente} />
+            <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
             {topico1}
             {topico2}
             {topico3}
-            <h4 className="titulo-articulo">{grupo_articulos[0].titulo}</h4>
-            <h5 className="fuente-articulo">Fuente: {grupo_articulos[0].fuente}</h5>
+            <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
+            <h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[0].resumen}</p>
+            <p className="resumen-articulo">{grupo_articulos[0].summary}</p>
             </div>
             </div>
           </div>
@@ -338,25 +175,19 @@ class MostrarArticulos extends Component{
     }
     if (grupo_articulos.length >= 2){
 
-      if(grupo_articulos[1].topicos[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topicos[0]}</h5></div>
-      if(grupo_articulos[1].topicos[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topicos[1]}</h5></div>
-      if(grupo_articulos[1].topicos[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topicos[2]}</h5></div>
-
-      var articulo_2 =  <div className="col-md-4">
+      if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
+            articulo_2 =  <div className="col-md-4">
             <div className="Div-Articulo">
-            <div className="botones">
-            <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-            <span className="glyphicon glyphicon-thumbs-up"></span>
-            <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <img src={grupo_articulos[1].imagen} alt={grupo_articulos[1].fuente}/>
+            <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
             {topico1}
             {topico2}
             {topico3}
-            <h4 className="titulo-articulo">{grupo_articulos[1].titulo}</h4>
-            <h5 className="fuente-articulo">Fuente: {grupo_articulos[1].fuente}</h5>
+            <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
+            <h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[1].resumen}</p>
+            <p className="resumen-articulo">{grupo_articulos[1].summary}</p>
             </div>
             </div>
           </div>
@@ -367,25 +198,19 @@ class MostrarArticulos extends Component{
     if (grupo_articulos.length === 3){
 
 
-      if(grupo_articulos[2].topicos[0])  topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topicos[0]}</h5></div>
-      if(grupo_articulos[2].topicos[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topicos[1]}</h5></div>
-      if(grupo_articulos[2].topicos[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topicos[2]}</h5></div>
-
-      var articulo_3 =  <div className="col-md-4 col-der">
+      if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
+            articulo_3 =  <div className="col-md-4 col-der">
             <div className="Div-Articulo">
-            <div className="botones">
-            <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-            <span className="glyphicon glyphicon-thumbs-up"></span>
-            <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <img src={grupo_articulos[2].imagen} alt={grupo_articulos[2].fuente} />
+            <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
             {topico1}
             {topico2}
             {topico3}
-            <h4 className="titulo-articulo">{grupo_articulos[2].titulo}</h4>
-            <h5 className="fuente-articulo">Fuente: {grupo_articulos[2].fuente}</h5>
+              <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
+            <h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[2].resumen}</p>
+            <p className="resumen-articulo">{grupo_articulos[2].summary}</p>
             </div>
             </div>
           </div>
@@ -432,41 +257,53 @@ class MostrarArticulos extends Component{
   }
     */
   render(){
-    var activo = this.props.activo;
-    var recomendados = this.state.recomendados_filtrados;
-    if(activo === 'Recomendados'){
-      var groups = [];
-      for(var i = 0; i < recomendados.length; i += 3){
-        groups.push(recomendados.slice(i, i+3))
+
+    if(!(this.state.isLoading)){
+
+      var activo = this.props.activo;
+      var recomendados = this.state.recomendados_filtrados;
+      if(activo === 'Recomendados'){
+        var groups = [];
+        for(var i = 0; i < this.state.index; i += 3){
+          groups.push(recomendados.slice(i, i+3))
+        }
+        var articulos =[];
+        for (var j = 0; j< groups.length; j++){
+            articulos.push(this.Desplegar(groups[j]))
+        }
+        return(
+
+          <div className="ContenidoArticulos">
+          <InfiniteScroll
+           dataLength={articulos.length}
+           next={this.fetchMoreData}
+           hasMore={this.state.hasMore}
+           loader={<h1 className="texto-cargando">...</h1>}
+         >
+           {articulos.map((i, index) => (
+             <div  key={index}>
+              {i}
+             </div>
+           ))}
+         </InfiniteScroll>
+
+         </div>
+
+
+      );
       }
-      var articulos =[];
-      for (var j = 0; j< groups.length; j++){
-          articulos.push(this.Desplegar(groups[j]))
+      if(activo === 'Guardados'){
+        return(<div className="ContenidoArticulos"></div>);
       }
-      return(
 
-        <div className="ContenidoArticulos">
-        <InfiniteScroll
-         dataLength={articulos.length}
-         next={this.fetchMoreData}
-         hasMore={true}
-         loader={<h1 className="texto-cargando">...</h1>}
-       >
-         {articulos.map((i, index) => (
-           <div  key={index}>
-            {i}
-           </div>
-         ))}
-       </InfiniteScroll>
-
-       </div>
-
-
-    );
     }
-    if(activo === 'Guardados'){
-      return(<div className="ContenidoArticulos"></div>);
-    }
+
+    return(null);
+
+
+
+
+
 
   }
 }

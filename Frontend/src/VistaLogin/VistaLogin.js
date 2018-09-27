@@ -162,11 +162,6 @@ class VistaLogin extends Component{
 
 
             </div>
-            <label className="container1"><h5 id = "recordarme"> Recordame</h5>
-            <input type="checkbox" />
-            <span className="checkmark"></span>
-            </label>
-            <h5 id = "olvidaste">¿Olvidaste tu contraseña?</h5>
             <a   id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)}  >Ingresar</a>
           </div>
           </div>
