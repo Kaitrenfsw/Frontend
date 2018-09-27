@@ -15,7 +15,7 @@ class SeccionNoticias extends Component{
       <img alt = {noticia.title} className= "imagen-articulo" src={noticia.main_image} />
       </div>
       <div className="col-sm-10 no-padding">
-      <h4 className="titulo-articulo">{noticia.title}</h4>
+      <a href = {noticia.url}><h4 className="titulo-articulo">{noticia.title}</h4></a>
       <p className="resumen-articulo">{noticia.summary}</p>
       </div>
       </div>
