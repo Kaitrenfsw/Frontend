@@ -3,7 +3,7 @@ import logo from '../Assets/kom2.svg';
 import lineas from '../Assets/linea.png';
 
 import { toast } from 'react-toastify';
-import { Textbox, Textarea, Radiobox, Checkbox, Select } from 'react-inputs-validation';
+import { Textbox } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import './VistaLogin.css';
 
@@ -70,7 +70,7 @@ class VistaLogin extends Component{
               status: response.status
           })
         ).then(res => {
-          if(res.data.errors.detail=="Cuenta bloqueada"){
+          if(res.data.errors.detail==="Cuenta bloqueada"){
             this.notify_error("Cuenta bloqueada")}
           else{
             this.notify_error("Email o contraseña incorrecta")
@@ -122,7 +122,7 @@ class VistaLogin extends Component{
                     name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
                     check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
                     required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
-                    reg : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    reg : /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     msgOnError: "Ingrese un Email válido",
                   }}
                 />
