@@ -10,10 +10,16 @@ class MostrarTopicos extends Component{
 
   FormatoKeywords(data) {
     data.map((val, i, arr) => {
-    const rowLen =   val.keyword_topic.length;
-    val.keyword_topic = val.keyword_topic.map((val2,j,val)=> { if(j!== rowLen -1){
-    return val2.name + ", ";}
-    else{return val2.name;}});;});
+      const rowLen =   val.keyword_topic.length;
+      val.keyword_topic = val.keyword_topic.map((val2,j,val)=> {
+        if(j!== rowLen -1){
+          return val2.name + ", ";}
+        else{
+          return val2.name;
+        }
+      });
+      return null;//para evitar el warning, no se usa para nada 
+    });
     return data;
   }
 

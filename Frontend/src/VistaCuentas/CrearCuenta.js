@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify';
 
-import { Textbox, Textarea, Radiobox, Checkbox, Select } from 'react-inputs-validation';
+import { Textbox} from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import './CrearCuenta.css';
 
@@ -123,7 +123,7 @@ class CrearCuenta extends Component{
                     name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
                     check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
                     required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
-                    reg : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                    reg : /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                     msgOnError: "Ingrese un Email válido",
                   }}
                 />
@@ -191,7 +191,7 @@ class CrearCuenta extends Component{
                     min: 8,
                     max: 20,
                     customFunc: res => { //Optional.[Func].Default: none. Custom function. Returns true or err message
-                       if (res != this.state.password) {
+                       if (res !== this.state.password) {
                          return 'Las contraseñas no coinciden';
                        }
                        return true;

@@ -95,15 +95,16 @@ class MostrarArticulos extends Component{
 
   OrdenarArticulos(orden) {
     var recomendados_filtrados = this.state.recomendados_filtrados;
+    var recomendados_ordenados;
     if(orden ==='Fuentes'){
-        var recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFuente);
+        recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFuente);
         this.setState({
           recomendados_filtrados: recomendados_ordenados
         });
         return recomendados_ordenados;
     }
     if(orden ==='Fecha'){
-        var recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFecha);
+        recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFecha);
         this.setState({
           recomendados_filtrados: recomendados_ordenados
         });

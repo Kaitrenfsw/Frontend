@@ -3,7 +3,7 @@ import Modal from '../Modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
-import { Textbox, Textarea, Radiobox, Checkbox, Select } from 'react-inputs-validation';
+import { Textbox } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 
 
@@ -372,7 +372,7 @@ class Datos extends Component{
                         name: 'Email', //Optional.[String].Default: "". To display in the Error message. i.e Please enter your {name}.
                         check: true, //Optional.[Bool].Default: true. To determin if you need to validate.
                         required: true, //Optional.[Bool].Default: true. To determin if it is a required field.
-                        reg : /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+                        reg : /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
                         msgOnError: "Ingrese un Email válido",
                       }}
                     />
