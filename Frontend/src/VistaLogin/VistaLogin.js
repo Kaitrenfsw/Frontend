@@ -20,6 +20,8 @@ class VistaLogin extends Component{
     PasswordError:true
     }
   }
+
+
   notify_error = (texto) => {
         toast.error(texto, {
           position: toast.POSITION.TOP_CENTER
@@ -33,7 +35,6 @@ class VistaLogin extends Component{
   }
 
    handleClick(event){
-
     this.setState({validate:true});
     //console.log(this.state.EmailError);
     if (this.state.EmailError) {console.log("Mail error ");}
@@ -57,11 +58,8 @@ class VistaLogin extends Component{
               status: response.status
           })
         ).then(res => {
-
           localStorage.setItem('user', JSON.stringify(res.data.user));
-          console.log(res.data.user);
-          this.props.HandleUser(res.data.user);
-          this.props.HandleNavBar(event,'LOGGED');
+          this.props.HandleUserLogIn(res.data.user);
         });
 
       } else {
@@ -87,6 +85,9 @@ class VistaLogin extends Component{
     });
     }
    }
+
+
+
   render(){
     return (
       <div className="ContenidoVistaLogin">

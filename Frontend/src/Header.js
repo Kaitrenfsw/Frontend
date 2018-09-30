@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
 import logo from './Assets/kom2.svg';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 
 
 class Header extends Component{
 
  handleClick(event){
    localStorage.setItem('user', null);
-   this.props.HandleNavBar(event,'LOGIN');
+   this.props.history.push('/login');
  }
   render(){
     return (
@@ -40,4 +40,4 @@ class Header extends Component{
   }
 }
 
-export default Header;
+export default withRouter(Header);
