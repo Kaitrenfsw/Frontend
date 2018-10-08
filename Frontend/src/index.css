@@ -1,0 +1,188 @@
+@import url('https://fonts.googleapis.com/css?family=IBM+Plex+Sans');
+
+html,body{
+	background-color: #1A252D;
+	font-family: 'IBM Plex Sans';
+
+}
+
+body {
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+
+li a:hover{
+	cursor: pointer;
+	text-decoration: none;
+}
+.container-fluid {
+	padding-left: 8vw;
+	padding-right: 8vw;
+}
+
+.no-margin{margin-left: 0;margin-right: 0;}
+.row {margin-left: 0;margin-right: 0;}
+
+.no-padding{padding: 0;}
+
+
+
+/*botones*/
+.gradient-button { font-family: "Arial Black", Gadget, sans-serif; font-size: 15px; padding-top: 8px; margin: auto; text-align: center; font-weight:bold;max-width: 600px; transition: 0.5s; background-size: 200% auto; color: #FFF; box-shadow: 0 0 20px #eee; border-radius: 10px; width: 180px; height: 40px; box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24); transition: all 0.3s cubic-bezier(.25,.8,.25,1); cursor: pointer; display: block; border-radius: 25px; text-decoration:none;}
+.gradient-button-1 {background-image: linear-gradient(to right, #EA5576 0%, #FF8A75 41%, #FF8A75 100%) ; text-decoration: none; }
+.gradient-button-1:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-2 {background-image: linear-gradient(to right, #55ADC5 0%, #75CEB2 51%, #75CEB2 100%) ; text-decoration: none; }
+.gradient-button-2:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-3 {background-color: #67848F; text-decoration: none; }
+.gradient-button-3:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-4 {background-color:  #67848F; text-decoration: none; cursor: default;}
+.gradient-button-4:hover { background-position: right center;text-decoration: none;color: white; }
+.gradient-button-5 {background-color:   #FF8A75; text-decoration: none;  }
+.gradient-button-5:hover { background-position: right center;text-decoration: none;  }
+.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active {border: solid 2px #1A252D;}
+
+
+@media (max-width: 1366px) {
+    .gradient-button { font-size: 11px; padding-top: 7px; width: 130px; height: 31px; }
+		.Datos label {font-size: 13px;}
+		.CrearCuenta label {font-size: 13px;}
+		.ContenidoVistaLogin label {font-size: 13px;}
+}
+
+
+@media (min-width: 768px) {
+ .navbar-nav.navbar-center {
+   position: absolute;
+   left: 50%;
+   transform: translatex(-50%);
+  }
+}
+
+#titulo-vista {font-size: 3vh;}
+
+.navbar-collapse{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+
+.Toastify__toast--success {
+	background-image: linear-gradient(to right, #EA5576 0%,  #EA5576  41%, #FF8A75 100%);
+	font-weight: bold;
+}
+
+
+.Toastify__toast--error {
+	background-color: #67848F;
+	font-weight: bold;
+}
+
+.navbar-center > li{
+  padding-left:15px;
+  padding-right:15px;
+}
+
+.navbar-default .navbar-nav > li  > a.active,
+.navbar-default .navbar-nav > li  > a.active:hover,
+.navbar-default .navbar-nav > li  > a.active:focus {
+	background-color: #1A252D;
+    border-bottom: 2px solid #FEDD34;
+    color: #EDEEEF;
+    padding-bottom: 8px;
+}
+
+
+
+.fade-appear,
+.fade-enter {
+    opacity: 0;
+    z-index: 1;
+}
+
+.fade-appear-active,
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 250ms linear 250ms;
+}
+
+.fade-exit {
+    opacity: 1;
+}
+
+.fade-exit.fade-exit-active {
+    opacity: 0;
+    transition: opacity 100ms linear;
+}
+
+
+
+.navbar-default{
+	background-color: #1A252D;
+	border-color: #1A252D;
+
+}
+
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li > a:hover {
+    color: #6B828F;
+    font-size: 0.9em !important;
+    font-weight: bold;
+}
+
+
+.navbar-default .navbar-nav > li > a:hover {
+    color: #EDEEEF;
+}
+
+
+#logo{
+	width: 70px;
+	margin-top: 15px;
+
+}
+
+/* Modal(popup de confirmación) */
+
+.modal-content {background-color:  #35424E;color:  white;}
+.modal-content h3 {font-size: 18px}
+.modal-footer {background-color: #35424E; border-color: #67848F; }
+.modal-footer .boton_confirmar, .modal-footer .boton_cancelar
+ {display: inline-block; margin: 8px;}
+
+
+/*Sección paginación*/
+.paginacion{margin-top: 20px;}
+.paginacion span > *{}
+.paginacion .dropdown,
+.paginacion .dropdown-toggle{ float: right; width: 90px; background-color: #1A252D; border-color: #1A252D; font-weight: bold; padding-right: 0; outline: none;  font-size: 13px;}
+.dropdown-toggle.btn-primary:active,.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover,.open>.dropdown-toggle.btn-primary:focus,
+.btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary,.open>.dropdown-toggle.btn-primary:active {align-items: center;background-color: #1A252D; border-color: #1A252D;outline: none;}
+.paginacion .caret {float: right;margin-top: 7px;}
+.paginacion .dropdown-menu{background-color: #25353C;}
+.paginacion .dropdown-menu li > a {color: white; font-weight: bold;font-size: 13px;}
+.paginacion .dropdown-menu li > a:focus {color:red}
+.paginacion #ordenar-por {float: right; color: #6B828F;font-weight: bold;}
+.paginacion #search{ background-color: #151E25; border-color: #151E25; border-radius: 10px; height:30px; font-size: 12px; color: #6B828F; }
+.paginacion .dot { height:4px; width: 4px; background-color: red; border-radius: 50%; display: inline-block; margin-bottom: 5px; }
+.paginacion .dropdown-menu li:hover > a {color:black;}
+
+/*NavTabs*/
+.NavTabs li{	text-align: center;padding-bottom: 10px;margin: 0;font-size: 0.9em !important;}
+.NavTabs a{color: #6B828F;font-weight: bold; }
+.NavTabs li.active{ border-bottom: 2px solid #6C8491;}
+.NavTabs li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none; }
+.dot { height:4px; width: 4px; background-color: red; border-radius: 50%; display: inline-block; margin-bottom: 5px; }
+.NavTabs li:hover{ cursor: pointer; }
+
+/*Navbar */
+
+
+.NavBar  li{ padding-right: 3px; height: 30px; max-width: 900px;margin-bottom: 60px; list-style-type: none ; text-align: right; padding-top: 5px; margin-left: 4vw;}
+.NavBar  a{color: #6B828F;font-weight: bold; padding-right: 20px; font-size: 0.8vw;}
+.NavBar  li.active{ background-color: #25353C; border-right: 3px solid #E95476; padding-right: 0px;}
+.NavBar  li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none;  }
+.NavBar {margin-top: 15vh;}
+
+
+@media (max-width: 1199px) {
+	.NavBar  a{font-size: 14px;}
+}
