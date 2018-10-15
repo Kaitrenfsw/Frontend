@@ -1,21 +1,32 @@
 import React, { Component } from 'react'
 import { AreaChart,Area,Brush,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
+import moment from  'moment'
+import './FrequencyChart.css';
+//import 'moment/locale/es'
 
 class FrequencyChart extends Component{
 
     constructor(props) {
       super(props);
       this.state = {
-          width: 0,
-          data:this.dataFormat()
       }
       this.dataFormat = this.dataFormat.bind(this);
-      this.changeData = this.changeData.bind(this);
+//      moment.locale('es')
+    }
+
+    componentDidMount(){
+      var semanas='{"weeks":[{"week": "29/04/2018","count": 26},{"week": "06/05/2018","count": 32},{"week": "13/05/2018","count": 21},{"week": "20/05/2018","count": 16},{"week": "27/05/2018","count": 8},{"week": "03/06/2018","count": 20},{"week": "10/06/2018","count": 32},{"week": "17/06/2018","count": 48},{"week": "24/06/2018","count": 56},{"week": "01/07/2018","count": 50},{"week": "08/07/2018","count": 39},{"week": "15/07/2018","count": 28},{"week": "22/07/2018","count": 19},{"week": "29/07/2018","count": 14},{"week": "05/08/2018","count": 11},{"week": "12/08/2018","count": 12},{"week": "19/08/2018","count": 13},{"week": "26/08/2018","count": 16},{"week": "02/09/2018","count": 20},{"week": "09/09/2018","count": 39},{"week": "16/09/2018","count": 19},{"week": "23/09/2018","count": 41},{"week": "30/09/2018","count": 32},{"week": "05/10/2018","count": 56}]}';
+      var obj = JSON.parse(semanas).weeks;
+      console.log(obj);
+      for (var i = 0; i < obj.length; i++) {
+        obj[i].date=moment(obj[i].week,'DD/MM/YYYY').valueOf()
+      }
+
+      this.setState({data: obj});
     }
 
 
-
-    dataFormat(archivo){
+    dataFormat(){
       var data =[];
       var fila={};
       var last=new Date(2012, 0, 1)
@@ -44,10 +55,6 @@ class FrequencyChart extends Component{
       return data;
     }
 
-    changeData(){
-      this.setState({data: this.dataFormat()});
-      console.log(this.state.data);
-    }
 
     render(){
     return (
@@ -67,9 +74,14 @@ class FrequencyChart extends Component{
                 </defs>
                 <XAxis
                   dataKey="date"
+                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
+
+                  allowDecimals={true}
+                  allowDataOverflow={true}
+                  domain={['dataMin', 'dataMax']}
                   padding={{left:10}}
                   stroke="#5C7582"
-                  interval={2}
+                  interval={4}
                 />
                 <YAxis
                   axisLine={false}
@@ -82,32 +94,22 @@ class FrequencyChart extends Component{
                   opacity="0,2" />
                 <Tooltip
                   cursor={false}
-                  coordinate={{ x: 100, y: 140 }}
+                  labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
                   type="linear"
-                  dataKey="pub"
+                  dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
                   name="Publicaciones"
                   fillOpacity={1}
                   fill="url(#colorUv)"
                 />
-                {/*<Area
-                  type="linear"
-                  dataKey="pub2"
-                  stroke="#40A7C2"
-                  strokeWidth={2}
-                  name="Publicaciones"
-                  fillOpacity={1}
-                  fill="url(#colorUv2)"
-                />
-
-
+                {/*
                 <Brush
                   height={30}
-                />
-                */}
+                />*/}
+
 
               </AreaChart>
             </ResponsiveContainer>
