@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Label, LabelList,ReferenceLine,ScatterChart,Scatter,CartesianGrid,XAxis,YAxis,Legend,ReferenceArea,Tooltip,ResponsiveContainer } from 'recharts';
+import { ReferenceDot,Label, LabelList,ReferenceLine,ScatterChart,Scatter,CartesianGrid,XAxis,YAxis,Legend,ReferenceArea,Tooltip,ResponsiveContainer } from 'recharts';
 //import CareerChartDot from './CareerChartDot'
 //import './FrequencyChart.css';
 
@@ -8,8 +8,8 @@ class CareerChart extends Component{
 
     constructor(props) {
       super(props);
-      this.state = {data01 : [{x: 10, y: 30}, {x: 30, y: 90}, {x: 45, y: 40}, {x: 30, y: 40}, {x: 70, y: 80}, {x: 20, y: 25}],
-                    data02 : [{x: 30, y: 20}, {x: 50, y: 18}, {x: 75, y: 24}, {x: 10, y: 40}, {x: 40, y: 98}]
+      this.state = {data01 : [{x: 10, y: 30}, {x: 30, y: 90}, {x: 45, y: 40}, {x: 30, y: 40}, {x: 70, y: 80}],
+                    data02 : [{x: 30, y: 20}, {x: 50, y: 18}, {x: 75, y: 24}, {x: 10, y: 40}, {x: 40, y: 98}, {x: 90, y: 67}, {x: 40, y: 98}]
       }
 
     }
@@ -43,8 +43,9 @@ class CareerChart extends Component{
 
             <ScatterChart width={730} height={250}
             margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
-            <XAxis hide={true} dataKey="x" type="number" name="stature" domain={[0, 100]} ticks={this.rango(20)}  />
-            <YAxis hide={true} dataKey="y" type="number" name="weight" domain={[0, 100]} ticks={this.rango(12)} />
+            <XAxis hide={true} dataKey="x" type="number" name="Publicaciones" domain={[0, 100]} ticks={this.rango(20)}  />
+            <YAxis hide={true} dataKey="y" type="number" name="Peso " domain={[0, 100]} ticks={this.rango(12)} />
+            <ReferenceArea x1={50} x2={100} y1={50} y2={100} fill="rgba(255, 255, 255, 0.05)" strokeOpacity={1} />
             <CartesianGrid strokeWidth="0.3" strokeOpacity="0.3"/>
             <ReferenceLine x={50} stroke="#5C7582" >
               <Label value="Frecuencia acumulada" fill="#5C7582" offset={-82} position="top" angle= {-90} dx={-8} />
@@ -55,13 +56,16 @@ class CareerChart extends Component{
             <Tooltip cursor={false} />
             <Legend wrapperStyle={{ color: "#5C7582" }} />
             <Scatter name="En bajada" data={this.state.data01} fill="#FFB744" shape={<CareerChartDot color= "#FFB744"/>}>
-                <LabelList dataKey="x" fill="#FFB744" strokeWidth="1"  fontSize={10}/>
+                <LabelList dataKey="x" fill="#FFB744" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
             </Scatter>
             <Scatter name="En subida" data={this.state.data02} fill="#73DB9A" shape={<CareerChartDot color= "#73DB9A"/>} >
-                <LabelList dataKey="x" fill="#73DB9A" strokeWidth="1"  fontSize={10}/>
+                <LabelList dataKey="x" fill="#73DB9A" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
             </Scatter>
-            <Tooltip cursor={false} />
-            {/*<ReferenceArea x1={50} x2={100} y1={50} y2={100} stroke="red" strokeOpacity={0.3} />*/}
+            <ReferenceDot x={75} y={95} r={20} fill="rgba(255, 255, 255, 0)" stroke="none" >
+              <Label value="Hot Topics" fill="rgba(255, 255, 255, 1)"  />
+            </ReferenceDot>
+            <Tooltip cursor={false} label="Nombre topico" />
+
           </ScatterChart>
 
 
