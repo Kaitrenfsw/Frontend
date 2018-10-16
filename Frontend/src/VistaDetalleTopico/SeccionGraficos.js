@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 
 import WordCloud from '../Graficos/WordCloud'
+import CareerChart from '../Graficos/CareerChart'
 
 class SeccionGraficos extends Component{
 
@@ -22,6 +23,7 @@ class SeccionGraficos extends Component{
         <div className="row row-no-padding">
           <div className="col-lg-6 no-padding">
           <h4 id="subtitulo-vista">Graficó de comportamiento</h4>
+          <CareerChart/>
           </div>
           <div ref={ (divElement) => this.divElement = divElement} className="col-lg-5 col-lg-offset-1 no-padding">
           <h4 id="subtitulo-vista">Word Cloud</h4>
