@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { ReferenceDot,Label, LabelList,ReferenceLine,ScatterChart,Scatter,CartesianGrid,XAxis,YAxis,Legend,ReferenceArea,Tooltip,ResponsiveContainer } from 'recharts';
 //import CareerChartDot from './CareerChartDot'
-//import './FrequencyChart.css';
+import './CareerChart.css';
 
 
 class CareerChart extends Component{
@@ -15,7 +15,14 @@ class CareerChart extends Component{
     }
 
     componentDidMount(){
-    }
+      var datos ='{"topicos":[{"id": 2,"nombre":"Apple"},{"week": 5,"nombre": "32"}]}';
+     var obj = JSON.parse(datos).topicos;
+     console.log(obj);
+     for (var i = 0; i < obj.length; i++) {
+       obj[i].date=""
+     }
+     this.setState({data: obj});
+   }
 
     rango(partes){
       var list = [];
@@ -37,6 +44,46 @@ class CareerChart extends Component{
               </svg>
           );
       }
+      const renderLegend = (props) => {
+        const { payload } = props;
+        console.log(payload);
+
+        return (
+          <div>
+            <table class="table borderless">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Nombre tópico</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Apple</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>3D Print</td>
+                </tr>
+              </tbody>
+            </table>
+
+          <br/>
+            {
+              payload.map((entry, index) => (
+              <div>
+              <svg height="14" width="18">
+                <circle  cx="7" cy="7"r="7" fill={entry.color} />
+              </svg>
+                  {entry.value}
+              </div>
+              ))
+            }
+
+          </div>
+        );
+      }
       return (
             <div>
             <ResponsiveContainer width='100%' height={450}>
@@ -53,8 +100,6 @@ class CareerChart extends Component{
             <ReferenceLine y={50} stroke="#5C7582" >
               <Label value="Peso" fill="#5C7582" offset={20} position="insideRight" dy={12} />
             </ReferenceLine>
-            <Tooltip cursor={false} />
-            <Legend wrapperStyle={{ color: "#5C7582" }} />
             <Scatter name="En bajada" data={this.state.data01} fill="#FFB744" shape={<CareerChartDot color= "#FFB744"/>}>
                 <LabelList dataKey="x" fill="#FFB744" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
             </Scatter>
@@ -65,6 +110,7 @@ class CareerChart extends Component{
               <Label value="Hot Topics" fill="rgba(255, 255, 255, 1)"  />
             </ReferenceDot>
             <Tooltip cursor={false} label="Nombre topico" />
+            <Legend content={renderLegend} wrapperStyle={{ color: "#fff" ,paddingLeft: "15px"}} layout="vertical" align="right" margin={{left:20}}/>
 
           </ScatterChart>
 
