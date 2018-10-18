@@ -1,6 +1,6 @@
 .recharts-tooltip-wrapper .recharts-default-tooltip{
-  background:rgba(255,255,255,0.4)!important;
-  font-weight: bold!important;
+  background:rgba(255,255,255,1)!important;
+  /*font-weight: bold!important;*/
   color: #000;
   border: 0px !important;
 
