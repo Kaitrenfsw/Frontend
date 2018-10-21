@@ -23,15 +23,9 @@ class SeccionGraficos extends Component{
     return (
 
         <div className="row row-no-padding">
-<<<<<<< HEAD
-          <div className="col-lg-6 no-padding">
-            <h4 id="subtitulo-vista">Gráfico de comportamiento</h4>
-            <div className="cloud-div">
-=======
           <div className="col-lg-7 no-padding">
             <h4 id="subtitulo-vista">Gráfico de comportamiento</h4>
             <div className="freq-div">
->>>>>>> cfe72fa90d1575fb14627fd4ae9a120d09872d57
             <FrequencyChart />
             </div>
           </div>
