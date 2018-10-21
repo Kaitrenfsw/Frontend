@@ -23,7 +23,7 @@ class SeccionGraficos extends Component{
 
         <div className="row row-no-padding">
           <div className="col-lg-6 no-padding">
-            <h4 id="subtitulo-vista">Graficó de comportamiento</h4>
+            <h4 id="subtitulo-vista">Gráfico de comportamiento</h4>
             <div className="cloud-div">
             <FrequencyChart />
             </div>
