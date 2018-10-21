@@ -74,7 +74,7 @@ class FrequencyChart extends Component{
                 />
 
                 <Brush
-                  height={30}
+                  height={25}
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM YY')}
                 />
