@@ -18,6 +18,13 @@
 .ContenidoVistaDetalleTopico #subtitulo-vista-noticias {color: #EDEEEF; margin-top: 4vh; font-weight: bold;}
 .ContenidoVistaDetalleTopico .no-padding-left {padding-left: 0}
 .ContenidoVistaDetalleTopico .no-padding {padding: 0}
-.ContenidoVistaDetalleTopico .margin-top {margin-top: 1vh}
+.ContenidoVistaDetalleTopico .margin-top {margin-top: 3vh}
 .ContenidoVistaDetalleTopico .resumen-articulo{color: #EDEEEF; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.2em;        /* fallback */ max-height: 5.8em; font-size: 1.1em}
 .ContenidoVistaDetalleTopico .resumen-articulo:after {content: '...'; margin-left: -0.3em;}
+
+.recharts-tooltip-wrapper .recharts-default-tooltip-graph{
+  background:rgba(255,255,255,0.6)!important;
+  font-weight: bold!important;
+  color: #000;
+  border: 0px !important;
+}
