@@ -9,13 +9,58 @@ class WordCloud extends Component{
      constructor(props){
         super(props)
         this.createWordCloud = this.createWordCloud.bind(this)
+        this.resize = this.resize.bind(this)
      }
+
+     state = {
+       h:300,
+       w:500
+     }
+     resize() {
+       if(Math.abs(this.state.w - document.getElementsByClassName('cloud-div')[0].clientWidth) > 10){
+        this.setState({
+        h: document.getElementsByClassName('cloud-div')[0].clientHeight,
+        w: document.getElementsByClassName('cloud-div')[0].clientWidth
+      });
+    }
+    }
 
      componentDidMount() {
-        this.createWordCloud()
+           this.setState({
+           h: document.getElementsByClassName('cloud-div')[0].clientHeight,
+           w: document.getElementsByClassName('cloud-div')[0].clientWidth
+         });
+        this.createWordCloud();
+        window.addEventListener('resize', this.resize);
      }
 
+
+      componentWillUnmount() {
+        window.removeEventListener('resize', this.resize)
+      }
+
+      componentDidUpdate(prevProps, prevState) {
+          if((prevState.w != this.state.w)){
+            this.ReDrawCloud();
+          }
+      }
+
+      ReDrawCloud(){
+
+        select(".wordcloud").remove()
+        this.createWordCloud();
+      }
+
+
+
+
+
      createWordCloud() {
+       var w = this.state.w;
+       var h = this.state.h;
+       console.log(w);
+       console.log(h)
+
        var keywords = this.props.words;
        var frequency_list = [];
        var max = 0,min=10;
@@ -38,6 +83,7 @@ class WordCloud extends Component{
       const node = this.node
 
 
+
      select(node)
         .selectAll('rect')
         .data(this.props.data)
@@ -55,7 +101,7 @@ class WordCloud extends Component{
      select(node)
         .selectAll('rect')
         .data(this.props.data)
-         cloud().size([550, 380])
+         cloud().size([w, h])
             .words(frequency_list)
             .rotate(0)
             .padding(3)
@@ -73,14 +119,13 @@ class WordCloud extends Component{
                      .append("g")
                      // without the transform, words words would get cutoff to the left and top, they would
                      // appear outside of the SVG area
-                     .attr("transform", "translate(240,180)")
+                     .attr("transform", "translate(" + w/2 + "," + h/2 + ")")
                      .selectAll("text")
                      .data(words)
                      .enter().append("text")
 
                      .style("font-size", function(d) { return d.size })
                      .style("fill", function(d, i) { return color(i); })
-
                      .attr("transform", function(d) {
                          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
                      })
@@ -89,8 +134,8 @@ class WordCloud extends Component{
 
      }
   render() {
-        return <svg  ref={node => this.node = node}
-        width={550} height={320}>
+        return <svg ref={node => this.node = node}
+        width={this.state.w} height={300}>
         </svg>
      }
   }
