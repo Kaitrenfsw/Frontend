@@ -50,7 +50,7 @@ class VistaDashboard extends Component{
 	DesplegarGrafico(grafico){
 		var agregar = null;
 		if(this.state.modo === 'modo-edicion')  agregar = 	<div className="seccion-agregar-topicos animated fadeIn">
-				<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
+				<h5  id="topicos-grafico" className= "animated fadeIn">Temas</h5>
 				<CreatableSelect id={grafico.id}
 					isMulti
 					onChange={(event) => this.handleChangeMultiEditar(grafico,event)}
@@ -136,11 +136,11 @@ class VistaDashboard extends Component{
 							<div className="grafico">
 								<FrequencyChart />
 							</div>
-							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
 					</div>
 					<div className={"col-md-2 no-padding "}>
 						<div className="seccion-agregar-topicos">
-						<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
+						<h5  id="topicos-grafico" className= "animated fadeIn">Temas</h5>
 						<CreatableSelect
 						 	isMulti
 						 	onChange={this.handleChangeMultiAñadir}
@@ -163,11 +163,11 @@ class VistaDashboard extends Component{
               <div className={"grafico"}>
                 	<CareerChart />
               </div>
-              <a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+              <a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
           </div>
           <div className={"col-md-2 no-padding "}>
             <div className="seccion-agregar-topicos">
-            <h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
+            <h5  id="topicos-grafico" className= "animated fadeIn">Temas</h5>
             <CreatableSelect
               isMulti
               onChange={this.handleChangeMultiAñadir}

@@ -51,7 +51,7 @@ class VistaDetalleTopico extends Component{
           if(!(this.state.isLoading)){
           return (
             <div className="container-fluid ContenidoVistaDetalleTopico">
-            <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Tópicos</h5></NavLink>
+            <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
              <h2  id="titulo-vista">{this.state.topico[0].name}</h2>
              <SeccionGraficos  key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>
              <div className="col-lg-7 no-padding">

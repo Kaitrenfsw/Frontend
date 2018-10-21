@@ -27,7 +27,7 @@ class Header extends Component{
 						<ul className="nav navbar-nav navbar-center">
 						<li ><NavLink exact to='/'>Home</NavLink></li>
 						<li><NavLink to='/dashboard'>Dashboard</NavLink></li>
-						<li  ><NavLink to='/topicos'>Tópicos</NavLink></li>
+						<li  ><NavLink to='/topicos'>Temas</NavLink></li>
 						<li><NavLink to='/configuracion'>Configuración</NavLink></li>
 						</ul>
 			    <ul  className="nav navbar-nav navbar-right">
