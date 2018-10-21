@@ -40,10 +40,10 @@ class VistaDashboard extends Component{
 		selectedOption: null,
 		selectedMultiOption:null,
 		TituloNuevoGrafico: "Gráfico de Frecuencia",
-		graficos: [{name:"Gráfico de Frecuencia", data: [], topics: [	{ value: 1, label: 'Apple' },	{ value: 2, label: 'Samsung' }], type: 1 , id: 1},
-               {name:"Gráfico de Frecuencia2", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 1 , id: 2},
-               {name:"Gráfico de Frecuencia3", data: [], topics: [  { value: 0, label: 'AI' },{ value: 1, label: 'Apple' },{ value: 2, label: 'Samsung' }], type: 1 , id: 3},
-               {name:"Gráfico de Carrera", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 0 , id: 4}]
+		graficos: [{title:"Gráfico de Comportamiento", data: [], topics: [	{ value: 1, label: 'Apple' },	{ value: 2, label: 'Samsung' }], type: 1 , id: 1},
+               {title:"Gráfico de Comportamiento2", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 1 , id: 2},
+               {title:"Gráfico de Comportamiento3", data: [], topics: [  { value: 0, label: 'AI' },{ value: 1, label: 'Apple' },{ value: 2, label: 'Samsung' }], type: 1 , id: 3},
+               {title:"Gráfico de Carrera", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 0 , id: 4}]
 
 	}
 
@@ -51,9 +51,9 @@ class VistaDashboard extends Component{
 		var agregar = null;
 		if(this.state.modo === 'modo-edicion')  agregar = 	<div className="seccion-agregar-topicos animated fadeIn">
 				<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
-				<CreatableSelect
+				<CreatableSelect id={grafico.id}
 					isMulti
-					onChange={this.handleChangeMulti}
+					onChange={(event) => this.handleChangeMultiEditar(grafico,event)}
 					className = {"añadir-multiple__div"}
 					classNamePrefix = {"añadir"}
 					placeholder={"Seleccionar"}
@@ -67,12 +67,14 @@ class VistaDashboard extends Component{
 			return (
 				<row>
 					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
-						<h4 onClick={ this.handleRemove.bind(this, grafico.id) }  id="subtitulo-vista" >{grafico.name} {(this.state.modo==='modo-edicion')   && 	<span className= "glyphicon glyphicon-pencil"></span> }</h4>
-						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
-						<div className="grafico">
-						<FrequencyChart />
-						</div>
-					</div>
+            <div className={"grafico"}>
+              <input value = {grafico.title} className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,grafico.id) } placeholder = {grafico.title} type="text"/> 	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
+  						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
+              <div className="grafico">
+  						      <FrequencyChart />
+  						</div>
+					  </div>
+           </div>
 					<div className={"col-md-2 no-padding "}>
 					{agregar}
 					</div>
@@ -83,7 +85,7 @@ class VistaDashboard extends Component{
       return (
 				<row>
 					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
-						<h4 onClick={ this.handleRemove.bind(this, grafico.id) }  id="subtitulo-vista" >{grafico.name} {(this.state.modo==='modo-edicion')   && 	<span className= "glyphicon glyphicon-pencil"></span> }</h4>
+					  <input className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,grafico.id) } value = {grafico.title} placeholder = {grafico.title} type="text"/> 	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
 						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
 						<div className="grafico">
 						<CareerChart />
@@ -98,9 +100,25 @@ class VistaDashboard extends Component{
 
 	}
 
+  HandleNameChange(event,id){
+    var graficos = 	this.state.graficos;
+    for(var i=0;i< graficos.length;i++){
+			if(graficos[i].id === id){
+        graficos[i].title = event.target.value;
+
+			}
+		}
+
+    this.setState({graficos})
+
+  }
+
+
+
+
 	HandleAñadirGrafico(){
 		var graficos = 	this.state.graficos;
-		graficos.push({name:this.state.TituloNuevoGrafico, data: [], topics: this.state.selectedMultiOption, type: this.state.selectedOption.value , id: 10});
+		graficos.push({title:this.state.TituloNuevoGrafico, data: [], topics: this.state.selectedMultiOption, type: this.state.selectedOption.value , id: 10});
 		this.setState({graficos})
 		this.setState({selectedOption:null})
 		this.notify_success('Gráfico añadido');
@@ -114,18 +132,18 @@ class VistaDashboard extends Component{
 			return(
 				<row className="animated fadeIn">
 					 <div className={"col-md-10 no-padding "}>
-					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de comportamiento"/><span className= "glyphicon glyphicon-pencil"></span>
-							<div className={"grafico"}>
+					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Comportamiento" type="text"/><span className= "glyphicon glyphicon-pencil"></span>
+							<div className="grafico">
 								<FrequencyChart />
 							</div>
-							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+							<a onClick={ (event) => this.HandleAñadirGrafico.bind(this,event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
 					</div>
 					<div className={"col-md-2 no-padding "}>
 						<div className="seccion-agregar-topicos">
 						<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
 						<CreatableSelect
 						 	isMulti
-						 	onChange={this.handleChangeMulti}
+						 	onChange={this.handleChangeMultiAñadir}
 						 	className = {"añadir-multiple__div"}
 							classNamePrefix = {"añadir"}
 							placeholder={"Seleccionar"}
@@ -136,6 +154,36 @@ class VistaDashboard extends Component{
 			</row>
 			)
 		}
+
+    if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===0)){
+      return(
+        <row className="animated fadeIn">
+           <div className={"col-md-10 no-padding "}>
+           <input type= "text" className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Carrera"/><span className= "glyphicon glyphicon-pencil"></span>
+              <div className={"grafico"}>
+                	<CareerChart />
+              </div>
+              <a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+          </div>
+          <div className={"col-md-2 no-padding "}>
+            <div className="seccion-agregar-topicos">
+            <h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
+            <CreatableSelect
+              isMulti
+              onChange={this.handleChangeMultiAñadir}
+              className = {"añadir-multiple__div"}
+              classNamePrefix = {"añadir"}
+              placeholder={"Seleccionar"}
+              options={topicos}
+           />
+           </div>
+          </div>
+      </row>
+      )
+    }
+
+
+
 	}
 
 	handleRemove(event,id){
@@ -161,15 +209,31 @@ class VistaDashboard extends Component{
 
 	handleChange = (selectedOption) => {
 	 this.setState({ selectedOption });
+
  }
 
- handleChangeMulti = (newValue: any, actionMeta: any) => {
+ handleChangeMultiAñadir = (newValue: any, actionMeta: any) => {
     console.group('Value Changed');
 		this.setState({selectedMultiOption:newValue});
     console.log(newValue);
     console.log(`action: ${actionMeta.action}`);
     console.groupEnd();
   };
+
+
+  handleChangeMultiEditar = (event ,newValue: any, actionMeta: any) => {
+      console.log(event);
+      console.log(newValue);
+      var graficos = this.state.graficos;
+      for(var i=0;i< graficos.length;i++){
+  			if(graficos[i].id === event.id){
+          graficos[i].topics = newValue;
+  			}
+  		}
+  		this.setState({graficos:graficos});
+
+
+   };
 
 
   render(){
@@ -179,7 +243,7 @@ class VistaDashboard extends Component{
 			  <div className= "div-titulo">
         <h2 id = "titulo-vista">Dashboard <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span></h2>
 				</div>
-				{(this.state.modo === 'modo-edicion') && 	<div className={"col-md-12 no-padding "}>
+				{(this.state.modo === 'modo-edicion') && 	<div className="col-md-12 no-padding ">
 					<h5  id="agregar-grafico" className= "animated fadeIn">Añadir</h5>
 					<Select
 					        value={this.state.selectedOption}
@@ -191,7 +255,7 @@ class VistaDashboard extends Component{
 					/>
 					</div>}
 					{this.DesplegarAgregarGrafico()}
-				}
+
 				{this.state.graficos.map((grafico,i,arr) => (
 				 this.DesplegarGrafico(grafico)
 			 ))}

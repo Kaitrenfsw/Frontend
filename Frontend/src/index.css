@@ -54,9 +54,9 @@ li a:hover{
 .gradient-button-4:hover { background-position: right center;text-decoration: none;color: white; }
 .gradient-button-5 {background-color:   #FF8A75; text-decoration: none;  }
 .gradient-button-5:hover { background-position: right center;text-decoration: none;  }
-.gradient-button-6 {background-color:  #293c44;color: rgb(113, 145, 155);text-decoration: none; cursor: default;}
-.gradient-button-6:hover { background-position: right center;text-decoration: none;color: white; }
-.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active {border: solid 2px #1A252D;}
+.gradient-button-6 {background-color:  #293c44;color: white;text-decoration: none; cursor: default;}
+.gradient-button-6:hover { background-position: right center;text-decoration: none;}
+.gradient-button-1:active,.gradient-button-2:active, .gradient-button-3:active, .gradient-button-6:active {border: solid 2px #1A252D;}
 
 
 
