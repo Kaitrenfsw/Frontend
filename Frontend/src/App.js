@@ -9,6 +9,7 @@ import VistaConfiguracion from './VistaConfiguracion/VistaConfiguracion';
 import VistaHome from './VistaHome/VistaHome';
 import VistaDetalleCuenta from './VistaDetalleCuenta/VistaDetalleCuenta';
 import VistaDetalleTopico from './VistaDetalleTopico/VistaDetalleTopico';
+import VistaDashboard from './VistaDashboard/VistaDashboard';
 
 
 const renderMergedProps = (component, ...rest) => {
@@ -91,6 +92,7 @@ class App extends Component {
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} exact path='/topicos' component= {VistaTopicos}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}   path='/cuentas/:id'  component= {VistaDetalleCuenta}/>
+             <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}   path='/dashboard'  component= {VistaDashboard}/>
          </Switch>
          </CSSTransition>
          </TransitionGroup>)}

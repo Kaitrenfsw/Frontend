@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 class MostrarCuentas extends Component{
   state = {
       cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
-      isLoading: true
+      isLoading: false
   };
 
   componentDidUpdate(prevProps,prevState){
@@ -22,34 +22,69 @@ class MostrarCuentas extends Component{
 
 
   componentDidMount() {
-      fetch('http://localhost:4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
-       method: "get",
-       headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-         'authorization': 'Bearer ' + this.props.user.token
-       },
-       body: null
-     })
-      .then((response) => {
-        if(response.ok) {
-          response.json().then(data => ({
-                data: data,
-                status: response.status
-            })
-          ).then(res => {
-            console.log(res.data.users);
-            this.setState({cuentas:res.data.users, isLoading:false});
+      if(this.props.user.permissions[0].group === 'admin'){
+          fetch('http://localhost:4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
+           method: "get",
+           headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'authorization': 'Bearer ' + this.props.user.token
+           },
+           body: null
+         })
+          .then((response) => {
+            if(response.ok) {
+              response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+              ).then(res => {
+                console.log(res.data.users);
+                this.setState({cuentas:res.data.users, isLoading:false});
 
+              });
+
+            } else {
+              console.log('bad request');
+            }
+          })
+          .catch(function(error) {
+            console.log('Hubo un problema con la petición Fetch:' + error.message);
           });
+      }
 
-        } else {
-          console.log('bad request');
-        }
-      })
-      .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
-      });
+      if(this.props.user.permissions[0].group === 'owner'){
+          fetch('http://localhost:4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
+           method: "get",
+           headers: {
+             'Accept': 'application/json',
+             'Content-Type': 'application/json',
+             'authorization': 'Bearer ' + this.props.user.token
+           },
+           body: null
+         })
+          .then((response) => {
+            if(response.ok) {
+              response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+              ).then(res => {
+                console.log(res.data.users);
+                this.setState({cuentas:res.data.users, isLoading:false});
+
+              });
+
+            } else {
+              console.log('bad request');
+            }
+          })
+          .catch(function(error) {
+            console.log('Hubo un problema con la petición Fetch:' + error.message);
+          });
+      }
+
+
 
   }
 
@@ -177,6 +212,7 @@ DesplegarCuentasIDM(cuenta,search){
       );
 
     }
+
     else if(!(this.state.isLoading)) {
       return (
         <div className ="lista-cuentas">
