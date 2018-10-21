@@ -58,12 +58,16 @@ class CareerChart extends Component{
 
     }
 
+    demoOnClick(e) {
+      window.location.href = "/topicos/"+e.topic_id;
+    }
+
     render(){
       const CareerChartDot = (props)=>{
           const radius = 2.5;
           const diameter = radius * 2;
           return (
-              <svg width={diameter} height={diameter} style={{"overflow": "visible"}}>
+              <svg width={diameter} height={diameter} style={{"overflow": "visible","cursor":"pointer"}}>
                   <circle cx={props.cx} cy={props.cy} r="11" stroke={props.color} strokeWidth="2" fill="#1F2931" />
               </svg>
           );
@@ -86,13 +90,12 @@ class CareerChart extends Component{
                 {payload[0].payload.data.map((entry, index) => (
                 <tr>
                   <th scope="row">{entry.orden}</th>
-                  <td>{entry.topic_name}</td>
-                </tr>
+                    <td><a class="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td>                </tr>
               ))}
               {payload[1].payload.data.map((entry, index) => (
               <tr>
                 <th scope="row">{entry.orden}</th>
-                <td>{entry.topic_name}</td>
+                <td><a class="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td>
               </tr>
             ))}
               </tbody>
@@ -118,7 +121,7 @@ class CareerChart extends Component{
         const { active } = props;
           if (active) {
             const { payload } = props;
-            console.log(payload);
+            //console.log(payload);
             return (
               <div className="custom-tooltip">
                 <p className="label">{payload[0].payload.topic_name}</p>
@@ -148,16 +151,16 @@ class CareerChart extends Component{
             <ReferenceLine y={50} stroke="#5C7582" >
               <Label value="Peso" fill="#5C7582" offset={20} position="insideRight" dy={12} />
             </ReferenceLine>
-            <Scatter name="En subida" data={this.state.data1} fill="#73DB9A" shape={<CareerChartDot color= "#73DB9A"/>} >
+            <Scatter name="En subida" data={this.state.data1} fill="#73DB9A" onClick={this.demoOnClick} shape={<CareerChartDot color= "#73DB9A"/>} >
                 <LabelList dataKey="orden" fill="#73DB9A" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
             </Scatter>
-            <Scatter name="En bajada" data={this.state.data2} fill="#FFB744" shape={<CareerChartDot color= "#FFB744"/>}>
+            <Scatter name="En bajada" data={this.state.data2} fill="#FFB744" onClick={this.demoOnClick} shape={<CareerChartDot color= "#FFB744"/>}>
                 <LabelList dataKey="orden" fill="#FFB744" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
             </Scatter>
             <ReferenceDot x={75} y={95} r={20} fill="rgba(255, 255, 255, 0)" stroke="none" >
               <Label value="Hot Topics" fill="rgba(255, 255, 255, 1)"  />
             </ReferenceDot>
-            <Tooltip content={renderTooltip} cursor={false} label="Nombre topico" />
+            <Tooltip content={renderTooltip} cursor={false} label="Nombre topico" isAnimationActive={false} />
             <Legend content={renderLegend} wrapperStyle={{ color: "#fff" ,paddingLeft: "15px"}} layout="vertical" align="right" margin={{left:20}}/>
 
           </ScatterChart>
