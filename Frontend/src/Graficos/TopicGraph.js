@@ -8,24 +8,67 @@ import * as d3 from 'd3';
 
 
 class TopicGraph extends Component{
-  componentDidMount() {
-      this.createGraph()
+  constructor(props){
+      super(props);
+      this.createGraph = this.createGraph.bind(this);
+      this.resize = this.resize.bind(this);
   }
+  state = {
+    h:450,
+    w:450
+  }
+
+  componentDidMount() {
+      this.setState({
+      h: document.getElementsByClassName('graph-div')[0].clientHeight,
+      w: document.getElementsByClassName('graph-div')[0].clientWidth
+      });
+      this.createGraph();
+      window.addEventListener('resize', this.resize);
+  }
+
+
+  resize() {
+    if(Math.abs(this.state.w - document.getElementsByClassName('graph-div')[0].clientWidth) > 40){
+     this.setState({
+     h: document.getElementsByClassName('graph-div')[0].clientHeight,
+     w: document.getElementsByClassName('graph-div')[0].clientWidth
+   });
+ }
+ }
+
+
+   componentWillUnmount() {
+     window.removeEventListener('resize', this.resize)
+   }
+
+   componentDidUpdate(prevProps, prevState) {
+       if((prevState.w != this.state.w)){
+         this.ReDrawGraph();
+         console.log("re");
+       }
+   }
+
+   ReDrawGraph(){
+     select(".graph").remove()
+     this.createGraph();
+   }
+
 
 
   createGraph(){
 
-      const nodo = this.node;
+  const nodo = this.node;
+  var svg = select(nodo).append("svg")
+            .attr("class", "graph");
 
-
-
-  var svgWidth = 450;
-  var svgHeight = 450;
+  var svgWidth = this.state.w;
+  var svgHeight = this.state.h;
   var circleRadius = 15;
-  var colores_nodos = ['red','orange', ' #87D597'];
-  var colores_arcos = ['red','orange', ' #87D597'];
+  var colores_nodos = ['#FF5C55','#ECB775', ' #87D597'];
+  var colores_arcos = ['#FF5C55','#ECB775', ' #87D597'];
 
-  if(true){
+  if(false){
     colores_nodos = ["#6B828F","#6B828F", "#6B828F"];
     colores_arcos = ["#6B828F","#6B828F", "#6B828F"];
   }
@@ -34,8 +77,8 @@ class TopicGraph extends Component{
     colores_arcos = ["#ffbfc5","#fc6271", "#ff0018"];
   }
 
-  if(false){
-      colores_arcos = ["#6B828F","#6B828F", "#6B828F"];
+  if(true){
+      colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
   }
   var dataset = {
       nodes: [
@@ -104,7 +147,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(dataset.edges[i].value< min){min = dataset.edges[i].value}
   }
 
-  var interval = [55,svgWidth/4];
+  var interval = [Math.min(svgHeight,svgWidth)/9,Math.min(svgHeight,svgWidth)/4.5];
   for(i = 0; i < dataset.edges.length ; i++){
     const w = ((interval[1] - interval[0]) * (dataset.edges[i].value - min) / (max - min)) + interval[0];
     dataset.edges[i].value = interval[1] - w   + interval[0];
@@ -144,13 +187,14 @@ dataset.nodes[0].y = svgHeight/2;
 
 
 
-  var edges = select(nodo).append('g')
+
+  var edges = svg.append('g')
           .attr('class','links')
           .selectAll("line")
           .data(dataset.edges)
           .enter()
           .append("line")
-          .style("stroke-width", function(d) { if(false) {return interval[1] *2.5/d.value} else { return 2}; })
+          .style("stroke-width", function(d) { if(false) {return interval[1] *2.5/d.value} else { return 1}; })
 
           .attr("stroke", function(d) {
             if(d.value>=0.8 * interval[1]) return colores_arcos[0];
@@ -162,7 +206,7 @@ dataset.nodes[0].y = svgHeight/2;
 
 
 
-  var node = select(nodo).append('g')
+  var node = svg.append('g')
           .attr('class','nodes')
           .selectAll('circle')
           .data(dataset.nodes)
@@ -170,7 +214,7 @@ dataset.nodes[0].y = svgHeight/2;
           .append("circle")
           .attr("r", function(d){
               var r;
-              if(true){r = interval[1]*8/d.value} else { r = 15}
+              if(true){r = interval[1]*5/d.value} else { r = 15}
               if (d.index === 0) r = 25;
               return r;
           })
@@ -180,10 +224,13 @@ dataset.nodes[0].y = svgHeight/2;
             if(d.value>=0.8 * interval[1]) return colores_nodos[0];
             if(d.value>=0.6 * interval[1]) return colores_nodos[1];
             if(d.value>=0) return colores_nodos[2];
-            else return colores_nodos[2];
+            else return '#5CACC4';
             })
           .attr('fill',function (d,i) {
-              return '#e5e7ea';
+              if(d.value>=0.8 * interval[1]) return colores_nodos[0];
+              if(d.value>=0.6 * interval[1]) return colores_nodos[1];
+              if(d.value>=0) return colores_nodos[2];
+              else return'#5CACC4';
           })
           .on("click", mouseclick)
           .on("mouseover", mouseover)
@@ -195,7 +242,7 @@ dataset.nodes[0].y = svgHeight/2;
                   .on("end", dragended));
                   */
 
-  var nodes_text = select(nodo).selectAll(".nodetext")
+  var nodes_text = svg.selectAll(".nodetext")
           .data(dataset.nodes)
           .enter()
           .append("text")
@@ -204,9 +251,10 @@ dataset.nodes[0].y = svgHeight/2;
 
           .attr("dx", 0)
           .attr("dy", function(d) {
-            if(d.index === 0 ) return 45;
-            else return 30;})
-          .style('fill', 'white')
+            if(d.index === 0 ){ return 45;}
+            if(d.index <= (dataset.nodes.length /2)){ return (interval[1]*5/d.value)  + 20;}
+            else return ( - interval[1]*5/d.value) - 10;})
+          .style('fill', '#5C7582')
           .style('font-weight', 'bold')
           .text(function(d) {
               return  d.name;
@@ -294,7 +342,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index != 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return (interval[1]*8/d.value) *1.2})
+      .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
 
     }
   }
@@ -304,7 +352,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index != 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return (interval[1]*8/d.value) *1.2})
+      .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
       var matrix = this.getScreenCTM()
         .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
 
@@ -333,36 +381,17 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index != 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return interval[1]*8/d.value})
+      .attr("r", function(d){return interval[1]*5/d.value})
       div.style("opacity", 0);
     }
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   }
-
 
   render() {
 
-
-
-    return (<svg  id = "grafo" ref={node => this.node = node}
-    width={450} height={450}>
+    return (<svg   ref={node => this.node = node}
+    width={this.state.w} height={450}>
     </svg>)
   }
 

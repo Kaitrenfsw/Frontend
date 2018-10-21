@@ -4,7 +4,7 @@ class SeccionNoticias extends Component{
   state = {
       search: "",
       orden: "Nombre",
-      isLoading: true,
+      isLoading: false,
       noticias: [
                 {
                     "url": "http://www.editorandpublisher.com/Technology/Article/The-Coral-Project-Is-Building-Its-First-Product--A-Listening-Tool",

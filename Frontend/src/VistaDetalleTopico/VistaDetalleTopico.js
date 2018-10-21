@@ -54,11 +54,11 @@ class VistaDetalleTopico extends Component{
             <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Tópicos</h5></NavLink>
              <h2  id="titulo-vista">{this.state.topico[0].name}</h2>
              <SeccionGraficos  key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>
-             <div className="col-lg-6 no-padding">
+             <div className="col-lg-7 no-padding">
              <h4 id="subtitulo-vista">Últimos Artículos</h4>
               <SeccionNoticias key = {"topic" + this.state.topico[0].id} id = {this.state.topico[0].id} user = {this.props.user} search = {""}/>
              </div>
-              <div className="col-lg-offset-1 col-lg-5 no-padding">
+              <div className="col-lg-offset-1 col-lg-4 no-padding graph-div">
                <h4 id="subtitulo-vista">Temas relacionados</h4>
              <TopicGraph  />
              </div>
