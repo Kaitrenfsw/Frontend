@@ -74,7 +74,7 @@ class FrequencyChart extends Component{
                 </defs>
                 <XAxis
                   dataKey="date"
-                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
+                  tickFormatter={(tick) => moment(tick).format('MMM')}
 
                   allowDecimals={true}
                   allowDataOverflow={true}
@@ -97,7 +97,7 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
-                  type="linear"
+                  type="natural"
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
@@ -105,19 +105,16 @@ class FrequencyChart extends Component{
                   fillOpacity={1}
                   fill="url(#colorUv)"
                 />
-                {/*
+
                 <Brush
-                  height={30}
-                />*/}
+                  height={20}
+                  dataKey="date"
+                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
+                />
 
 
               </AreaChart>
             </ResponsiveContainer>
-            {/*
-            <button onClick={this.changeData}  >
-              Cambiar datos
-            </button>
-            */}
             </div>
 
     );
