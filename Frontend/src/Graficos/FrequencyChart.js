@@ -10,7 +10,6 @@ class FrequencyChart extends Component{
       super(props);
       this.state = {
       }
-      this.dataFormat = this.dataFormat.bind(this);
 //      moment.locale('es')
     }
 
@@ -24,37 +23,6 @@ class FrequencyChart extends Component{
 
       this.setState({data: obj});
     }
-
-
-    dataFormat(){
-      var data =[];
-      var fila={};
-      var last=new Date(2012, 0, 1)
-      var month = new Array();
-      month[0] = "Jan";
-      month[1] = "Feb";
-      month[2] = "Mar";
-      month[3] = "Apr";
-      month[4] = "May";
-      month[5] = "Jun";
-      month[6] = "Jul";
-      month[7] = "Aug";
-      month[8] = "Sep";
-      month[9] = "Oct";
-      month[10] = "Nov";
-      month[11] = "Dec";
-
-      for (var i = 0; i < 30; i++) {
-        var fecha=month[i%11];
-        var publicaciones=Math.round(500+i*Math.random()*50);
-        var publicaciones2=Math.round(500+i*Math.random()*50);
-        var fila={date:fecha , pub:publicaciones, pub2:publicaciones2 }
-        data.push(fila);
-      }
-
-      return data;
-    }
-
 
     render(){
     return (
@@ -74,14 +42,13 @@ class FrequencyChart extends Component{
                 </defs>
                 <XAxis
                   dataKey="date"
-                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
-
+                  tickFormatter={(tick) => moment(tick).format('MMM')}
                   allowDecimals={true}
                   allowDataOverflow={true}
                   domain={['dataMin', 'dataMax']}
                   padding={{left:10}}
                   stroke="#5C7582"
-                  interval={4}
+                  interval={3}
                 />
                 <YAxis
                   axisLine={false}
@@ -97,7 +64,7 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
-                  type="linear"
+                  type="natural"
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
@@ -105,10 +72,12 @@ class FrequencyChart extends Component{
                   fillOpacity={1}
                   fill="url(#colorUv)"
                 />
-                {/*
+
                 <Brush
                   height={30}
-                />*/}
+                  dataKey="date"
+                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
+                />
 
 
               </AreaChart>
