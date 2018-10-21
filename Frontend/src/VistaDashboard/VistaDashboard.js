@@ -136,7 +136,7 @@ class VistaDashboard extends Component{
 							<div className="grafico">
 								<FrequencyChart />
 							</div>
-							<a onClick={ (event) => this.HandleAñadirGrafico.bind(this,event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
 					</div>
 					<div className={"col-md-2 no-padding "}>
 						<div className="seccion-agregar-topicos">
