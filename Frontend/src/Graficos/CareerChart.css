@@ -1,0 +1,10 @@
+.borderless td,
+.borderless th {
+    border: 0!important;
+    font-size: 10px;
+    padding: 5px!important;
+}
+
+.legendLink, .legendLink:hover{
+  color: white;
+}

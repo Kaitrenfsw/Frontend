@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './VistaDashboard.css';
 import 'animate.css';
 import FrequencyChart from '../Graficos/FrequencyChart';
+import CareerChart from '../Graficos/CareerChart';
 import Select from 'react-select';
 import CreatableSelect from 'react-select';
 import { toast } from 'react-toastify';
@@ -39,7 +40,10 @@ class VistaDashboard extends Component{
 		selectedOption: null,
 		selectedMultiOption:null,
 		TituloNuevoGrafico: "Gráfico de Frecuencia",
-		graficos: [{name:"Gráfico de Frecuencia", data: [], topics: [	{ value: 1, label: 'Apple' },	{ value: 2, label: 'Samsung' }], type: 1 , id: 1}, {name:"Gráfico de Frecuencia2", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 1 , id: 2}, {name:"Gráfico de Frecuencia3", data: [], topics: [  { value: 0, label: 'AI' },{ value: 1, label: 'Apple' },{ value: 2, label: 'Samsung' }], type: 1 , id: 3}, {name:"Gráfico de Carrera", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 1 , id: 4}]
+		graficos: [{name:"Gráfico de Frecuencia", data: [], topics: [	{ value: 1, label: 'Apple' },	{ value: 2, label: 'Samsung' }], type: 1 , id: 1},
+               {name:"Gráfico de Frecuencia2", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 1 , id: 2},
+               {name:"Gráfico de Frecuencia3", data: [], topics: [  { value: 0, label: 'AI' },{ value: 1, label: 'Apple' },{ value: 2, label: 'Samsung' }], type: 1 , id: 3},
+               {name:"Gráfico de Carrera", data: [], topics: [{ value: 2, label: 'Samsung' }], type: 0 , id: 4}]
 
 	}
 
@@ -76,7 +80,20 @@ class VistaDashboard extends Component{
 			)
 		}
 		if(grafico.type ===0){
-
+      return (
+				<row>
+					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
+						<h4 onClick={ this.handleRemove.bind(this, grafico.id) }  id="subtitulo-vista" >{grafico.name} {(this.state.modo==='modo-edicion')   && 	<span className= "glyphicon glyphicon-pencil"></span> }</h4>
+						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
+						<div className="grafico">
+						<CareerChart />
+						</div>
+					</div>
+					<div className={"col-md-2 no-padding "}>
+					{agregar}
+					</div>
+				</row>
+			)
 		}
 
 	}
