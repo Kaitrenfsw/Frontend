@@ -122,7 +122,6 @@ DesplegarCuentasIDM(cuenta,search){
         <div key = {cuenta.id } className="row row-cuenta-idm no-margin" >
           <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
             <div className="div-cuenta-idm  ">
-              <img  src={profile}  alt="foto-perfil"/>
               <div className="div-datos-idm">
                 <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>

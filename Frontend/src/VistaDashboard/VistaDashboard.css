@@ -7,7 +7,7 @@
 .ContenidoVistaDashboard {position: absolute;left: 0;right: 0;}
 .ContenidoVistaDashboard #subtitulo-vista{color: #EDEEEF; font-weight: bold; }
 .ContenidoVistaDashboard .grafico.modo-edicion{ border: solid; border-width: 1px; border-color: rgba(88,114,124,0.5); border-radius: 15px;}
-.ContenidoVistaDashboard .grafico { padding-top: 15px; padding-bottom:  30px; margin-top: 1.5vw; margin-bottom: 1.5vw;}
+.ContenidoVistaDashboard .grafico { padding-top: 15px; padding-bottom:  30px}
 .ContenidoVistaDashboard .span-grafico {margin-left: 5px; margin-right: 15px; float: right;  color: rgba(88,114,124,1); font-size:  23px; width: 20px; height: 20px;}
 .ContenidoVistaDashboard .glyphicon-pencil {margin-left: 6px; font-size: 15px; color: rgba(88,114,124,1); }
 .ContenidoVistaDashboard .span-grafico:hover { color: white;}
@@ -23,10 +23,13 @@
 .ContenidoVistaDashboard .añadir__menu {background-color: #25353C; color: white; font-weight: bold; float: right; overflow-y:auto !important; }
 .ContenidoVistaDashboard .añadir__option.añadir__option--is-focused{color: black; background-color: white;}
 .ContenidoVistaDashboard .añadir__option.añadir__option--is--selected{color: white; background-color: #25353C; }
+.ContenidoVistaDashboard .añadir__multi-value{background-color:  #293c44;}
+.ContenidoVistaDashboard .añadir__multi-value__label{color: white;}
+.ContenidoVistaDashboard .añadir__multi-value__remove{color: white;}
 .ContenidoVistaDashboard #agregar-grafico {float: right; color: #6B828F;font-weight: bold; float: left; margin-right:  15px; font-size: 14px; margin-top: 13.1px;}
-.ContenidoVistaDashboard #añadir-button {margin-bottom: 60px; margin-top: 0px; }
+.ContenidoVistaDashboard #añadir-button {margin-top: 20px; }
 .ContenidoVistaDashboard .añadir-multiple__div { width: 100%; float: left;}
 .ContenidoVistaDashboard #topicos-grafico { text-align: center;color: #6B828F;font-weight: bold; float: left; margin-left:  8px; font-size: 14px;}
-.ContenidoVistaDashboard .seccion-agregar-topicos {padding-top: 20px;}
+.ContenidoVistaDashboard .seccion-agregar-topicos {padding-top: 40px;}
 .ContenidoVistaDashboard .col-md-10 {z-index: 1;}
-.ContenidoVistaDashboard .input-titulo {background-color: #1A252D; font-weight: bold; font-size: 18px; color: #EDEEEF; border: 0; -webkit-text-fill-color:#EDEEEF;}
+.ContenidoVistaDashboard .input-titulo {background-color: #1A252D; font-weight: bold; font-size: 18px; color: #EDEEEF; border: 0; -webkit-text-fill-color:#EDEEEF; width: fit-content;}
