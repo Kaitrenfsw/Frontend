@@ -105,9 +105,6 @@ class Datos extends Component{
              console.log('Hubo un problema con la petición Fetch:' + error.message);
            });
        }
-
-
-
     }
 
 

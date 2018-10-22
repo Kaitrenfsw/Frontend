@@ -63,7 +63,7 @@ class VistaConfiguracion extends Component{
       options = ['Cuentas','Entrenamiento'];
     }
     if(this.props.user.permissions[0].group === 'owner'){
-      options =  ['Cuentas','Datos personales','Contraseña'];
+      options =  ['Cuentas','Datos personales'];
     }
     if(this.props.user.permissions[0].group === 'idm'){
       options =  ['Datos personales'];

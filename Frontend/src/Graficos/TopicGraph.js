@@ -78,6 +78,7 @@ class TopicGraph extends Component{
   if(true){
       colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
   }
+
   var dataset = {
       nodes: [
           { name: "AI"},
@@ -109,7 +110,9 @@ class TopicGraph extends Component{
         {"source":12,"target":0,"value":60}
       ]
   };
-
+  if(this.props.dataset!=null){
+    dataset = this.props.dataset;
+  }
   //Initialize a default force layout, using the nodes and edges in dataset
   //var force = d3.forceSimulation()
   //            .nodes(dataset.nodes)
@@ -357,7 +360,7 @@ dataset.nodes[0].y = svgHeight/2;
       .style("left", (window.pageXOffset + matrix.e + 30) + "px")
       .style("top", (window.pageYOffset + matrix.f - 15) + "px")
       div.html(
-            "<div class='recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-bottom' style='pointer-events: none; visibility: visible; position: absolute; top: 0px;  transition: -webkit-transform 400ms ease;'>" +
+            "<div class='recharts-tooltip-wrapper recharts-tooltip-wrapper-right recharts-tooltip-wrapper-bottom' style='pointer-events: none; visibility: visible; position: absolute; top: 0px;  transition: -webkit-transform 400ms ease;'>" +
 
             "<div class='recharts-default-tooltip-graph' style='margin: 0px; padding: 10px; background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); white-space: nowrap;'>" +
             "<p class='recharts-tooltip-label' style='margin: 0px; font-size: 14px'> " + d.name  + "</p>" +

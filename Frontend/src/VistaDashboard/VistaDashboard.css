@@ -32,4 +32,4 @@
 .ContenidoVistaDashboard #topicos-grafico { text-align: center;color: #6B828F;font-weight: bold; float: left; margin-left:  8px; font-size: 14px;}
 .ContenidoVistaDashboard .seccion-agregar-topicos {padding-top: 40px;}
 .ContenidoVistaDashboard .col-md-10 {z-index: 1;}
-.ContenidoVistaDashboard .input-titulo {background-color: #1A252D; font-weight: bold; font-size: 18px; color: #EDEEEF; border: 0; -webkit-text-fill-color:#EDEEEF; width: fit-content;}
+.ContenidoVistaDashboard  input[name="input-titulo"]  {background-color: #1A252D; font-weight: bold; font-size: 18px; color: #EDEEEF; border: 0; -webkit-text-fill-color:#EDEEEF;  }
