@@ -12,7 +12,7 @@ class VistaDetalleCuenta extends Component{
 
 
 	state = {
-	      activo: 'Datos'
+	      activo: 'Contraseña'
 	 };
 
    HandleNavBar(event,valor) {
@@ -39,7 +39,7 @@ class VistaDetalleCuenta extends Component{
         <h2 id="titulo-vista" >Cuenta</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
-              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Datos"]}/>
+              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Contraseña"]}/>
             </div>
             <div className="col-lg-9 col-lg-offset-1 no-padding">
               <TransitionGroup component={null}>
