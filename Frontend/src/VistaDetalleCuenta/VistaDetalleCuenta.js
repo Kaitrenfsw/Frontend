@@ -15,6 +15,13 @@ class VistaDetalleCuenta extends Component{
 	      activo: 'Contraseña'
 	 };
 
+	 componentDidMount(){
+		 if(this.props.user.permissions[0].group === "admin" && this.state.activo == 'Contraseña'){
+			 this.setState({activo:'Datos'});
+
+		 }
+	 }
+
    HandleNavBar(event,valor) {
      if(this.state.activo !== valor){ this.setState({ activo: valor });}
    }
@@ -33,13 +40,17 @@ class VistaDetalleCuenta extends Component{
 
 
   render(){
+		var options;
+		var activo = this.state.activo;
+		if(this.props.user.permissions[0].group === "admin") {options = ["Datos"], activo = 'Datos'};
+		if(this.props.user.permissions[0].group === "owner") {options = ["Contraseña"], activo = 'Contraseña'};
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
         <NavLink to='/configuracion'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
         <h2 id="titulo-vista" >Cuenta</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
-              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {this.state.activo} options={["Contraseña"]}/>
+              <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {activo} options={options}/>
             </div>
             <div className="col-lg-9 col-lg-offset-1 no-padding">
               <TransitionGroup component={null}>

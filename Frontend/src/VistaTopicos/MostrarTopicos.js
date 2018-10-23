@@ -219,17 +219,18 @@ class MostrarTopicos extends Component{
     const UsrTopics = this.state.usrTopics;
     var topicos = this.state.topicos;
     const target = event.target;
-    const id_topico = target.name;
+    const id_topico = parseInt(target.name);
     var newUsrTopics=[];
     newUsrTopics.push(id_topico)
     for(var i=0;i<UsrTopics.length;i++){
       newUsrTopics.push(UsrTopics[i].id)
     }
     for(i=0;i<topicos.length;i++){
-      if(String(topicos[i].id) === id_topico){
+      if(topicos[i].id === id_topico){
         UsrTopics.push(topicos[i])
       }
     }
+    console.log(newUsrTopics);
     this.setState({
             usrTopics: UsrTopics
     });
@@ -240,7 +241,7 @@ class MostrarTopicos extends Component{
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'user_id': 1,
+        'user_id': this.props.user_id,
         'user_topics_id':newUsrTopics
       })
     })
@@ -252,10 +253,10 @@ class MostrarTopicos extends Component{
     handleDesuscripcion(event){
       const UsrTopics = this.state.usrTopics;
       const target = event.target;
-      const id_topico = target.name;
+      const id_topico =  parseInt(target.name);
       var newUsrTopicsID = [];
       for(var i=0;i<UsrTopics.length;i++){
-        if(id_topico === String(UsrTopics[i].id)){
+        if(id_topico === UsrTopics[i].id){
           UsrTopics.splice(i, 1);
         }
       }
@@ -265,23 +266,24 @@ class MostrarTopicos extends Component{
       this.setState({
               usrTopics: UsrTopics
       });
-      fetch("http://localhost:4000/api/topicUser/" + this.props.user_id , {
+      console.log(newUsrTopicsID);
+      fetch("http://localhost:4000/api/topicUser/"  + this.props.user_id , {
         method: "put",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          'user_id': 1,
-          'user_topics_id': newUsrTopicsID
+          'user_id': this.props.user_id,
+          'user_topics_id':newUsrTopicsID
+        })
       })
-     });
   }
 
 
   render(){
   	var activo = this.props.activo;
-    var search = this.props.search;
+    var search = this.props.search
     var topicos = this.state.topicos;
     var usrTopics = this.state.usrTopics;
     if(activo === "Explorar temas"){
