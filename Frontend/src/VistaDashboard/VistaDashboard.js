@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './VistaDashboard.css';
 import 'animate.css';
 import FrequencyChart from '../Graficos/FrequencyChart';
+import DashboardFrequencyChart from '../Graficos/DashboardFrequencyChart';
 import CareerChart from '../Graficos/CareerChart';
 import Select from 'react-select';
 import CreatableSelect from 'react-select';
@@ -70,7 +71,7 @@ class VistaDashboard extends Component{
 						<h4 onClick={ this.handleRemove.bind(this, grafico.id) }  id="subtitulo-vista" >{grafico.name} {(this.state.modo==='modo-edicion')   && 	<span className= "glyphicon glyphicon-pencil"></span> }</h4>
 						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
 						<div className="grafico">
-						<FrequencyChart />
+						<DashboardFrequencyChart />
 						</div>
 					</div>
 					<div className={"col-md-2 no-padding "}>
@@ -116,7 +117,7 @@ class VistaDashboard extends Component{
 					 <div className={"col-md-10 no-padding "}>
 					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de comportamiento"/><span className= "glyphicon glyphicon-pencil"></span>
 							<div className={"grafico"}>
-								<FrequencyChart />
+								<DashboardFrequencyChart />
 							</div>
 							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
 					</div>
