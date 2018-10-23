@@ -10,7 +10,7 @@ class VistaTopicos extends Component{
 
 
 	state = {
-	      activo: 'Explorar tópicos',
+	      activo: 'Explorar temas',
         search: '',
         orden: "Nombre",
         topicos: [],
@@ -46,10 +46,10 @@ class VistaTopicos extends Component{
 
     return (
       <div className="container-fluid ContenidoVistaTopicos">
-        <h2 id = "titulo-vista">Tópicos</h2>
+        <h2 id = "titulo-vista">Temas de interés</h2>
         <ul className="ListasTopicos">
-          <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis tópicos","Explorar tópicos"]} />
-          <Paginacion  search_text= {"busca un tópico"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Nombre','Coherencia']}/>
+          <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis temas","Explorar temas"]} />
+          <Paginacion  search_text= {"busca un tema"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Nombre','Coherencia']}/>
         </ul>
         <TransitionGroup appear={true}>
            <CSSTransition

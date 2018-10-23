@@ -28,3 +28,35 @@
   color: #000;
   border: 0px !important;
 }
+
+.ContenidoVistaDetalleTopico .glyphicon-question-sign { color:#77828e; margin-left: 5px; font-size: 18px; top: 3px;}
+.ContenidoVistaDetalleTopico .glyphicon-question-sign:hover {  border-color:#FEDD34;color: #FEDD34;}
+
+
+.box {
+  float: left;
+  height: 20px;
+  width: 20px;
+  margin-right: 10px;
+  clear: both;
+  font-weight: bold;
+}
+.box-text {
+  color: black;
+}
+
+.red {
+  background-color: #FF5C55;
+  border-radius: 17px;
+}
+
+
+.green {
+  background-color: #87D597;
+  border-radius: 17px;
+}
+
+.orange {
+  background-color: #ECB775;
+  border-radius: 17px;
+}

@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { select } from 'd3-selection';
-import { scaleLinear } from 'd3-scale';
-import {force , forceSimulation} from 'd3-force';
 import * as d3 from 'd3';
 
 
@@ -43,7 +41,7 @@ class TopicGraph extends Component{
    }
 
    componentDidUpdate(prevProps, prevState) {
-       if((prevState.w != this.state.w)){
+       if((prevState.w !== this.state.w)){
          this.ReDrawGraph();
          console.log("re");
        }
@@ -80,6 +78,7 @@ class TopicGraph extends Component{
   if(true){
       colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
   }
+
   var dataset = {
       nodes: [
           { name: "AI"},
@@ -111,7 +110,9 @@ class TopicGraph extends Component{
         {"source":12,"target":0,"value":60}
       ]
   };
-
+  if(this.props.dataset!=null){
+    dataset = this.props.dataset;
+  }
   //Initialize a default force layout, using the nodes and edges in dataset
   //var force = d3.forceSimulation()
   //            .nodes(dataset.nodes)
@@ -121,8 +122,7 @@ class TopicGraph extends Component{
   //            .charge([-100]);
 
 
-  var nodes = [],
-             width = svgWidth,
+  var        width = svgWidth,
              height = svgHeight,
              angle,
              x,
@@ -141,7 +141,7 @@ dataset.nodes[0].x = svgWidth/2;
 dataset.nodes[0].y = svgHeight/2;
 
   var max = 0,min=10;
-  for( var i = 0; i < dataset.edges.length ; i++){
+  for( i = 0; i < dataset.edges.length ; i++){
 
     if(dataset.edges[i].value>max) { max = dataset.edges[i].value}
     if(dataset.edges[i].value< min){min = dataset.edges[i].value}
@@ -158,7 +158,7 @@ dataset.nodes[0].y = svgHeight/2;
     dataset.nodes[i].index = i;
   }
 
-  for( var i = 0; i < dataset.edges.length ; i++){
+  for(i = 0; i < dataset.edges.length ; i++){
 
   }
 
@@ -194,8 +194,7 @@ dataset.nodes[0].y = svgHeight/2;
           .data(dataset.edges)
           .enter()
           .append("line")
-          .style("stroke-width", function(d) { if(false) {return interval[1] *2.5/d.value} else { return 1}; })
-
+          .style("stroke-width", function(d) { return 1; })
           .attr("stroke", function(d) {
             if(d.value>=0.8 * interval[1]) return colores_arcos[0];
             if(d.value>=0.6 * interval[1]) return colores_arcos[1];
@@ -339,7 +338,7 @@ dataset.nodes[0].y = svgHeight/2;
   }
 
   function mouseclick(d) {
-    if(d.index != 0){
+    if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
       .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
@@ -349,7 +348,7 @@ dataset.nodes[0].y = svgHeight/2;
 
 
   function mouseover(d) {
-    if(d.index != 0){
+    if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
       .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
@@ -361,7 +360,7 @@ dataset.nodes[0].y = svgHeight/2;
       .style("left", (window.pageXOffset + matrix.e + 30) + "px")
       .style("top", (window.pageYOffset + matrix.f - 15) + "px")
       div.html(
-            "<div class='recharts-tooltip-wrapper recharts-tooltip-wrapper-left recharts-tooltip-wrapper-bottom' style='pointer-events: none; visibility: visible; position: absolute; top: 0px;  transition: -webkit-transform 400ms ease;'>" +
+            "<div class='recharts-tooltip-wrapper recharts-tooltip-wrapper-right recharts-tooltip-wrapper-bottom' style='pointer-events: none; visibility: visible; position: absolute; top: 0px;  transition: -webkit-transform 400ms ease;'>" +
 
             "<div class='recharts-default-tooltip-graph' style='margin: 0px; padding: 10px; background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); white-space: nowrap;'>" +
             "<p class='recharts-tooltip-label' style='margin: 0px; font-size: 14px'> " + d.name  + "</p>" +

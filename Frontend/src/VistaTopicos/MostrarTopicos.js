@@ -18,7 +18,7 @@ class MostrarTopicos extends Component{
           return val2.name;
         }
       });
-      return null;//para evitar el warning, no se usa para nada 
+      return null;//para evitar el warning, no se usa para nada
     });
     return data;
   }
@@ -284,7 +284,7 @@ class MostrarTopicos extends Component{
     var search = this.props.search;
     var topicos = this.state.topicos;
     var usrTopics = this.state.usrTopics;
-    if(activo === "Explorar tópicos"){
+    if(activo === "Explorar temas"){
       return (
         <div >
            {topicos.map((topico,i,arr) => (
@@ -293,7 +293,7 @@ class MostrarTopicos extends Component{
         </div>
       );
     }
-    else if(activo === "Mis tópicos"){
+    else if(activo === "Mis temas"){
       return (
         <div>
         {usrTopics.map((topico,i,arr) => (
