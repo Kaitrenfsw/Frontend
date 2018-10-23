@@ -123,7 +123,7 @@ class VistaDashboard extends Component{
 				</row>
 			)
 		}
-		if(grafico.graph_type ===2){
+		if(grafico.graph_type ===3){
       return (
 				<row>
 					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
@@ -157,8 +157,9 @@ class VistaDashboard extends Component{
   			return(
   				<row className="animated fadeIn">
   					 <div className={"col-md-10 no-padding "}>
-  					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Comportamiento" type="text"/><span className= "glyphicon glyphicon-pencil"></span>
-  							<div className="grafico">
+             <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
+
+              	<div className="grafico">
   								<FrequencyChart />
   							</div>
   							<a onClick={ (event) => this.HandleAñadirGrafico(event,"grafico")}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
@@ -173,11 +174,11 @@ class VistaDashboard extends Component{
   			)
   		}
 
-      if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===2)){
+      if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===3)){
         return(
           <row className="animated fadeIn">
              <div className={"col-md-10 no-padding "}>
-             <input type= "text" className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Carrera"/><span className= "glyphicon glyphicon-pencil"></span>
+              <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
                 <div className={"grafico"}>
                   	<CareerChart />
                 </div>
@@ -264,7 +265,7 @@ class VistaDashboard extends Component{
 					<Select
 					        value={this.state.selectedOption}
 					        onChange={this.handleChange}
-									options = {[{label:"Gráfico de Comportamiento", value: 1},{label: "Gráfico de Carrera", value:2}]}
+									options = {[{label:"Gráfico de Comportamiento", value: 1},{label: "Gráfico de Carrera", value:3}]}
 									className = {"añadir__div animated fadeIn"}
 									classNamePrefix = {"añadir"}
 									placeholder={"Ninguno"}
