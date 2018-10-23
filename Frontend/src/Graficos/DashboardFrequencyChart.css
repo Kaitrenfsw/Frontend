@@ -2,3 +2,11 @@
 cursor: pointer;
 
 }
+.recharts-tooltip-wrapper .recharts-default-tooltip{
+  background:#2a3339 !important;
+  /*font-weight: bold!important;*/
+  color: #fff;
+  border: 10px !important;
+  border-color: #fff!important;
+
+}
