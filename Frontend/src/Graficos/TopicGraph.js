@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { select } from 'd3-selection';
 import * as d3 from 'd3';
-
+import {withRouter} from "react-router-dom";
 
 
 
@@ -9,6 +9,7 @@ class TopicGraph extends Component{
   constructor(props){
       super(props);
       this.createGraph = this.createGraph.bind(this);
+      this.HandleMouseClick = this.HandleMouseClick .bind(this);
       this.resize = this.resize.bind(this);
   }
   state = {
@@ -41,7 +42,12 @@ class TopicGraph extends Component{
    }
 
    componentDidUpdate(prevProps, prevState) {
+     /**
        if((prevState.w !== this.state.w)){
+         this.ReDrawGraph();
+         console.log("re");
+       }**/
+       if((prevProps.dataset !== this.props.dataset)){
          this.ReDrawGraph();
          console.log("re");
        }
@@ -51,6 +57,11 @@ class TopicGraph extends Component{
      select(".graph").remove()
      this.createGraph();
    }
+
+   HandleMouseClick(d){
+     if(d.index != 0){
+       this.props.history.push('/topicos/' + d.id);
+   }}
 
 
 
@@ -122,6 +133,9 @@ class TopicGraph extends Component{
   //            .charge([-100]);
 
 
+
+
+
   var        width = svgWidth,
              height = svgHeight,
              angle,
@@ -147,16 +161,20 @@ dataset.nodes[0].y = svgHeight/2;
     if(dataset.edges[i].value< min){min = dataset.edges[i].value}
   }
 
-  var interval = [Math.min(svgHeight,svgWidth)/9,Math.min(svgHeight,svgWidth)/4.5];
+  var interval = [Math.min(svgHeight,svgWidth)/10,Math.min(svgHeight,svgWidth)/3.7];
+
   for(i = 0; i < dataset.edges.length ; i++){
     const w = ((interval[1] - interval[0]) * (dataset.edges[i].value - min) / (max - min)) + interval[0];
     dataset.edges[i].value = interval[1] - w   + interval[0];
     dataset.nodes[i +1].value = interval[1] - w  + interval[0];
 
   }
+
+
   for(i = 0; i < dataset.nodes.length ; i++){
     dataset.nodes[i].index = i;
   }
+
 
   for(i = 0; i < dataset.edges.length ; i++){
 
@@ -171,7 +189,7 @@ dataset.nodes[0].y = svgHeight/2;
   var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d,i) {
               return i;
-          }).strength (function (d) {return d.value/400;}).distance(function (d) {return d.value * 1.5;}))
+          }).strength (function (d) {return d.value/400;}).distance(function (d) {return 1.4*d.value ;}))
           .force("center", d3.forceCenter(svgWidth / 2,svgHeight / 2.4))
           .force('charge', function(d){
               var charge = -500;
@@ -220,18 +238,18 @@ dataset.nodes[0].y = svgHeight/2;
 
             .style("stroke-width", function(d) { return 3; })
           .attr("stroke", function(d) {
-            if(d.value>=0.8 * interval[1]) return colores_nodos[0];
-            if(d.value>=0.6 * interval[1]) return colores_nodos[1];
-            if(d.value>=0) return colores_nodos[2];
+            if(d.value>=0.95 * interval[1]) return colores_nodos[0];
+            else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
+            else if(d.value>=0) return colores_nodos[2];
             else return '#5CACC4';
             })
           .attr('fill',function (d,i) {
-              if(d.value>=0.8 * interval[1]) return colores_nodos[0];
-              if(d.value>=0.6 * interval[1]) return colores_nodos[1];
-              if(d.value>=0) return colores_nodos[2];
+              if(d.value>=0.95 * interval[1]) return colores_nodos[0];
+              else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
+              else if(d.value>=0) return colores_nodos[2];
               else return'#5CACC4';
           })
-          .on("click", mouseclick)
+          .on("click", this.HandleMouseClick)
           .on("mouseover", mouseover)
           .on("mouseout", mouseout);
           /*
@@ -248,11 +266,18 @@ dataset.nodes[0].y = svgHeight/2;
           .attr("class", "nodetext slds-text-heading--label")
           .attr("text-anchor", "middle")
 
-          .attr("dx", 0)
+          .attr("dx", function(d) {
+            if(d.index === (((dataset.nodes.length -1 )/4) +1)){ return 0;}
+            else if(d.index === (((dataset.nodes.length -1 )*3/4) +1)){ return 0;}
+            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index != 0){ return d.name.length*1.5;}
+            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index != 0 ){ return d.name.length*1.5;}
+            else if(((dataset.nodes.length -1) /4) <= d.index < ((dataset.nodes.length -1) * 3/4) && d.index != 0 ){ return -d.name.length*1.5;}
+            else{ return 0;}})
+
           .attr("dy", function(d) {
             if(d.index === 0 ){ return 45;}
-            if(d.index <= (dataset.nodes.length /2)){ return (interval[1]*5/d.value)  + 20;}
-            else return ( - interval[1]*5/d.value) - 10;})
+            if(d.index <= (dataset.nodes.length /2) ){ return (interval[1]*8/d.value)  + 10;}
+            else return ( - interval[1]*8.5/d.value);})
           .style('fill', '#5C7582')
           .style('font-weight', 'bold')
           .text(function(d) {
@@ -355,7 +380,7 @@ dataset.nodes[0].y = svgHeight/2;
       var matrix = this.getScreenCTM()
         .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
 
-
+      /*
       div.style("opacity", 1)
       .style("left", (window.pageXOffset + matrix.e + 30) + "px")
       .style("top", (window.pageYOffset + matrix.f - 15) + "px")
@@ -366,11 +391,9 @@ dataset.nodes[0].y = svgHeight/2;
             "<p class='recharts-tooltip-label' style='margin: 0px; font-size: 14px'> " + d.name  + "</p>" +
             "<ul class='recharts-tooltip-item-list' style='padding: 0px; margin: 0px;'>" +
             "<li class='recharts-tooltip-item' style='display: block; padding-top: 4px; padding-bottom: 4px; color: #494a4c;font-size: 14px'>"+
-            "<span class='recharts-tooltip-item-name'>" + "Keywords" + "</span>" +
-            "<span class='recharts-tooltip-item-separator'>" + ":" +
-            "</span>" + "<span class='recharts-tooltip-item-value wrap-keywords'>" + "data, api, development, security, enterprise."  + "</span>" +
+            "<span class='recharts-tooltip-item-name'>" +
             "<span class='recharts-tooltip-item-unit'>" + "</span>" + "</li>" + "</ul>" + "</div>"+ "</div>")
-
+            */
     }
 
 
@@ -397,4 +420,4 @@ dataset.nodes[0].y = svgHeight/2;
 
 
   }
-  export default TopicGraph;
+  export default withRouter(TopicGraph);

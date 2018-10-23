@@ -21,6 +21,9 @@
 .ContenidoVistaDetalleTopico .margin-top {margin-top: 3vh}
 .ContenidoVistaDetalleTopico .resumen-articulo{color: #EDEEEF; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.2em;        /* fallback */ max-height: 5.8em; font-size: 1.1em}
 .ContenidoVistaDetalleTopico .resumen-articulo:after {content: '...'; margin-left: -0.3em;}
+.ContenidoVistaDetalleTopico .unsub-button { float: left; margin-top: 10px}
+.ContenidoVistaDetalleTopico .sub-button { float: left; margin-top: 10px}
+.ContenidoVistaDetalleTopico .row-SeccionGraficos {margin-top: 60px;}
 
 .recharts-tooltip-wrapper .recharts-default-tooltip-graph{
   background:rgba(255,255,255,0.6)!important;

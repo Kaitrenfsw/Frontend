@@ -22,7 +22,7 @@ class SeccionGraficos extends Component{
 
     return (
 
-        <div className="row row-no-padding">
+        <div className="row row-no-padding row-SeccionGraficos">
           <div className="col-lg-7 no-padding">
             <h4 id="subtitulo-vista">Gráfico de comportamiento</h4>
             <div className="freq-div">
