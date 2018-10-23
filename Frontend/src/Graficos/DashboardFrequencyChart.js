@@ -1,38 +1,90 @@
 import React, { Component } from 'react'
 import {Legend, AreaChart,Area,Brush,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
 import moment from  'moment'
-import './FrequencyChart.css';
+import './DashboardFrequencyChart.css';
 //import 'moment/locale/es'
 
 class DashboardFrequencyChart extends Component{
 
     constructor(props) {
       super(props);
-      this.state = {
+      this.state = {visibility:[false,false,false,false],names:[]
       }
+      this.changeVisibility = this.changeVisibility.bind(this);
+      this.renderLines = this.renderLines.bind(this);
 //      moment.locale('es')
     }
 
     componentDidMount(){
-      var semanas='{"weeks":[{"week": "29/04/2018","count": 26},{"week": "06/05/2018","count": 32},{"week": "13/05/2018","count": 21},{"week": "20/05/2018","count": 16},{"week": "27/05/2018","count": 8},{"week": "03/06/2018","count": 20},{"week": "10/06/2018","count": 32},{"week": "17/06/2018","count": 48},{"week": "24/06/2018","count": 56},{"week": "01/07/2018","count": 50},{"week": "08/07/2018","count": 39},{"week": "15/07/2018","count": 28},{"week": "22/07/2018","count": 19},{"week": "29/07/2018","count": 14},{"week": "05/08/2018","count": 11},{"week": "12/08/2018","count": 12},{"week": "19/08/2018","count": 13},{"week": "26/08/2018","count": 16},{"week": "02/09/2018","count": 20},{"week": "09/09/2018","count": 39},{"week": "16/09/2018","count": 19},{"week": "23/09/2018","count": 41},{"week": "30/09/2018","count": 32},{"week": "05/10/2018","count": 56}]}';
-      var obj = JSON.parse(semanas).weeks;
-      console.log(obj);
-      for (var i = 0; i < obj.length; i++) {
-        obj[i].date=moment(obj[i].week,'DD/MM/YYYY').valueOf();
-        obj[i].count2=Math.round(Math.random()*100);
-        obj[i].count3=Math.round(Math.random()*100);
-        obj[i].count4=Math.round(Math.random()*100);
-        obj[i].count5=Math.round(Math.random()*100);
+
+      var tops='{"topics":[{	"topic_name": "Topico 1",	"topic_id": 2,"weeks":[{"week": "10/10/2018",				"count": 60},{			"week": "17/10/2018","count": 80	}]},	{	"topic_name": "Topico 2",	"topic_id": 5,	"weeks":[{"week": "10/10/2018","count": 30},{"week": "17/10/2018","count": 50}]}]}';
+
+      var topics = JSON.parse(tops).topics;
+      console.log(topics);
+      var data2=[];
+      var item = {};
+
+      for (var i = 0; i < topics[0].weeks.length; i++) {
+        item = {};
+        for (var j = 0; j < topics.length; j++) {
+          item.date=moment(topics[j].weeks[i].week,'DD/MM/YYYY').valueOf();
+          item["count"+j]= topics[j].weeks[i].count;
+        }
+        data2.push(item)
       }
 
-      this.setState({data: obj});
+
+      for (var i = 0; i < topics.length; i++) {
+        this.state.names[i]=topics[i].topic_name;
+      }
+      this.setState({data2:data2,topicsNumber:topics.length});
+
+    }
+
+    changeVisibility(event){
+      console.log(event);
+      const newVisibility=this.state.visibility;
+      if (newVisibility[event.payload.id]==true) {
+        newVisibility[event.payload.id]=false;
+      }
+      else if (newVisibility.filter(Boolean).length< this.state.topicsNumber-1) {
+        newVisibility[event.payload.id]=true;
+      }
+      console.log(newVisibility.filter(Boolean));
+      this.setState({visibility: newVisibility});
+
+
+    }
+
+    renderLines(){
+      var out=[];
+      var colors=["#F63141","#40A7C2","#73DB9A","#FFB744"]
+
+      for (var i = 0; i < 2 ; i++) {
+        out.push(
+          <Area
+            type="monotoneX"
+            dataKey={"count"+i}
+            stroke={colors[i]}
+            strokeWidth={2}
+            name={this.state.names[i]}
+            fillOpacity={0}
+            id={i}
+            hide={this.state.visibility[i]}
+          />
+      );
+      }
+
+
+
+      return out;
     }
 
     render(){
     return (
               <div>
               <ResponsiveContainer width='100%' height={300}>
-              <AreaChart data={this.state.data}
+              <AreaChart data={this.state.data2}
                 margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
                 <XAxis
                   dataKey="date"
@@ -59,43 +111,16 @@ class DashboardFrequencyChart extends Component{
                   cursor={false}
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
-                <Area
-                  type="monotoneX"
-                  dataKey="count"
-                  stroke="#F63141"
-                  strokeWidth={2}
-                  name="Topuci 1"
-                  fillOpacity={0}
-                />
-                <Area
-                  type="monotoneX"
-                  dataKey="count2"
-                  stroke="#40A7C2"
-                  strokeWidth={2}
-                  name="Topico 2"
-                  fillOpacity={0}
-                />
-                <Area
-                  type="monotoneX"
-                  dataKey="count3"
-                  stroke="#73DB9A"
-                  strokeWidth={2}
-                  name="Topico 2"
-                  fillOpacity={0}
-                />
-                <Area
-                  type="monotoneX"
-                  dataKey="count4"
-                  stroke="#FFB744"
-                  strokeWidth={2}
-                  name="Topico 2"
-                  fillOpacity={0}
-                />
+
+                {this.renderLines()}
+
                 <Legend
                   align="right"
                   layout="vertical"
                   margin={{ top: 0, left: 20, right: 0, bottom: 0 }}
                   wrapperStyle={{"color":"white",paddingLeft: "20px",paddingBottom: "30px"}}
+                  onClick={this.changeVisibility}
+                  iconType="circle"
                   />
 
                 <Brush
@@ -103,6 +128,7 @@ class DashboardFrequencyChart extends Component{
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM')}
                   fill={"rgba(88,114,124,0.02)"}
+                  wrapperStyle={{ color: "#fff" }}
                 />
               </AreaChart>
             </ResponsiveContainer>
