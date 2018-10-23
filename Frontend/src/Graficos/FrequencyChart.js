@@ -100,7 +100,7 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
-                  type="natural"
+                  type="monotoneX"
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
