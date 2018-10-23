@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './VistaDashboard.css';
 import 'animate.css';
 import FrequencyChart from '../Graficos/FrequencyChart';
+import DashboardFrequencyChart from '../Graficos/DashboardFrequencyChart';
 import CareerChart from '../Graficos/CareerChart';
 import Select from 'react-select';
 import CreatableSelect from 'react-select';
@@ -113,7 +114,7 @@ class VistaDashboard extends Component{
   						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.graph_id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
               {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.graph_title} </h4>}
               <div className="grafico">
-  						      <FrequencyChart />
+  						      <DashboardFrequencyChart />
   						</div>
 					  </div>
            </div>
@@ -157,10 +158,9 @@ class VistaDashboard extends Component{
   			return(
   				<row className="animated fadeIn">
   					 <div className={"col-md-10 no-padding "}>
-             <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
-
-              	<div className="grafico">
-  								<FrequencyChart />
+  					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Comportamiento" type="text"/><span className= "glyphicon glyphicon-pencil"></span>
+  							<div className="grafico">
+  								<DashboardFrequencyChart />
   							</div>
   							<a onClick={ (event) => this.HandleAñadirGrafico(event,"grafico")}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
   					</div>
@@ -221,6 +221,34 @@ class VistaDashboard extends Component{
 
 
 
+	DesplegarAgregarGrafico(){
+		if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===1)){
+			return(
+				<row className="animated fadeIn">
+					 <div className={"col-md-10 no-padding "}>
+					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de comportamiento"/><span className= "glyphicon glyphicon-pencil"></span>
+							<div className={"grafico"}>
+								<DashboardFrequencyChart />
+							</div>
+							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
+					</div>
+					<div className={"col-md-2 no-padding "}>
+						<div className="seccion-agregar-topicos">
+						<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
+						<CreatableSelect
+						 	isMulti
+						 	onChange={this.handleChangeMulti}
+						 	className = {"añadir-multiple__div"}
+							classNamePrefix = {"añadir"}
+							placeholder={"Seleccionar"}
+						 	options={topicos}
+					 />
+					 </div>
+					</div>
+			</row>
+			)
+		}
+	}
 
 	handleRemove(event,id){
 		var graficos = this.state.graficos;

@@ -14,14 +14,51 @@ class FrequencyChart extends Component{
     }
 
     componentDidMount(){
-      var semanas='{"weeks":[{"week": "29/04/2018","count": 26},{"week": "06/05/2018","count": 32},{"week": "13/05/2018","count": 21},{"week": "20/05/2018","count": 16},{"week": "27/05/2018","count": 8},{"week": "03/06/2018","count": 20},{"week": "10/06/2018","count": 32},{"week": "17/06/2018","count": 48},{"week": "24/06/2018","count": 56},{"week": "01/07/2018","count": 50},{"week": "08/07/2018","count": 39},{"week": "15/07/2018","count": 28},{"week": "22/07/2018","count": 19},{"week": "29/07/2018","count": 14},{"week": "05/08/2018","count": 11},{"week": "12/08/2018","count": 12},{"week": "19/08/2018","count": 13},{"week": "26/08/2018","count": 16},{"week": "02/09/2018","count": 20},{"week": "09/09/2018","count": 39},{"week": "16/09/2018","count": 19},{"week": "23/09/2018","count": 41},{"week": "30/09/2018","count": 32},{"week": "05/10/2018","count": 56}]}';
-      var obj = JSON.parse(semanas).weeks;
-      console.log(obj);
-      for (var i = 0; i < obj.length; i++) {
-        obj[i].date=moment(obj[i].week,'DD/MM/YYYY').valueOf()
-      }
 
-      this.setState({data: obj});
+      var topicId=this.props.topicId;
+      var date="2015-10-10"
+      console.log("id:"+topicId);
+
+      fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
+     .then((response) => {
+       if(response.ok) {
+         response.json().then(data => ({
+               data: data,
+               status: response.status
+           })
+         ).then(res => {
+           this.setState({chartData:res.data.weeks});
+         });
+
+       } else {
+         console.log('bad request');
+       }
+     })
+     .catch(error => {
+       console.log('Hubo un problema con la petición Fetch:' + error.message);
+
+     });
+
+
+
+      var semanas='{"weeks":[{"week": "29-04-2018","count": 26},{"week": "06-05-2018","count": 32},{"week": "13-05-2018","count": 21},{"week": "20-05-2018","count": 16},{"week": "27-05-2018","count": 8},{"week": "03-06-2018","count": 20},{"week": "10-06-2018","count": 32},{"week": "17-06-2018","count": 48},{"week": "24-06-2018","count": 56},{"week": "01-07-2018","count": 50},{"week": "08-07-2018","count": 39},{"week": "15-07-2018","count": 28},{"week": "22-07-2018","count": 19},{"week": "29-07-2018","count": 14},{"week": "05-08-2018","count": 11},{"week": "12-08-2018","count": 12},{"week": "19-08-2018","count": 13},{"week": "26-08-2018","count": 16},{"week": "02-09-2018","count": 20},{"week": "09-09-2018","count": 39},{"week": "16-09-2018","count": 19},{"week": "23-09-2018","count": 41},{"week": "30-09-2018","count": 32},{"week": "05-10-2018","count": 56}]}';
+      var obj = JSON.parse(semanas).weeks;
+
+      obj=this.state.chartData;
+
+      console.log(obj);
+      if (typeof obj==="undefined") {
+        console.log("Data vacia!!");
+      }
+      else{
+
+        for (var i = 0; i < obj.length; i++) {
+          obj[i].date=moment(obj[i].week,'DD-MM-YYYY').valueOf()
+        }
+
+        this.setState({data: obj});
+
+      }
     }
 
     render(){
@@ -74,9 +111,10 @@ class FrequencyChart extends Component{
                 />
 
                 <Brush
-                  height={30}
+                  height={25}
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM YY')}
+                  fill={"rgba(88,114,124,0.02)"}
                 />
 
 
