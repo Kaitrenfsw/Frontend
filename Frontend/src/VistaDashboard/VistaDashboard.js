@@ -114,7 +114,7 @@ class VistaDashboard extends Component{
   						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.graph_id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
               {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.graph_title} </h4>}
               <div className="grafico">
-  						      <FrequencyChart />
+  						      <DashboardFrequencyChart />
   						</div>
 					  </div>
            </div>
@@ -160,7 +160,7 @@ class VistaDashboard extends Component{
   					 <div className={"col-md-10 no-padding "}>
   					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Comportamiento" type="text"/><span className= "glyphicon glyphicon-pencil"></span>
   							<div className="grafico">
-  								<FrequencyChart />
+  								<DashboardFrequencyChart />
   							</div>
   							<a onClick={ (event) => this.HandleAñadirGrafico(event,"grafico")}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
   					</div>
