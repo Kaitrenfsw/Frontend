@@ -35,7 +35,7 @@ class VistaDashboard extends Component{
     user_dashboard:  [ { "user_id": 1, "graphs_selected":[ {"graph_type": 1,  "name": "nombre del gráfico", "topics_selected": [ {"topic_id": 23, "name": "IA"}, {"topic_id": 24,"name": "AFI"}, {"topic_id": 7, "name": "EFO"}] }, {"graph_type": 3,  "name": "nombre del gráfico", "topics_selected": [ {"topic_id": 66,"name": "OJO"}, {"topic_id": 77,"name": "EJE"}, {"topic_id": 88, "name": "IJI"} ] }] } ],
 		selectedOption: null,
 		selectedMultiOption:[],
-		TituloNuevoGrafico: "Gráfico de Frecuencia",
+		TituloNuevoGrafico: "",
     graficos: [{"graph_type":1, "graph_id": 0, "graph_title": "Gráfico de Comportamiento", "topics": [ { "topic_name": "hola", "topic_id": 2, "weeks": [ { "week": "dd/mm/yyyy"}]}]},{ "graph_type": 2, "graph_id": 1, "graph_title":"Gráfico de Carrera",  "topics": [ { "topic_id": 8, "topic_name": "algo", "total_count": 5,  "growing": true, "avg_weight": 0.1	 } ] } ],
     topics_options: null
 	}
@@ -237,7 +237,7 @@ class VistaDashboard extends Component{
         return(
           <row className="animated fadeIn">
              <div className={"col-md-10 no-padding "}>
-              <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
+              <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Carrera" /> <span className= "glyphicon glyphicon-pencil"></span>
                 <div className={"grafico"}>
                   	<CareerChart topics = {  topicos_seleccionados_formateados} />
                 </div>
@@ -264,13 +264,22 @@ class VistaDashboard extends Component{
 
 
 	HandleAñadirGrafico(event,graph_type){
+   var TituloNuevoGrafico = this.state.TituloNuevoGrafico;
+   if(TituloNuevoGrafico ===""){
+     if(graph_type===1){
+       TituloNuevoGrafico = "Gráfico de Comportamiento";
+     }
+     if(graph_type===3){
+       TituloNuevoGrafico = "Gráfico de Carrera";
+     }
+   }
     var SelectedTopics = this.state.selectedMultiOption;
     var FormatedSelectedTopics = [];
     for(var i = 0; i<SelectedTopics.length ; i++){
       FormatedSelectedTopics.push({"topic_id":SelectedTopics[i].value , "name":SelectedTopics[i].label });
     }
 		var user_dashboard = 	this.state.user_dashboard;
-    user_dashboard[0].graphs_selected.push({"graph_type": graph_type,  "name": this.state.TituloNuevoGrafico, "topics_selected": FormatedSelectedTopics });
+    user_dashboard[0].graphs_selected.push({"graph_type": graph_type,  "name": TituloNuevoGrafico, "topics_selected": FormatedSelectedTopics });
     this.setState({user_dashboard});
     this.pushDashboardUsuario();
 		this.setState({selectedOption:null});
@@ -280,34 +289,6 @@ class VistaDashboard extends Component{
 
 
 
-	DesplegarAgregarGrafico(){
-		if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===1)){
-			return(
-				<row className="animated fadeIn">
-					 <div className={"col-md-10 no-padding "}>
-					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de comportamiento"/><span className= "glyphicon glyphicon-pencil"></span>
-							<div className={"grafico"}>
-								<DashboardFrequencyChart />
-							</div>
-							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
-					</div>
-					<div className={"col-md-2 no-padding "}>
-						<div className="seccion-agregar-topicos">
-						<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
-						<CreatableSelect
-						 	isMulti
-						 	onChange={this.handleChangeMulti}
-						 	className = {"añadir-multiple__div"}
-							classNamePrefix = {"añadir"}
-							placeholder={"Seleccionar"}
-						 	options={topicos}
-					 />
-					 </div>
-					</div>
-			</row>
-			)
-		}
-	}
 
 	handleRemove(event,graph_number){
 		var user_dashboard = this.state.user_dashboard;
