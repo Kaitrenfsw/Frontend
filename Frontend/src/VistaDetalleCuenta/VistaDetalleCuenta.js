@@ -16,9 +16,10 @@ class VistaDetalleCuenta extends Component{
 	 };
 
 	 componentDidMount(){
+		 console.log(this.match);
+		 console.log(this.props);
 		 if(this.props.user.permissions[0].group === "admin" && this.state.activo == 'Contraseña'){
 			 this.setState({activo:'Datos'});
-
 		 }
 	 }
 
@@ -28,7 +29,7 @@ class VistaDetalleCuenta extends Component{
 
   RenderContent(activo){
     if(activo === 'Contraseña'){
-      return <Contrasena user = {this.props.user} adm_cuenta = {true}/>
+      return <Contrasena id = {this.props.match.params.id} user = {this.props.user} adm_cuenta = {true}/>
     }
     if(activo === 'Datos'){
       return  <Datos  id = {this.props.match.params.id} adm_cuenta={true} user = {this.props.user}/>

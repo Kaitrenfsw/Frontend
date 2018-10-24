@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import profile from '../Assets/profile.png';
 import { NavLink } from 'react-router-dom';
-
+import { toast } from 'react-toastify';
 class MostrarCuentas extends Component{
   state = {
       cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
@@ -16,6 +16,7 @@ class MostrarCuentas extends Component{
           this.OrdenarCuentas(this.props.orden);
     }
   }
+  notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
 
   fetchIdms(){
     fetch('http://localhost:4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
@@ -67,6 +68,38 @@ class MostrarCuentas extends Component{
           console.log(res.data.users);
           this.setState({cuentas:res.data.users, isLoading:false});
 
+        });
+
+      } else {
+        console.log('bad request');
+      }
+    })
+    .catch(function(error) {
+      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
+  }
+
+  HandleEliminarIdm(event,id){
+    fetch('http://localhost:4000/api/idms', {
+        method: 'DELETE',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: JSON.stringify({
+          'id': id,
+        })
+    })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          console.log(res.data,res.status)
+          this.notify_success('Cuenta eliminada exitosamente');
         });
 
       } else {
@@ -130,7 +163,8 @@ DesplegarCuentasIDM(cuenta,search){
                 <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>
               </div>
-              <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>
+              <a   className="gradient-button gradient-button-3 eliminar_button" onClick = {(event) => this.HandleEliminarIdm(event, cuenta.id)}  >Eliminar</a>
+              <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Cambiar Contraseña</NavLink>
             </div>
           </div>
         </div>
