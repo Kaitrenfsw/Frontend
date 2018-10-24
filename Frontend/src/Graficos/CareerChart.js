@@ -12,7 +12,7 @@ class CareerChart extends Component{
     }
 
     componentDidMount(){
-      var datos ='{"topics":[{"topic_id": 2,"topic_name":"Apple","total_count":80,"growing":0,"avg_weight":0.3},{"topic_id": 6,"topic_name":"Android","total_count":180,"growing":1,"avg_weight":0.8},{"topic_id": 7,"topic_name":"Python","total_count":50,"growing":1,"avg_weight":0.6},{"topic_id": 12,"topic_name":"JavaScript","total_count":95,"growing":0,"avg_weight":0.7}]}';
+      var datos ='{"topics":[{"topic_id": 2,"topic_name":"Apple","total_count":80,"growing":-10,"avg_weight":0.3},{"topic_id": 6,"topic_name":"Android","total_count":180,"growing":20,"avg_weight":0.8},{"topic_id": 7,"topic_name":"Python","total_count":50,"growing":13,"avg_weight":0.6},{"topic_id": 12,"topic_name":"JavaScript","total_count":95,"growing":-30,"avg_weight":0.7}]}';
       var obj = JSON.parse(datos).topics;
 
       var data1=[];
@@ -25,7 +25,7 @@ class CareerChart extends Component{
        if (obj[i].total_count < minCount) { minCount= obj[i].total_count; }
        obj[i].x=obj[i].avg_weight*100;
 
-       if (obj[i].growing==1) {
+       if (obj[i].growing>0) {
          data1.push(obj[i]);
        }
        else {
@@ -46,7 +46,7 @@ class CareerChart extends Component{
         data2[i].orden=i+1+data1.length;
       }
       this.setState({data1: data1,data2:data2});
-      }
+    }
 
     rango(partes){
       var list = [];
@@ -121,10 +121,14 @@ class CareerChart extends Component{
         const { active } = props;
           if (active) {
             const { payload } = props;
-            //console.log(payload);
+            console.log(payload);
             return (
-              <div className="custom-tooltip">
-                <p className="label">{payload[0].payload.topic_name}</p>
+              <div className="custom-tooltip" style={{"background":"#2a3339","fontSize":17,"padding":"7px"}}>
+                <div><p className="label">Tema: {payload[0].payload.topic_name}</p></div>
+                <div><p className="label"
+                        style={{"color":payload[0].payload.growing>0?"#73DB9A":"#FFB744"}}>
+                        Publicaciones: {payload[0].payload.growing>0?"+":""}{payload[0].payload.growing}
+                      </p></div>
               </div>
             );
 

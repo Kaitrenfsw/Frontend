@@ -1,7 +1,7 @@
 .borderless td,
 .borderless th {
     border: 0!important;
-    font-size: 10px;
+    font-size: 12px;
     padding: 5px!important;
 }
 
