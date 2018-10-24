@@ -17,81 +17,85 @@ class MostrarCuentas extends Component{
     }
   }
 
+  fetchIdms(){
+    fetch('http://localhost:4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
+     method: "get",
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+       'authorization': 'Bearer ' + this.props.user.token
+     },
+     body: null
+   })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          console.log(res.data.users);
+          this.setState({cuentas:res.data.users, isLoading:false});
+
+        });
+
+      } else {
+        console.log('bad request');
+      }
+    })
+    .catch(function(error) {
+      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
+  }
+  fetchOwners(){
+    fetch('http://localhost:4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
+     method: "get",
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json',
+       'authorization': 'Bearer ' + this.props.user.token
+     },
+     body: null
+   })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          console.log(res.data.users);
+          this.setState({cuentas:res.data.users, isLoading:false});
+
+        });
+
+      } else {
+        console.log('bad request');
+      }
+    })
+    .catch(function(error) {
+      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
+  }
+
 
 
 
 
   componentDidMount() {
       if(this.props.user.permissions[0].group === 'admin'){
-          fetch('http://localhost:4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
-           method: "get",
-           headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'authorization': 'Bearer ' + this.props.user.token
-           },
-           body: null
-         })
-          .then((response) => {
-            if(response.ok) {
-              response.json().then(data => ({
-                    data: data,
-                    status: response.status
-                })
-              ).then(res => {
-                console.log(res.data.users);
-                this.setState({cuentas:res.data.users, isLoading:false});
+        this.fetchOwners();
 
-              });
-
-            } else {
-              console.log('bad request');
-            }
-          })
-          .catch(function(error) {
-            console.log('Hubo un problema con la petición Fetch:' + error.message);
-          });
       }
 
       if(this.props.user.permissions[0].group === 'owner'){
-          fetch('http://localhost:4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
-           method: "get",
-           headers: {
-             'Accept': 'application/json',
-             'Content-Type': 'application/json',
-             'authorization': 'Bearer ' + this.props.user.token
-           },
-           body: null
-         })
-          .then((response) => {
-            if(response.ok) {
-              response.json().then(data => ({
-                    data: data,
-                    status: response.status
-                })
-              ).then(res => {
-                console.log(res.data.users);
-                this.setState({cuentas:res.data.users, isLoading:false});
-
-              });
-
-            } else {
-              console.log('bad request');
-            }
-          })
-          .catch(function(error) {
-            console.log('Hubo un problema con la petición Fetch:' + error.message);
-          });
+        this.fetchIdms();
       }
-
-
-
   }
 
 
 
   DesplegarCuentasDDS(cuenta,search){
-
     var ClaseEstado = "";
     var TextoEstado = "";
     if(cuenta.active ===true){ClaseEstado = "estado-f";TextoEstado = "Activa";}
@@ -122,7 +126,6 @@ DesplegarCuentasIDM(cuenta,search){
         <div key = {cuenta.id } className="row row-cuenta-idm no-margin" >
           <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
             <div className="div-cuenta-idm  ">
-              <img  src={profile}  alt="foto-perfil"/>
               <div className="div-datos-idm">
                 <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>

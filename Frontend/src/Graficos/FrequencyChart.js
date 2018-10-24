@@ -9,54 +9,58 @@ class FrequencyChart extends Component{
     constructor(props) {
       super(props);
       this.state = {
+        chartData: null,
+        data:null,
+        isLoading: true,
+
       }
-      this.dataFormat = this.dataFormat.bind(this);
 //      moment.locale('es')
     }
 
     componentDidMount(){
-      var semanas='{"weeks":[{"week": "29/04/2018","count": 26},{"week": "06/05/2018","count": 32},{"week": "13/05/2018","count": 21},{"week": "20/05/2018","count": 16},{"week": "27/05/2018","count": 8},{"week": "03/06/2018","count": 20},{"week": "10/06/2018","count": 32},{"week": "17/06/2018","count": 48},{"week": "24/06/2018","count": 56},{"week": "01/07/2018","count": 50},{"week": "08/07/2018","count": 39},{"week": "15/07/2018","count": 28},{"week": "22/07/2018","count": 19},{"week": "29/07/2018","count": 14},{"week": "05/08/2018","count": 11},{"week": "12/08/2018","count": 12},{"week": "19/08/2018","count": 13},{"week": "26/08/2018","count": 16},{"week": "02/09/2018","count": 20},{"week": "09/09/2018","count": 39},{"week": "16/09/2018","count": 19},{"week": "23/09/2018","count": 41},{"week": "30/09/2018","count": 32},{"week": "05/10/2018","count": 56}]}';
-      var obj = JSON.parse(semanas).weeks;
-      console.log(obj);
-      for (var i = 0; i < obj.length; i++) {
-        obj[i].date=moment(obj[i].week,'DD/MM/YYYY').valueOf()
-      }
 
-      this.setState({data: obj});
+      var topicId=this.props.topicId; //7
+      var date="2015-09-01"
+      console.log("id:"+topicId);
+
+      fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
+     .then((response) => {
+       if(response.ok) {
+         response.json().then(data => ({
+               data: data,
+               status: response.status
+           })
+         ).then(res => {
+           var obj = res.data.weeks;
+           for (var i = 0; i < obj.length; i++) {
+             obj[i].date=moment(obj[i].week,'DD-MM-YYYY').valueOf()
+           }
+           this.setState({data: obj});
+           this.setState({isLoading:false});
+           console.log(res);
+         });
+          console.log("hola");
+
+       } else {
+         console.log('bad request');
+       }
+     })
+     .catch(error => {
+       console.log('Hubo un problema con la petición Fetch:' + error.message);
+
+     });
+
+
+
+
     }
-
-
-    dataFormat(){
-      var data =[];
-      var fila={};
-      var last=new Date(2012, 0, 1)
-      var month = new Array();
-      month[0] = "Jan";
-      month[1] = "Feb";
-      month[2] = "Mar";
-      month[3] = "Apr";
-      month[4] = "May";
-      month[5] = "Jun";
-      month[6] = "Jul";
-      month[7] = "Aug";
-      month[8] = "Sep";
-      month[9] = "Oct";
-      month[10] = "Nov";
-      month[11] = "Dec";
-
-      for (var i = 0; i < 30; i++) {
-        var fecha=month[i%11];
-        var publicaciones=Math.round(500+i*Math.random()*50);
-        var publicaciones2=Math.round(500+i*Math.random()*50);
-        var fila={date:fecha , pub:publicaciones, pub2:publicaciones2 }
-        data.push(fila);
-      }
-
-      return data;
-    }
-
 
     render(){
+    console.log(this.state.data);
+    if(this.state.isLoading){
+      return(null);
+    }
+    else{
     return (
               <div>
               <ResponsiveContainer width='100%' height={300}>
@@ -75,13 +79,16 @@ class FrequencyChart extends Component{
                 <XAxis
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM')}
+<<<<<<< HEAD
 
+=======
+>>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                   allowDecimals={true}
                   allowDataOverflow={true}
                   domain={['dataMin', 'dataMax']}
                   padding={{left:10}}
                   stroke="#5C7582"
-                  interval={4}
+                  interval={3}
                 />
                 <YAxis
                   axisLine={false}
@@ -97,7 +104,11 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
+<<<<<<< HEAD
                   type="natural"
+=======
+                  type="monotoneX"
+>>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
@@ -107,9 +118,16 @@ class FrequencyChart extends Component{
                 />
 
                 <Brush
+<<<<<<< HEAD
                   height={20}
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM YY')}
+=======
+                  height={25}
+                  dataKey="date"
+                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
+                  fill={"rgba(88,114,124,0.02)"}
+>>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                 />
 
 
@@ -117,7 +135,7 @@ class FrequencyChart extends Component{
             </ResponsiveContainer>
             </div>
 
-    );
+    );}
   }
 }
 

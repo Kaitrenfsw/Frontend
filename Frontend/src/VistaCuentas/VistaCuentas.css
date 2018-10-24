@@ -49,7 +49,7 @@ html {
 
 /*Cuenta IDM*/
 
-.div-cuenta-idm { background-color: #23313A; height: 80px;  padding-left: 20px; padding-right: 20px;}
+.div-cuenta-idm { background-color: #23313A; height: 80px;  padding-left: 60px; padding-right: 20px;}
 .div-cuenta-idm  .email-idm{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
 .ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
 .ContenidoVistaCuentas .nombre-idm{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; padding-top: 20px;}

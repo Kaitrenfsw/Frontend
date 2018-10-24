@@ -45,7 +45,7 @@ class CrearCuenta extends Component{
     if(this.state.password && this.state.password_confirmation && this.state.email){
       if(this.state.password_confirmation === this.state.password ){
             var tipo_cuenta = 'idm';
-            if(this.props.user.permissions[0].group==="admin"){tipo_cuenta = 'owner'}
+            if(this.props.user.permissions[0].group==="admin"){tipo_cuenta = 'owner'
             console.log(this.props.user.token,tipo_cuenta);
             fetch('http://localhost:4000/api/users', {
                 method: 'POST',
@@ -82,6 +82,44 @@ class CrearCuenta extends Component{
             .catch(function(error) {
               console.log('Hubo un problema con la petición Fetch:' + error.message);
             });
+          }
+          if(this.props.user.permissions[0].group==="owner"){tipo_cuenta = 'idm'
+          console.log(this.props.user.token,tipo_cuenta);
+          fetch('http://localhost:4000/api/idms', {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'authorization': 'Bearer ' + this.props.user.token
+              },
+              body: JSON.stringify({
+                'email': this.state.email,
+                'password': this.state.password,
+                'password_confirmation': this.state.password_confirmation,
+              })
+          })
+          .then((response) => {
+            if(response.ok) {
+              response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+              ).then(res => {
+                console.log(res.data,res.status);
+                this.setState({email:'',
+                password:'',
+                password_confirmation:'',showNotification: true});
+                this.notify_success('Cuenta creada exitosamente');
+              });
+
+            } else {
+              console.log('bad request');
+            }
+          })
+          .catch(function(error) {
+            console.log('Hubo un problema con la petición Fetch:' + error.message);
+          });
+        }
       }
       else{
         this.notify_error('Las contraseñas no coinciden');
