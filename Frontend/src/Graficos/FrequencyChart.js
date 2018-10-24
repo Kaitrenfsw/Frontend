@@ -119,11 +119,6 @@ class FrequencyChart extends Component{
 
               </AreaChart>
             </ResponsiveContainer>
-            {/*
-            <button onClick={this.changeData}  >
-              Cambiar datos
-            </button>
-            */}
             </div>
 
     );}
