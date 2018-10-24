@@ -8,7 +8,7 @@ class DashboardFrequencyChart extends Component{
 
     constructor(props) {
       super(props);
-      this.state = {visibility:[false,false,false,false],names:[]
+      this.state = {visibility:[false,false,false,false],names:[],isLoading:true
       }
       this.changeVisibility = this.changeVisibility.bind(this);
       this.renderLines = this.renderLines.bind(this);
@@ -17,7 +17,7 @@ class DashboardFrequencyChart extends Component{
 
     componentDidMount(){
 
-      var tops='{"topics":['+
+      /*var tops='{"topics":['+
                       '{"topic_name": "Topico 1",'+
                       '	"topic_id": 2,'+
                       ' "weeks":['+
@@ -108,7 +108,55 @@ class DashboardFrequencyChart extends Component{
       for (var i = 0; i < topics.length; i++) {
         this.state.names[i]=topics[i].topic_name;
       }
-      this.setState({data2:data2,topicsNumber:topics.length});
+      this.setState({data2:data2,topicsNumber:topics.length});*/
+
+      var topicsId=[];
+      for (var i = 0; i < this.props.topics.length; i++) {
+        topicsId.push(this.props.topics[i].topic_id);
+      }
+
+      console.log(topicsId);
+
+      var date="2015-09-01"
+
+      fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+date+"&date=" + date)
+     .then((response) => {
+       if(response.ok) {
+         response.json().then(data => ({
+               data: data,
+               status: response.status
+           })
+         ).then(res => {
+           var topics = res.data.topics;
+           var data2=[];
+           var item = {};
+
+           for (var i = 0; i < topics[0].weeks.length; i++) {
+             item = {};
+             for (var j = 0; j < topics.length; j++) {
+               item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
+               item["count"+j]= topics[j].weeks[i].count;
+             }
+             data2.push(item)
+           }
+           console.log(data2);
+
+
+           for (var i = 0; i < topics.length; i++) {
+             this.state.names[i]=topics[i].topic_name;
+           }
+           this.setState({data2:data2,topicsNumber:topics.length});
+           this.setState({isLoading:false});
+         });
+
+       } else {
+         console.log('bad request');
+       }
+     })
+     .catch(error => {
+       console.log('Hubo un problema con la petición Fetch:' + error.message);
+
+     });
 
     }
 
@@ -152,63 +200,69 @@ class DashboardFrequencyChart extends Component{
     }
 
     render(){
-    return (
-              <div>
-              <ResponsiveContainer width='100%' height={300}>
-              <AreaChart data={this.state.data2}
-                margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
-                <XAxis
-                  dataKey="date"
-                  tickFormatter={(tick) => moment(tick).format('MMM')}
-                  allowDecimals={true}
-                  allowDataOverflow={true}
-                  domain={['dataMin', 'dataMax']}
-                  padding={{left:10}}
-                  stroke="#5C7582"
-                  interval={3}
-                />
-                <YAxis
-                  axisLine={false}
-                  stroke="#5C7582"
-                  domain={[dataMin => 0, dataMax => Math.round(dataMax * 0.11)*10]}
-                  interval={"preserveStart"}
-                />
-                <CartesianAxis />
-                <CartesianGrid
-                  vertical={false}
-                  stroke="#3A4D5A"
-                  opacity="0,2" />
-                <Tooltip
-                  cursor={false}
-                  labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
-                  className="tooltip"
-                />
+      if (this.state.isLoading) {
+        return(null);
 
-                {this.renderLines()}
+      }
+      else {
+        return (
+                  <div>
+                  <ResponsiveContainer width='100%' height={300}>
+                  <AreaChart data={this.state.data2}
+                    margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
+                    <XAxis
+                      dataKey="date"
+                      tickFormatter={(tick) => moment(tick).format('MMM')}
+                      allowDecimals={true}
+                      allowDataOverflow={true}
+                      domain={['dataMin', 'dataMax']}
+                      padding={{left:10}}
+                      stroke="#5C7582"
+                      interval={3}
+                    />
+                    <YAxis
+                      axisLine={false}
+                      stroke="#5C7582"
+                      domain={[dataMin => 0, dataMax => Math.round(dataMax * 0.11)*10]}
+                      interval={"preserveStart"}
+                    />
+                    <CartesianAxis />
+                    <CartesianGrid
+                      vertical={false}
+                      stroke="#3A4D5A"
+                      opacity="0,2" />
+                    <Tooltip
+                      cursor={false}
+                      labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
+                      className="tooltip"
+                    />
 
-                <Legend
-                  align="right"
-                  layout="vertical"
-                  margin={{ top: 0, left: 20, right: 0, bottom: 0 }}
-                  wrapperStyle={{"color":"white",paddingLeft: "20px",paddingBottom: "30px"}}
-                  onClick={this.changeVisibility}
-                  iconType="circle"
+                    {this.renderLines()}
 
-                  />
+                    <Legend
+                      align="right"
+                      layout="vertical"
+                      margin={{ top: 0, left: 20, right: 0, bottom: 0 }}
+                      wrapperStyle={{"color":"white",paddingLeft: "20px",paddingBottom: "30px"}}
+                      onClick={this.changeVisibility}
+                      iconType="circle"
 
-                <Brush
-                  height={25}
-                  dataKey="date"
-                  tickFormatter={(tick) => moment(tick).format('MMM')}
-                  fill={"rgba(88,114,124,0.02)"}
-                  wrapperStyle={{ color: "#fff" }}
-                />
-              </AreaChart>
-            </ResponsiveContainer>
+                      />
 
-            </div>
+                    <Brush
+                      height={25}
+                      dataKey="date"
+                      tickFormatter={(tick) => moment(tick).format('MMM')}
+                      fill={"rgba(88,114,124,0.02)"}
+                      wrapperStyle={{ color: "#fff" }}
+                    />
+                  </AreaChart>
+                </ResponsiveContainer>
 
-    );
+                </div>
+
+        );
+    }
   }
 }
 
