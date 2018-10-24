@@ -224,7 +224,7 @@ class VistaDetalleTopico extends Component{
              <h2  id="titulo-vista">{this.state.topico[0].name}</h2>
              {this.state.esta_suscrito && <a   onClick = {this.handleDesuscripcion.bind(this)}className="gradient-button gradient-button-2 unsub-button">Suscrito</a>}
              {!this.state.esta_suscrito && <a   onClick = {this.handleSubscripcion.bind(this)} className="gradient-button gradient-button-1 sub-button">Suscribirme</a>}
-             <SeccionGraficos  key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>
+             <SeccionGraficos topicId={this.props.match.params.id} key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>
              <div className="col-lg-7 no-padding">
              <h4 id="subtitulo-vista">Últimos Artículos</h4>
               <SeccionNoticias key = {"topic" + this.state.topico[0].id} id = {this.state.topico[0].id} user = {this.props.user} search = {""}/>

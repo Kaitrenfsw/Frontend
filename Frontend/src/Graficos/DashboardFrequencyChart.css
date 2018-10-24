@@ -1,3 +1,7 @@
+.recharts-legend-item{
+cursor: pointer;
+
+}
 .recharts-tooltip-wrapper .recharts-default-tooltip{
   background:#2a3339 !important;
   /*font-weight: bold!important;*/
