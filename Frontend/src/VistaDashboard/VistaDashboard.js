@@ -32,9 +32,10 @@ class VistaDashboard extends Component{
 	notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
 	state = {
 		modo: "modo-visualizacion",
+    user_dashboard:  [ { "user_id": 1, "graphs_selected":[ {"graph_type": 1,  "name": "nombre del gráfico", "topics_selected": [ {"topic_id": 23, "name": "IA"}, {"topic_id": 24,"name": "AFI"}, {"topic_id": 7, "name": "EFO"}] }, {"graph_type": 3,  "name": "nombre del gráfico", "topics_selected": [ {"topic_id": 66,"name": "OJO"}, {"topic_id": 77,"name": "EJE"}, {"topic_id": 88, "name": "IJI"} ] }] } ],
 		selectedOption: null,
-		selectedMultiOption:null,
-		TituloNuevoGrafico: "Gráfico de Frecuencia",
+		selectedMultiOption:[],
+		TituloNuevoGrafico: "",
     graficos: [{"graph_type":1, "graph_id": 0, "graph_title": "Gráfico de Comportamiento", "topics": [ { "topic_name": "hola", "topic_id": 2, "weeks": [ { "week": "dd/mm/yyyy"}]}]},{ "graph_type": 2, "graph_id": 1, "graph_title":"Gráfico de Carrera",  "topics": [ { "topic_id": 8, "topic_name": "algo", "total_count": 5,  "growing": true, "avg_weight": 0.1	 } ] } ],
     topics_options: null
 	}
@@ -66,37 +67,89 @@ class VistaDashboard extends Component{
    });
   }
 
-  fetchGraficoPrevisualizacion(){
 
-  }
 
   fetchDashboardUsuario(){
+    fetch("http://localhost:4000/api/userDashboard", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: null
+    })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          const user = res.data.user;
+          this.setState({user_dashboard: res.data })
+        });
 
+      } else {
+        console.log('bad request');
+      }
+    })
+    .catch(function(error) {
+      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
   }
 
   pushDashboardUsuario(){
+    fetch("http://localhost:4000/api/userDashboard", {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: this.state.user_dashboard
+    })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          console.log('Dashboard actualizado');
+        });
 
+      } else {
+        console.log('bad request');
+      }
+    })
+    .catch(function(error) {
+      console.log('Hubo un problema con la petición Fetch:' + error.message);
+    });
   }
+
+
 
 
   componentDidMount(){
     this.fetchTopicosUsuario();
+    this.fetchDashboardUsuario();
   }
 
 
 
   /*función para mostrar cada uno de los graficos del usuario*/
-	DesplegarGrafico(grafico){
+	DesplegarGrafico(grafico,graph_number){
     var topicos_seleccionados = [];
-    for(var i = 0; i<grafico.topics.length;i++){
-       topicos_seleccionados.push({value:grafico.topics[i].topic_id,label:grafico.topics[i].topic_name})
+    for(var i = 0; i<grafico.topics_selected.length;i++){
+       topicos_seleccionados.push({value:grafico.topics_selected[i].topic_id,label:grafico.topics_selected[i].name})
     }
 		var select_topicos = null;
 		if(this.state.modo === 'modo-edicion')  select_topicos = <div className="seccion-agregar-topicos animated fadeIn">
 				<h5  id="topicos-grafico" className= "animated fadeIn">Temas</h5>
-				<CreatableSelect id={grafico.graph_id}
+				<CreatableSelect id={i}
 					isMulti
-					onChange={(event) => this.handleChangeMultiEditar(grafico,event)}
+					onChange={(event) => this.handleChangeMultiEditar(graph_number,event)}
 					className = {"añadir-multiple__div"}
 					classNamePrefix = {"añadir"}
 					placeholder={"Seleccionar"}
@@ -110,11 +163,11 @@ class VistaDashboard extends Component{
 					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
             <div className={"grafico"}>
 
-              {(this.state.modo === "modo-edicion") &&<AutosizeInput maxlength = "80" value = {grafico.graph_title} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,grafico.graph_id) } placeholder = {grafico.graph_title} /> }	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
-  						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.graph_id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
-              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.graph_title} </h4>}
+              {(this.state.modo === "modo-edicion") &&<AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> }	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
+  						{(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,graph_number) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
+              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
               <div className="grafico">
-  						      <DashboardFrequencyChart />
+  						      <DashboardFrequencyChart topics = {grafico.select_topicos}/>
   						</div>
 					  </div>
            </div>
@@ -128,11 +181,11 @@ class VistaDashboard extends Component{
       return (
 				<row>
 					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
-					   {(this.state.modo === "modo-edicion") && <AutosizeInput maxlength = "80" value = {grafico.graph_title} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,grafico.graph_id) } placeholder = {grafico.graph_title} /> 	}{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
-              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.graph_title} </h4>}
-            {(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,grafico.graph_id) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
+					   {(this.state.modo === "modo-edicion") && <AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	}{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
+              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
+            {(this.state.modo === "modo-edicion") && <div><span  onClick={ (event) => this.handleRemove(event,graph_number) }  className = "glyphicon glyphicon-remove-circle span-grafico"> </span></div>}
 						<div className="grafico">
-						<CareerChart />
+						<CareerChart topics = {grafico.select_topicos} />
 						</div>
 					</div>
 					<div className={"col-md-2 no-padding "}>
@@ -145,6 +198,11 @@ class VistaDashboard extends Component{
 
   /* Función para mostrar grafico en sección de agregar */
   	DesplegarAgregarGrafico(){
+      var topicos_seleccionados = this.state.selectedMultiOption;
+      var topicos_seleccionados_formateados = [];
+      for(var i = 0; i<topicos_seleccionados.length;i++){
+           topicos_seleccionados_formateados.push({"topic_id":topicos_seleccionados[i].value,"name":topicos_seleccionados[i].label})
+      }
       var select_topicos =	<CreatableSelect
           isMulti
           onChange={this.handleChangeMultiAñadir}
@@ -153,16 +211,17 @@ class VistaDashboard extends Component{
           placeholder={"Seleccionar"}
           options={this.state.topics_options}
        />
-      this.fetchGraficoPrevisualizacion();
+
   		if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===1)){
   			return(
   				<row className="animated fadeIn">
   					 <div className={"col-md-10 no-padding "}>
-  					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de Comportamiento" type="text"/><span className= "glyphicon glyphicon-pencil"></span>
-  							<div className="grafico">
-  								<DashboardFrequencyChart />
+             <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
+
+              	<div className="grafico">
+  								<DashboardFrequencyChart topics = { topicos_seleccionados_formateados} />
   							</div>
-  							<a onClick={ (event) => this.HandleAñadirGrafico(event,"grafico")}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
+  							<a onClick={ (event) => this.HandleAñadirGrafico(event,1)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
   					</div>
   					<div className={"col-md-2 no-padding "}>
   						<div className="seccion-agregar-topicos">
@@ -178,11 +237,11 @@ class VistaDashboard extends Component{
         return(
           <row className="animated fadeIn">
              <div className={"col-md-10 no-padding "}>
-              <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Comportamiento" /> <span className= "glyphicon glyphicon-pencil"></span>
+              <AutosizeInput maxlength = "80" style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} } placeholder = "Gráfico de Carrera" /> <span className= "glyphicon glyphicon-pencil"></span>
                 <div className={"grafico"}>
-                  	<CareerChart />
+                  	<CareerChart topics = {  topicos_seleccionados_formateados} />
                 </div>
-                <a onClick={ (event) => this.HandleAñadirGrafico(event,"grafico")}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
+                <a onClick={ (event) => this.HandleAñadirGrafico(event,3)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Guardar</a>
             </div>
             <div className={"col-md-2 no-padding "}>
               <div className="seccion-agregar-topicos">
@@ -195,24 +254,33 @@ class VistaDashboard extends Component{
       }
   	}
 
-  HandleNameChange(event,id){
-    var graficos = 	this.state.graficos;
-    for(var i=0;i< graficos.length;i++){
-			if(graficos[i].graph_id === id){
-        graficos[i].graph_title = event.target.value;
-			}
-		}
-    this.setState({graficos})
+  HandleNameChange(event,i){
+    var user_dashboard = 	this.state.user_dashboard;
+    user_dashboard[0].graphs_selected[i].name = event.target.value;
+    this.setState({user_dashboard})
   }
 
 
 
 
-	HandleAñadirGrafico(event,grafico){
-		var graficos = 	this.state.graficos;
-    grafico.graph_title = this.state.TituloNuevoGrafico;
-	  graficos.push(grafico);
-    this.setState({graficos});
+	HandleAñadirGrafico(event,graph_type){
+   var TituloNuevoGrafico = this.state.TituloNuevoGrafico;
+   if(TituloNuevoGrafico ===""){
+     if(graph_type===1){
+       TituloNuevoGrafico = "Gráfico de Comportamiento";
+     }
+     if(graph_type===3){
+       TituloNuevoGrafico = "Gráfico de Carrera";
+     }
+   }
+    var SelectedTopics = this.state.selectedMultiOption;
+    var FormatedSelectedTopics = [];
+    for(var i = 0; i<SelectedTopics.length ; i++){
+      FormatedSelectedTopics.push({"topic_id":SelectedTopics[i].value , "name":SelectedTopics[i].label });
+    }
+		var user_dashboard = 	this.state.user_dashboard;
+    user_dashboard[0].graphs_selected.push({"graph_type": graph_type,  "name": TituloNuevoGrafico, "topics_selected": FormatedSelectedTopics });
+    this.setState({user_dashboard});
     this.pushDashboardUsuario();
 		this.setState({selectedOption:null});
 		this.notify_success('Gráfico añadido');
@@ -221,53 +289,25 @@ class VistaDashboard extends Component{
 
 
 
-	DesplegarAgregarGrafico(){
-		if((this.state.selectedOption) &&(this.state.modo==='modo-edicion')  && (this.state.selectedOption.value===1)){
-			return(
-				<row className="animated fadeIn">
-					 <div className={"col-md-10 no-padding "}>
-					 <input className = "input-titulo" onChange = {(event) => {this.setState({TituloNuevoGrafico:event.target.value})} }placeholder = "Gráfico de comportamiento"/><span className= "glyphicon glyphicon-pencil"></span>
-							<div className={"grafico"}>
-								<DashboardFrequencyChart />
-							</div>
-							<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "añadir-button" className="gradient-button gradient-button-6"   >Añadir</a>
-					</div>
-					<div className={"col-md-2 no-padding "}>
-						<div className="seccion-agregar-topicos">
-						<h5  id="topicos-grafico" className= "animated fadeIn">Topicos</h5>
-						<CreatableSelect
-						 	isMulti
-						 	onChange={this.handleChangeMulti}
-						 	className = {"añadir-multiple__div"}
-							classNamePrefix = {"añadir"}
-							placeholder={"Seleccionar"}
-						 	options={topicos}
-					 />
-					 </div>
-					</div>
-			</row>
-			)
-		}
-	}
 
-	handleRemove(event,id){
-		var graficos = this.state.graficos;
-		for(var i=0;i< graficos.length;i++){
-			if(graficos[i].graph_id === id){
-				graficos.splice( i, 1 );
-			}
-		}
-		this.setState({graficos:graficos});
+	handleRemove(event,graph_number){
+		var user_dashboard = this.state.user_dashboard;
+    user_dashboard[0].graphs_selected.splice( graph_number, 1 );
+		this.setState({user_dashboard});
     this.pushDashboardUsuario();
 		this.notify_success('Gráfico eliminado');
 	}
 
 
-  handleChangeMultiEditar = (event ,newValue: any, actionMeta: any) => {
-      var graficos = this.state.graficos;
-      /* post de los topicos a previsualizacion, se intercambia el grafico por la respuesta y luego actualizar graficos*/
-      this.fetchGraficoPrevisualizacion();
-      this.setState({graficos:graficos});
+  handleChangeMultiEditar = (graph_number,newValue: any, actionMeta: any) => {
+        var FormatedSelectedTopics = [];
+        for(var i = 0; i<newValue.length ; i++){
+          FormatedSelectedTopics.push({"topic_id":newValue[i].value , "name":newValue[i].label });
+        }
+        var user_dashboard = 	this.state.user_dashboard;
+        user_dashboard[0].graphs_selected[graph_number].topics_selected=FormatedSelectedTopics;
+        this.setState({user_dashboard});
+        this.pushDashboardUsuario();
    };
 
 
@@ -301,8 +341,8 @@ class VistaDashboard extends Component{
 					</div>}
 					{this.DesplegarAgregarGrafico()}
 
-				{this.state.graficos.map((grafico,i,arr) => (
-				 this.DesplegarGrafico(grafico)
+				{this.state.user_dashboard[0].graphs_selected.map((grafico,i,arr) => (
+				 this.DesplegarGrafico(grafico,i)
 			 ))}
 		 	</div>
 
