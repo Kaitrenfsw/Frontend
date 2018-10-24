@@ -88,7 +88,7 @@ class App extends Component {
          <Switch location = {location}>
              <Route exact path='/login'  render= {() => <VistaLogin user = {this.state.user} HandleUserLogIn= {this.HandleUserLogIn.bind(this)}  />} />
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} exact path='/'  component= {VistaHome}/>
-             <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} path='/configuracion'   component= {VistaConfiguracion}/>
+             <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}  path='/configuracion'   component= {VistaConfiguracion}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} exact path='/topicos' component= {VistaTopicos}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}   path='/cuentas/:id'  component= {VistaDetalleCuenta}/>

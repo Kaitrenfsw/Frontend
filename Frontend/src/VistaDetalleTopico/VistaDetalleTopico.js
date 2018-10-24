@@ -235,9 +235,9 @@ class VistaDetalleTopico extends Component{
              </div>
              <ReactTooltip id='LeyendaGrafo' place='right' type = "light">
                 <div className="box-text">
-                  <div className='box green'></div> Relación muy fuerte</div><br/>
+                  <div className='box green'></div> Relación fuerte</div><br/>
                 <div className="box-text">
-                  <div className='box orange'></div> Relación fuerte</div><br/>
+                  <div className='box orange'></div> Relación media</div><br/>
                 <div className="box-text">
                   <div className='box red'></div> Relación debíl
                 </div>

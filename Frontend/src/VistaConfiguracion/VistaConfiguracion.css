@@ -28,7 +28,7 @@
 .Contrasena input { color: white;max-width: 600px; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}
 .Contrasena form {margin-top: 6vh}
 .Contrasena {position: absolute;right: 0;left: 0; top: 0;}
-.Contrasena .boton_guardar { margin-top: 2vh; margin-left: 0;}
+.Contrasena .boton_guardar { margin-top: 2vw; margin-left: 0;}
 
 
 /*Seccion Datos*/
