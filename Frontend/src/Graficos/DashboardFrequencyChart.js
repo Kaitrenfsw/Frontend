@@ -103,23 +103,22 @@ class DashboardFrequencyChart extends Component{
         data2.push(item)
       }
       console.log(data2);
-
-
-      for (var i = 0; i < topics.length; i++) {
-        this.state.names[i]=topics[i].topic_name;
-      }
-      this.setState({data2:data2,topicsNumber:topics.length});*/
+*/
 
       var topicsId=[];
+    /*for (var i = 0; i < this.props.topics.length; i++) {
+        this.state.names[i]=this.props.topics[i].topic_name;
+      }
       for (var i = 0; i < this.props.topics.length; i++) {
         topicsId.push(this.props.topics[i].topic_id);
-      }
-
-      console.log(topicsId);
-
+      }*/
+      topicsId=[2,3,6];
+      this.state.names[0]="Apple";
+      this.state.names[1]="3D Print";
+      this.state.names[2]="Biometrics";
       var date="2015-09-01"
 
-      fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+date+"&date=" + date)
+      fetch("http://10.11.0.90:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -139,14 +138,27 @@ class DashboardFrequencyChart extends Component{
              }
              data2.push(item)
            }
-           console.log(data2);
 
 
-           for (var i = 0; i < topics.length; i++) {
-             this.state.names[i]=topics[i].topic_name;
-           }
-           this.setState({data2:data2,topicsNumber:topics.length});
-           this.setState({isLoading:false});
+          var notCero=new Array(topics.length).fill(false);
+          for (var i = 0; i < topics.length; i++) {
+            for (var j = 0; j < data2.length; j++) {
+              if (data2[j]["count"+i]!=0) {
+                notCero[i]=true;
+                console.log(i);
+                break;
+              }
+            }
+          }
+
+          console.log(topics.length);
+          console.log(data2);
+          console.log(notCero);
+
+          if (notCero.filter(Boolean).length>=1) {
+            this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
+            this.setState({isLoading:false});
+          }
          });
 
        } else {
@@ -171,14 +183,11 @@ class DashboardFrequencyChart extends Component{
       }
       console.log(newVisibility.filter(Boolean));
       this.setState({visibility: newVisibility});
-
-
     }
 
     renderLines(){
       var out=[];
       var colors=["#F63141","#40A7C2","#73DB9A","#FFB744"]
-
       for (var i = 0; i < this.state.names.length ; i++) {
         out.push(
           <Area
