@@ -79,10 +79,6 @@ class FrequencyChart extends Component{
                 <XAxis
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM')}
-<<<<<<< HEAD
-
-=======
->>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                   allowDecimals={true}
                   allowDataOverflow={true}
                   domain={['dataMin', 'dataMax']}
@@ -104,11 +100,7 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
-<<<<<<< HEAD
-                  type="natural"
-=======
                   type="monotoneX"
->>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
@@ -118,16 +110,10 @@ class FrequencyChart extends Component{
                 />
 
                 <Brush
-<<<<<<< HEAD
-                  height={20}
-                  dataKey="date"
-                  tickFormatter={(tick) => moment(tick).format('MMM YY')}
-=======
                   height={25}
                   dataKey="date"
                   tickFormatter={(tick) => moment(tick).format('MMM YY')}
                   fill={"rgba(88,114,124,0.02)"}
->>>>>>> e4337843dd1840cdfc57b007ebb1d68480504b01
                 />
 
 
