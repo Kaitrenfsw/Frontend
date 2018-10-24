@@ -9,14 +9,18 @@ class FrequencyChart extends Component{
     constructor(props) {
       super(props);
       this.state = {
+        chartData: null,
+        data:null,
+        isLoading: true,
+
       }
 //      moment.locale('es')
     }
 
     componentDidMount(){
 
-      var topicId=this.props.topicId;
-      var date="2015-10-10"
+      var topicId=this.props.topicId; //7
+      var date="2015-09-01"
       console.log("id:"+topicId);
 
       fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
@@ -27,8 +31,15 @@ class FrequencyChart extends Component{
                status: response.status
            })
          ).then(res => {
-           this.setState({chartData:res.data.weeks});
+           var obj = res.data.weeks;
+           for (var i = 0; i < obj.length; i++) {
+             obj[i].date=moment(obj[i].week,'DD-MM-YYYY').valueOf()
+           }
+           this.setState({data: obj});
+           this.setState({isLoading:false});
+           console.log(res);
          });
+          console.log("hola");
 
        } else {
          console.log('bad request');
@@ -41,27 +52,15 @@ class FrequencyChart extends Component{
 
 
 
-      var semanas='{"weeks":[{"week": "29-04-2018","count": 26},{"week": "06-05-2018","count": 32},{"week": "13-05-2018","count": 21},{"week": "20-05-2018","count": 16},{"week": "27-05-2018","count": 8},{"week": "03-06-2018","count": 20},{"week": "10-06-2018","count": 32},{"week": "17-06-2018","count": 48},{"week": "24-06-2018","count": 56},{"week": "01-07-2018","count": 50},{"week": "08-07-2018","count": 39},{"week": "15-07-2018","count": 28},{"week": "22-07-2018","count": 19},{"week": "29-07-2018","count": 14},{"week": "05-08-2018","count": 11},{"week": "12-08-2018","count": 12},{"week": "19-08-2018","count": 13},{"week": "26-08-2018","count": 16},{"week": "02-09-2018","count": 20},{"week": "09-09-2018","count": 39},{"week": "16-09-2018","count": 19},{"week": "23-09-2018","count": 41},{"week": "30-09-2018","count": 32},{"week": "05-10-2018","count": 56}]}';
-      var obj = JSON.parse(semanas).weeks;
 
-      obj=this.state.chartData;
-
-      console.log(obj);
-      if (typeof obj==="undefined") {
-        console.log("Data vacia!!");
-      }
-      else{
-
-        for (var i = 0; i < obj.length; i++) {
-          obj[i].date=moment(obj[i].week,'DD-MM-YYYY').valueOf()
-        }
-
-        this.setState({data: obj});
-
-      }
     }
 
     render(){
+    console.log(this.state.data);
+    if(this.state.isLoading){
+      return(null);
+    }
+    else{
     return (
               <div>
               <ResponsiveContainer width='100%' height={300}>
@@ -101,7 +100,7 @@ class FrequencyChart extends Component{
                   labelFormatter={(tick) => moment(tick).format('[Semana:] w [-] DD/MMM/YY')}
                 />
                 <Area
-                  type="natural"
+                  type="monotoneX"
                   dataKey="count"
                   stroke="#F63141"
                   strokeWidth={2}
@@ -127,7 +126,7 @@ class FrequencyChart extends Component{
             */}
             </div>
 
-    );
+    );}
   }
 }
 
