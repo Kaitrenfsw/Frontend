@@ -7,7 +7,7 @@
 .ContenidoVistaDashboard {position: absolute;left: 0;right: 0;}
 .ContenidoVistaDashboard #subtitulo-vista{color: #EDEEEF; font-weight: bold; }
 .ContenidoVistaDashboard .grafico.modo-edicion{ border: solid; border-width: 1px; border-color: rgba(88,114,124,0.5); border-radius: 15px;}
-.ContenidoVistaDashboard .grafico { padding-top: 15px; padding-bottom:  30px}
+.ContenidoVistaDashboard .grafico { min-height: 200px;padding-top: 15px; padding-bottom:  30px}
 .ContenidoVistaDashboard .span-grafico {margin-left: 5px; margin-top: -20px;margin-right: 150px; float: right;  color: rgba(88,114,124,1); font-size:  23px; width: 20px; height: 20px;}
 .ContenidoVistaDashboard .glyphicon-pencil {margin-left: 6px; font-size: 15px; color: rgba(88,114,124,1); }
 .ContenidoVistaDashboard .span-grafico:hover { color: white;}
