@@ -61,7 +61,7 @@ class DashboardFrequencyChart extends Component{
            var data2=[];
            var item = {};
 
-           for (var i = 0; i < topics[0].weeks.length; i++) {
+           for (i = 0; i < topics[0].weeks.length; i++) {
              item = {};
              for (var j = 0; j < topics.length; j++) {
                item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
@@ -72,9 +72,9 @@ class DashboardFrequencyChart extends Component{
 
 
           var notCero=new Array(topics.length).fill(false);
-          for (var i = 0; i < topics.length; i++) {
-            for (var j = 0; j < data2.length; j++) {
-              if (data2[j]["count"+i]!=0) {
+          for ( i = 0; i < topics.length; i++) {
+            for ( j = 0; j < data2.length; j++) {
+              if (data2[j]["count"+i]!==0) {
                 notCero[i]=true;
                 console.log(i);
                 break;
@@ -200,10 +200,12 @@ class DashboardFrequencyChart extends Component{
 */
 
       var topicsId=[];
+      var names = this.state.names;
       for (var i = 0; i < this.props.topics.length; i++) {
-        this.state.names[i]=this.props.topics[i].name;
+        names[i]=this.props.topics[i].name;
       }
-      for (var i = 0; i < this.props.topics.length; i++) {
+      this.setState({names})
+      for (i = 0; i < this.props.topics.length; i++) {
         topicsId.push(this.props.topics[i].topic_id);
       }
       var date="2015-09-01"
@@ -231,9 +233,9 @@ class DashboardFrequencyChart extends Component{
 
 
           var notCero=new Array(topics.length).fill(false);
-          for (var i = 0; i < topics.length; i++) {
-            for (var j = 0; j < data2.length; j++) {
-              if (data2[j]["count"+i]!=0) {
+          for (i = 0; i < topics.length; i++) {
+            for (j = 0; j < data2.length; j++) {
+              if (data2[j]["count"+i]!==0) {
                 notCero[i]=true;
                 console.log(i);
                 break;
@@ -265,7 +267,7 @@ class DashboardFrequencyChart extends Component{
     changeVisibility(event){
       console.log(event);
       const newVisibility=this.state.visibility;
-      if (newVisibility[event.payload.id]==true) {
+      if (newVisibility[event.payload.id]===true) {
         newVisibility[event.payload.id]=false;
       }
       else if (newVisibility.filter(Boolean).length< this.state.topicsNumber-1) {

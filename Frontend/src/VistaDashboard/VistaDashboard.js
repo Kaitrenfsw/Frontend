@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './VistaDashboard.css';
 import 'animate.css';
-import FrequencyChart from '../Graficos/FrequencyChart';
 import DashboardFrequencyChart from '../Graficos/DashboardFrequencyChart';
 import CareerChart from '../Graficos/CareerChart';
 import Select from 'react-select';
@@ -11,19 +10,7 @@ import AutosizeInput from 'react-input-autosize';
 
 
 
-const options = [
-  { value: 1, label: 'Gráfico de Comportamiento' },
-  { value: 0, label: 'Gráfico de Carrera' },
-];
 
-const topicos = [
-  { value: 0, label: 'AI' },
-	{ value: 1, label: 'Apple' },
-	{ value: 2, label: 'Samsung' },
-	{ value: 3, label: 'Data science' },
-	{ value: 4, label: 'IOT' },
-	{ value: 0, label: 'AI' },
-]
 
 
 
@@ -220,7 +207,7 @@ class VistaDashboard extends Component{
    var TituloNuevoGrafico;
    var graph_type = this.state.selectedOption.value;
 
-     if(graph_type==1){
+     if(graph_type===1){
        TituloNuevoGrafico = "Gráfico de Comportamiento";
      }
      if(graph_type===3){

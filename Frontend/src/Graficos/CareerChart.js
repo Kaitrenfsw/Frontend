@@ -64,12 +64,12 @@ class CareerChart extends Component{
            minCount=minCount-(maxCount*1.1-maxCount);
            maxCount=maxCount*1.1;
 
-           for (var i = 0; i < data1.length; i++) {
+           for (i = 0; i < data1.length; i++) {
              data1[i].y=((data1[i].total_count-minCount)/(maxCount-minCount))*100;
              data1[i].orden=i+1;
            }
 
-           for (var i = 0; i < data2.length; i++) {
+           for (i = 0; i < data2.length; i++) {
              console.log("SSSS");
              console.log(data2);
              data2[i].y=((data2[i].total_count-minCount)/(maxCount-minCount))*100;
@@ -130,12 +130,12 @@ class CareerChart extends Component{
            minCount=minCount-(maxCount*1.1-maxCount);
            maxCount=maxCount*1.1;
 
-           for (var i = 0; i < data1.length; i++) {
+           for (i = 0; i < data1.length; i++) {
              data1[i].y=((data1[i].total_count-minCount)/(maxCount-minCount))*100;
              data1[i].orden=i+1;
            }
 
-           for (var i = 0; i < data2.length; i++) {
+           for (i = 0; i < data2.length; i++) {
              console.log("SSSS");
              console.log(data2);
              data2[i].y=((data2[i].total_count-minCount)/(maxCount-minCount))*100;

@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import FrequencyChart from '../Graficos/FrequencyChart'
 //import MultiDataFrequencyChart from '../Graficos/MultiDataFrequencyChart'
 import WordCloud from '../Graficos/WordCloud'
-import CareerChart from '../Graficos/CareerChart'
+
 
 
 class SeccionGraficos extends Component{
