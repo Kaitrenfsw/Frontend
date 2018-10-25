@@ -11,9 +11,88 @@ class CareerChart extends Component{
       this.state = {isLoading:true}
     }
 
+
+    componentDidUpdate(prevProps) {
+
+              if((this.props.topics !== prevProps.topics)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+                {
+                    console.log(this.props.topics);
+                     this.updateChart();
+                }
+    }
+
+    updateChart(){
+      this.setState({isLoading:true});
+      var topicsId=[];
+      for (var i = 0; i < this.props.topics.length; i++) {
+        topicsId.push(this.props.topics[i].topic_id);
+      }
+
+
+      fetch("http://localhost:4000/api/visualizations/hot_topics?topics_ids="+topicsId)
+     .then((response) => {
+       if(response.ok) {
+         response.json().then(data => ({
+               data: data,
+               status: response.status
+           })
+         ).then(res => {
+           var obj = res.data.topics;
+           console.log(res);
+           var data1=[];
+           var data2=[];
+           var maxCount=0;
+           var minCount=10000000;
+
+           for (var i = 0; i < obj.length; i++) {
+            if (obj[i].total_count > maxCount) { maxCount= obj[i].total_count; }
+            if (obj[i].total_count < minCount) { minCount= obj[i].total_count; }
+            obj[i].x=obj[i].coherence*100;
+
+            if (obj[i].diff>0) {
+              data1.push(obj[i]);
+            }
+            else {
+              data2.push(obj[i]);
+            }
+           }
+
+           minCount=minCount-(maxCount*1.1-maxCount);
+           maxCount=maxCount*1.1;
+
+           for (var i = 0; i < data1.length; i++) {
+             data1[i].y=((data1[i].total_count-minCount)/(maxCount-minCount))*100;
+             data1[i].orden=i+1;
+           }
+
+           for (var i = 0; i < data2.length; i++) {
+             console.log("SSSS");
+             console.log(data2);
+             data2[i].y=((data2[i].total_count-minCount)/(maxCount-minCount))*100;
+             data2[i].orden=i+1+data1.length;
+           }
+           this.setState({data1: data1,data2:data2});
+           this.setState({isLoading:false})
+         });
+          console.log("hola");
+
+       } else {
+         console.log('bad request');
+       }
+     })
+     .catch(error => {
+       console.log('Hubo un problema con la petición Fetch:' + error.message);
+
+     });
+    }
+
+
     componentDidMount(){
 
-      var topicsId=[7,40,51,73,3];
+      var topicsId=[];
+      for (var i = 0; i < this.props.topics.length; i++) {
+        topicsId.push(this.props.topics[i].topic_id);
+      }
 
 
       fetch("http://localhost:4000/api/visualizations/hot_topics?topics_ids="+topicsId)
@@ -184,7 +263,6 @@ class CareerChart extends Component{
         return (
               <div>
               <ResponsiveContainer width='100%' height={450}>
-
               <ScatterChart width={730} height={250}
               margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
               <XAxis hide={true} dataKey="x" type="number" domain={[0, 100]} ticks={this.rango(20)}  />

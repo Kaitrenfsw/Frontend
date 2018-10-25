@@ -15,6 +15,86 @@ class DashboardFrequencyChart extends Component{
 //      moment.locale('es')
     }
 
+    componentDidUpdate(prevProps) {
+
+              if((this.props.topics !== prevProps.topics)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+                {
+                    console.log(this.props.topics);
+                     this.updateChart();
+                }
+    }
+
+    updateChart(){
+      var topicsId=[];
+      var names = []
+      this.setState({visibility:[false,false,false,false],isLoading:true});
+      for (var i = 0; i < this.props.topics.length; i++) {
+        names[i]=this.props.topics[i].name;
+      }
+      this.setState({names});
+      for (var i = 0; i < this.props.topics.length; i++) {
+        topicsId.push(this.props.topics[i].topic_id);
+      }
+
+      var date="2015-09-01"
+
+      fetch("http://localhost:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
+     .then((response) => {
+       if(response.ok) {
+         response.json().then(data => ({
+               data: data,
+               status: response.status
+           })
+         ).then(res => {
+           var topics = res.data.topics;
+           var data2=[];
+           var item = {};
+
+           for (var i = 0; i < topics[0].weeks.length; i++) {
+             item = {};
+             for (var j = 0; j < topics.length; j++) {
+               item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
+               item["count"+j]= topics[j].weeks[i].count;
+             }
+             data2.push(item)
+           }
+
+
+          var notCero=new Array(topics.length).fill(false);
+          for (var i = 0; i < topics.length; i++) {
+            for (var j = 0; j < data2.length; j++) {
+              if (data2[j]["count"+i]!=0) {
+                notCero[i]=true;
+                console.log(i);
+                break;
+              }
+            }
+          }
+
+          console.log(topics.length);
+          console.log(data2);
+          console.log(notCero);
+          console.log(notCero.filter(Boolean).length);
+
+          if (notCero.filter(Boolean).length>=1) {
+            this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
+            this.setState({isLoading:false});
+          }
+         });
+
+       } else {
+         console.log('bad request');
+       }
+     })
+     .catch(error => {
+       console.log('Hubo un problema con la petición Fetch:' + error.message);
+
+     });
+
+
+    }
+
+
     componentDidMount(){
 
       /*var tops='{"topics":['+
@@ -106,19 +186,15 @@ class DashboardFrequencyChart extends Component{
 */
 
       var topicsId=[];
-    /*for (var i = 0; i < this.props.topics.length; i++) {
-        this.state.names[i]=this.props.topics[i].topic_name;
+      for (var i = 0; i < this.props.topics.length; i++) {
+        this.state.names[i]=this.props.topics[i].name;
       }
       for (var i = 0; i < this.props.topics.length; i++) {
         topicsId.push(this.props.topics[i].topic_id);
-      }*/
-      topicsId=[2,3,6];
-      this.state.names[0]="Apple";
-      this.state.names[1]="3D Print";
-      this.state.names[2]="Biometrics";
+      }
       var date="2015-09-01"
 
-      fetch("http://10.11.0.90:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
+      fetch("http://localhost:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -210,7 +286,7 @@ class DashboardFrequencyChart extends Component{
 
     render(){
       if (this.state.isLoading) {
-        return(null);
+        return( null);
 
       }
       else {

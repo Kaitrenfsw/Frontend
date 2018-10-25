@@ -33,7 +33,7 @@ class FrequencyChart extends Component{
          ).then(res => {
            var obj = res.data.weeks;
            for (var i = 0; i < obj.length; i++) {
-             obj[i].date=moment(obj[i].week,'DD-MM-YYYY').valueOf()
+             obj[i].date=moment(obj[i].week,'YYYY-MM-DD').valueOf()
            }
            this.setState({data: obj});
            this.setState({isLoading:false});

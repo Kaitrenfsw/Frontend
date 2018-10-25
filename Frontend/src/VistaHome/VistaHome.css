@@ -36,6 +36,7 @@
 .ContenidoArticulos .Orange {float:left; background-color: #FFB061; border-radius: 10px;width: max-content; height: 25px; margin-top: 20px; margin-left: 10px; display: flex; align-items: center;}
 .Div-Topico h5 {color: #EDEEEF; font-style:normal; font-size:0.7vw; padding-left: 10px; padding-right: 10px; font-weight: bold; }
 .texto-cargando{ text-align: center;color: white}
+.div-image{height: 38%;}
 
 
 
