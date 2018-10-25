@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
 import profile from '../Assets/profile.png';
 import { NavLink } from 'react-router-dom';
+import Modal from '../Modal';
 import { toast } from 'react-toastify';
+import {withRouter} from "react-router-dom";
 class MostrarCuentas extends Component{
   state = {
       cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
-      isLoading: false
+      isLoading: true
   };
 
   componentDidUpdate(prevProps,prevState){
@@ -79,37 +81,44 @@ class MostrarCuentas extends Component{
     });
   }
 
-  HandleEliminarIdm(event,id){
-    fetch('http://localhost:4000/api/idms', {
-        method: 'DELETE',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'authorization': 'Bearer ' + this.props.user.token
-        },
-        body: JSON.stringify({
-          'id': id,
-        })
-    })
-    .then((response) => {
-      if(response.ok) {
-        response.json().then(data => ({
-              data: data,
-              status: response.status
-          })
-        ).then(res => {
-          console.log(res.data,res.status)
-          this.notify_success('Cuenta eliminada exitosamente');
-        });
 
-      } else {
-        console.log('bad request');
-      }
-    })
-    .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
-    });
-  }
+
+    HandleModalConfirm(event,action) {
+      fetch('http://localhost:4000/api/idms', {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
+          },
+          body: JSON.stringify({
+            'id': action,
+          })
+      })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            console.log(res.data,res.status)
+            this.notify_success('Cuenta eliminada exitosamente');
+            this.props.history.push('/configuracion');
+          });
+
+        } else {
+          console.log('bad request');
+        }
+      })
+      .catch(function(error) {
+        console.log('Hubo un problema con la petición Fetch:' + error.message);
+      });
+
+    }
+
+
+
 
 
 
@@ -163,8 +172,9 @@ DesplegarCuentasIDM(cuenta,search){
                 <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>
               </div>
-              <a   className="gradient-button gradient-button-3 eliminar_button" onClick = {(event) => this.HandleEliminarIdm(event, cuenta.id)}  >Eliminar</a>
+              <a   data-toggle="modal" data-target={"#ModalEliminar" +cuenta.id} className="gradient-button gradient-button-3 eliminar_button"  >Eliminar</a>
               <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Cambiar Contraseña</NavLink>
+                <Modal action = {cuenta.id} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalEliminar" +cuenta.id} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
             </div>
           </div>
         </div>
@@ -256,6 +266,7 @@ DesplegarCuentasIDM(cuenta,search){
            {this.state.cuentas.map((cuenta,i,arr) => (
             this.DesplegarCuentasDDS(cuenta,search)
           ))}
+
         </div>
       );
 
@@ -264,4 +275,4 @@ DesplegarCuentasIDM(cuenta,search){
   }
 }
 
-export default MostrarCuentas;
+export default withRouter(MostrarCuentas);

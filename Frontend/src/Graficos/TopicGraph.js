@@ -189,7 +189,7 @@ dataset.nodes[0].y = svgHeight/2;
   var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d,i) {
               return i;
-          }).strength (function (d) {return d.value/400;}).distance(function (d) {return 1.4*d.value ;}))
+          }).strength (function (d) {return d.value/400;}).distance(function (d) {return 1.2*d.value ;}))
           .force("center", d3.forceCenter(svgWidth / 2,svgHeight / 2.4))
           .force('charge', function(d){
               var charge = -500;

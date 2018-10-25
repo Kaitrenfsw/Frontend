@@ -77,6 +77,7 @@ class CrearCuenta extends Component{
 
               } else {
                 console.log('bad request');
+                this.notify_success('Cuenta creada exitosamente');
               }
             })
             .catch(function(error) {
