@@ -269,9 +269,9 @@ dataset.nodes[0].y = svgHeight/2;
           .attr("dx", function(d) {
             if(d.index === (((dataset.nodes.length -1 )/4) +1)){ return 0;}
             else if(d.index === (((dataset.nodes.length -1 )*3/4) +1)){ return 0;}
-            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index != 0){ return d.name.length*1.3;}
-            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index != 0 ){ return d.name.length*1.3;}
-            else if(((dataset.nodes.length -1) /4) <= d.index < ((dataset.nodes.length -1) * 3/4) && d.index != 0 ){ return -d.name.length*1.3;}
+            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index != 0){ return d.name.length*1.2;}
+            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index != 0 ){ return d.name.length*1.2;}
+            else if(((dataset.nodes.length -1) /4) <= d.index < ((dataset.nodes.length -1) * 3/4) && d.index != 0 ){ return -d.name.length*1.2;}
             else{ return 0;}})
 
           .attr("dy", function(d) {
