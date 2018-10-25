@@ -229,7 +229,7 @@ class DashboardFrequencyChart extends Component{
 
           console.log(topics.length);
           console.log(data2);
-          console.log(notCero);
+          console.log(notCero.filter(Boolean).length);
 
           if (notCero.filter(Boolean).length>=1) {
             this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
@@ -286,7 +286,116 @@ class DashboardFrequencyChart extends Component{
 
     render(){
       if (this.state.isLoading) {
-        return(null);
+        if(this.state.names.length ===0){
+          var data =[
+          {date: 1158724800000, count0: 1}
+          ,
+          {date: 1379646000000, count0: 1}
+          ,
+          {date: 1600570800000, count0: 1}
+          ,
+          {date: 1821409200000, count0: 1}
+          ,
+          {date: 1098241200000, count0: 1}
+          ,
+          {date: 1319079600000, count0: 1}
+          ,
+          {date: 1540004400000, count0: 1}
+          ,
+          {date: 1760929200000, count0: 1}
+          ,
+          {date: 1006225200000, count0: 6}
+          ,
+          {date: 1227150000000, count0: 1}
+          ,
+          {date: 1447988400000, count0: 1}
+          ,
+          {date: 1668913200000, count0: 1}
+          ,
+          {date: 1889838000000, count0: 1}
+          ,
+          {date: 1166583600000, count0: 1}
+          ,
+          {date: 1387508400000, count0: 1}
+          ,
+          {date: 1608433200000, count0: 1}
+          ,
+          {date: 1829271600000, count0: 1}
+          ,
+          {date: 1043031600000, count0: 1}
+          ,
+          {date: 1263956400000, count0: 1}
+          ,
+          {date: 1484881200000, count0: 1}
+          ,
+          {date: 1705719600000, count0: 1}
+          ,
+          {date: 1926644400000, count0: 1}
+          ,
+          {date: 1171940400000, count0: 1}
+          ,
+          {date: 1392865200000, count0: 1}
+          ,
+          {date: 1613790000000, count0: 1}]
+          return(<div>
+<ResponsiveContainer width='100%' height={300}>
+<AreaChart data={data}
+  margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
+  <XAxis
+    dataKey="date"
+    tickFormatter={(tick) => moment(tick).format('MMM')}
+    allowDecimals={true}
+    allowDataOverflow={true}
+    domain={['dataMin', 'dataMax']}
+    padding={{left:10}}
+    stroke="#5C7582"
+    interval={3}
+  />
+  <YAxis
+    axisLine={false}
+    stroke="#5C7582"
+    domain={[dataMin => 0, dataMax => Math.round(dataMax * 0.11)*10]}
+    interval={"preserveStart"}
+  />
+  <CartesianAxis />
+  <CartesianGrid
+    vertical={false}
+    stroke="#3A4D5A"
+    opacity="0,2" />
+  <Tooltip/>
+
+  <Area
+    type="monotoneX"
+    dataKey="count0"
+    stroke="#F63141"
+    strokeWidth={0}
+    name="Sin temas"
+    fillOpacity={0}
+  />
+
+  <Legend
+    align="right"
+    layout="vertical"
+    margin={{ top: 0, left: 20, right: 0, bottom: 0 }}
+    wrapperStyle={{"color":"white",paddingLeft: "20px",paddingBottom: "30px"}}
+    onClick={this.changeVisibility}
+    iconType="circle"
+    />
+
+  <Brush
+    height={25}
+    dataKey="date"
+    tickFormatter={(tick) => moment(tick).format('MMM')}
+    fill={"rgba(88,114,124,0.02)"}
+    wrapperStyle={{ color: "#fff" }}
+  />
+</AreaChart>
+</ResponsiveContainer>
+
+
+
+</div>);}
+      else{return(null);}
       }
       else {
         return (

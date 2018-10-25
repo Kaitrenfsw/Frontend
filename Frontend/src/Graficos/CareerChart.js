@@ -196,7 +196,7 @@ class CareerChart extends Component{
               <thead>
                 <tr>
                   <th scope="col">#</th>
-                  <th scope="col">Nombre tópico</th>
+                  <th scope="col">Nombre tema</th>
                 </tr>
               </thead>
               <tbody>
@@ -254,7 +254,42 @@ class CareerChart extends Component{
 
 
       if (this.state.isLoading) {
-        return(null);
+        if(this.props.topics.length ===0){
+        return(<div>
+        <ResponsiveContainer width='100%' height={450}>
+        <ScatterChart width={730} height={250}
+        margin={{ top: 20, right: 20, bottom: 10, left: 10 }}>
+        <XAxis hide={true} dataKey="x" type="number" domain={[0, 100]} ticks={this.rango(20)}  />
+        <YAxis hide={true} dataKey="y" type="number" domain={[0, 100]} ticks={this.rango(12)} />
+        <ReferenceArea x1={50} x2={100} y1={50} y2={100} fill="rgba(255, 255, 255, 0.05)" strokeOpacity={1} />
+        <CartesianGrid strokeWidth="0.3" strokeOpacity="0.3"/>
+        <ReferenceLine x={50} stroke="#5C7582" >
+          <Label value="Frecuencia acumulada" fill="#5C7582" offset={-82} position="top" angle= {-90} dx={-8} />
+        </ReferenceLine>
+        <ReferenceLine y={50} stroke="#5C7582" >
+          <Label value="Coherencia" fill="#5C7582" offset={20} position="insideRight" dy={12} />
+        </ReferenceLine>
+        <Scatter name="En subida" data={[]} fill="#73DB9A" onClick={this.demoOnClick} shape={<CareerChartDot color= "#73DB9A"/>} >
+            <LabelList dataKey="orden" fill="#73DB9A" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
+        </Scatter>
+        <Scatter name="En bajada" data={[]} fill="#FFB744" onClick={this.demoOnClick} shape={<CareerChartDot color= "#FFB744"/>}>
+            <LabelList dataKey="orden" fill="#FFB744" strokeWidth="1"  fontSize={10} style={{pointerEvents: 'none'}}/>
+        </Scatter>
+        <ReferenceDot x={75} y={95} r={20} fill="rgba(255, 255, 255, 0)" stroke="none" >
+          <Label value="Hot Topics" fill="rgba(255, 255, 255, 1)"  />
+        </ReferenceDot>
+        <Tooltip content={renderTooltip} cursor={false} label="Nombre topico" isAnimationActive={false} />
+        <Legend content={renderLegend} wrapperStyle={{ color: "#fff" ,paddingLeft: "15px"}} layout="vertical" align="right" margin={{left:20}}/>
+
+      </ScatterChart>
+
+
+
+        </ResponsiveContainer>
+        </div>);}
+        else{
+          return(null);
+        }
 
       }
       else {
