@@ -22,7 +22,10 @@ class CareerChart extends Component{
     }
 
     updateChart(){
-      this.setState({isLoading:true});
+      if(this.props.topics.length===0){
+          this.setState({isLoading:true});
+      }
+
       var topicsId=[];
       for (var i = 0; i < this.props.topics.length; i++) {
         topicsId.push(this.props.topics[i].topic_id);
@@ -37,6 +40,7 @@ class CareerChart extends Component{
                status: response.status
            })
          ).then(res => {
+           this.setState({isLoading:true});
            var obj = res.data.topics;
            console.log(res);
            var data1=[];
