@@ -9,7 +9,7 @@ class TopicGraph extends Component{
   constructor(props){
       super(props);
       this.createGraph = this.createGraph.bind(this);
-      this.HandleMouseClick = this.HandleMouseClick .bind(this);
+      this.HandleMouseClick = this.HandleMouseClick.bind(this);
       this.resize = this.resize.bind(this);
   }
   state = {
@@ -59,7 +59,7 @@ class TopicGraph extends Component{
    }
 
    HandleMouseClick(d){
-     if(d.index != 0){
+     if(d.index !== 0){
        this.props.history.push('/topicos/' + d.id);
    }}
 
@@ -269,9 +269,9 @@ dataset.nodes[0].y = svgHeight/2;
           .attr("dx", function(d) {
             if(d.index === (((dataset.nodes.length -1 )/4) +1)){ return 0;}
             else if(d.index === (((dataset.nodes.length -1 )*3/4) +1)){ return 0;}
-            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index != 0){ return d.name.length*1.2;}
-            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index != 0 ){ return d.name.length*1.2;}
-            else if(((dataset.nodes.length -1) /4) <= d.index < ((dataset.nodes.length -1) * 3/4) && d.index != 0 ){ return -d.name.length*1.2;}
+            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index !== 0){ return d.name.length*1.2;}
+            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index !== 0 ){ return d.name.length*1.2;}
+            else if(((dataset.nodes.length -1) /4) <= d.index && d.index < ((dataset.nodes.length -1) * 3/4) && d.index !== 0 ){ return -d.name.length*1.2;}
             else{ return 0;}})
 
           .attr("dy", function(d) {
@@ -345,31 +345,8 @@ dataset.nodes[0].y = svgHeight/2;
                   return yPos;
               });
   }
-  function dragstarted(d) {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-      d.fx = d.x;
-      d.fy = d.y;
-  }
 
-  function dragged(d) {
-      d.fx = d3.event.x;
-      d.fy = d3.event.y;
-  }
 
-  function dragended(d) {
-      if (!d3.event.active) simulation.alphaTarget(0);
-      d.fx = null;
-      d.fy = null;
-  }
-
-  function mouseclick(d) {
-    if(d.index !== 0){
-       d3.select(this).transition()
-      .duration(250)
-      .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
-
-    }
-  }
 
 
   function mouseover(d) {
@@ -377,10 +354,9 @@ dataset.nodes[0].y = svgHeight/2;
        d3.select(this).transition()
       .duration(250)
       .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
-      var matrix = this.getScreenCTM()
-        .translate(+ this.getAttribute("cx"), + this.getAttribute("cy"));
 
       /*
+          var matrix = this.getScreenCTM()
       div.style("opacity", 1)
       .style("left", (window.pageXOffset + matrix.e + 30) + "px")
       .style("top", (window.pageYOffset + matrix.f - 15) + "px")
@@ -400,7 +376,7 @@ dataset.nodes[0].y = svgHeight/2;
   }
 
   function mouseout(d) {
-    if(d.index != 0){
+    if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
       .attr("r", function(d){return interval[1]*5/d.value})

@@ -40,7 +40,7 @@ class WordCloud extends Component{
       }
 
       componentDidUpdate(prevProps, prevState) {
-          if((prevState.w != this.state.w)){
+          if((prevState.w !== this.state.w)){
             this.ReDrawCloud();
           }
       }

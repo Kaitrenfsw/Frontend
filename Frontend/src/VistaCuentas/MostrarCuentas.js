@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import profile from '../Assets/profile.png';
 import { NavLink } from 'react-router-dom';
 import Modal from '../Modal';
 import { toast } from 'react-toastify';

@@ -219,7 +219,7 @@ class MostrarTopicos extends Component{
     const UsrTopics = this.state.usrTopics;
     var topicos = this.state.topicos;
     const target = event.target;
-    const id_topico = parseInt(target.name);
+    const id_topico = parseInt(target.name,10);
     var newUsrTopics=[];
     newUsrTopics.push(id_topico)
     for(var i=0;i<UsrTopics.length;i++){
@@ -253,7 +253,7 @@ class MostrarTopicos extends Component{
     handleDesuscripcion(event){
       const UsrTopics = this.state.usrTopics;
       const target = event.target;
-      const id_topico =  parseInt(target.name);
+      const id_topico =  parseInt(target.name,10);
       var newUsrTopicsID = [];
       for(var i=0;i<UsrTopics.length;i++){
         if(id_topico === UsrTopics[i].id){

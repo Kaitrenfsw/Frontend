@@ -18,7 +18,7 @@ class VistaDetalleCuenta extends Component{
 	 componentDidMount(){
 		 console.log(this.match);
 		 console.log(this.props);
-		 if(this.props.user.permissions[0].group === "admin" && this.state.activo == 'Contraseña'){
+		 if(this.props.user.permissions[0].group === "admin" && this.state.activo === 'Contraseña'){
 			 this.setState({activo:'Datos'});
 		 }
 	 }
@@ -43,8 +43,8 @@ class VistaDetalleCuenta extends Component{
   render(){
 		var options;
 		var activo = this.state.activo;
-		if(this.props.user.permissions[0].group === "admin") {options = ["Datos"], activo = 'Datos'};
-		if(this.props.user.permissions[0].group === "owner") {options = ["Contraseña"], activo = 'Contraseña'};
+		if(this.props.user.permissions[0].group === "admin") {options = ["Datos"]; activo = 'Datos'};
+		if(this.props.user.permissions[0].group === "owner") {options = ["Contraseña"]; activo = 'Contraseña'};
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
         <NavLink to='/configuracion'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
