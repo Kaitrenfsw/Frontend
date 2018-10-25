@@ -15,6 +15,10 @@ class DashboardFrequencyChart extends Component{
 //      moment.locale('es')
     }
 
+    fetch(){
+
+    }
+
     componentDidUpdate(prevProps) {
 
               if((this.props.topics !== prevProps.topics)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
@@ -25,18 +29,17 @@ class DashboardFrequencyChart extends Component{
     }
 
     updateChart(){
+
       var topicsId=[];
-      var names = []
-      this.setState({visibility:[false,false,false,false],isLoading:true});
-      for (var i = 0; i < this.props.topics.length; i++) {
-        names[i]=this.props.topics[i].name;
-      }
-      this.setState({names});
+
       for (var i = 0; i < this.props.topics.length; i++) {
         topicsId.push(this.props.topics[i].topic_id);
       }
-
       var date="2015-09-01"
+
+      if(this.props.topics.length===0){
+         this.setState({isLoading:true});
+      }
 
       fetch("http://localhost:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
      .then((response) => {
@@ -46,6 +49,14 @@ class DashboardFrequencyChart extends Component{
                status: response.status
            })
          ).then(res => {
+          var names = []
+           this.setState({visibility:[false,false,false,false]});
+           this.setState({isLoading:true});
+           for (var i = 0; i < this.props.topics.length; i++) {
+             names[i]=this.props.topics[i].name;
+           }
+           this.setState({names});
+
            var topics = res.data.topics;
            var data2=[];
            var item = {};
@@ -71,6 +82,7 @@ class DashboardFrequencyChart extends Component{
             }
           }
 
+
           console.log(topics.length);
           console.log(data2);
           console.log(notCero);
@@ -81,6 +93,8 @@ class DashboardFrequencyChart extends Component{
             this.setState({isLoading:false});
           }
          });
+
+
 
        } else {
          console.log('bad request');
@@ -286,7 +300,7 @@ class DashboardFrequencyChart extends Component{
 
     render(){
       if (this.state.isLoading) {
-        if(this.state.names.length ===0){
+        if(this.props.topics.length ===0){
           var data =[
           {date: 1158724800000, count0: 1}
           ,
