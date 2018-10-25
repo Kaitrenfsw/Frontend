@@ -175,7 +175,7 @@ class VistaDashboard extends Component{
               {(this.state.modo === "modo-edicion") &&<AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> }	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
   						{(this.state.modo === "modo-edicion") && <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>}
               {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
-              <div className="grafico">
+              <div className="grafico-frecuencia">
   						      <DashboardFrequencyChart topics = {grafico.topics_selected}/>
   						</div>
 					  </div>
@@ -193,7 +193,7 @@ class VistaDashboard extends Component{
 					   {(this.state.modo === "modo-edicion") && <AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	}{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
               {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
           		{(this.state.modo === "modo-edicion") && <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>}
-						<div className="grafico">
+						<div className="grafico-carrera">
 						<CareerChart topics = {grafico.topics_selected} />
 						</div>
 					</div>

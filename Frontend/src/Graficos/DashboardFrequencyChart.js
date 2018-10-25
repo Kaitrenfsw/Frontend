@@ -286,8 +286,7 @@ class DashboardFrequencyChart extends Component{
 
     render(){
       if (this.state.isLoading) {
-        return( null);
-
+        return(null);
       }
       else {
         return (
