@@ -7,6 +7,7 @@ import Select from 'react-select';
 import CreatableSelect from 'react-select';
 import { toast } from 'react-toastify';
 import AutosizeInput from 'react-input-autosize';
+import config from '../config.js';
 
 
 
@@ -30,7 +31,7 @@ class VistaDashboard extends Component{
 	}
 
   fetchTopicosUsuario(){
-    fetch("http://localhost:4000/api/topicUser/" + this.props.user.id)
+    fetch("http://" +config.base_url +":4000/api/topicUser/" + this.props.user.id)
    .then((response) => {
      if(response.ok) {
        response.json().then(data => ({
@@ -59,7 +60,7 @@ class VistaDashboard extends Component{
 
 
   fetchDashboardUsuario(){
-    fetch("http://localhost:4000/api/idms/dashboard", {
+    fetch("http://" +config.base_url +":4000/api/idms/dashboard", {
         method: 'GET',
         headers: {
           'Content-Type': 'aplication/json',
@@ -91,7 +92,7 @@ class VistaDashboard extends Component{
   pushDashboardUsuario(){
     console.log(this.state.user_dashboard);
     var graphs_selected = this.state.user_dashboard.graphs_selected;
-    fetch("http://localhost:4000/api/idms/dashboard", {
+    fetch("http://"+config.base_url +":4000/api/idms/dashboard", {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
@@ -156,7 +157,7 @@ class VistaDashboard extends Component{
 		if(grafico.graph_type ===1){
 			return (
 				<row>
-					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
+					<div className={"col-md-12 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
             <div className={"grafico"}>
 
               {(this.state.modo === "modo-edicion") &&<AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> }	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
@@ -266,7 +267,7 @@ class VistaDashboard extends Component{
         return (
       <div className="container-fluid ContenidoVistaDashboard">
 			  <div className= "div-titulo">
-        <h2 id = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
+        <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
         </div>
 				{(this.state.modo === 'modo-edicion') && 	<div className="col-md-12 no-padding div-agregar">
           <a onClick={ (event) => this.HandleGuardarCambios(event)}   id = "añadir-button" className="gradient-button gradient-button-1 animated fadeIn"   >Guardar Cambios</a>

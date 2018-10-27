@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { ReferenceDot,Label, LabelList,ReferenceLine,ScatterChart,Scatter,CartesianGrid,XAxis,YAxis,Legend,ReferenceArea,Tooltip,ResponsiveContainer } from 'recharts';
 //import CareerChartDot from './CareerChartDot'
 import './CareerChart.css';
+import config from '../config.js';
 
 
 class CareerChart extends Component{
@@ -32,7 +33,7 @@ class CareerChart extends Component{
       }
 
 
-      fetch("http://localhost:4000/api/visualizations/hot_topics?topics_ids="+topicsId)
+      fetch("http://"+ config.base_url +":4000/api/visualizations/hot_topics?topics_ids="+topicsId)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -99,7 +100,7 @@ class CareerChart extends Component{
       }
 
 
-      fetch("http://localhost:4000/api/visualizations/hot_topics?topics_ids="+topicsId)
+      fetch("http://"+ config.base_url +":4000/api/visualizations/hot_topics?topics_ids="+topicsId)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({

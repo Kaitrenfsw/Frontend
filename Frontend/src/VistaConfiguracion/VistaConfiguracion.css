@@ -3,7 +3,6 @@
 /* Css generales de la vista*/
 .ContenidoVistaConfiguracion {position: absolute;left: 0;right: 0;}
 .ContenidoVistaConfiguracion .no-padding{padding: 0;}
-.ContenidoVistaConfiguracion #titulo-vista{color: #EDEEEF; font-weight: bold; }
 .ContenidoVistaConfiguracion #subtitulo-vista{color: #EDEEEF; margin-top: 2vh;}
 
 

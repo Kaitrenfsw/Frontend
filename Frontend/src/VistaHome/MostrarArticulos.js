@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
+import config from '../config.js';
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -19,7 +20,7 @@ class MostrarArticulos extends Component{
 
 
     componentDidMount() {
-             fetch("http://localhost:4000/api/suggestions", {
+             fetch("http://" + config.base_url + ":4000/api/suggestions", {
                  method: 'GET',
                  headers: {
                    'Content-Type': 'application/json',
@@ -160,7 +161,7 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
       if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
       if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
-            articulo_1 =  <div className="col-md-4 col-izq">
+            articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
             <div className="div-image">
             <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
@@ -182,7 +183,7 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
       if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
       if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
-            articulo_2 =  <div className="col-md-4">
+            articulo_2 =  <div className="col-sm-4">
             <div className="Div-Articulo">
             <div className="div-image">
             <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
@@ -207,7 +208,7 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
       if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
       if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
-            articulo_3 =  <div className="col-md-4 col-der">
+            articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
             <div className="div-image">
             <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />

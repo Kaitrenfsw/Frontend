@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import logo from '../Assets/kom2.svg';
 import lineas from '../Assets/linea.png';
-
+import config from '../config.js';
 import { toast } from 'react-toastify';
 import { Textbox } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
@@ -28,9 +28,9 @@ class VistaLogin extends Component{
         });
   }
 
-  handleKeyPress = (event) => {
+  handleKeyPress(event){
     if(event.key === 'Enter'){
-      this.handleClick(event)
+      this.handleClick(event);
     }
   }
 
@@ -40,7 +40,7 @@ class VistaLogin extends Component{
     if (this.state.EmailError) {console.log("Mail error ");}
     else if (this.state.PasswordError){console.log("Pwd error ");}
     else {
-      fetch("http://localhost:4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
+      fetch("http://" + config.base_url + ":4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -61,7 +61,6 @@ class VistaLogin extends Component{
           localStorage.setItem('user', JSON.stringify(res.data.user));
           this.props.HandleUserLogIn(res.data.user);
         });
-
       } else {
         response.json().then(data => ({
               data: data,
@@ -74,9 +73,7 @@ class VistaLogin extends Component{
             this.notify_error("Email o contraseña incorrecta")
           }
           console.log(res.data,res.status);
-
         });
-
         console.log('bad request');
       }
     })
@@ -92,7 +89,6 @@ class VistaLogin extends Component{
     return (
       <div className="ContenidoVistaLogin">
         <div className="row row-no-padding">
-          <div className="col-xs-4 col-xs-offset-4">
            <div className ="max-width">
            	<img id = "logo" src={logo} alt="logo" />
             <h4 id="texto-inica-sesion">Para continuar, inicia sesión</h4>
@@ -107,7 +103,6 @@ class VistaLogin extends Component{
                   value={this.state.username} //Optional.[String].Default: "".
                   onKeyPress={this.handleKeyPress.bind(this)}
                   className="form-control"
-
                   validate={this.state.validate} //Optional.[Bool].Default: false. If you have a submit button and trying to validate all the inputs of your form at onece, toggle it to true, then it will validate the field and pass the result via the "validationCallback" you provide.
                   validationCallback={res => this.setState({ EmailError: res, validate: false })}
 
@@ -163,8 +158,7 @@ class VistaLogin extends Component{
 
 
             </div>
-            <a   id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)}  >Ingresar</a>
-          </div>
+            <a      id = "log-button" className="gradient-button gradient-button-1" onClick={this.handleClick.bind(this)}  >Ingresar</a>
           </div>
         </div>
         <img alt = "grafico linea" id ="lineas" src={lineas}/>

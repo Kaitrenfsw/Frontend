@@ -5,6 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
 import { Textbox } from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
+import config from '../config.js';
 
 
 
@@ -36,7 +37,7 @@ class Datos extends Component{
 
   componentDidMount() {
         if(this.props.adm_cuenta){
-          fetch("http://localhost:4000/api/users/" + this.props.id, {
+          fetch("http://"+  config.base_url + ":4000/api/users/" + this.props.id, {
               method: 'GET',
               headers: {
                 'Content-Type': 'multipart/form-data',
@@ -72,7 +73,7 @@ class Datos extends Component{
 
        }
        else{
-           fetch("http://localhost:4000/api/profile", {
+           fetch("http://"+  config.base_url + ":4000/api/profile", {
                method: 'GET',
                headers: {
                  'Content-Type': 'multipart/form-data',
@@ -114,7 +115,7 @@ class Datos extends Component{
 
   HandleModalConfirm(event,action) {
     if(action==="eliminar"){
-      fetch('http://localhost:4000/api/users', {
+      fetch('http://'+  config.base_url + ':4000/api/users', {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',
@@ -146,7 +147,7 @@ class Datos extends Component{
       });
     }
     if(action==="bloquear"){
-      fetch('http://localhost:4000/api/account/activate', {
+      fetch('http://'+  config.base_url + ':4000/api/account/activate', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -193,7 +194,7 @@ class Datos extends Component{
 
 
     if(this.props.adm_cuenta){
-      fetch('http://localhost:4000/api/users', {
+      fetch('http://'+  config.base_url + ':4000/api/users', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -226,7 +227,7 @@ class Datos extends Component{
       });
     }
     else{
-      fetch('http://localhost:4000/api/profile', {
+      fetch('http://'+  config.base_url + ':4000/api/profile', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',

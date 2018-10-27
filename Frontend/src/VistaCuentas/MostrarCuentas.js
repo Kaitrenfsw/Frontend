@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Modal from '../Modal';
 import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
+import config from '../config.js';
 class MostrarCuentas extends Component{
   state = {
       cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
@@ -20,7 +21,7 @@ class MostrarCuentas extends Component{
   notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
 
   fetchIdms(){
-    fetch('http://localhost:4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
+    fetch('http://' +config.base_url +':4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
      method: "get",
      headers: {
        'Accept': 'application/json',
@@ -50,7 +51,7 @@ class MostrarCuentas extends Component{
     });
   }
   fetchOwners(){
-    fetch('http://localhost:4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
+    fetch('http://'+config.base_url +':4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
      method: "get",
      headers: {
        'Accept': 'application/json',
@@ -83,7 +84,7 @@ class MostrarCuentas extends Component{
 
 
     HandleModalConfirm(event,action) {
-      fetch('http://localhost:4000/api/idms', {
+      fetch('http://'+config.base_url +':4000/api/idms', {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',

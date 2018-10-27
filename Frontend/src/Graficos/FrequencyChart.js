@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AreaChart,Area,Brush,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
 import moment from  'moment'
 import './FrequencyChart.css';
+import config from '../config.js';
 //import 'moment/locale/es'
 
 class FrequencyChart extends Component{
@@ -23,7 +24,7 @@ class FrequencyChart extends Component{
       var date="2015-09-01"
       console.log("id:"+topicId);
 
-      fetch("http://localhost:4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
+      fetch("http://"+ config.base_url + ":4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({

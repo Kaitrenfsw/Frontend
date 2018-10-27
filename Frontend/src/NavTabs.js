@@ -12,10 +12,10 @@ class NavTabs extends Component{
     return (
     	<div className="NavTabs">
             <div className="row no-margin">
-          			<div className="col-lg-6">
+          			<div className="col-sm-6 no-padding">
                 {first_tab}
               	</div>
-          		  <div className="col-lg-6">
+          		  <div className="col-sm-6 no-padding">
             		 {second_tab}
                 </div>
         		</div>

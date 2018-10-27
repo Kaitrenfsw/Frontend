@@ -48,7 +48,7 @@ class VistaDetalleCuenta extends Component{
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
         <NavLink to='/configuracion'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
-        <h2 id="titulo-vista" >Cuenta</h2>
+        <h2 className="titulo-vista no-margin-top" >Cuenta</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
               <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {activo} options={options}/>

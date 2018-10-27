@@ -1,7 +1,7 @@
 
 
 /*Css generales de la vista */
-.ContenidoVistaTopicos #titulo-vista{color: #EDEEEF; font-weight: bold; }
+
 .ListasTopicos{ list-style-type: none ; padding:0; }
 .ContenidoVistaTopicos .row{ margin-left:0; margin-right: 0;}
 .ContenidoVistaTopicos .row-no-padding > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
@@ -17,60 +17,39 @@
 /*Sección MostrarTopicos*/
 
 
-.div-keywords { background-color: #23313A; height: 80px; padding: 20px; }
-.div-relacion{ background-color:#35424E; height: 80px; padding-left: 10px; padding-top: 25px; padding-right: 0; }
-.div-relacion.relacion-mf{border-left: 6px solid #5CACC4;}
-.div-relacion.relacion-d{border-left: 6px solid #ECB775;}
-.div-relacion.relacion-f{border-left: 6px solid #87D597;}
-.div-relacion.relacion-md{border-left: 6px solid #FF5C55;}
+.ContenidoVistaTopicos .div-keywords { width: 92%;background-color: #23313A; height: 80px; padding: 1.25em; }
+.ContenidoVistaTopicos .div-relacion{ width: 8%;background-color:#35424E; height: 80px; text-align: center;padding-top: 25px; padding-left: 0; padding-right: 0;}
+.div-relacion.relacion-mf{border-left: 0.375em solid #5CACC4;}
+.div-relacion.relacion-d{border-left: 0.375em solid #ECB775;}
+.div-relacion.relacion-f{border-left: 0.375em solid #87D597;}
+.div-relacion.relacion-md{border-left: 0.375em solid #FF5C55;}
 .relacion-d{color: #ECB775; font-weight: bold; margin-top: 0;}
 .relacion-f{color: #87D597; font-weight: bold; margin-top: 0;}
 .relacion-mf{color: #5CACC4; font-weight: bold; margin-top: 0;}
 .relacion-md{color: #FF5C55; font-weight: bold; margin-top: 0;}
-.div-keywords  .keywords{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
-.ContenidoVistaTopicos  h6{	color: #6B828F;font-weight: bold;}
-.ContenidoVistaTopicos  .nombre-topico{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
-.ContenidoVistaTopicos .titulo-relacion{color: #6B828F; font-size: 11px; margin-bottom: 0; font-weight: bold; }
+.div-keywords  .keywords{font-size: 0.875em;color: #6B828F;margin-top: 0;font-weight: bold; max-width:70%;}
+.ContenidoVistaTopicos  .nombre-topico{font-size: 1.125em;color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
+.ContenidoVistaTopicos .coherencia{color: #6B828F; font-size: 0.687em; margin-bottom: 0; font-weight: bold; }
 .div-keywords > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
-.topico{ margin-bottom: 25px; }
+.topico{ margin-bottom: 1.5625em; }
+.texto-clase-relacion { font-size: 0.875em}
 
 
-
-
-
-
-
-
-@media (max-width: 1366px) {
-    .ContenidoVistaTopicos gradient-button { font-size: 11px; padding-top: 7px; width: 130px; height: 31px; }
-    .div-keywords > a.gradient-button { float: right; position: absolute; top: 27%; right: 3%; }
-    .div-keywords  .keywords{font-size: 12px; margin-bottom: 0;}
-    .div-keywords  .nombre-topico{font-size: 14px; margin-bottom: 3px; margin-top: 5px;  }
-    .div-keywords { height: 70px; padding: 13px; }
-    .div-relacion .titulo-relacion{color: #6B828F; font-size: 8px; margin-bottom: 0; font-weight: bold; }
-    .relacion-d{font-size: 12px}
-    .relacion-f{font-size: 12px}
-    .relacion-mf{font-size: 12px; margin: 0; padding: 0;}
-    .relacion-md{font-size: 12px}
-    .div-relacion{ height: 70px; padding-left: 8px; padding-top: 20px; padding-right: 0; }
+@media (max-width: 1024px) {
+  .ContenidoVistaTopicos .div-keywords { width: 90%;}
+  .ContenidoVistaTopicos .div-relacion{ width: 10%;}
 }
 
 
-@media (max-width: 1000px) {
-  .div-relacion{ width: 11%; }
-  .div-relacion h5{ font-size: 9px; }
-	.ContenidoVistaTopicos .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 90px; height: 21.46px; }
-	.div-keywords > a.gradient-button { top: 30%; }
-  .div-keywords{ width: 89%; }
-	.div-keywords .keywords{font-size: 9px; margin-bottom: 0;}
-
-}
-
-
-@media (max-width: 500px) {
-  .div-relacion{ width: 20%; height:85px; padding-top: 27px; }
-	.div-keywords{ width: 80%; height: 85px; }
-	.ContenidoVistaTopicos .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 60px; height: 17.46px; }
-	.div-keywords a.gradient-button{ top:38% }
-
+@media (max-width: 768px) {
+  .ContenidoVistaTopicos .div-keywords { width: 96%; height: 140px; padding-left:10px; }
+  .ContenidoVistaTopicos .div-relacion{ width: 4%; height: 140px;}
+  .div-keywords  .keywords{max-width:55%;}
+  .div-keywords > a.gradient-button { font-size: 0.85em ;top: 40%; right: 3%; }
+  .div-relacion.relacion-mf{background-color: #5CACC4;border-left: 0 solid #5CACC4;}
+  .div-relacion.relacion-d{background-color: #ECB775;border-left: 0 solid #5CACC4;border-left: 0.375em solid #ECB775;}
+  .div-relacion.relacion-f{background-color: #87D597;border-left: 0 solid #5CACC4;border-left: 0.375em solid #87D597;}
+  .div-relacion.relacion-md{background-color: #FF5C55;border-left: 0 solid #5CACC4;border-left: 0.375em solid #FF5C55;}
+  .ContenidoVistaTopicos  .texto-clase-relacion {display: none;}
+  .ContenidoVistaTopicos .coherencia{display: none;}
 }
