@@ -4,6 +4,7 @@ import { toast } from 'react-toastify';
 import { Textbox} from 'react-inputs-validation';
 import 'react-inputs-validation/lib/react-inputs-validation.min.css';
 import './CrearCuenta.css';
+import config from '../config.js';
 
 
 class CrearCuenta extends Component{
@@ -47,7 +48,7 @@ class CrearCuenta extends Component{
             var tipo_cuenta = 'idm';
             if(this.props.user.permissions[0].group==="admin"){tipo_cuenta = 'owner'
             console.log(this.props.user.token,tipo_cuenta);
-            fetch('http://localhost:4000/api/users', {
+            fetch('http://'+config.base_url +':4000/api/users', {
                 method: 'POST',
                 headers: {
                   'Accept': 'application/json',
@@ -86,7 +87,7 @@ class CrearCuenta extends Component{
           }
           if(this.props.user.permissions[0].group==="owner"){tipo_cuenta = 'idm'
           console.log(this.props.user.token,tipo_cuenta);
-          fetch('http://localhost:4000/api/idms', {
+          fetch('http://'+config.base_url +':4000/api/idms', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',

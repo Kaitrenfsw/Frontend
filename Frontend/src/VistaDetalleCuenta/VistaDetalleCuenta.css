@@ -2,7 +2,6 @@
 
 /* Css generales de la vista*/
 .ContenidoVistaDetalleCuenta .no-padding{padding: 0;}
-.ContenidoVistaDetalleCuenta #titulo-vista{color: #EDEEEF; font-weight: bold; margin-top: 0;}
 .ContenidoVistaDetalleCuenta #subtitulo-vista{color: #EDEEEF; margin-top: 60px; font-weight: bold;}
 .ContenidoVistaDetalleCuenta { position: absolute;left: 0; right: 0;}
 .ContenidoVistaDetalleCuenta #volver{color: #6B828F; font-weight: bold; margin: 0; margin-top: 0px; margin-bottom: 5px; cursor: pointer;}

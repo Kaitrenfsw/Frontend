@@ -3,7 +3,7 @@
 
 /*Css generales de la vista */
 .ContenidoVistaDashboard .div-titulo{margin-bottom: 50px;}
-.ContenidoVistaDashboard #titulo-vista{color: #EDEEEF; font-weight: bold; margin-bottom: 1.5vw; display: inline;}
+.ContenidoVistaDashboard .titulo-vista{display: inline-block;}
 .ContenidoVistaDashboard {position: absolute;left: 0;right: 0;}
 .ContenidoVistaDashboard #subtitulo-vista{color: #EDEEEF; font-weight: bold; }
 .ContenidoVistaDashboard .grafico.modo-edicion{ border: solid; border-width: 1px; border-color: rgba(88,114,124,0.5); border-radius: 15px;}

@@ -43,7 +43,7 @@ class VistaHome extends Component{
   render(){
     return (
       <div className="container-fluid ContenidoVistaHome">
-        <h2 id = "titulo-vista">Artículos</h2>
+        <h2 className = "titulo-vista">Artículos</h2>
         <ul className="ListasHome">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Recomendados","Guardados"]} />
           <Paginacion search_text= {"busca un artículo"} orden = {this.state.orden}  HandleOrden= {this.HandleOrden.bind(this)} HandleSearch= {this.HandleSearch.bind(this)} options = {["Fecha","Fuentes"]} />

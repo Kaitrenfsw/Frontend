@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Modal from '../Modal';
 import { toast } from 'react-toastify';
+import config from '../config.js';
 
 
 class Entrenamiento extends Component{
@@ -15,7 +16,7 @@ class Entrenamiento extends Component{
     }
 
   componentDidMount(){
-    fetch('http://localhost:4000/trainingStatus/')
+    fetch('http://'+ config.base_url + ':4000/trainingStatus/')
     .then((response) => {
       if(response.ok) {
         response.json().then(data => ({
@@ -40,7 +41,7 @@ class Entrenamiento extends Component{
 
   HandleModalConfirm(event,action) {
     if(action==="entrenar"){
-      fetch('http://localhost:4000/api/processing/model', {
+      fetch('http://'+config.base_url +':4000/api/processing/model', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

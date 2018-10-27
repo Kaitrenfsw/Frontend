@@ -46,7 +46,7 @@ class VistaTopicos extends Component{
 
     return (
       <div className="container-fluid ContenidoVistaTopicos">
-        <h2 id = "titulo-vista">Temas de interés</h2>
+        <h2 className = "titulo-vista">Temas de interés</h2>
         <ul className="ListasTopicos">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis temas","Explorar temas"]} />
           <Paginacion  search_text= {"busca un tema"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Nombre','Coherencia']}/>

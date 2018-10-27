@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import config from '../config.js';
 class SeccionNoticias extends Component{
 
   state = {
@@ -29,7 +30,7 @@ class SeccionNoticias extends Component{
 
 
       componentDidMount() {
-               fetch("http://localhost:4000/api/relevant_suggestions?topic_id=" + this.props.id, {
+               fetch("http://"+ config.base_url + ":4000/api/relevant_suggestions?topic_id=" + this.props.id, {
                    method: 'GET',
                    headers: {
                      'Content-Type': 'application/json',

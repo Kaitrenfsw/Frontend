@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from 'react-router-dom';
+import config from '../config.js';
 
 
 class MostrarTopicos extends Component{
@@ -25,7 +26,7 @@ class MostrarTopicos extends Component{
 
 
   componentDidMount() {
-      fetch('http://localhost:4000/api/topics/') /* http://10.6.42.104:4000/api/content*/
+      fetch('http://' + config.base_url + ':4000/api/topics/') /* http://10.6.42.104:4000/api/content*/
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -119,8 +120,8 @@ class MostrarTopicos extends Component{
       return (
             <div key = {topico.id} className="row topico" >
               <div className= {"col-xs-1 div-relacion " + ClaseRelacion}>
-                <p className = "titulo-relacion">Coherencia</p>
-                <h5 className={ClaseRelacion}>{TextoRelacion}</h5>
+                <p className = "coherencia">Coherencia</p>
+                <h5 className={ClaseRelacion + " texto-clase-relacion"}>{TextoRelacion}</h5>
               </div>
               <div className="col-xs-11 div-keywords"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
                 <NavLink  to={{ pathname: '/topicos/'+topico.id, state: { foo: 'bar'} }} ><h4 className="nombre-topico">{nombre_topico}</h4></NavLink>

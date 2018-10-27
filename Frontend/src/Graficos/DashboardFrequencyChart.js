@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Legend, AreaChart,Area,Brush,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
 import moment from  'moment'
 import './DashboardFrequencyChart.css';
+import config from '../config.js';
 //import 'moment/locale/es'
 
 class DashboardFrequencyChart extends Component{
@@ -41,7 +42,7 @@ class DashboardFrequencyChart extends Component{
          this.setState({isLoading:true});
       }
 
-      fetch("http://localhost:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
+      fetch("http://" + config.base_url +":4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -210,7 +211,7 @@ class DashboardFrequencyChart extends Component{
       }
       var date="2015-09-01"
 
-      fetch("http://localhost:4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
+      fetch("http://"+ config.base_url +":4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({

@@ -6,6 +6,7 @@ import SeccionNoticias from './SeccionNoticias';
 import { NavLink } from 'react-router-dom';
 import TopicGraph from '../Graficos/TopicGraph';
 import ReactTooltip from 'react-tooltip';
+import config from '../config.js';
 
 class VistaDetalleTopico extends Component{
 
@@ -18,7 +19,7 @@ class VistaDetalleTopico extends Component{
         }
 
     fetchTopicosUsuario(){
-          fetch("http://localhost:4000/api/topicUser/" + this.props.user.id)
+          fetch("http://"  + config.base_url +  ":4000/api/topicUser/" + this.props.user.id)
          .then((response) => {
            if(response.ok) {
              response.json().then(data => ({
@@ -51,7 +52,7 @@ class VistaDetalleTopico extends Component{
 
     fetchGrafo(){
       const id = this.props.match.params.id;
-      fetch("http://localhost:4000/api/visualizations/graph?topic_id=" + id)
+      fetch("http://" + config.base_url +  ":4000/api/visualizations/graph?topic_id=" + id)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -116,7 +117,7 @@ class VistaDetalleTopico extends Component{
       fetchDatosTopico(){
         /* Datos del topico    */
         const id = this.props.match.params.id;
-        fetch("http://localhost:4000/api/topics/" + id)
+        fetch("http://" + config.base_url +  ":4000/api/topics/" + id)
        .then((response) => {
          if(response.ok) {
            response.json().then(data => ({
@@ -185,7 +186,7 @@ class VistaDetalleTopico extends Component{
                   usrTopics: UsrTopics,
                   esta_suscrito: false
           });
-          fetch("http://localhost:4000/api/topicUser/" + this.props.user.id , {
+          fetch("http://" + config.base_url +  ":4000/api/topicUser/" + this.props.user.id , {
             method: "put",
             headers: {
               'Accept': 'application/json',
@@ -221,7 +222,7 @@ class VistaDetalleTopico extends Component{
           return (
             <div className="container-fluid ContenidoVistaDetalleTopico">
             <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
-             <h2  id="titulo-vista">{this.state.topico[0].name}</h2>
+             <h2  className="titulo-vista no-margin-top" >{this.state.topico[0].name}</h2>
              {this.state.esta_suscrito && <a   onClick = {this.handleDesuscripcion.bind(this)}className="gradient-button gradient-button-2 unsub-button">Suscrito</a>}
              {!this.state.esta_suscrito && <a   onClick = {this.handleSubscripcion.bind(this)} className="gradient-button gradient-button-1 sub-button">Suscribirme</a>}
              <SeccionGraficos topicId={this.props.match.params.id} key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
-
+import config from '../config.js';
 
 class Contrasena extends Component{
 
@@ -19,7 +19,7 @@ class Contrasena extends Component{
   notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
   HandleGuardarCambios(event){
     if(this.props.adm_cuenta){
-      fetch('http://localhost:4000/api/idms/password', {
+      fetch('http://'+  config.base_url + ':4000/api/idms/password', {
           method: 'Put',
           headers: {
             'Accept': 'application/json',
@@ -60,7 +60,7 @@ class Contrasena extends Component{
       formData.append('old_password', this.state.old_password);
       formData.append('new_password', this.state.new_password);
       formData.append('new_password_confirmation', this.state.new_password_confirmation);
-      fetch('http://localhost:4000/api/users', {
+      fetch('http://'+  config.base_url + ':4000/api/users', {
           method: 'Post',
           headers: {
             'Content-Type': 'multipart/form-data',
