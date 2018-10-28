@@ -1,26 +1,7 @@
-html {
-    overflow-y: scroll;
-    overflow-x: hidden;
-}
-::-webkit-scrollbar {
-    width: 0px;  /* remove scrollbar space */
-    background: transparent;  /* optional: just make scrollbar invisible */
-}
+
 /*Css generales de la vista */
-.ContenidoVistaCuentas #titulo-vista{color: #EDEEEF; font-weight: bold;}
-.ContenidoVistaCuentas .row-no-padding > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
-.ContenidoVistaCuentas .col-lg-6{ padding: 0; }
 .ContenidoVistaCuentas {position: absolute;left: 0;right: 0;top: 0;}
 .ContenidoVistaCuentas .margin-top {margin-top: 60px;}
-.ContenidoVistaCuentas {position: absolute;left: 0;right: 0;}
-.ContenidoVistaCuentas section {padding: 50px 0; margin: 0 auto;}
-
-
-
-/*Sección paginación*/
-.paginacion{margin-top: 58px;}
-
-
 
 /*Sección Cuentas DDS*/
 
@@ -38,7 +19,7 @@ html {
 .div-datos  .email-cuenta{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%;}
 .ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
 .ContenidoVistaCuentas .nombre-cuenta{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
-.ContenidoVistaCuentas .titulo-estado{color: #6B828F; font-size: 11px; margin-bottom: 0; font-weight: bold; }
+.ContenidoVistaCuentas .titulo-estado{color: #6B828F; font-size: 0.6875em; margin-bottom: 0; font-weight: bold; }
 .div-datos > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
 .ContenidoVistaCuentas .cuenta{ margin-bottom: 20px; }
 .div-datos img {height: 100%}
@@ -103,7 +84,6 @@ html {
 @media (max-width: 500px) {
   .div-estado{ width: 20%; height:85px; padding-top: 27px; }
 	.div-datos{ width: 80%; height: 85px; }
-	.ContenidoVistaCuentas .gradient-button { font-size: 7.593px; padding-top: 4.87px; width: 60px; height: 17.46px; }
 	.div-datos a.gradient-button{ top:38% }
 
 }

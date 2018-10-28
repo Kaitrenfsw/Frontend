@@ -5,7 +5,7 @@
 .ContenidoVistaDashboard .titulo-vista{display: inline-block;}
 .ContenidoVistaDashboard {position: absolute;left: 0;right: 0;}
 .ContenidoVistaDashboard .añadir-multiple__div { width: 100%; float: left;}
-.ContenidoVistaDashboard .div-titulo{margin-bottom: 0;}
+.ContenidoVistaDashboard .div-titulo{margin-bottom: 2em;}
 .ContenidoVistaDashboard #texto-editar {margin-right: 2px;color: #6B828F;font-weight: bold; font-size: 10px; margin-left: -35px; margin-top: -20px;}
 .ContenidoVistaDashboard #texto-editar.modo-edicion {color: #FEDD34; }
 .ContenidoVistaDashboard .div-span-editar-dashboard.modo-visualizacion:hover {border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
