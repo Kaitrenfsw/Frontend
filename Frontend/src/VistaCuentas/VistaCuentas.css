@@ -40,7 +40,7 @@ html {
 .ContenidoVistaCuentas .nombre-cuenta{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; }
 .ContenidoVistaCuentas .titulo-estado{color: #6B828F; font-size: 11px; margin-bottom: 0; font-weight: bold; }
 .div-datos > a.gradient-button { float: right; position: absolute; top: 25%; right: 5%; }
-.cuenta{ margin-bottom: 25px; }
+.ContenidoVistaCuentas .cuenta{ margin-bottom: 20px; }
 .div-datos img {height: 100%}
 .ContenidoVistaCuentas .col-izq { padding-left: 0; padding-right: 20px;}
 .ContenidoVistaCuentas .col-der { padding-left: 0; padding-right: 0;}
