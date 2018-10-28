@@ -135,14 +135,16 @@ class VistaDashboard extends Component{
 
   /*función para mostrar cada uno de los graficos del usuario*/
 	DesplegarGrafico(grafico,graph_number){
-
-    var topicos_seleccionados = [];
-    for(var i = 0; i<grafico.topics_selected.length;i++){
-       topicos_seleccionados.push({value:grafico.topics_selected[i].topic_id,label:grafico.topics_selected[i].name})
-    }
-    console.log(grafico.topics_selected);
-		var select_topicos = null;
-		if(this.state.modo === 'modo-edicion')  select_topicos = <div className="seccion-agregar-topicos animated fadeIn">
+		var modo = this.state.modo;
+		var opcion_select_topicos = null;
+		var titulo_grafico = <h4 id= "titulo-grafico">{grafico.name} </h4>
+		var opcion_eliminar_grafico = null;
+		if(modo=== 'modo-edicion') {
+			var topicos_seleccionados = [];
+			for(var i = 0; i<grafico.topics_selected.length;i++){
+				 topicos_seleccionados.push({value:grafico.topics_selected[i].topic_id,label:grafico.topics_selected[i].name})
+			}
+			  opcion_select_topicos = <div className="seccion-agregar-topicos animated fadeIn">
 				<h5  id="topicos-grafico" className= "animated fadeIn">Temas</h5>
 				<CreatableSelect id={graph_number}
 					isMulti
@@ -153,40 +155,40 @@ class VistaDashboard extends Component{
 					placeholder={"Seleccionar"}
 					options={this.state.topics_options}
 			 />
-		 </div>
+		 		</div>;
+				titulo_grafico = <div><AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span> </div>;
+				opcion_eliminar_grafico = <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>;
+	 }
 		if(grafico.graph_type ===1){
 			return (
 				<row>
-					<div className={"col-md-12 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
+				<div className={"col-sm-2  col-sm-push-10 no-padding "  + this.state.modo }>
+				{opcion_select_topicos}
+				</div>
+					<div className={"col-sm-10 col-sm-pull-2 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
             <div className={"grafico"}>
-
-              {(this.state.modo === "modo-edicion") &&<AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> }	{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
-  						{(this.state.modo === "modo-edicion") && <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>}
-              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
+							{titulo_grafico}
+							{opcion_eliminar_grafico}
               <div className="grafico-frecuencia">
   						      <DashboardFrequencyChart topics = {grafico.topics_selected}/>
   						</div>
 					  </div>
            </div>
-					<div className={"col-md-2 no-padding "}>
-					{select_topicos}
-					</div>
 				</row>
 			)
 		}
 		if(grafico.graph_type ===3){
       return (
 				<row>
-					<div className={"col-md-10 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
-					   {(this.state.modo === "modo-edicion") && <AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:18}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	}{(this.state.modo === "modo-edicion") && <span className= "glyphicon glyphicon-pencil"></span>}
-              {(this.state.modo === "modo-visualizacion") && <h4 id= "subtitulo-vista">{grafico.name} </h4>}
-          		{(this.state.modo === "modo-edicion") && <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>}
+				<div className={"col-sm-2 col-sm-push-10 no-padding "  + this.state.modo }>
+				{opcion_select_topicos}
+				</div>
+					<div className={"col-sm-10  col-sm-pull-2 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
+						{titulo_grafico}
+						{opcion_eliminar_grafico}
 						<div className="grafico-carrera">
 						<CareerChart topics = {grafico.topics_selected} />
 						</div>
-					</div>
-					<div className={"col-md-2 no-padding "}>
-					{select_topicos}
 					</div>
 				</row>
 			)
@@ -262,25 +264,29 @@ class VistaDashboard extends Component{
 
 
   render(){
-		console.log(this.state.selectedOption);
+		var modo = this.state.modo;
+		var opciones_modo_edicion = null;
+    if(modo === "modo-edicion"){
+			opciones_modo_edicion = <div className="col-md-12 no-padding div-agregar">
+																<a onClick={ (event) => this.HandleGuardarCambios(event)}   id = "guardar-button" className="gradient-button gradient-button-1 animated fadeIn"   >Guardar Cambios</a>
+																<Select
+																				value={this.state.selectedOption}
+																				onChange={this.handleChange}
+																				options = {[{label:"Gráfico de Comportamiento", value: 1},{label: "Gráfico de Carrera", value:3}]}
+																				className = {"añadir__div animated fadeIn"}
+																				classNamePrefix = {"añadir"}
+																				placeholder={"Selecciona un Gráfico"}
+																/>
+																<a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "agregar-button" className="gradient-button gradient-button-6 animated fadeIn"   >Añadir</a>
+															</div>
+		}
     if(!this.state.isLoading){
         return (
       <div className="container-fluid ContenidoVistaDashboard">
 			  <div className= "div-titulo">
         <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
         </div>
-				{(this.state.modo === 'modo-edicion') && 	<div className="col-md-12 no-padding div-agregar">
-          <a onClick={ (event) => this.HandleGuardarCambios(event)}   id = "añadir-button" className="gradient-button gradient-button-1 animated fadeIn"   >Guardar Cambios</a>
-					<Select
-					        value={this.state.selectedOption}
-					        onChange={this.handleChange}
-									options = {[{label:"Gráfico de Comportamiento", value: 1},{label: "Gráfico de Carrera", value:3}]}
-									className = {"añadir__div animated fadeIn"}
-									classNamePrefix = {"añadir"}
-									placeholder={"Selecciona un Gráfico"}
-					/>
-          <a onClick={ (event) => this.HandleAñadirGrafico(event)}   id = "agregar-grafico" className="gradient-button gradient-button-6 animated fadeIn"   >Añadir</a>
-					</div>}
+				{opciones_modo_edicion}
 				{this.state.user_dashboard.graphs_selected.map((grafico,i,arr) => (
 				 this.DesplegarGrafico(grafico,i)
 			 ))}

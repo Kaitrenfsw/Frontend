@@ -42,8 +42,8 @@
 
 
 @media (max-width: 768px) {
-  .ContenidoVistaTopicos .div-keywords { width: 96%; height: 140px; padding-left:10px; }
-  .ContenidoVistaTopicos .div-relacion{ width: 4%; height: 140px;}
+  .ContenidoVistaTopicos .div-keywords { width: 96%; height: 120px; padding-left:10px; }
+  .ContenidoVistaTopicos .div-relacion{ width: 2%; height: 120px;}
   .div-keywords  .keywords{max-width:55%;}
   .div-keywords > a.gradient-button { font-size: 0.85em ;top: 40%; right: 3%; }
   .div-relacion.relacion-mf{background-color: #5CACC4;border-left: 0 solid #5CACC4;}
