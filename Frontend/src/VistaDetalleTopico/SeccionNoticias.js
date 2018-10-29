@@ -30,7 +30,7 @@ class SeccionNoticias extends Component{
 
 
       componentDidMount() {
-               fetch("http://"+ config.base_url + ":4000/api/relevant_suggestions?topic_id=" + this.props.id, {
+               fetch("http://"+ config.base_url + ":" + config.port + "/api/relevant_suggestions?topic_id=" + this.props.id, {
                    method: 'GET',
                    headers: {
                      'Content-Type': 'application/json',
@@ -46,17 +46,14 @@ class SeccionNoticias extends Component{
                          status: response.status
                      })
                    ).then(res => {
-                     console.log(res.data,res.status)
                      this.setState({noticias:res.data,isLoading:false});
 
                    });
 
                  } else {
-                   console.log('bad request');
                  }
                })
                .catch(function(error) {
-                 console.log('Hubo un problema con la petición Fetch:' + error.message);
                });
            }
 
@@ -70,7 +67,6 @@ class SeccionNoticias extends Component{
 
   }
   HandleOrden(event,valor) {
-       console.log(valor);
        if(this.state.orden !== valor){
           this.setState({ orden: valor });
        }

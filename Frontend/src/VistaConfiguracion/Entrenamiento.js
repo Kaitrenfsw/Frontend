@@ -24,16 +24,13 @@ class Entrenamiento extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data,res.status);
           this.setState({isTraining:res.data.is_training});
         });
 
       } else {
-        console.log('bad request');
       }
     })
     .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
 
   }
@@ -41,7 +38,7 @@ class Entrenamiento extends Component{
 
   HandleModalConfirm(event,action) {
     if(action==="entrenar"){
-      fetch('http://'+config.base_url +':4000/api/processing/model', {
+      fetch('http://'+config.base_url +':' + config.port + '/api/processing/model', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

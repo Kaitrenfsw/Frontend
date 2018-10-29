@@ -40,7 +40,7 @@ class VistaLogin extends Component{
     if (this.state.EmailError) {console.log("Mail error ");}
     else if (this.state.PasswordError){console.log("Pwd error ");}
     else {
-      fetch("http://" + config.base_url + ":4000/api/login", { /*http://10.6.42.104:4000/api/user_content*/
+      fetch("http://" + config.base_url + ":" + config.port + "/api/login", { /*http://10.6.42.104:4000/api/user_content*/
       method: "post",
       headers: {
         'Accept': 'application/json',
@@ -72,13 +72,10 @@ class VistaLogin extends Component{
           else{
             this.notify_error("Email o contraseña incorrecta")
           }
-          console.log(res.data,res.status);
         });
-        console.log('bad request');
       }
     })
     .catch(error => {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
     }
    }
@@ -108,7 +105,6 @@ class VistaLogin extends Component{
 
                   onChange={(username, e) => {
                     this.setState({ username });
-                    console.log(e);
                   }} //Required.[Func].Default: () => {}. Will return the value.
                   onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -141,7 +137,6 @@ class VistaLogin extends Component{
 
                   onChange={(password, e) => {
                     this.setState({ password });
-                    console.log(e);
                   }} //Required.[Func].Default: () => {}. Will return the value.
                   onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 

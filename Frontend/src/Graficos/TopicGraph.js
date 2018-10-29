@@ -17,6 +17,8 @@ class TopicGraph extends Component{
     w:450
   }
 
+  
+
   componentDidMount() {
       this.setState({
       h: document.getElementsByClassName('graph-div')[0].clientHeight,
@@ -45,11 +47,9 @@ class TopicGraph extends Component{
      /**
        if((prevState.w !== this.state.w)){
          this.ReDrawGraph();
-         console.log("re");
        }**/
        if((prevProps.dataset !== this.props.dataset)){
          this.ReDrawGraph();
-         console.log("re");
        }
    }
 
@@ -179,8 +179,6 @@ dataset.nodes[0].y = svgHeight/2;
   for(i = 0; i < dataset.edges.length ; i++){
 
   }
-
-  console.log(dataset);
 
 
 

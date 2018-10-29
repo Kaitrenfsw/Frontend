@@ -20,7 +20,7 @@ class MostrarArticulos extends Component{
 
 
     componentDidMount() {
-             fetch("http://" + config.base_url + ":4000/api/suggestions", {
+             fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
                  method: 'GET',
                  headers: {
                    'Content-Type': 'application/json',
@@ -36,16 +36,13 @@ class MostrarArticulos extends Component{
                        status: response.status
                    })
                  ).then(res => {
-                   console.log(res.data,res.status)
                    this.setState({recomendados_filtrados:res.data,isLoading:false,recomendados:res.data });
                  });
 
                } else {
-                 console.log('bad request');
                }
              })
              .catch(function(error) {
-               console.log('Hubo un problema con la petición Fetch:' + error.message);
              });
          }
 
@@ -66,8 +63,6 @@ class MostrarArticulos extends Component{
         this.setState({hasMore:false});
       }
       else{ this.setState({index: this.state.recomendados_filtrados.length}); }
-      console.log(this.state.index);
-
     }, 1500);
   };
 

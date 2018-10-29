@@ -22,9 +22,7 @@ class FrequencyChart extends Component{
 
       var topicId=this.props.topicId; //7
       var date="2015-09-01"
-      console.log("id:"+topicId);
-
-      fetch("http://"+ config.base_url + ":4000/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
+      fetch("http://"+ config.base_url + ":" + config.port + "/api/visualizations/frequency_curve?topic_id="+topicId+"&date=" + date)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -38,17 +36,11 @@ class FrequencyChart extends Component{
            }
            this.setState({data: obj});
            this.setState({isLoading:false});
-           console.log(res);
          });
-          console.log("hola");
-
        } else {
-         console.log('bad request');
        }
      })
      .catch(error => {
-       console.log('Hubo un problema con la petición Fetch:' + error.message);
-
      });
 
 
@@ -57,7 +49,6 @@ class FrequencyChart extends Component{
     }
 
     render(){
-    console.log(this.state.data);
     if(this.state.isLoading){
       return(null);
     }

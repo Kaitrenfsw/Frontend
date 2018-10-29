@@ -26,7 +26,7 @@ class MostrarTopicos extends Component{
 
 
   componentDidMount() {
-      fetch('http://' + config.base_url + ':4000/api/topics/') /* http://10.6.42.104:4000/api/content*/
+      fetch('http://' + config.base_url + ':' + config.port + '/api/topics/') /* http://10.6.42.104:4000/api/content*/
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -40,15 +40,13 @@ class MostrarTopicos extends Component{
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
 
 
-       fetch("http://localhost:4000/api/topicUser/" + this.props.user_id)
+       fetch("http://"+ config.base_url +":" + config.port + "/api/topicUser/" + this.props.user_id)
       .then((response) => {
         if(response.ok) {
           response.json().then(data => ({
@@ -56,18 +54,15 @@ class MostrarTopicos extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data);
             this.FormatoKeywords(res.data);
             this.setState({usrTopics:res.data});
             this.OrdenarTopicosUsr(this.props.orden);
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
 
 
@@ -86,7 +81,7 @@ class MostrarTopicos extends Component{
       return (
             <div key = {topico.id} className="row topico" >
               <div className= {"col-xs-1 div-relacion " + ClaseRelacion}>
-                <p className = "titulo-relacion">Coherencia</p>
+                <p className = "coherencia">Coherencia</p>
                 <h5 className={ClaseRelacion}>{TextoRelacion}</h5>
               </div>
               <div className="col-xs-11 div-keywords"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
@@ -231,11 +226,10 @@ class MostrarTopicos extends Component{
         UsrTopics.push(topicos[i])
       }
     }
-    console.log(newUsrTopics);
     this.setState({
             usrTopics: UsrTopics
     });
-    fetch("http://localhost:4000/api/topicUser/"  + this.props.user_id , {
+    fetch("http://" + config.base_url +":" + config.port + "/api/topicUser/"  + this.props.user_id , {
       method: "put",
       headers: {
         'Accept': 'application/json',
@@ -267,8 +261,7 @@ class MostrarTopicos extends Component{
       this.setState({
               usrTopics: UsrTopics
       });
-      console.log(newUsrTopicsID);
-      fetch("http://localhost:4000/api/topicUser/"  + this.props.user_id , {
+      fetch("http://"+ config.base_url +":" + config.port + "/api/topicUser/"  + this.props.user_id , {
         method: "put",
         headers: {
           'Accept': 'application/json',

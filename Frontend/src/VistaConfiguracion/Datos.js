@@ -37,7 +37,7 @@ class Datos extends Component{
 
   componentDidMount() {
         if(this.props.adm_cuenta){
-          fetch("http://"+  config.base_url + ":4000/api/users/" + this.props.id, {
+          fetch("http://"+  config.base_url + ":" + config.port + "/api/users/" + this.props.id, {
               method: 'GET',
               headers: {
                 'Content-Type': 'multipart/form-data',
@@ -53,7 +53,6 @@ class Datos extends Component{
                     status: response.status
                 })
               ).then(res => {
-                console.log(res.data,res.status)
                 const user = res.data.user;
                 this.setState({nombre:user.profile.name,
                   apellido:user.profile.last_name,
@@ -64,16 +63,14 @@ class Datos extends Component{
               });
 
             } else {
-              console.log('bad request');
             }
           })
           .catch(function(error) {
-            console.log('Hubo un problema con la petición Fetch:' + error.message);
           });
 
        }
        else{
-           fetch("http://"+  config.base_url + ":4000/api/profile", {
+           fetch("http://"+  config.base_url + ":" + config.port + "/api/profile", {
                method: 'GET',
                headers: {
                  'Content-Type': 'multipart/form-data',
@@ -89,7 +86,6 @@ class Datos extends Component{
                      status: response.status
                  })
                ).then(res => {
-                 console.log(res.data,res.status)
                  const user = res.data.user;
                  this.setState({nombre:user.profile.name,
                    apellido:user.profile.last_name,
@@ -99,11 +95,9 @@ class Datos extends Component{
                });
 
              } else {
-               console.log('bad request');
              }
            })
            .catch(function(error) {
-             console.log('Hubo un problema con la petición Fetch:' + error.message);
            });
        }
     }
@@ -115,7 +109,7 @@ class Datos extends Component{
 
   HandleModalConfirm(event,action) {
     if(action==="eliminar"){
-      fetch('http://'+  config.base_url + ':4000/api/users', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',
@@ -133,21 +127,18 @@ class Datos extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status)
             this.notify_success('Cuenta eliminada exitosamente');
             this.props.history.push('/configuracion');
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
     }
     if(action==="bloquear"){
-      fetch('http://'+  config.base_url + ':4000/api/account/activate', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/account/activate', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -166,7 +157,6 @@ class Datos extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status)
             var texto_bloquear = "Cuenta Bloqueada exitosamente";
             if(this.state.activa===false){texto_bloquear = "Cuenta Desbloqueada exitosamente"}
             this.notify_success(texto_bloquear);
@@ -174,11 +164,9 @@ class Datos extends Component{
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
     }
   }
@@ -194,7 +182,7 @@ class Datos extends Component{
 
 
     if(this.props.adm_cuenta){
-      fetch('http://'+  config.base_url + ':4000/api/users', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -214,20 +202,17 @@ class Datos extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status);
             this.notify_success('Datos guardados exitosamente');
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
     }
     else{
-      fetch('http://'+  config.base_url + ':4000/api/profile', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/profile', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -247,16 +232,13 @@ class Datos extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status);
             this.notify_success('Datos guardados exitosamente');
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
     }
   }
@@ -297,7 +279,6 @@ class Datos extends Component{
 
                       onChange={(nombre, e) => {
                         this.setState({ nombre });
-                        console.log(e);
                       }} //Required.[Func].Default: () => {}. Will return the value.
                       onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -327,7 +308,6 @@ class Datos extends Component{
 
                       onChange={(apellido, e) => {
                         this.setState({ apellido });
-                        console.log(e);
                       }} //Required.[Func].Default: () => {}. Will return the value.
                       onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -360,7 +340,6 @@ class Datos extends Component{
 
                       onChange={(email, e) => {
                         this.setState({ email });
-                        console.log(e);
                       }} //Required.[Func].Default: () => {}. Will return the value.
                       onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -396,7 +375,6 @@ class Datos extends Component{
 
                       onChange={(telefono, e) => {
                         this.setState({ telefono });
-                        console.log(e);
                       }} //Required.[Func].Default: () => {}. Will return the value.
                       onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 

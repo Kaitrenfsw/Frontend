@@ -38,7 +38,6 @@ class VistaTopicos extends Component{
     }
   }
   HandleOrden(event,valor) {
-       console.log(valor);
        if(this.state.orden !== valor){ this.setState({ orden: valor }); }
    }
 
