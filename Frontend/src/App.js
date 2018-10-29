@@ -46,7 +46,6 @@ class App extends Component {
 
   componentWillMount(){
     const cachedUser = JSON.parse(localStorage.getItem('user'));
-    console.log(cachedUser);
     if(cachedUser) {this.setState({user:cachedUser,Logged:true});}
     else {this.setState({Logged:false}) }
   }
@@ -71,7 +70,6 @@ class App extends Component {
 
 
   render() {
-    console.log(this.state.Logged);
 		return(
           <div>
           <ToastContainer />

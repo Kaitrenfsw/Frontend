@@ -16,8 +16,6 @@ class VistaDetalleCuenta extends Component{
 	 };
 
 	 componentDidMount(){
-		 console.log(this.match);
-		 console.log(this.props);
 		 if(this.props.user.permissions[0].group === "admin" && this.state.activo === 'Contraseña'){
 			 this.setState({activo:'Datos'});
 		 }

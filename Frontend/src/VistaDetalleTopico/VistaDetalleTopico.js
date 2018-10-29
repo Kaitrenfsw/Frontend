@@ -19,7 +19,7 @@ class VistaDetalleTopico extends Component{
         }
 
     fetchTopicosUsuario(){
-          fetch("http://"  + config.base_url +  ":4000/api/topicUser/" + this.props.user.id)
+          fetch("http://"  + config.base_url +  ":" + config.port + "/api/topicUser/" + this.props.user.id)
          .then((response) => {
            if(response.ok) {
              response.json().then(data => ({
@@ -42,17 +42,15 @@ class VistaDetalleTopico extends Component{
              });
 
            } else {
-             console.log('bad request');
            }
          })
          .catch(function(error) {
-           console.log('Hubo un problema con la petición Fetch:' + error.message);
          });
         }
 
     fetchGrafo(){
       const id = this.props.match.params.id;
-      fetch("http://" + config.base_url +  ":4000/api/visualizations/graph?topic_id=" + id)
+      fetch("http://" + config.base_url +  ":" + config.port + "/api/visualizations/graph?topic_id=" + id)
      .then((response) => {
        if(response.ok) {
          response.json().then(data => ({
@@ -89,27 +87,20 @@ class VistaDetalleTopico extends Component{
 
            res.data.relations  = order_relations;
 
-
-           console.log(res.data);
            var GraphFormatData = {nodes:[], edges:[]}
            GraphFormatData.nodes.push({name:res.data.topic_name,"id":res.data.topic_id});
            for(var i=0; i<res.data.relations.length; i++){
               GraphFormatData.edges.push({"source":i + 1, "target":0, "value":res.data.relations[i].distance});
               GraphFormatData.nodes.push({name:res.data.relations[i].r_topic_name,  "id":res.data.relations[i].r_topic_id});
            }
-
-           console.log( GraphFormatData)
            this.setState({dataGrafo:GraphFormatData});
 
          });
 
        } else {
-         console.log('bad request');
        }
      })
      .catch(error => {
-       console.log('Hubo un problema con la petición Fetch:' + error.message);
-
      });
 
     }
@@ -117,7 +108,7 @@ class VistaDetalleTopico extends Component{
       fetchDatosTopico(){
         /* Datos del topico    */
         const id = this.props.match.params.id;
-        fetch("http://" + config.base_url +  ":4000/api/topics/" + id)
+        fetch("http://" + config.base_url +  ":" + config.port + "/api/topics/" + id)
        .then((response) => {
          if(response.ok) {
            response.json().then(data => ({
@@ -125,18 +116,15 @@ class VistaDetalleTopico extends Component{
                  status: response.status
              })
            ).then(res => {
-             console.log(res.data);
              this.setState({topico:res.data});
              this.setState({isLoading:false});
 
            });
 
          } else {
-           console.log('bad request');
          }
        })
        .catch(error => {
-         console.log('Hubo un problema con la petición Fetch:' + error.message);
           this.setState({isLoading:false});
        });
       }
@@ -153,8 +141,7 @@ class VistaDetalleTopico extends Component{
                 usrTopics: newUsrTopics,
                 esta_suscrito: true
         });
-        console.log(newUsrTopics);
-        fetch("http://localhost:4000/api/topicUser/"  + this.props.user.id , {
+        fetch("http://" + config.base_url + ":" + config.port + "/api/topicUser/"  + this.props.user.id , {
           method: "put",
           headers: {
             'Accept': 'application/json',
@@ -186,7 +173,7 @@ class VistaDetalleTopico extends Component{
                   usrTopics: UsrTopics,
                   esta_suscrito: false
           });
-          fetch("http://" + config.base_url +  ":4000/api/topicUser/" + this.props.user.id , {
+          fetch("http://" + config.base_url +  ":" + config.port + "/api/topicUser/" + this.props.user.id , {
             method: "put",
             headers: {
               'Accept': 'application/json',

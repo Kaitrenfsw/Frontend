@@ -47,8 +47,7 @@ class CrearCuenta extends Component{
       if(this.state.password_confirmation === this.state.password ){
             var tipo_cuenta = 'idm';
             if(this.props.user.permissions[0].group==="admin"){tipo_cuenta = 'owner'
-            console.log(this.props.user.token,tipo_cuenta);
-            fetch('http://'+config.base_url +':4000/api/users', {
+            fetch('http://'+config.base_url +':' + config.port + '/api/users', {
                 method: 'POST',
                 headers: {
                   'Accept': 'application/json',
@@ -69,7 +68,6 @@ class CrearCuenta extends Component{
                       status: response.status
                   })
                 ).then(res => {
-                  console.log(res.data,res.status);
                   this.setState({email:'',
                   password:'',
                   password_confirmation:'',showNotification: true});
@@ -77,17 +75,14 @@ class CrearCuenta extends Component{
                 });
 
               } else {
-                console.log('bad request');
                 this.notify_success('Cuenta creada exitosamente');
               }
             })
             .catch(function(error) {
-              console.log('Hubo un problema con la petición Fetch:' + error.message);
             });
           }
           if(this.props.user.permissions[0].group==="owner"){tipo_cuenta = 'idm'
-          console.log(this.props.user.token,tipo_cuenta);
-          fetch('http://'+config.base_url +':4000/api/idms', {
+          fetch('http://'+config.base_url +':' + config.port + '/api/idms', {
               method: 'POST',
               headers: {
                 'Accept': 'application/json',
@@ -107,7 +102,6 @@ class CrearCuenta extends Component{
                     status: response.status
                 })
               ).then(res => {
-                console.log(res.data,res.status);
                 this.setState({email:'',
                 password:'',
                 password_confirmation:'',showNotification: true});
@@ -115,11 +109,9 @@ class CrearCuenta extends Component{
               });
 
             } else {
-              console.log('bad request');
             }
           })
           .catch(function(error) {
-            console.log('Hubo un problema con la petición Fetch:' + error.message);
           });
         }
       }
@@ -155,7 +147,6 @@ class CrearCuenta extends Component{
 
                   onChange={(email, e) => {
                     this.setState({ email });
-                    console.log(e);
                   }} //Required.[Func].Default: () => {}. Will return the value.
                   onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -185,7 +176,6 @@ class CrearCuenta extends Component{
 
                   onChange={(password, e) => {
                     this.setState({ password });
-                    console.log(e);
                   }} //Required.[Func].Default: () => {}. Will return the value.
                   onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 
@@ -218,7 +208,6 @@ class CrearCuenta extends Component{
 
                   onChange={(password_confirmation, e) => {
                     this.setState({ password_confirmation });
-                    console.log(e);
                   }} //Required.[Func].Default: () => {}. Will return the value.
                   onBlur={(e) => {console.log(e)}} //Optional.[Func].Default: none. In order to validate the value on blur, you MUST provide a function, even if it is an empty function. Missing this, the validation on blur will not work.
 

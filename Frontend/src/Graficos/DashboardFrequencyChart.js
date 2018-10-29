@@ -9,108 +9,93 @@ class DashboardFrequencyChart extends Component{
 
     constructor(props) {
       super(props);
-      this.state = {visibility:[false,false,false,false],names:[],isLoading:true
+      this.state = {visibility:[false,false,false,false],names:[],NoData:true
       }
       this.changeVisibility = this.changeVisibility.bind(this);
       this.renderLines = this.renderLines.bind(this);
 //      moment.locale('es')
     }
 
-    fetch(){
-
-    }
-
     componentDidUpdate(prevProps) {
-
-              if((this.props.topics !== prevProps.topics)) // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-                {
-                    console.log(this.props.topics);
+      if((this.props.topics !== prevProps.topics)) {
                      this.updateChart();
                 }
     }
 
     updateChart(){
-
-      var topicsId=[];
-
-      for (var i = 0; i < this.props.topics.length; i++) {
-        topicsId.push(this.props.topics[i].topic_id);
-      }
-      var date="2015-09-01"
-
+      var do_fetch = true;
       if(this.props.topics.length===0){
-         this.setState({isLoading:true});
+          this.setState({NoData:true});
+          do_fetch = false;
       }
+      if(do_fetch){
+          var topicsId=[];
+          for (var i = 0; i < this.props.topics.length; i++) {
+            topicsId.push(this.props.topics[i].topic_id);
+          }
+          var date="2015-09-01"
 
-      fetch("http://" + config.base_url +":4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
-     .then((response) => {
-       if(response.ok) {
-         response.json().then(data => ({
-               data: data,
-               status: response.status
-           })
-         ).then(res => {
-          var names = []
-           this.setState({visibility:[false,false,false,false]});
-           this.setState({isLoading:true});
-           for (var i = 0; i < this.props.topics.length; i++) {
-             names[i]=this.props.topics[i].name;
-           }
-           this.setState({names});
+          if(this.props.topics.length===0){
+             this.setState({NoData:true});
+          }
+          fetch("http://" + config.base_url +":" + config.port + "/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
+         .then((response) => {
+           if(response.ok) {
+             response.json().then(data => ({
+                   data: data,
+                   status: response.status
+               })
+             ).then(res => {
+               var names = []
+               this.setState({visibility:[false,false,false,false]});
+               this.setState({NoData:true});
+               for (var i = 0; i < this.props.topics.length; i++) {
+                 names[i]=this.props.topics[i].name;
+               }
+               this.setState({names});
+               var topics = res.data.topics;
+               var data2=[];
+               var item = {};
 
-           var topics = res.data.topics;
-           var data2=[];
-           var item = {};
-
-           for (i = 0; i < topics[0].weeks.length; i++) {
-             item = {};
-             for (var j = 0; j < topics.length; j++) {
-               item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
-               item["count"+j]= topics[j].weeks[i].count;
-             }
-             data2.push(item)
-           }
+               for (i = 0; i < topics[0].weeks.length; i++) {
+                 item = {};
+                 for (var j = 0; j < topics.length; j++) {
+                   item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
+                   item["count"+j]= topics[j].weeks[i].count;
+                 }
+                 data2.push(item)
+               }
 
 
-          var notCero=new Array(topics.length).fill(false);
-          for ( i = 0; i < topics.length; i++) {
-            for ( j = 0; j < data2.length; j++) {
-              if (data2[j]["count"+i]!==0) {
-                notCero[i]=true;
-                console.log(i);
-                break;
+              var notCero=new Array(topics.length).fill(false);
+              for ( i = 0; i < topics.length; i++) {
+                for ( j = 0; j < data2.length; j++) {
+                  if (data2[j]["count"+i]!==0) {
+                    notCero[i]=true;
+                    break;
+                  }
+                }
               }
-            }
-          }
-
-
-          console.log(topics.length);
-          console.log(data2);
-          console.log(notCero);
-          console.log(notCero.filter(Boolean).length);
-
-          if (notCero.filter(Boolean).length>=1) {
-            this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
-            this.setState({isLoading:false});
-          }
+              if (notCero.filter(Boolean).length>=1) {
+                this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
+                this.setState({NoData:false});
+              }
+             });
+           } else {
+             this.setState({NoData:true});
+           }
+         })
+         .catch(error => {
+           this.setState({NoData:true});
          });
-
-
-
-       } else {
-         console.log('bad request');
        }
-     })
-     .catch(error => {
-       console.log('Hubo un problema con la petición Fetch:' + error.message);
-
-     });
-
-
     }
 
 
     componentDidMount(){
+      if(this.props.topics.length!==0){
+        this.updateChart();
+      }
 
       /*var tops='{"topics":['+
                       '{"topic_name": "Topico 1",'+
@@ -197,76 +182,11 @@ class DashboardFrequencyChart extends Component{
         }
         data2.push(item)
       }
-      console.log(data2);
 */
-
-      var topicsId=[];
-      var names = this.state.names;
-      for (var i = 0; i < this.props.topics.length; i++) {
-        names[i]=this.props.topics[i].name;
-      }
-      this.setState({names})
-      for (i = 0; i < this.props.topics.length; i++) {
-        topicsId.push(this.props.topics[i].topic_id);
-      }
-      var date="2015-09-01"
-
-      fetch("http://"+ config.base_url +":4000/api/visualizations/multiple_frequency_curve?topics_ids="+topicsId.toString()+"&date=" + date)
-     .then((response) => {
-       if(response.ok) {
-         response.json().then(data => ({
-               data: data,
-               status: response.status
-           })
-         ).then(res => {
-           var topics = res.data.topics;
-           var data2=[];
-           var item = {};
-
-           for (var i = 0; i < topics[0].weeks.length; i++) {
-             item = {};
-             for (var j = 0; j < topics.length; j++) {
-               item.date=moment(topics[j].weeks[i].week,'DD-MM-YYYY').valueOf();
-               item["count"+j]= topics[j].weeks[i].count;
-             }
-             data2.push(item)
-           }
-
-
-          var notCero=new Array(topics.length).fill(false);
-          for (i = 0; i < topics.length; i++) {
-            for (j = 0; j < data2.length; j++) {
-              if (data2[j]["count"+i]!==0) {
-                notCero[i]=true;
-                console.log(i);
-                break;
-              }
-            }
-          }
-
-          console.log(topics.length);
-          console.log(data2);
-          console.log(notCero.filter(Boolean).length);
-
-          if (notCero.filter(Boolean).length>=1) {
-            this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
-            this.setState({isLoading:false});
-          }
-         });
-
-       } else {
-         console.log('bad request');
-       }
-     })
-     .catch(error => {
-       console.log('Hubo un problema con la petición Fetch:' + error.message);
-
-     });
 
     }
 
     changeVisibility(event){
-      console.log(event);
       const newVisibility=this.state.visibility;
       if (newVisibility[event.payload.id]===true) {
         newVisibility[event.payload.id]=false;
@@ -274,7 +194,6 @@ class DashboardFrequencyChart extends Component{
       else if (newVisibility.filter(Boolean).length< this.state.topicsNumber-1) {
         newVisibility[event.payload.id]=true;
       }
-      console.log(newVisibility.filter(Boolean));
       this.setState({visibility: newVisibility});
     }
 
@@ -302,8 +221,7 @@ class DashboardFrequencyChart extends Component{
     }
 
     render(){
-      if (this.state.isLoading) {
-        if(this.props.topics.length ===0){
+      if (this.state.NoData) {
           var data =[
           {date: 1158724800000, count0: 1}
           ,
@@ -408,11 +326,7 @@ class DashboardFrequencyChart extends Component{
   />
 </AreaChart>
 </ResponsiveContainer>
-
-
-
-</div>);}
-      else{return(null);}
+</div>);
       }
       else {
         return (

@@ -57,6 +57,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 
 @media (max-width: 768px) {
 	.container-fluid {padding-left: 2%; padding-right: 2%;}
+	#logo{  font-size: 1.5em}
 }
 
 
@@ -107,7 +108,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 .navbar-default .navbar-nav > li > a, .navbar-default .navbar-nav > li > a:hover { color: #6B828F; font-size: 0.8em !important; font-weight: bold; }
 .navbar-default .navbar-nav > li > a:hover { color: #EDEEEF; }
 li a:hover{ cursor: pointer; text-decoration: none; }
-#logo{ width: 70px; margin-top: 15px;}
+#logo{ width: 4.375em; margin-top: 20px; position: absolute;}
 
 /* Modal(popup de confirmación) */
 .modal-content {background-color:  #35424E;color:  white;}

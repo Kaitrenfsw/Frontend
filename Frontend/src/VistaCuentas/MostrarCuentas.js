@@ -21,7 +21,7 @@ class MostrarCuentas extends Component{
   notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
 
   fetchIdms(){
-    fetch('http://' +config.base_url +':4000/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
+    fetch('http://' +config.base_url +':' + config.port + '/api/idms', { /*http://10.6.42.104:4000/api/user_content*/
      method: "get",
      headers: {
        'Accept': 'application/json',
@@ -37,21 +37,18 @@ class MostrarCuentas extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data.users);
           this.setState({cuentas:res.data.users, isLoading:false});
 
         });
 
       } else {
-        console.log('bad request');
       }
     })
     .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
   }
   fetchOwners(){
-    fetch('http://'+config.base_url +':4000/api/users', { /*http://10.6.42.104:4000/api/user_content*/
+    fetch('http://'+config.base_url +':' + config.port + '/api/users', { /*http://10.6.42.104:4000/api/user_content*/
      method: "get",
      headers: {
        'Accept': 'application/json',
@@ -67,24 +64,21 @@ class MostrarCuentas extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data.users);
           this.setState({cuentas:res.data.users, isLoading:false});
 
         });
 
       } else {
-        console.log('bad request');
       }
     })
     .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
   }
 
 
 
     HandleModalConfirm(event,action) {
-      fetch('http://'+config.base_url +':4000/api/idms', {
+      fetch('http://'+config.base_url +':' + config.port + '/api/idms', {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',
@@ -102,17 +96,14 @@ class MostrarCuentas extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status)
             this.notify_success('Cuenta eliminada exitosamente');
             this.props.history.push('/configuracion');
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
 
     }

@@ -1,3 +1,4 @@
 export default{
-  base_url: '192.168.1.221'
+  base_url: 'localhost',
+  port:'4000',
 }

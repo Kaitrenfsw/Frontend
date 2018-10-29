@@ -19,7 +19,7 @@ class Contrasena extends Component{
   notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
   HandleGuardarCambios(event){
     if(this.props.adm_cuenta){
-      fetch('http://'+  config.base_url + ':4000/api/idms/password', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/idms/password', {
           method: 'Put',
           headers: {
             'Accept': 'application/json',
@@ -39,17 +39,14 @@ class Contrasena extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status)
             this.notify_success('Contraseña Reestablecida');
             this.props.history.push('/configuracion');
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
 
     }
@@ -60,7 +57,7 @@ class Contrasena extends Component{
       formData.append('old_password', this.state.old_password);
       formData.append('new_password', this.state.new_password);
       formData.append('new_password_confirmation', this.state.new_password_confirmation);
-      fetch('http://'+  config.base_url + ':4000/api/users', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
           method: 'Post',
           headers: {
             'Content-Type': 'multipart/form-data',
@@ -76,15 +73,12 @@ class Contrasena extends Component{
                 status: response.status
             })
           ).then(res => {
-            console.log(res.data,res.status)
           });
 
         } else {
-          console.log('bad request');
         }
       })
       .catch(function(error) {
-        console.log('Hubo un problema con la petición Fetch:' + error.message);
       });
 
     }

@@ -31,7 +31,7 @@ class VistaDashboard extends Component{
 	}
 
   fetchTopicosUsuario(){
-    fetch("http://" +config.base_url +":4000/api/topicUser/" + this.props.user.id)
+    fetch("http://" +config.base_url +":" + config.port + "/api/topicUser/" + this.props.user.id)
    .then((response) => {
      if(response.ok) {
        response.json().then(data => ({
@@ -39,7 +39,6 @@ class VistaDashboard extends Component{
              status: response.status
          })
        ).then(res => {
-         console.log(res.data);
          var topics_options = [];
          for(var i = 0; i< res.data.length; i++){
            topics_options.push({value: res.data[i].id, label:res.data[i].name});
@@ -49,18 +48,16 @@ class VistaDashboard extends Component{
        });
 
      } else {
-       console.log('bad request');
      }
    })
    .catch(function(error) {
-     console.log('Hubo un problema con la petición Fetch:' + error.message);
    });
   }
 
 
 
   fetchDashboardUsuario(){
-    fetch("http://" +config.base_url +":4000/api/idms/dashboard", {
+    fetch("http://" +config.base_url +":" + config.port + "/api/idms/dashboard", {
         method: 'GET',
         headers: {
           'Content-Type': 'aplication/json',
@@ -76,23 +73,19 @@ class VistaDashboard extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           this.setState({user_dashboard: res.data ,isLoading: false });
         });
 
       } else {
-        console.log('bad request');
       }
     })
     .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
   }
 
   pushDashboardUsuario(){
-    console.log(this.state.user_dashboard);
     var graphs_selected = this.state.user_dashboard.graphs_selected;
-    fetch("http://"+config.base_url +":4000/api/idms/dashboard", {
+    fetch("http://"+config.base_url +":" + config.port + "/api/idms/dashboard", {
         method: 'PUT',
         headers: {
           'Accept': 'application/json',
@@ -110,16 +103,12 @@ class VistaDashboard extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
-          console.log('Dashboard actualizado');
         });
 
       } else {
-        console.log('bad request');
       }
     })
     .catch(function(error) {
-      console.log('Hubo un problema con la petición Fetch:' + error.message);
     });
   }
 
@@ -161,7 +150,7 @@ class VistaDashboard extends Component{
 	 }
 		if(grafico.graph_type ===1){
 			return (
-				<row>
+				<div className="row" key = {graph_number}>
 				<div className={"col-sm-2  col-sm-push-10 no-padding "  + this.state.modo }>
 				{opcion_select_topicos}
 				</div>
@@ -174,12 +163,12 @@ class VistaDashboard extends Component{
   						</div>
 					  </div>
            </div>
-				</row>
+				</div>
 			)
 		}
 		if(grafico.graph_type ===3){
       return (
-				<row>
+				<div className="row" key = {graph_number}>
 				<div className={"col-sm-2 col-sm-push-10 no-padding "  + this.state.modo }>
 				{opcion_select_topicos}
 				</div>
@@ -190,7 +179,7 @@ class VistaDashboard extends Component{
 						<CareerChart topics = {grafico.topics_selected} />
 						</div>
 					</div>
-				</row>
+				</div>
 			)
 		}
 	}

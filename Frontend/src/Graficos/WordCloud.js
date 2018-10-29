@@ -58,9 +58,6 @@ class WordCloud extends Component{
      createWordCloud() {
        var w = this.state.w;
        var h = this.state.h;
-       console.log(w);
-       console.log(h)
-
        var keywords = this.props.words;
        var frequency_list = [];
        var max = 0,min=10;
