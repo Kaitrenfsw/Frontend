@@ -296,7 +296,7 @@ class DashboardFrequencyChart extends Component{
           return(<div>
 <ResponsiveContainer width='100%' height={300}>
 <AreaChart data={data}
-  margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
+  margin={{ top: 30, right: 50, left: -32, bottom: 0 }}>
   <XAxis
     dataKey="date"
     tickFormatter={(tick) => moment(tick).format('MMM')}
@@ -354,7 +354,7 @@ class DashboardFrequencyChart extends Component{
                   <div>
                   <ResponsiveContainer width='100%' height={300}>
                   <AreaChart data={this.state.data2}
-                    margin={{ top: 30, right: 50, left: -18, bottom: 0 }}>
+                    margin={{ top: 30, right: 50, left: -32, bottom: 0 }}>
                     <XAxis
                       dataKey="date"
                       tickFormatter={(tick) => moment(tick).format('MMM')}

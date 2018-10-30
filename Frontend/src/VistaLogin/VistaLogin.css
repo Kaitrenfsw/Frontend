@@ -10,7 +10,7 @@
 }
 .ContenidoVistaLogin .row-no-padding {height: fit-content;}
 .ContenidoVistaLogin { height: fit-content;}
-.ContenidoVistaLogin #logo {width: 150px; }
+.ContenidoVistaLogin #logo-login {width: 150px; }
 .ContenidoVistaLogin #texto-inica-sesion {color: #D4D6D7; margin-top: 30px; margin-bottom: 8vh;}
 .ContenidoVistaLogin label { color: #6B828F; font-size: 15px; margin-bottom: 15px;}
 .ContenidoVistaLogin input {font-size: 17px; color: white; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}

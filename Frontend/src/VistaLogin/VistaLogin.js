@@ -87,7 +87,7 @@ class VistaLogin extends Component{
       <div className="ContenidoVistaLogin">
         <div className="row row-no-padding">
            <div className ="max-width">
-           	<img id = "logo" src={logo} alt="logo" />
+           	<img id = "logo-login" src={logo} alt="logo" />
             <h4 id="texto-inica-sesion">Para continuar, inicia sesión</h4>
             <div className="form-group">
               <label>E-mail</label>
