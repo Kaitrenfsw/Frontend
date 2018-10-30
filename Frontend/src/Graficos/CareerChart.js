@@ -25,6 +25,7 @@ class CareerChart extends Component{
       if(this.props.topics.length===0){
           this.setState({NoData:true});
           do_fetch = false;
+          this.setState({isLoading:false});
       }
       if(do_fetch){
        var topicsId=[];
@@ -86,6 +87,9 @@ class CareerChart extends Component{
      componentDidMount(){
        if(this.props.topics.length !==0){
             this.updateChart();
+       }
+       else{
+         this.setState({isLoading:false})
        }
      }
 
@@ -227,8 +231,7 @@ class CareerChart extends Component{
       </div>);
       }
       else if (this.state.NoData) {
-        if(this.props.topics.length ===0){ return(default_graph);}
-        else{ return(null); }
+        return(default_graph);
       }
       else {
         return (
