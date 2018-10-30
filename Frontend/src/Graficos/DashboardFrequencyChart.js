@@ -98,6 +98,9 @@ class DashboardFrequencyChart extends Component{
       if(this.props.topics.length!==0){
         this.updateChart();
       }
+      else{
+        this.setState({isLoading:false})
+      }
 
       /*var tops='{"topics":['+
                       '{"topic_name": "Topico 1",'+
