@@ -9,7 +9,7 @@ class DashboardFrequencyChart extends Component{
 
     constructor(props) {
       super(props);
-      this.state = {visibility:[false,false,false,false],names:[],NoData:true
+      this.state = {visibility:[false,false,false,false],names:[],NoData:true,isLoading:true,
       }
       this.changeVisibility = this.changeVisibility.bind(this);
       this.renderLines = this.renderLines.bind(this);
@@ -26,6 +26,7 @@ class DashboardFrequencyChart extends Component{
       var do_fetch = true;
       if(this.props.topics.length===0){
           this.setState({NoData:true});
+          this.setState({isLoading:false});
           do_fetch = false;
       }
       if(do_fetch){
@@ -79,6 +80,7 @@ class DashboardFrequencyChart extends Component{
               if (notCero.filter(Boolean).length>=1) {
                 this.setState({data2:data2,topicsNumber:notCero.filter(Boolean).length});
                 this.setState({NoData:false});
+                this.setState({isLoading:false});
               }
              });
            } else {
@@ -221,7 +223,23 @@ class DashboardFrequencyChart extends Component{
     }
 
     render(){
-      if (this.state.NoData) {
+      if(this.state.isLoading){
+        return(<div className="loader loader--style2" title="1">
+        <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+           width="9.5em" height="9.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
+        <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+          <animateTransform attributeType="xml"
+            attributeName="transform"
+            type="rotate"
+            from="0 25 25"
+            to="360 25 25"
+            dur="0.6s"
+            repeatCount="indefinite"/>
+          </path>
+        </svg>
+      </div>);
+      }
+      else if (this.state.NoData) {
           var data =[
           {date: 1158724800000, count0: 1}
           ,

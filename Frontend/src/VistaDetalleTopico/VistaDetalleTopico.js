@@ -236,7 +236,7 @@ class VistaDetalleTopico extends Component{
         else {
           return(
             <div className="container-fluid ContenidoVistaDetalleTopico">
-            <NavLink  to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Tópicos</h5></NavLink>
+            <NavLink  to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
            </div>
 
           );
