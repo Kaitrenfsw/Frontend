@@ -7,6 +7,7 @@ class MostrarTopicos extends Component{
   state = {
       topicos: [],
       usrTopics: [],
+      isLoading:true,
   };
 
   FormatoKeywords(data) {
@@ -37,6 +38,7 @@ class MostrarTopicos extends Component{
             this.FormatoKeywords(res.data);
             this.setState({topicos:res.data})
             this.OrdenarTopicos(this.props.orden);
+            this.setState({isLoading:false})
           });
 
         } else {
@@ -280,25 +282,42 @@ class MostrarTopicos extends Component{
     var search = this.props.search
     var topicos = this.state.topicos;
     var usrTopics = this.state.usrTopics;
-    if(activo === "Explorar temas"){
-      return (
-        <div >
-           {topicos.map((topico,i,arr) => (
-            this.DesplegarTopicosExplorar(topico,search)
+    if(!this.state.isLoading){
+      if(activo === "Explorar temas"){
+        return (
+          <div >
+             {topicos.map((topico,i,arr) => (
+              this.DesplegarTopicosExplorar(topico,search)
+            ))}
+          </div>
+        );
+      }
+      else if(activo === "Mis temas"){
+        return (
+          <div>
+          {usrTopics.map((topico,i,arr) => (
+           this.DesplegarMisTopicos(topico,search)
           ))}
-        </div>
-      );
+          </div>
+        );
+      }
     }
-    else if(activo === "Mis temas"){
-      return (
-        <div>
-        {usrTopics.map((topico,i,arr) => (
-         this.DesplegarMisTopicos(topico,search)
-        ))}
-        </div>
-      );
+    if(this.state.isLoading){
+      return(<div className="loader loader--style2" title="1">
+      <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+         width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
+      <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+        <animateTransform attributeType="xml"
+          attributeName="transform"
+          type="rotate"
+          from="0 25 25"
+          to="360 25 25"
+          dur="0.6s"
+          repeatCount="indefinite"/>
+        </path>
+      </svg>
+    </div>);
     }
-
   }
 }
 

@@ -56,8 +56,8 @@ class WordCloud extends Component{
 
 
      createWordCloud() {
-       var w = this.state.w;
-       var h = this.state.h;
+       var w = this.state.w/1.2;
+       var h = this.state.h/1.5;
        var keywords = this.props.words;
        var frequency_list = [];
        var max = 0,min=10;
@@ -75,7 +75,7 @@ class WordCloud extends Component{
 
       var color = scaleLinear()
            .domain([0,1,2,3,4,5,6,10,15,20,100])
-           .range(["#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#444", "#333", "#222"]);
+           .range(["#eee", "#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#555", "#555"]);
 
       const node = this.node
 
@@ -116,7 +116,7 @@ class WordCloud extends Component{
                      .append("g")
                      // without the transform, words words would get cutoff to the left and top, they would
                      // appear outside of the SVG area
-                     .attr("transform", "translate(" + w/2 + "," + h/2 + ")")
+                     .attr("transform", "translate(" + w/1.6 + "," + h/1.4 + ")")
                      .selectAll("text")
                      .data(words)
                      .enter().append("text")

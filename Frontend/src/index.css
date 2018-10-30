@@ -15,6 +15,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 .container-fluid { padding-left: 6%; padding-right: 6%; }
 ::-webkit-scrollbar { -webkit-appearance: none; width: 9px; }
 ::-webkit-scrollbar-thumb { border-radius: 0px; background-color: #67848F; -webkit-box-shadow: 0 0 1px rgba(255,255,255,.5); }
+.loader--style2 {text-align: center;   margin-top: 7%}
 
 
 
