@@ -80,6 +80,13 @@
 
 }
 
+@media (max-width: 767px) {
+
+  .ContenidoVistaDetalleCuenta .NavBar { margin-top: 2em;}
+  .ContenidoVistaDetalleCuenta .NavBar > li{ margin-bottom: 3em;}
+  .ContenidoVistaDetalleCuenta #subtitulo-vista {margin-top: 0;}
+}
+
 
 @media (max-width: 500px) {
   .div-estado{ width: 20%; height:85px; padding-top: 27px; }

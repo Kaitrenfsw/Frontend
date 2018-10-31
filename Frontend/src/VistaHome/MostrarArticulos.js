@@ -78,8 +78,8 @@ class MostrarArticulos extends Component{
     if (prevState.isLoading !== this.state.isLoading) {
       if(!(this.state.isLoading)){
         this.OrdenarArticulos(this.props.orden);
-        if(this.state.recomendados_filtrados.length > 9){
-          this.setState({index: 9, hasMore:true});
+        if(this.state.recomendados_filtrados.length > 15){
+          this.setState({index: 15, hasMore:true});
         }
         else{
             this.setState({index: this.state.recomendados_filtrados.length, hasMore:false});
@@ -161,9 +161,11 @@ class MostrarArticulos extends Component{
             <div className="div-image">
             <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
             </div>
+            <div className="wrap-topicos">
             {topico1}
             {topico2}
             {topico3}
+            </div>
             <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
             <a href = {grupo_articulos[0].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5></a>
             <div className="div-resumen">
@@ -178,14 +180,16 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
       if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
       if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
-            articulo_2 =  <div className="col-sm-4">
+            articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
             <div className="div-image">
             <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
             </div>
+            <div className="wrap-topicos">
             {topico1}
             {topico2}
             {topico3}
+            </div>
             <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
             <a href = {grupo_articulos[1].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5></a>
             <div className="div-resumen">
@@ -208,9 +212,11 @@ class MostrarArticulos extends Component{
             <div className="div-image">
             <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
             </div>
+            <div className="wrap-topicos">
             {topico1}
             {topico2}
             {topico3}
+            </div>
             <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
             <a href = {grupo_articulos[2].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5></a>
             <div className="div-resumen">
