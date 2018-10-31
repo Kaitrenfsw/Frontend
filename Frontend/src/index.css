@@ -43,6 +43,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 
 @media (max-width: 1360px) {
 	  html,body{font-size:13px;}
+		.container-fluid { padding-left: 4%; padding-right: 4%; }
 
 		/*
 		.Datos label {font-size: 13px;}
@@ -53,6 +54,8 @@ body { overflow-y: scroll; overflow-x: hidden; }
 
 @media (max-width: 1024px) {
 	  html,body{font-size:12px;}
+		.container-fluid { padding-left: 1%; padding-right: 1%; }
+		.main .navbar-center > li{ padding-left:0.6em; padding-right:0.6em; }
 
 }
 
@@ -100,7 +103,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 .fade-exit.fade-exit-active { opacity: 0; transition: opacity 100ms linear; }
 
 /*nav bar */
-.navbar-center > li{ padding-left:15px; padding-right:15px; }
+.navbar-center > li{ padding-left:0.95em; padding-right:0.95em; }
 .navbar-default .navbar-nav > li  > a.active,
 .navbar-default .navbar-nav > li  > a.active:hover,
 .navbar-default .navbar-nav > li  > a.active:focus { background-color: #1A252D; border-bottom: 2px solid #FEDD34; color: #EDEEEF; padding-bottom: 0.5em; }

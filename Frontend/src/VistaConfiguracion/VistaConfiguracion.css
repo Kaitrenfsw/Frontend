@@ -57,6 +57,14 @@
 
 
 
+@media (max-width: 1500px) {
+  .ContenidoVistaFuentes h4{ font-size: 15px;}
+  .ContenidoVistaFuentes p{ font-size: 11px; }
+
+}
+
+
+
 
 
 @media (max-width: 1199px) {
@@ -69,15 +77,14 @@
   .ContenidoVistaFuentes .col-izq{padding-left: 15px}
   .ContenidoVistaFuentes .col-der{padding-right: 15px}
 
-
-
-
-
-
 }
 
-@media (max-width: 1500px) {
-  .ContenidoVistaFuentes h4{ font-size: 15px;}
-  .ContenidoVistaFuentes p{ font-size: 11px; }
 
+
+
+@media (max-width: 767px) {
+
+  .ContenidoVistaConfiguracion .NavBar { margin-top: 2em;}
+  .ContenidoVistaConfiguracion .NavBar > li{ margin-bottom: 3em;}
+  .ContenidoVistaConfiguracion #subtitulo-vista {margin-top: 0;}
 }

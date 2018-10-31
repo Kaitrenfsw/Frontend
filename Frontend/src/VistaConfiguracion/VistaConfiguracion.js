@@ -72,10 +72,10 @@ class VistaConfiguracion extends Component{
       <div className = "container-fluid ContenidoVistaConfiguracion">
       <h2 className="titulo-vista" >Configuración</h2>
         <div className="row row-no-padding no-margin">
-          <div className="col-md-2 no-padding">
+          <div className="col-sm-2 no-padding">
           <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  user_type  = {this.props.user.permissions[0].group} activo = {activo} options={options}/>
           </div>
-          <div className="col-md-9 col-lg-offset-1 no-padding">
+          <div className="col-sm-9 col-sm-offset-1 no-padding">
 
           <TransitionGroup>
            <CSSTransition
