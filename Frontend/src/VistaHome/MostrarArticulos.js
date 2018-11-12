@@ -158,6 +158,11 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
             articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
             <div className="div-image">
             <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
             </div>
@@ -182,6 +187,11 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
             articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
             <div className="div-image">
             <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
             </div>
@@ -209,6 +219,11 @@ class MostrarArticulos extends Component{
       if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
             articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
             <div className="div-image">
             <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
             </div>
