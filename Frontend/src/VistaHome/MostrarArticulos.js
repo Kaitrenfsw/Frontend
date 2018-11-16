@@ -147,6 +147,24 @@ class MostrarArticulos extends Component{
     this.setState({recomendados_filtrados:recomendados_filtrados});
   }
 
+  HandleDislike(event){
+    const target=event.currentTarget;
+    console.log(this.props.user.id);
+    fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+      method: "put",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'user_id': this.props.user.id,
+        'new_id':target.getAttribute("id-articulo"),
+        'source_id':target.getAttribute("id-fuente"),
+        'vote':0
+      })
+    })
+
+  }
 
 
   /**/
@@ -161,7 +179,7 @@ class MostrarArticulos extends Component{
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
+             <span className="glyphicon glyphicon-thumbs-down" id-fuente={grupo_articulos[0].source_id} id-articulo={grupo_articulos[0].id} onClick={this.HandleDislike.bind(this)}></span>
             </div>
             <div className="div-image">
             <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
@@ -190,7 +208,7 @@ class MostrarArticulos extends Component{
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
+             <span className="glyphicon glyphicon-thumbs-down" id-fuente={grupo_articulos[1].source_id} id-articulo={grupo_articulos[1].id} onClick={this.HandleDislike.bind(this)}></span>
             </div>
             <div className="div-image">
             <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
@@ -222,7 +240,7 @@ class MostrarArticulos extends Component{
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
+             <span className="glyphicon glyphicon-thumbs-down" id-fuente={grupo_articulos[2].source_id} id-articulo={grupo_articulos[2].id} onClick={this.HandleDislike.bind(this)}></span>
             </div>
             <div className="div-image">
             <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
