@@ -149,7 +149,7 @@ class MostrarArticulos extends Component{
 
   HandleLike(event){
     const target=event.currentTarget;
-    //console.log(target.getAttribute("id-articulo"));
+    console.log(this.props.user.id);
     fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
       method: "put",
       headers: {
@@ -157,7 +157,7 @@ class MostrarArticulos extends Component{
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        'user_id': this.props.user_id,
+        'user_id': this.props.user.id,
         'new_id':target.getAttribute("id-articulo"),
         'source_id':target.getAttribute("id-fuente"),
         'vote':1
@@ -180,7 +180,7 @@ class MostrarArticulos extends Component{
             <div className="Div-Articulo">
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[2].id_source} id-articulo={grupo_articulos[2].id} onClick={this.HandleLike.bind(this)}></span>
+             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[0].source_id} id-articulo={grupo_articulos[0].id} onClick={this.HandleLike.bind(this)}></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
             <div className="div-image">
@@ -209,7 +209,7 @@ class MostrarArticulos extends Component{
             <div className="Div-Articulo">
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[2].id_source} id-articulo={grupo_articulos[2].id} onClick={this.HandleLike.bind(this)}></span>
+             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[1].source_id} id-articulo={grupo_articulos[1].id} onClick={this.HandleLike.bind(this)}></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
             <div className="div-image">
@@ -241,7 +241,7 @@ class MostrarArticulos extends Component{
             <div className="Div-Articulo">
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
-             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[2].id_source} id-articulo={grupo_articulos[2].id} onClick={this.HandleLike.bind(this)}></span>
+             <span className="glyphicon glyphicon-thumbs-up" id-fuente={grupo_articulos[2].source_id} id-articulo={grupo_articulos[2].id} onClick={this.HandleLike.bind(this)}></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
             <div className="div-image">
@@ -343,7 +343,7 @@ class MostrarArticulos extends Component{
 
     }
     if(this.state.isLoading){
-    return(<div className="loader loader--style2" title="1">
+    return(<div className="loader loader--style2" title="Cargando...">
     <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
        width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
     <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
