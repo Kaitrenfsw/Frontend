@@ -4,6 +4,7 @@ import Contrasena from './Contrasena';
 import Datos from './Datos';
 import VistaCuentas from '../VistaCuentas/VistaCuentas';
 import Entrenamiento from './Entrenamiento';
+import Estadisticas from './Estadisticas';
 import {
   CSSTransition,
   TransitionGroup,
@@ -46,6 +47,10 @@ class VistaConfiguracion extends Component{
       return <Entrenamiento/>
     }
 
+    if(activo === 'Estadisticas'){
+      return <Estadisticas/>
+    }
+
   }
 
 
@@ -60,10 +65,10 @@ class VistaConfiguracion extends Component{
       activo = 'Datos personales';
     }
     if(this.props.user.permissions[0].group === 'admin'){
-      options = ['Cuentas','Entrenamiento'];
+      options = ['Cuentas','Entrenamiento','Estadisticas'];
     }
     if(this.props.user.permissions[0].group === 'owner'){
-      options =  ['Cuentas','Datos personales'];
+      options =  ['Cuentas','Datos personales','Estadisticas'];
     }
     if(this.props.user.permissions[0].group === 'idm'){
       options =  ['Datos personales'];
