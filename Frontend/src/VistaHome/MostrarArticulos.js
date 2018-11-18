@@ -12,38 +12,85 @@ class MostrarArticulos extends Component{
 
   state = {
       isLoading: true,
-      index: 0,
-      hasMore: true
+      indexRecomendados: 0,
+      indexGuardados: 0,
+      hasMoreRecomendados: true,
+      hasMoreGuardados: true
   }
+  fetchNoticiasRecomendadas(){
+    fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: null
+    })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          this.setState({recomendados_filtrados:res.data,recomendados:res.data });
+        });
+
+      } else {
+      }
+    })
+    .catch(function(error) {
+    });
+  }
+  fetchNoticiasGuardadas(){
+    fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: null
+    })
+    .then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          this.setState({guardados_filtrados:res.data,isLoading:false,guardados:res.data });
+        });
+
+      } else {
+      }
+    })
+    .catch(function(error) {
+    });
+  }
+
+  HandleGuardarNoticia(event,id){
+   fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+     method: "put",
+     headers: {
+       'Accept': 'application/json',
+       'Content-Type': 'application/json'
+     },
+     body: JSON.stringify({
+       'user_id': this.props.user.id,
+       'source_id':id,
+     })
+   })
+ }
+
 
 
 
 
     componentDidMount() {
-             fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
-                 method: 'GET',
-                 headers: {
-                   'Content-Type': 'application/json',
-                   'Accept': 'application/json',
-                   'authorization': 'Bearer ' + this.props.user.token
-                 },
-                 body: null
-             })
-             .then((response) => {
-               if(response.ok) {
-                 response.json().then(data => ({
-                       data: data,
-                       status: response.status
-                   })
-                 ).then(res => {
-                   this.setState({recomendados_filtrados:res.data,isLoading:false,recomendados:res.data });
-                 });
-
-               } else {
-               }
-             })
-             .catch(function(error) {
-             });
+             this.fetchNoticiasRecomendadas();
+             this.fetchNoticiasGuardadas();
          }
 
 
@@ -51,45 +98,72 @@ class MostrarArticulos extends Component{
 
 
 
-  fetchMoreData = () => {
+  fetchMoreDataRecomendados = () => {
     // a fake async api call like which sends
     // 20 more records in 1.5 secs
 
     setTimeout(() => {
-      if(this.state.index + 3 < this.state.recomendados_filtrados.length ){
-          this.setState({index: this.state.index + 3});
+      if(this.state.indexRecomendados + 3 < this.state.recomendados_filtrados.length ){
+          this.setState({indexRecomendados: this.state.indexRecomendados + 3});
       }
-      else if(this.state.index  === this.state.recomendados_filtrados.length ){
-        this.setState({hasMore:false});
+      else if(this.state.indexRecomendados  === this.state.recomendados_filtrados.length ){
+        this.setState({hasMoreRecomendados:false});
       }
-      else{ this.setState({index: this.state.recomendados_filtrados.length}); }
+      else{ this.setState({indexRecomendados: this.state.recomendados_filtrados.length}); }
     }, 1500);
   };
 
 
+
+    fetchMoreDataGuardados = () => {
+      // a fake async api call like which sends
+      // 20 more records in 1.5 secs
+      setTimeout(() => {
+        if(this.state.indexGuardados + 3 < this.state.guardados_filtrados.length ){
+            this.setState({indexGuardados: this.state.indexGuardados + 3});
+        }
+        else if(this.state.indexGuardados  === this.state.guardados_filtrados.length ){
+          this.setState({hasMoreGuardados:false});
+        }
+        else{ this.setState({indexGuardados: this.state.guardados_filtrados.length}); }
+      }, 1500);
+    };
+
+
+
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
-        this.OrdenarArticulos(this.props.orden);
+        if(this.props.activo === 'Recomendados'){this.OrdenarArticulosRecomendados(this.props.orden);}
+        if(this.props.activo === 'Guardados'){this.OrdenarArticulosGuardados(this.props.orden);}
     }
     if (prevProps.search !== this.props.search) {
-        this.FiltrarArticulos(this.props.search);
+       if(this.props.activo === 'Recomendados'){this.FiltrarArticulosRecomendados(this.props.search);}
+       if(this.props.activo === 'Guardados'){this.FiltrarArticulosGuardados(this.props.search);}
     }
 
     if (prevState.isLoading !== this.state.isLoading) {
       if(!(this.state.isLoading)){
-        this.OrdenarArticulos(this.props.orden);
-        if(this.state.recomendados_filtrados.length > 15){
-          this.setState({index: 15, hasMore:true});
-        }
-        else{
-            this.setState({index: this.state.recomendados_filtrados.length, hasMore:false});
-        }
+          this.OrdenarArticulosRecomendados(this.props.orden);
+          if(this.state.recomendados_filtrados.length > 15){
+            this.setState({indexRecomendados: 15, hasMoreRecomendados:true});
+          }
+          else{
+              this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
+          }
+
+          this.OrdenarArticulosGuardados(this.props.orden);
+          if(this.state.guardados_filtrados.length > 15){
+            this.setState({indexGuardados: 15, hasMoreGuardados:true});
+          }
+          else{
+              this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
+          }
       }
     }
   }
 
 
-  OrdenarArticulos(orden) {
+  OrdenarArticulosRecomendados(orden) {
     var recomendados_filtrados = this.state.recomendados_filtrados;
     var recomendados_ordenados;
     if(orden ==='Fuentes'){
@@ -108,6 +182,28 @@ class MostrarArticulos extends Component{
     }
     else {
       return recomendados_filtrados;
+    }
+  }
+
+  OrdenarArticulosGuardados(orden) {
+    var guardados_filtrados = this.state.guardados_filtrados;
+    var guardados_ordenados;
+    if(orden ==='Fuentes'){
+        guardados_ordenados = guardados_filtrados.sort(this.OrdenarFuente);
+        this.setState({
+          guardados_filtrados: guardados_ordenados
+        });
+        return guardados_ordenados;
+    }
+    if(orden ==='Fecha'){
+        guardados_ordenados = guardados_filtrados.sort(this.OrdenarFecha);
+        this.setState({
+          guardados_filtrados: guardados_ordenados
+        });
+        return guardados_ordenados;
+    }
+    else {
+      return guardados_filtrados;
     }
   }
 
@@ -131,7 +227,7 @@ class MostrarArticulos extends Component{
       return 0;
   }
 
-  FiltrarArticulos(search) {
+  FiltrarArticulosRecomendados(search) {
     var recomendados_filtrados = this.state.recomendados.filter(function (el) {
       var bool = false;
       for(var i=0;i<el.topics.length;i++){
@@ -147,6 +243,22 @@ class MostrarArticulos extends Component{
     this.setState({recomendados_filtrados:recomendados_filtrados});
   }
 
+  FiltrarArticulosGuardados(search) {
+    var guardados_filtrados = this.state.guardados.filter(function (el) {
+      var bool = false;
+      for(var i=0;i<el.topics.length;i++){
+        if(i<3){
+        if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
+          bool = true;
+        }}
+      }
+      if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+      if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+      return bool;
+    });
+    this.setState({guardados_filtrados:guardados_filtrados});
+  }
+
 
 
   /**/
@@ -159,7 +271,7 @@ class MostrarArticulos extends Component{
             articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -188,7 +300,7 @@ class MostrarArticulos extends Component{
             articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -220,7 +332,7 @@ class MostrarArticulos extends Component{
             articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -282,18 +394,19 @@ class MostrarArticulos extends Component{
   }
     */
   render(){
-
+    var groups = [];
+    var articulos =[];
+    var j,i;
     if(!(this.state.isLoading)){
 
       var activo = this.props.activo;
       var recomendados = this.state.recomendados_filtrados;
+      var guardados = this.state.guardados_filtrados;
       if(activo === 'Recomendados'){
-        var groups = [];
-        for(var i = 0; i < this.state.index; i += 3){
+        for(i = 0; i < this.state.indexRecomendados; i += 3){
           groups.push(recomendados.slice(i, i+3))
         }
-        var articulos =[];
-        for (var j = 0; j< groups.length; j++){
+        for (j = 0; j< groups.length; j++){
             articulos.push(this.Desplegar(groups[j]))
         }
         return(
@@ -301,8 +414,8 @@ class MostrarArticulos extends Component{
           <div className="ContenidoArticulos">
           <InfiniteScroll
            dataLength={articulos.length}
-           next={this.fetchMoreData}
-           hasMore={this.state.hasMore}
+           next={this.fetchMoreDataRecomendados}
+           hasMore={this.state.hasMoreRecomendados}
            loader={<h1 className="texto-cargando">...</h1>}
          >
            {articulos.map((i, index) => (
@@ -318,7 +431,29 @@ class MostrarArticulos extends Component{
       );
       }
       if(activo === 'Guardados'){
-        return(<div className="ContenidoArticulos"></div>);
+        for(i = 0; i < this.state.indexGuardados; i += 3){
+          groups.push(guardados.slice(i, i+3))
+        }
+        for (j = 0; j< groups.length; j++){
+            articulos.push(this.Desplegar(groups[j]))
+        }
+        return(
+
+          <div className="ContenidoArticulos">
+          <InfiniteScroll
+           dataLength={articulos.length}
+           next={this.fetchMoreDataGuardados}
+           hasMore={this.state.hasMoreGuardados}
+           loader={<h1 className="texto-cargando">...</h1>}
+         >
+           {articulos.map((i, index) => (
+             <div  key={index}>
+              {i}
+             </div>
+           ))}
+         </InfiniteScroll>
+         </div>
+      );
       }
 
     }
