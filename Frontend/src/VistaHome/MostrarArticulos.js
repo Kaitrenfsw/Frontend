@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import config from '../config.js';
+import { toast } from 'react-toastify';
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -18,6 +19,12 @@ class MostrarArticulos extends Component{
       hasMoreRecomendados: true,
       hasMoreGuardados: true
   }
+
+    notify_success = (texto) => {
+        toast.success(texto, {
+          position: toast.POSITION.TOP_CENTER
+        });
+      }
   fetchNoticiasRecomendadas(){
     fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
         method: 'GET',
@@ -94,6 +101,7 @@ class MostrarArticulos extends Component{
    recomendados[noticia.index_lista_recomendados].saved = 1;
    recomendados_filtrados[i].saved = 1;
    this.setState({isLoadingGuardados:true, recomendados_filtrados});
+   this.notify_success('Artículo guardado');
    fetch("http://"+ config.base_url +":" + config.port + "/api/create_content_user" , {
      method: "post",
      headers: {
