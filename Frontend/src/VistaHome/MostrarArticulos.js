@@ -11,7 +11,8 @@ class MostrarArticulos extends Component{
 
 
   state = {
-      isLoading: true,
+      isLoadingRecomendados: true,
+      isLoadingGuardados: true,
       indexRecomendados: 0,
       indexGuardados: 0,
       hasMoreRecomendados: true,
@@ -35,7 +36,7 @@ class MostrarArticulos extends Component{
           })
         ).then(res => {
           console.log(res.data);
-          this.setState({recomendados_filtrados:res.data,recomendados:res.data });
+          this.setState({recomendados_filtrados:res.data,isLoadingRecomendados:false,recomendados:res.data });
         });
 
       } else {
@@ -61,7 +62,8 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
-          this.setState({guardados_filtrados:res.data,isLoading:false,guardados:res.data });
+          console.log(res.data);
+          this.setState({guardados_filtrados:res.data,isLoadingGuardados:false,guardados:res.data });
         });
 
       } else {
@@ -71,7 +73,7 @@ class MostrarArticulos extends Component{
     });
   }
 
-  HandleGuardarNoticia(event,id){
+  HandleGuardarNoticia(event,noticia,i){
    fetch("http://"+ config.base_url +":" + config.port + "/api/create_content_user" , {
      method: "post",
      headers: {
@@ -80,13 +82,19 @@ class MostrarArticulos extends Component{
      },
      body: JSON.stringify({
        'user_id': this.props.user.id,
-       'content_id':id,
+       'content_id':noticia.id,
      })
    })
+   var guardados = this.state.guardados;
+   var recomendados_filtrados = this.state.recomendados_filtrados;
+   guardados.push(noticia);
+   recomendados_filtrados[i].saved = 1;
+   this.setState({guardados:guardados, recomendados_filtrados: recomendados_filtrados});
+   this.FiltrarArticulosGuardados(this.props.search);
  }
 
  HandleRemoverGuardado(event,id){
-  fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+  fetch("http://"+ config.base_url +":" + config.port + "/api/remove_content_user" , {
     method: "put",
     headers: {
       'Accept': 'application/json',
@@ -157,8 +165,8 @@ class MostrarArticulos extends Component{
        if(this.props.activo === 'Guardados'){this.FiltrarArticulosGuardados(this.props.search);}
     }
 
-    if (prevState.isLoading !== this.state.isLoading) {
-      if(!(this.state.isLoading)){
+    if (prevState.isLoadingRecomendados !== this.state.isLoadingRecomendados ||  prevState.isLoadingGuardados !== this.state.isLoadingGuardados) {
+      if(!(this.state.isLoadingRecomendados) && !(this.state.isLoadingGuardados) ){
           this.OrdenarArticulosRecomendados(this.props.orden);
           if(this.state.recomendados_filtrados.length > 15){
             this.setState({indexRecomendados: 15, hasMoreRecomendados:true});
@@ -166,7 +174,6 @@ class MostrarArticulos extends Component{
           else{
               this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
           }
-
           this.OrdenarArticulosGuardados(this.props.orden);
           if(this.state.guardados_filtrados.length > 15){
             this.setState({indexGuardados: 15, hasMoreGuardados:true});
@@ -273,229 +280,82 @@ class MostrarArticulos extends Component{
       return bool;
     });
     this.setState({guardados_filtrados:guardados_filtrados});
+    if(this.state.indexGuardados + 3 < guardados_filtrados.length ){
+        this.setState({indexGuardados: this.state.indexGuardados + 3});
+    }
+    else if(this.state.indexGuardados  === guardados_filtrados.length ){
+      this.setState({hasMoreGuardados:false});
+    }
+    else{ this.setState({indexGuardados: guardados_filtrados.length}); }
   }
 
 
 
   /**/
-  DesplegarGuardados(grupo_articulos){
-    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
-    if (grupo_articulos.length >= 1){
-      if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
-            articulo_1 =  <div className="col-sm-4 col-izq">
-            <div className="Div-Articulo">
+  DesplegarGuardados(articulo,i){
+    var topico1,topico2,topico3;
+      if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
+      if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
+      if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
+            return(
+            <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
             <div className="div-image">
-            <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
+            <img src={articulo.main_image} alt={articulo.source_name} />
             </div>
             <div className="wrap-topicos">
             {topico1}
             {topico2}
             {topico3}
             </div>
-            <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
-            <a href = {grupo_articulos[0].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5></a>
+            <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name}</h5></a>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[0].summary.substring(0, 150)}</p>
+            <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
-            </div>
-          </div>
-
-    }
-    if (grupo_articulos.length >= 2){
-
-      if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
-            articulo_2 =  <div className="col-sm-4 col-med">
-            <div className="Div-Articulo">
-            <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark active" onClick= { (event) => this.HandleHandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <div className="div-image">
-            <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
-            </div>
-            <div className="wrap-topicos">
-            {topico1}
-            {topico2}
-            {topico3}
-            </div>
-            <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
-            <a href = {grupo_articulos[1].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5></a>
-            <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[1].summary.substring(0, 150)}</p>
-            </div>
-            </div>
-          </div>
-
-    }
+          </div>);
 
 
-    if (grupo_articulos.length === 3){
 
-
-      if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
-            articulo_3 =  <div className="col-sm-4 col-der">
-            <div className="Div-Articulo">
-            <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark active" onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <div className="div-image">
-            <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
-            </div>
-            <div className="wrap-topicos">
-            {topico1}
-            {topico2}
-            {topico3}
-            </div>
-            <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
-            <a href = {grupo_articulos[2].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5></a>
-            <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[2].summary.substring(0, 150)}</p>
-            </div>
-            </div>
-          </div>
-    }
-    if (grupo_articulos.length !== 0){
-      return (
-
-          <div  key = {grupo_articulos[0].id} className="row row-no-padding margin-bottom">
-            {articulo_1}
-            {articulo_2}
-            {articulo_3}
-          </div>
-    );
-  }
   }
 
-  DesplegarRecomendados(grupo_articulos){
-    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3,span_guardar;
-    if (grupo_articulos.length >= 1){
-      if(grupo_articulos[0].saved){
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
-      }
-      else {
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
-      }
-      if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
-            articulo_1 =  <div className="col-sm-4 col-izq">
-            <div className="Div-Articulo">
+  DesplegarRecomendados(articulo,i){
+    var topico1,topico2,topico3,span_guardar;
+    if(articulo.saved){
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
+    }
+    else {
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,articulo,i)}></span>
+    }
+    if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
+    if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
+    if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
+    return(
+            <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
              {span_guardar}
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
             <div className="div-image">
-            <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
+            <img src={articulo.main_image} alt={articulo.source_name} />
             </div>
             <div className="wrap-topicos">
             {topico1}
             {topico2}
             {topico3}
             </div>
-            <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
-            <a href = {grupo_articulos[0].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5></a>
+            <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name}</h5></a>
             <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[0].summary.substring(0, 150)}</p>
+            <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
-            </div>
-          </div>
 
-    }
-    if (grupo_articulos.length >= 2){
-      if(grupo_articulos[1].saved){
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
-      }
-      else {
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
-      }
-      if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
-            articulo_2 =  <div className="col-sm-4 col-med">
-            <div className="Div-Articulo">
-            <div className="botones">
-             {span_guardar}
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <div className="div-image">
-            <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
-            </div>
-            <div className="wrap-topicos">
-            {topico1}
-            {topico2}
-            {topico3}
-            </div>
-            <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
-            <a href = {grupo_articulos[1].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5></a>
-            <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[1].summary.substring(0, 150)}</p>
-            </div>
-            </div>
-          </div>
-
-    }
-
-
-    if (grupo_articulos.length === 3){
-
-      if(grupo_articulos[2].saved){
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
-      }
-      else {
-        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
-      }
-      if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
-      if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
-      if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
-            articulo_3 =  <div className="col-sm-4 col-der">
-            <div className="Div-Articulo">
-            <div className="botones">
-            {span_guardar}
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
-            </div>
-            <div className="div-image">
-            <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
-            </div>
-            <div className="wrap-topicos">
-            {topico1}
-            {topico2}
-            {topico3}
-            </div>
-            <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
-            <a href = {grupo_articulos[2].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5></a>
-            <div className="div-resumen">
-            <p className="resumen-articulo">{grupo_articulos[2].summary.substring(0, 150)}</p>
-            </div>
-            </div>
-          </div>
-    }
-    if (grupo_articulos.length !== 0){
-      return (
-
-          <div  key = {grupo_articulos[0].id} className="row row-no-padding margin-bottom">
-            {articulo_1}
-            {articulo_2}
-            {articulo_3}
-          </div>
-    );
-  }
+          </div>);
   }
 
   /*
@@ -532,20 +392,15 @@ class MostrarArticulos extends Component{
     var groups = [];
     var articulos =[];
     var j,i;
-    if(!(this.state.isLoading)){
-
+    if(!(this.state.isLoadingRecomendados) && !(this.state.isLoadingGuardados) ){
       var activo = this.props.activo;
       var recomendados = this.state.recomendados_filtrados;
       var guardados = this.state.guardados_filtrados;
       if(activo === 'Recomendados'){
-        for(i = 0; i < this.state.indexRecomendados; i += 3){
-          groups.push(recomendados.slice(i, i+3))
-        }
-        for (j = 0; j< groups.length; j++){
-            articulos.push(this.DesplegarRecomendados(groups[j]))
+        for(i = 0; i < this.state.indexRecomendados; i++){
+          articulos.push(this.DesplegarRecomendados(recomendados[i],i));
         }
         return(
-
           <div className="ContenidoArticulos">
           <InfiniteScroll
            dataLength={articulos.length}
@@ -559,21 +414,14 @@ class MostrarArticulos extends Component{
              </div>
            ))}
          </InfiniteScroll>
-
          </div>
-
-
       );
       }
       if(activo === 'Guardados'){
-        for(i = 0; i < this.state.indexGuardados; i += 3){
-          groups.push(guardados.slice(i, i+3))
-        }
-        for (j = 0; j< groups.length; j++){
-            articulos.push(this.DesplegarGuardados(groups[j]))
+        for(i = 0; i < this.state.indexGuardados; i++){
+          articulos.push(this.DesplegarGuardados(guardados[i],i));
         }
         return(
-
           <div className="ContenidoArticulos">
           <InfiniteScroll
            dataLength={articulos.length}
@@ -592,7 +440,7 @@ class MostrarArticulos extends Component{
       }
 
     }
-    if(this.state.isLoading){
+    else{
     return(<div className="loader loader--style2" title="1">
     <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
        width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
