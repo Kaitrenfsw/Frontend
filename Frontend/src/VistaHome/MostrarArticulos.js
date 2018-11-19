@@ -34,6 +34,7 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
+          console.log(res.data);
           this.setState({recomendados_filtrados:res.data,recomendados:res.data });
         });
 
@@ -71,18 +72,34 @@ class MostrarArticulos extends Component{
   }
 
   HandleGuardarNoticia(event,id){
-   fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
-     method: "put",
+   console.log("guardando..");
+   fetch("http://"+ config.base_url +":" + config.port + "/api/create_content_user" , {
+     method: "post",
      headers: {
        'Accept': 'application/json',
        'Content-Type': 'application/json'
      },
      body: JSON.stringify({
        'user_id': this.props.user.id,
-       'source_id':id,
+       'content_id':id,
      })
    })
  }
+
+ HandleRemoverGuardado(event,id){
+  fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+    method: "put",
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'user_id': this.props.user.id,
+      'source_id':id,
+    })
+  })
+}
+
 
 
 
@@ -262,7 +279,7 @@ class MostrarArticulos extends Component{
 
 
   /**/
-  Desplegar(grupo_articulos){
+  DesplegarGuardados(grupo_articulos){
     var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
     if (grupo_articulos.length >= 1){
       if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
@@ -271,7 +288,7 @@ class MostrarArticulos extends Component{
             articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -300,7 +317,7 @@ class MostrarArticulos extends Component{
             articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleHandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -332,7 +349,7 @@ class MostrarArticulos extends Component{
             articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -363,6 +380,109 @@ class MostrarArticulos extends Component{
     );
   }
   }
+
+  DesplegarRecomendados(grupo_articulos){
+    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
+    if (grupo_articulos.length >= 1){
+      if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
+            articulo_1 =  <div className="col-sm-4 col-izq">
+            <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
+            <div className="div-image">
+            <img src={grupo_articulos[0].main_image} alt={grupo_articulos[0].source_name} />
+            </div>
+            <div className="wrap-topicos">
+            {topico1}
+            {topico2}
+            {topico3}
+            </div>
+            <a href = {grupo_articulos[0].url} ><h4 className="titulo-articulo">{grupo_articulos[0].title}</h4></a>
+            <a href = {grupo_articulos[0].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[0].source_name}</h5></a>
+            <div className="div-resumen">
+            <p className="resumen-articulo">{grupo_articulos[0].summary.substring(0, 150)}</p>
+            </div>
+            </div>
+          </div>
+
+    }
+    if (grupo_articulos.length >= 2){
+
+      if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
+            articulo_2 =  <div className="col-sm-4 col-med">
+            <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].id)}></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
+            <div className="div-image">
+            <img src={grupo_articulos[1].main_image} alt={grupo_articulos[1].source_name} />
+            </div>
+            <div className="wrap-topicos">
+            {topico1}
+            {topico2}
+            {topico3}
+            </div>
+            <a href = {grupo_articulos[1].url} ><h4 className="titulo-articulo">{grupo_articulos[1].title}</h4></a>
+            <a href = {grupo_articulos[1].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[1].source_name}</h5></a>
+            <div className="div-resumen">
+            <p className="resumen-articulo">{grupo_articulos[1].summary.substring(0, 150)}</p>
+            </div>
+            </div>
+          </div>
+
+    }
+
+
+    if (grupo_articulos.length === 3){
+
+
+      if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
+      if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
+      if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
+            articulo_3 =  <div className="col-sm-4 col-der">
+            <div className="Div-Articulo">
+            <div className="botones">
+             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].id)}></span>
+             <span className="glyphicon glyphicon-thumbs-up"></span>
+             <span className="glyphicon glyphicon-thumbs-down"></span>
+            </div>
+            <div className="div-image">
+            <img src={grupo_articulos[2].main_image} alt={grupo_articulos[2].source_name} />
+            </div>
+            <div className="wrap-topicos">
+            {topico1}
+            {topico2}
+            {topico3}
+            </div>
+            <a href = {grupo_articulos[2].url} ><h4 className="titulo-articulo">{grupo_articulos[2].title}</h4></a>
+            <a href = {grupo_articulos[2].url} ><h5 className="fuente-articulo">Fuente: {grupo_articulos[2].source_name}</h5></a>
+            <div className="div-resumen">
+            <p className="resumen-articulo">{grupo_articulos[2].summary.substring(0, 150)}</p>
+            </div>
+            </div>
+          </div>
+    }
+    if (grupo_articulos.length !== 0){
+      return (
+
+          <div  key = {grupo_articulos[0].id} className="row row-no-padding margin-bottom">
+            {articulo_1}
+            {articulo_2}
+            {articulo_3}
+          </div>
+    );
+  }
+  }
+
   /*
   Recomendados(){
     return (
@@ -407,7 +527,7 @@ class MostrarArticulos extends Component{
           groups.push(recomendados.slice(i, i+3))
         }
         for (j = 0; j< groups.length; j++){
-            articulos.push(this.Desplegar(groups[j]))
+            articulos.push(this.DesplegarRecomendados(groups[j]))
         }
         return(
 
@@ -435,7 +555,7 @@ class MostrarArticulos extends Component{
           groups.push(guardados.slice(i, i+3))
         }
         for (j = 0; j< groups.length; j++){
-            articulos.push(this.Desplegar(groups[j]))
+            articulos.push(this.DesplegarGuardados(groups[j]))
         }
         return(
 
