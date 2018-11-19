@@ -35,7 +35,6 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           for(var i = 0; i<res.data.length;i++){
             res.data[i].index_lista_recomendados = i;
           }
@@ -72,7 +71,6 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           this.setState({guardados_filtrados:res.data,isLoadingGuardados:false,guardados:res.data });
           this.OrdenarArticulosGuardados(this.props.orden);
           if(this.state.guardados_filtrados.length > 15){
@@ -119,11 +117,8 @@ class MostrarArticulos extends Component{
  HandleRemoverGuardado(event,id){
   var guardadas = this.state.guardados;
   for(var i=0; i<guardadas.length;i++){
-    console.log(id +  guardadas[i].id );
     if(id === guardadas[i].id){
-      console.log(guardadas);
       guardadas.splice(i, 1);
-      console.log(guardadas);
       this.setState({guardadas});
       this.FiltrarArticulosGuardados();
     }
@@ -380,9 +375,8 @@ class MostrarArticulos extends Component{
 
 
   render(){
-    var groups = [];
     var articulos =[];
-    var j,i;
+    var i;
     var activo = this.props.activo;
     if(activo === 'Recomendados'){
         if(!(this.state.isLoadingRecomendados)){
