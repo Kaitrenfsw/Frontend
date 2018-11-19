@@ -45,7 +45,7 @@ class MostrarArticulos extends Component{
     });
   }
   fetchNoticiasGuardadas(){
-    fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
+    fetch("http://" + config.base_url + ":" + config.port + "/api/saved_news", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -72,7 +72,6 @@ class MostrarArticulos extends Component{
   }
 
   HandleGuardarNoticia(event,id){
-   console.log("guardando..");
    fetch("http://"+ config.base_url +":" + config.port + "/api/create_content_user" , {
      method: "post",
      headers: {
@@ -95,7 +94,7 @@ class MostrarArticulos extends Component{
     },
     body: JSON.stringify({
       'user_id': this.props.user.id,
-      'source_id':id,
+      'content_id':id,
     })
   })
 }
@@ -288,7 +287,7 @@ class MostrarArticulos extends Component{
             articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -317,7 +316,7 @@ class MostrarArticulos extends Component{
             articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleHandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark active" onClick= { (event) => this.HandleHandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -349,7 +348,7 @@ class MostrarArticulos extends Component{
             articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
+             <span className="glyphicon glyphicon glyphicon-bookmark active" onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[2].source_id)}></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -382,15 +381,21 @@ class MostrarArticulos extends Component{
   }
 
   DesplegarRecomendados(grupo_articulos){
-    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
+    var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3,span_guardar;
     if (grupo_articulos.length >= 1){
+      if(grupo_articulos[0].saved){
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
+      }
+      else {
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
+      }
       if(grupo_articulos[0].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[0].topics[0].topic_name}</h5></div>
       if(grupo_articulos[0].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[0].topics[1].topic_name}</h5></div>
       if(grupo_articulos[0].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[0].topics[2].topic_name}</h5></div>
             articulo_1 =  <div className="col-sm-4 col-izq">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
+             {span_guardar}
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -412,14 +417,19 @@ class MostrarArticulos extends Component{
 
     }
     if (grupo_articulos.length >= 2){
-
+      if(grupo_articulos[1].saved){
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
+      }
+      else {
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
+      }
       if(grupo_articulos[1].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[1].topics[0].topic_name}</h5></div>
       if(grupo_articulos[1].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[1].topics[1].topic_name}</h5></div>
       if(grupo_articulos[1].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[1].topics[2].topic_name}</h5></div>
             articulo_2 =  <div className="col-sm-4 col-med">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].id)}></span>
+             {span_guardar}
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
@@ -444,14 +454,19 @@ class MostrarArticulos extends Component{
 
     if (grupo_articulos.length === 3){
 
-
+      if(grupo_articulos[2].saved){
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,grupo_articulos[0].id)}></span>
+      }
+      else {
+        span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[0].id)}></span>
+      }
       if(grupo_articulos[2].topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{grupo_articulos[2].topics[0].topic_name}</h5></div>
       if(grupo_articulos[2].topics[1]) topico2 = <div className="Div-Topico Green"><h5>{grupo_articulos[2].topics[1].topic_name}</h5></div>
       if(grupo_articulos[2].topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{grupo_articulos[2].topics[2].topic_name}</h5></div>
             articulo_3 =  <div className="col-sm-4 col-der">
             <div className="Div-Articulo">
             <div className="botones">
-             <span className="glyphicon glyphicon glyphicon-bookmark" onClick= { (event) => this.HandleGuardarNoticia(event,grupo_articulos[2].id)}></span>
+            {span_guardar}
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down"></span>
             </div>
