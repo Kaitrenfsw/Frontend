@@ -123,14 +123,15 @@ class MostrarArticulos extends Component{
  }
 
  HandleRemoverGuardado(event,id){
-  var guardadas = this.state.guardados;
-  for(var i=0; i<guardadas.length;i++){
-    if(id === guardadas[i].id){
-      guardadas.splice(i, 1);
-      this.setState({guardadas});
-      this.FiltrarArticulosGuardados();
+  var guardados = this.state.guardados;
+  for(var i=0; i<guardados.length;i++){
+    console.log(id);
+    if(id === guardados[i].id){
+       guardados.splice(i, 1);
     }
   }
+  this.setState({guardados_filtrados:guardados, guardados: guardados});
+  this.FiltrarArticulosGuardados();
   fetch("http://"+ config.base_url +":" + config.port + "/api/remove_content_user" , {
     method: "put",
     headers: {
@@ -141,7 +142,7 @@ class MostrarArticulos extends Component{
       'user_id': this.props.user.id,
       'content_id':id,
     })
-  });
+  })
 }
 
 
@@ -269,46 +270,50 @@ class MostrarArticulos extends Component{
   }
 
   FiltrarArticulosRecomendados(search) {
-    var recomendados_filtrados = this.state.recomendados.filter(function (el) {
-      var bool = false;
-      for(var i=0;i<el.topics.length;i++){
-        if(i<3){
-        if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
-          bool = true;
-        }}
+    if(search){
+      var recomendados_filtrados = this.state.recomendados.filter(function (el) {
+        var bool = false;
+        for(var i=0;i<el.topics.length;i++){
+          if(i<3){
+          if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
+            bool = true;
+          }}
+        }
+        if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+        if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+        return bool;
+      });
+      this.setState({recomendados_filtrados:recomendados_filtrados});
+      if(this.state.recomendados_filtrados.length > 15){
+        this.setState({indexRecomendados: 15, hasMoreRecomendados:true});
       }
-      if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
-      if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
-      return bool;
-    });
-    this.setState({recomendados_filtrados:recomendados_filtrados});
-    if(this.state.recomendados_filtrados.length > 15){
-      this.setState({indexRecomendados: 15, hasMoreRecomendados:true});
-    }
-    else{
-        this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
+      else{
+          this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
+      }
     }
   }
 
   FiltrarArticulosGuardados(search) {
-    var guardados_filtrados = this.state.guardados.filter(function (el) {
-      var bool = false;
-      for(var i=0;i<el.topics.length;i++){
-        if(i<3){
-        if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
-          bool = true;
-        }}
+    if(search){
+      var guardados_filtrados = this.state.guardados.filter(function (el) {
+        var bool = false;
+        for(var i=0;i<el.topics.length;i++){
+          if(i<3){
+          if(String(el.topics[i].topic_name).toLowerCase().includes(search.toString().toLowerCase())) {
+            bool = true;
+          }}
+        }
+        if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+        if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
+        return bool;
+      });
+      this.setState({guardados_filtrados:guardados_filtrados});
+      if(this.state.guardados_filtrados.length > 15){
+        this.setState({indexGuardados: 15, hasMoreGuardados:true});
       }
-      if(String(el.source_name).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
-      if(String(el.title).toLowerCase().includes(search.toString().toLowerCase())) { bool = true}
-      return bool;
-    });
-    this.setState({guardados_filtrados:guardados_filtrados});
-    if(this.state.guardados_filtrados.length > 15){
-      this.setState({indexGuardados: 15, hasMoreGuardados:true});
-    }
-    else{
-        this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
+      else{
+          this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
+      }
     }
   }
 
@@ -428,7 +433,7 @@ class MostrarArticulos extends Component{
     }
       if(activo === 'Guardados'){
         if(!(this.state.isLoadingGuardados)){
-          var guardados = this.state.recomendados_filtrados;
+          var guardados = this.state.guardados_filtrados;
           for(i = 0; i < this.state.indexGuardados; i++){
             articulos.push(this.DesplegarGuardados(guardados[i],i));
           }
