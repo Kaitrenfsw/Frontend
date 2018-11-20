@@ -163,6 +163,126 @@ class MostrarArticulos extends Component{
       else{ this.setState({indexRecomendados: this.state.recomendados_filtrados.length}); }
     }, 1500);
   };
+  HandleLike(event,articulo){
+      var guardados = this.state.guardados;
+      var recomendados = this.state.recomendados;
+      for(var i=0; i<guardados.length;i++){
+        if(articulo.id === guardados[i].id){
+           guardados[i].voted=1;
+        }
+      }
+      for(i=0; i<recomendados.length;i++){
+        if(articulo.id === recomendados[i].id){
+           recomendados[i].voted =1;
+        }
+      }
+      this.setState({guardados: guardados, recomendados:recomendados});
+      this.FiltrarArticulosGuardados();
+      this.FiltrarArticulosRecomendados();
+      fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+        method: "put",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'user_id': this.props.user.id,
+          'new_id': articulo.id,
+          'source_id':articulo.source_id,
+          'vote':1
+        })
+      })
+  }
+  HandleRemoveLike(event,articulo){
+      var guardados = this.state.guardados;
+      var recomendados = this.state.recomendados;
+      for(var i=0; i<guardados.length;i++){
+        if(articulo.id === guardados[i].id){
+           guardados[i].voted=0;
+        }
+      }
+      for(i=0; i<recomendados.length;i++){
+        if(articulo.id === recomendados[i].id){
+           recomendados[i].voted =0;
+        }
+      }
+      this.setState({guardados: guardados, recomendados:recomendados});
+      this.FiltrarArticulosGuardados();
+      this.FiltrarArticulosRecomendados();
+      fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+        method: "put",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'user_id': this.props.user.id,
+          'new_id': articulo.id,
+          'source_id':articulo.source_id,
+          'vote':0
+        })
+      })
+  }
+  HandleDislike(event,articulo){
+      var guardados = this.state.guardados;
+      var recomendados = this.state.recomendados;
+      for(var i=0; i<guardados.length;i++){
+        if(articulo.id === guardados[i].id){
+           guardados[i].voted=2;
+        }
+      }
+      for(i=0; i<recomendados.length;i++){
+        if(articulo.id === recomendados[i].id){
+           recomendados[i].voted =2;
+        }
+      }
+      this.setState({guardados: guardados, recomendados:recomendados});
+      this.FiltrarArticulosGuardados();
+      this.FiltrarArticulosRecomendados();
+      fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+        method: "put",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'user_id': this.props.user.id,
+          'new_id': articulo.id,
+          'source_id':articulo.source_id,
+          'vote':2
+        })
+      })
+  }
+  HandleRemoveDislike(event,articulo){
+      var guardados = this.state.guardados;
+      var recomendados = this.state.recomendados;
+      for(var i=0; i<guardados.length;i++){
+        if(articulo.id === guardados[i].id){
+           guardados[i].voted=0;
+        }
+      }
+      for(i=0; i<recomendados.length;i++){
+        if(articulo.id === recomendados[i].id){
+           recomendados[i].voted =0;
+        }
+      }
+      this.setState({guardados: guardados, recomendados:recomendados});
+      this.FiltrarArticulosGuardados();
+      this.FiltrarArticulosRecomendados();
+      fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
+        method: "put",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          'user_id': this.props.user.id,
+          'new_id': articulo.id,
+          'source_id':articulo.source_id,
+          'vote':0
+        })
+      })
+  }
   fetchMoreDataGuardados = () => {
     setTimeout(() => {
       if(this.state.indexGuardados + 3 < this.state.guardados_filtrados.length ){
@@ -266,6 +386,9 @@ class MostrarArticulos extends Component{
           this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
       }
     }
+    else{
+      this.setState({recomendados_filtrados: this.state.recomendados});
+    }
   }
   FiltrarArticulosGuardados(search) {
     if(search!==undefined){
@@ -289,18 +412,33 @@ class MostrarArticulos extends Component{
           this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
       }
     }
+    else{
+          this.setState({guardados_filtrados: this.state.guardados});
+    }
   }
   DesplegarGuardados(articulo,i){
-    var topico1,topico2,topico3;
+    var topico1,topico2,topico3,span_like,span_dislike;
       if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
       if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
       if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
+      if(articulo.voted ===1){
+          span_like = <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+      }
+      else{
+          span_like = <span className="glyphicon glyphicon-thumbs-up"  onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+      }
+      if(articulo.voted ===2){
+          span_dislike = <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+      }
+      else{
+          span_dislike = <span className="glyphicon glyphicon-thumbs-down"  onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
+      }
             return(
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
+             {span_like}
+             {span_dislike}
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
@@ -318,12 +456,24 @@ class MostrarArticulos extends Component{
           </div>);
   }
   DesplegarRecomendados(articulo,i){
-    var topico1,topico2,topico3,span_guardar;
+    var topico1,topico2,topico3,span_guardar,span_like,span_dislike;
     if(articulo.saved){
         span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
     }
     else {
         span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,articulo,i)}></span>
+    }
+    if(articulo.voted ===1){
+        span_like = <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+    }
+    else{
+        span_like = <span className="glyphicon glyphicon-thumbs-up"  onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+    }
+    if(articulo.voted ===2){
+        span_dislike = <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+    }
+    else{
+        span_dislike = <span className="glyphicon glyphicon-thumbs-down"  onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
     }
     if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
     if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
@@ -332,8 +482,8 @@ class MostrarArticulos extends Component{
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
              {span_guardar}
-             <span className="glyphicon glyphicon-thumbs-up"></span>
-             <span className="glyphicon glyphicon-thumbs-down"></span>
+             {span_like}
+             {span_dislike}
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
