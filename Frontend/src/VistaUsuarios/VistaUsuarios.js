@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
 import SideNavBar from '../SideNavBar';
-import Contrasena from './Contrasena';
-import Datos from './Datos';
 import VistaCuentas from '../VistaCuentas/VistaCuentas';
-import Entrenamiento from './Entrenamiento';
-import Fuentes from './Fuentes';
 import {
   CSSTransition,
   TransitionGroup,
 } from 'react-transition-group';
-import './VistaConfiguracion.css';
+import './VistaUsuarios.css';
 
 
-class VistaConfiguracion extends Component{
+class VistaUsuarios extends Component{
 
   constructor(props) {
     super(props);
@@ -20,7 +16,7 @@ class VistaConfiguracion extends Component{
   }
 
   state = {
-    activo:'Datos personales'
+    activo:'Estadísticas'
   }
 
 
@@ -33,21 +29,12 @@ class VistaConfiguracion extends Component{
    }
 
   RenderContent(activo){
-    if(activo === 'Contraseña'){
-      return <Contrasena/>
-    }
-    if(activo === 'Datos personales'){
-      return <Datos user = {this.props.user}/>
-    }
-    if(activo === 'Entrenamiento'){
-      return <Entrenamiento/>
-    }
-    if(activo === 'Fuentes'){
-      return <Fuentes user = {this.props.user}/>
-    }
 
-    if(activo === 'Estadisticas'){
-      return <Estadisticas/>
+    if(activo === 'Cuentas'){
+      return <VistaCuentas user = {this.props.user}/>
+    }
+    if(activo === 'Estadísticas'){
+      return  <VistaCuentas user = {this.props.user}/>;
     }
 
   }
@@ -59,18 +46,9 @@ class VistaConfiguracion extends Component{
   render(){
 
     var activo = this.state.activo;
-    var options = [];
-    if(this.props.user.permissions[0].group === 'admin'){
-      options = ['Datos personales','Entrenamiento','Fuentes'];
-    }
-    if(this.props.user.permissions[0].group === 'owner'){
-      options =  ['Datos personales','Fuentes'];
-    }
-    if(this.props.user.permissions[0].group === 'idm'){
-      options =  ['Datos personales','Fuentes'];
-    }
+    var options = ['Estadísticas', 'Cuentas'];
     return (
-      <div className = "container-fluid ContenidoVistaConfiguracion">
+      <div className = "container-fluid ContenidoVistaUsuarios">
       <h2 className="titulo-vista" >Configuración</h2>
         <div className="row row-no-padding no-margin">
           <div className="col-sm-2 no-padding">
@@ -94,4 +72,4 @@ class VistaConfiguracion extends Component{
   }
 }
 
-export default VistaConfiguracion;
+export default VistaUsuarios;

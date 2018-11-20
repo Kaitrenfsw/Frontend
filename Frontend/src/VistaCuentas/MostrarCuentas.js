@@ -164,7 +164,7 @@ DesplegarCuentasIDM(cuenta,search){
                 <h5 className="email-idm">{cuenta.email}</h5>
               </div>
               <a   data-toggle="modal" data-target={"#ModalEliminar" +cuenta.id} className="gradient-button gradient-button-3 eliminar_button"  >Eliminar</a>
-              <NavLink   className="gradient-button gradient-button-3" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Cambiar Contraseña</NavLink>
+              <NavLink   className="gradient-button gradient-button-3 ver_button" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>
                 <Modal action = {cuenta.id} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalEliminar" +cuenta.id} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
             </div>
           </div>
