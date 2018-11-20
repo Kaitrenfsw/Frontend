@@ -132,7 +132,7 @@ class MostrarArticulos extends Component{
          guardados.splice(i, 1);
       }
     }
-    for(var i=0; i<recomendados.length;i++){
+    for(i=0; i<recomendados.length;i++){
       if(id === recomendados[i].id){
          recomendados.splice(i, 1);
       }
