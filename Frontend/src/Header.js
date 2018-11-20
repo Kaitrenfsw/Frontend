@@ -21,7 +21,13 @@ class Header extends Component{
  }
 
 
+
+
   render(){
+    var usuarios = null;
+    if(this.props.user.permissions[0].group === 'owner' || this.props.user.permissions[0].group === 'admin' ){
+       usuarios =   <li  ><MyLink history ={this.props.history}to='/usuarios'>Usuarios</MyLink></li> ;
+    }
     return (
      	<div className="main">
 			<nav className="navbar navbar-default" >
@@ -38,6 +44,7 @@ class Header extends Component{
 						<li  ><MyLink history ={this.props.history}exact to='/'>Home</MyLink></li>
 						<li  ><MyLink history ={this.props.history}to='/dashboard'>Dashboard</MyLink></li>
 						<li  ><MyLink history ={this.props.history}to='/topicos'>Temas</MyLink></li>
+            {usuarios}
 						<li  ><MyLink history ={this.props.history}to='/configuracion'>Configuración</MyLink></li>
 						</ul>
 			    <ul  className="nav navbar-nav navbar-right">
