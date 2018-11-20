@@ -391,27 +391,6 @@ class MostrarArticulos extends Component{
     }
   }
 
-
-  HandleDislike(event){
-    const target=event.currentTarget;
-    console.log(this.props.user.id);
-    fetch("http://"+ config.base_url +":" + config.port + "/api/update_user_vote" , {
-      method: "put",
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        'user_id': this.props.user.id,
-        'new_id':target.getAttribute("id-articulo"),
-        'source_id':target.getAttribute("id-fuente"),
-        'vote':0
-      })
-    })
-
-  }
-
-
   /**/
   Desplegar(grupo_articulos){
     var topico1,topico2,topico3,articulo_1,articulo_2,articulo_3;
