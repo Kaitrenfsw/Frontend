@@ -6,6 +6,7 @@ import { Switch, Route, Redirect,withRouter} from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
 import VistaTopicos from './VistaTopicos/VistaTopicos';
 import VistaConfiguracion from './VistaConfiguracion/VistaConfiguracion';
+import VistaUsuarios from './VistaUsuarios/VistaUsuarios';
 import VistaHome from './VistaHome/VistaHome';
 import VistaDetalleCuenta from './VistaDetalleCuenta/VistaDetalleCuenta';
 import VistaDetalleTopico from './VistaDetalleTopico/VistaDetalleTopico';
@@ -30,6 +31,24 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
         <Redirect
           to={{
             pathname: "/login",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
+const NotIDMRoute = ({ component: Component, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      (rest.user.permissions[0].group === 'owner'|| rest.user.permissions[0].group === 'admin' ) ? (
+      renderMergedProps(Component, props, rest)
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/",
             state: { from: props.location }
           }}
         />
@@ -87,6 +106,7 @@ class App extends Component {
              <Route exact path='/login'  render= {() => <VistaLogin user = {this.state.user} HandleUserLogIn= {this.HandleUserLogIn.bind(this)}  />} />
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} exact path='/'  component= {VistaHome}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}  path='/configuracion'   component= {VistaConfiguracion}/>
+             <NotIDMRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}  path='/usuarios'   component= {VistaUsuarios}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} exact path='/topicos' component= {VistaTopicos}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location} path='/topicos/:id' component= {VistaDetalleTopico}/>
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}   path='/cuentas/:id'  component= {VistaDetalleCuenta}/>

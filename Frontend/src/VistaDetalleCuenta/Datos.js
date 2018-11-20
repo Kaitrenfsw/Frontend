@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import Modal from '../Modal';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {withRouter} from "react-router-dom";
@@ -26,6 +27,7 @@ class Datos extends Component{
   }
 
   notify_success = (texto) => {
+
       toast.success(texto, {
         position: toast.POSITION.TOP_CENTER
       });
@@ -34,35 +36,36 @@ class Datos extends Component{
 
 
   componentDidMount() {
-           fetch("http://"+  config.base_url + ":" + config.port + "/api/profile", {
-               method: 'GET',
-               headers: {
-                 'Content-Type': 'multipart/form-data',
-                 'Accept': 'application/json',
-                 'authorization': 'Bearer ' + this.props.user.token
-               },
-               body: null
-           })
-           .then((response) => {
-             if(response.ok) {
-               response.json().then(data => ({
-                     data: data,
-                     status: response.status
-                 })
-               ).then(res => {
-                 const user = res.data.user;
-                 this.setState({nombre:user.profile.name,
-                   apellido:user.profile.last_name,
-                   telefono:user.profile.phone,
-                   email:user.email
-                 })
-               });
+          fetch("http://"+  config.base_url + ":" + config.port + "/api/users/" + this.props.id, {
+              method: 'GET',
+              headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'authorization': 'Bearer ' + this.props.user.token
+              },
+              body: null
+          })
+          .then((response) => {
+            if(response.ok) {
+              response.json().then(data => ({
+                    data: data,
+                    status: response.status
+                })
+              ).then(res => {
+                const user = res.data.user;
+                this.setState({nombre:user.profile.name,
+                  apellido:user.profile.last_name,
+                  telefono:user.profile.phone,
+                  email:user.email,
+                  activa:user.active
+                })
+              });
 
-             } else {
-             }
-           })
-           .catch(function(error) {
-           });
+            } else {
+            }
+          })
+          .catch(function(error) {
+          });
     }
 
 
@@ -70,7 +73,69 @@ class Datos extends Component{
 
 
 
+  HandleModalConfirm(event,action) {
+    if(action==="eliminar"){
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
+          },
+          body: JSON.stringify({
+            'id': this.props.id,
+          })
+      })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            this.notify_success('Cuenta eliminada exitosamente');
+            this.props.history.push('/usuarios');
+          });
 
+        } else {
+        }
+      })
+      .catch(function(error) {
+      });
+    }
+    if(action==="bloquear"){
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/account/activate', {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
+          },
+          body: JSON.stringify({'user':{
+            'id': this.props.id,
+            'active': !(this.state.activa)
+          }})
+      })
+      .then((response) => {
+        if(response.ok) {
+          response.json().then(data => ({
+                data: data,
+                status: response.status
+            })
+          ).then(res => {
+            var texto_bloquear = "Cuenta Bloqueada exitosamente";
+            if(this.state.activa===false){texto_bloquear = "Cuenta Desbloqueada exitosamente"}
+            this.notify_success(texto_bloquear);
+            this.setState({activa:!(this.state.activa)});
+          });
+
+        } else {
+        }
+      })
+      .catch(function(error) {
+      });
+    }
+  }
 
   HandleGuardarCambios(event){
     this.setState({validate:true});
@@ -80,10 +145,7 @@ class Datos extends Component{
     else if (this.state.EmailError) {console.log("Mail error ");}
     else if (this.state.PhoneError){console.log("phone error ");}
     else {
-
-
-
-      fetch('http://'+  config.base_url + ':' + config.port + '/api/profile', {
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -94,7 +156,7 @@ class Datos extends Component{
             'name': this.state.nombre,
             'last_name': this.state.apellido,
             'phone': this.state.telefono
-          }})
+          },'id':this.props.id})
       })
       .then((response) => {
         if(response.ok) {
@@ -111,7 +173,7 @@ class Datos extends Component{
       })
       .catch(function(error) {
       });
-  }
+    }
   }
 
 
@@ -127,6 +189,8 @@ class Datos extends Component{
 
             <h3 id ="subtitulo-vista">Datos personales</h3>
             <div className="col-sm-7 col-sm-offset-2">
+             <a    data-toggle="modal" data-target="#ModalEliminar"  className="gradient-button gradient-button-3 boton_eliminar">Eliminar</a>
+             <a   data-toggle="modal" data-target="#ModalBloquear" className="gradient-button gradient-button-3 boton_bloquear">{bloquear}</a>
             </div>
             <div className="row row-no-padding">
               <div className="col-sm-12">
@@ -260,6 +324,8 @@ class Datos extends Component{
                 </div>
             </div>
           <a onClick={this.HandleGuardarCambios.bind(this)}  className="gradient-button gradient-button-1 boton_guardar" >Guardar cambios</a>
+          <Modal action = {"eliminar"} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalEliminar"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
+          <Modal action = {"bloquear"} modal_content = {"¿Estás seguro que deseas continuar?"} modal_id = {"ModalBloquear"} HandleModalConfirm= {this.HandleModalConfirm.bind(this)} />
           </div>
       );
     }
