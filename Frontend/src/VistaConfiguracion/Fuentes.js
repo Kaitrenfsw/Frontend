@@ -70,7 +70,7 @@ class Fuentes extends Component{
     })
   }
   fetchFuentes(){
-    fetch("http://localhost:8001/sourceUser/" + this.props.user.id + "/", {
+    fetch("http://"+ config.base_url +":" + config.port + "/api/get_sources/", {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +86,8 @@ class Fuentes extends Component{
               status: response.status
           })
         ).then(res => {
-          this.setState({fuentes:this.state.fuentes,isLoading:false});
+          console.log(res.data);
+          this.setState({fuentes:res.data,isLoading:false});
         });
 
       } else {
@@ -100,6 +101,10 @@ class Fuentes extends Component{
  }
   MostrarFuentes(fuente){
      var span_favorite;
+     var nombre_fuente = fuente.name;
+     if(nombre_fuente.length>70){
+        nombre_fuente = nombre_fuente.substring(0, 70) + "...";
+     }
      if(fuente.favorite){
        span_favorite =   <span className="glyphicon glyphicon-star active" onClick = {(event)=> {this.HandleDesmarcarFavorita(event,fuente)}}></span>
      }
@@ -109,7 +114,7 @@ class Fuentes extends Component{
       return(
           <div key = {fuente.id} className="Div-Fuente">
           {span_favorite}
-          <h4 className="nombre-fuente">{fuente.name}</h4>
+          <h4 className="nombre-fuente">{nombre_fuente}</h4>
           <p className="url-fuente">{fuente.site}</p>
           </div>
       );
