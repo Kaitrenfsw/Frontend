@@ -14,11 +14,10 @@
 .ContenidoVistaFuentes .url-fuente{color: #627E89;  padding-bottom:  15px; font-size: 16px; margin-top: 30px;}
 .ContenidoVistaFuentes .Div-Fuente{background-color: #25353C;  padding-left: 20px; padding-right: 20px; padding-top: 15px; margin-bottom:30px;}
 .ContenidoVistaFuentes .margin-top{margin-top: 10vh;}
-.ContenidoVistaFuentes .glyphicon-option-vertical{margin-left: 15px;}
-.ContenidoVistaFuentes span{font-size: 25px;color:#EDEEEF;float: right;}
-.ContenidoVistaFuentes span.inside{position:absolute;font-size: 20px;color:#25353C;left:3px;top:0px;float: right;}
+.ContenidoVistaFuentes .glyphicon-star{font-size: 30px;color:#EDEEEF;float: right;}
 .ContenidoVistaFuentes {position: absolute;right: 0;left: 0; top: 0;}
-
+.ContenidoVistaFuentes .glyphicon:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
+.ContenidoVistaFuentes .glyphicon-star.active{color:#FEDD34;}
 
 /*Sección Contrasena*/
 
