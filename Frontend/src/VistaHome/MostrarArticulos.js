@@ -390,7 +390,7 @@ class MostrarArticulos extends Component{
       this.setState({recomendados_filtrados: this.state.recomendados});
     }
   }
-<<<<<<< HEAD
+
 
   HandleDislike(event){
     const target=event.currentTarget;
@@ -442,7 +442,6 @@ class MostrarArticulos extends Component{
             </div>
           </div>
 
-=======
   FiltrarArticulosGuardados(search) {
     if(search!==undefined){
       var guardados_filtrados = this.state.guardados.filter(function (el) {
@@ -464,7 +463,6 @@ class MostrarArticulos extends Component{
       else{
           this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
       }
->>>>>>> 3808c24d554c5b21b99cddc80e42600b275bf4dd
     }
     else{
           this.setState({guardados_filtrados: this.state.guardados});
@@ -490,15 +488,12 @@ class MostrarArticulos extends Component{
             return(
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
-<<<<<<< HEAD
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down" id-fuente={grupo_articulos[1].source_id} id-articulo={grupo_articulos[1].id} onClick={this.HandleDislike.bind(this)}></span>
-=======
              <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
              {span_like}
              {span_dislike}
->>>>>>> 3808c24d554c5b21b99cddc80e42600b275bf4dd
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
@@ -541,15 +536,12 @@ class MostrarArticulos extends Component{
     return(
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
-<<<<<<< HEAD
              <span className="glyphicon glyphicon glyphicon-bookmark"></span>
              <span className="glyphicon glyphicon-thumbs-up"></span>
              <span className="glyphicon glyphicon-thumbs-down" id-fuente={grupo_articulos[2].source_id} id-articulo={grupo_articulos[2].id} onClick={this.HandleDislike.bind(this)}></span>
-=======
              {span_guardar}
              {span_like}
              {span_dislike}
->>>>>>> 3808c24d554c5b21b99cddc80e42600b275bf4dd
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
