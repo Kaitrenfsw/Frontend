@@ -18,19 +18,18 @@ class Contrasena extends Component{
   }
   notify_success = (texto) => { toast.success(texto, { position: toast.POSITION.TOP_CENTER }); }
   HandleGuardarCambios(event){
-      let formData = new FormData();
-      formData.append('id', this.props.user.id);
-      formData.append('old_password', this.state.old_password);
-      formData.append('new_password', this.state.new_password);
-      formData.append('new_password_confirmation', this.state.new_password_confirmation);
-      fetch('http://'+  config.base_url + ':' + config.port + '/api/users', {
-          method: 'Post',
+      fetch('http://'+  config.base_url + ':' + config.port + '/api/idms/password', {
+          method: 'Put',
           headers: {
-            'Content-Type': 'multipart/form-data',
             'Accept': 'application/json',
-            'authorization': 'Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJVc2VyOjIiLCJleHAiOjE1Mzc1ODE0NjgsImlhdCI6MTUzNzMyMjI2OCwiaXNzIjoibnVyc29mdC5hdXRoIiwianRpIjoiZmI1MjM3ZWYtMTRlMS00ODljLThiM2YtMTMyMDNlZjNhYWU2IiwicGVtIjp7fSwic3ViIjoiVXNlcjoyIiwidHlwIjoiYWNjZXNzIn0.h7dAs9a9cspHzCZagwKyGzrtSzh6Qr6hyza7Xks9mriCTVLH7R64D6tyx9uVs2zTvGHzmDL7zu6TIifLBjX90g'
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + this.props.user.token
           },
-          body: formData
+          body: JSON.stringify({
+            'id': this.props.id,
+            'password': this.state.new_password,
+            'password_confirmation': this.state.new_password_confirmation
+          })
       })
       .then((response) => {
         if(response.ok) {
@@ -39,6 +38,8 @@ class Contrasena extends Component{
                 status: response.status
             })
           ).then(res => {
+            this.notify_success('Contraseña Reestablecida');
+            this.props.history.push('/usuarios');
           });
 
         } else {
@@ -54,10 +55,6 @@ class Contrasena extends Component{
           <div className="Contrasena">
             <h3 id ="subtitulo-vista">Contraseña</h3>
             <form>
-            <div className="form-group">
-              <label>Contraseña actual</label>
-              <input onChange= {(event) => this.setState({old_password:event.target.value})} type="password" className="form-control" />
-            </div>
             <div className="form-group">
               <label>Contraseña nueva</label>
               <input onChange= {(event) => this.setState({new_password:event.target.value})} type="password" className="form-control" />

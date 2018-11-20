@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import SideNavBar from '../SideNavBar';
-import Datos from '../VistaConfiguracion/Datos';
-import Contrasena from '../VistaConfiguracion/Contrasena';
+import Datos from './Datos';
+import Contrasena from './Contrasena';
 import {CSSTransition,TransitionGroup,} from 'react-transition-group';
 import './VistaDetalleCuenta.css';
 import left_icon from '../Assets/left.png';
@@ -27,10 +27,10 @@ class VistaDetalleCuenta extends Component{
 
   RenderContent(activo){
     if(activo === 'Contraseña'){
-      return <Contrasena id = {this.props.match.params.id} user = {this.props.user} adm_cuenta = {true}/>
+      return <Contrasena id = {this.props.match.params.id} user = {this.props.user} />
     }
     if(activo === 'Datos'){
-      return  <Datos  id = {this.props.match.params.id} adm_cuenta={true} user = {this.props.user}/>
+      return  <Datos  id = {this.props.match.params.id}user = {this.props.user}/>
     }
   }
 
@@ -45,7 +45,7 @@ class VistaDetalleCuenta extends Component{
 		if(this.props.user.permissions[0].group === "owner") {options = ["Contraseña"]; activo = 'Contraseña'};
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
-        <NavLink to='/configuracion'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
+        <NavLink to='/usuarios'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
         <h2 className="titulo-vista no-margin-top" >Cuenta</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
