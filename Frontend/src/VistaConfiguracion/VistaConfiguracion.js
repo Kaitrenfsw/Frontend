@@ -4,6 +4,7 @@ import Contrasena from './Contrasena';
 import Datos from './Datos';
 import VistaCuentas from '../VistaCuentas/VistaCuentas';
 import Entrenamiento from './Entrenamiento';
+import Fuentes from './Fuentes';
 import {
   CSSTransition,
   TransitionGroup,
@@ -45,6 +46,9 @@ class VistaConfiguracion extends Component{
     if(activo === 'Entrenamiento'){
       return <Entrenamiento/>
     }
+    if(activo === 'Fuentes'){
+      return <Fuentes user = {this.props.user}/>
+    }
 
   }
 
@@ -60,13 +64,13 @@ class VistaConfiguracion extends Component{
       activo = 'Datos personales';
     }
     if(this.props.user.permissions[0].group === 'admin'){
-      options = ['Cuentas','Entrenamiento'];
+      options = ['Cuentas','Entrenamiento','Fuentes'];
     }
     if(this.props.user.permissions[0].group === 'owner'){
-      options =  ['Cuentas','Datos personales'];
+      options =  ['Cuentas','Datos personales','Fuentes'];
     }
     if(this.props.user.permissions[0].group === 'idm'){
-      options =  ['Datos personales'];
+      options =  ['Datos personales','Fuentes'];
     }
     return (
       <div className = "container-fluid ContenidoVistaConfiguracion">

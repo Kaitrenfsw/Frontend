@@ -8,17 +8,15 @@
 
 
 /*Sección Fuentes*/
-.ContenidoVistaFuentes .col-izq{padding-left: 0}
-.ContenidoVistaFuentes .col-der{padding-right: 0}
-.ContenidoVistaFuentes .nombre-fuente{color: #EDEEEF; padding-top: 25px; font-size: 20px;}
-.ContenidoVistaFuentes .url-fuente{color: #627E89;  padding-bottom:  15px; font-size: 16px; margin-top: 30px;}
-.ContenidoVistaFuentes .Div-Fuente{background-color: #25353C;  padding-left: 20px; padding-right: 20px; padding-top: 15px; margin-bottom:30px;}
+.ContenidoVistaFuentes .nombre-fuente{color: #EDEEEF; padding-top: 0.6em; font-size: 1.2em; max-width: 90%;}
+.ContenidoVistaFuentes .url-fuente{font-weight: bold;color: #627E89; font-size: 0.9em; margin-top: 0.5em; margin-bottom: 0;}
+.ContenidoVistaFuentes .Div-Fuente{min-height:9em;margin:0.916%; position: relative; float: left;width: 31.5%; background-color: #25353C;  padding-left: 1em; padding-right: 1em; padding-top: 1em; margin-bottom:0.6em;}
 .ContenidoVistaFuentes .margin-top{margin-top: 10vh;}
-.ContenidoVistaFuentes .glyphicon-option-vertical{margin-left: 15px;}
-.ContenidoVistaFuentes span{font-size: 25px;color:#EDEEEF;float: right;}
-.ContenidoVistaFuentes span.inside{position:absolute;font-size: 20px;color:#25353C;left:3px;top:0px;float: right;}
+.ContenidoVistaFuentes .glyphicon-star{font-size: 1.875em;color:#EDEEEF;float: right;}
 .ContenidoVistaFuentes {position: absolute;right: 0;left: 0; top: 0;}
-
+.ContenidoVistaFuentes .glyphicon:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
+.ContenidoVistaFuentes .glyphicon-star.active{color:#FEDD34;border: 0;}
+.ContenidoVistaFuentes .wrap_fuentes {margin-left: -0.916%; margin-right: -0.916%;}
 
 /*Sección Contrasena*/
 
@@ -56,26 +54,21 @@
 .Entrenamiento .div-wrap-entrenamiento {padding-left: 0; text-align: justify;}
 
 
+@media (max-width: 1400px) {
 
-@media (max-width: 1500px) {
-  .ContenidoVistaFuentes h4{ font-size: 15px;}
-  .ContenidoVistaFuentes p{ font-size: 11px; }
+.ContenidoVistaFuentes .nombre-fuente{ font-size: 1em;}
+.ContenidoVistaFuentes .url-fuente{font-size: 0.8em;}
+.ContenidoVistaFuentes .Div-Fuente {min-height: 8em;}
 
 }
 
-
-
-
-
 @media (max-width: 1199px) {
-
-  .ContenidoVistaFuentes .Div-Fuente{margin-left: 0; margin-right: 0;}
+  .ContenidoVistaFuentes .Div-Fuente {width: 48%; margin:1%; min-height: 8em;}
+  .ContenidoVistaFuentes .wrap_fuentes {margin-left: -2%; margin-right: -2%;}
   .Datos .row {margin-top:40px}
   .Contrasena form {margin-top: 30px}
   .NavBar  li{ margin-bottom: 30px;}
   .NavBar {margin-top: 50px;}
-  .ContenidoVistaFuentes .col-izq{padding-left: 15px}
-  .ContenidoVistaFuentes .col-der{padding-right: 15px}
 
 }
 
@@ -83,7 +76,9 @@
 
 
 @media (max-width: 767px) {
-
+  .ContenidoVistaFuentes .margin-top {margin-top: 1.5em;}
+    .ContenidoVistaFuentes .wrap_fuentes {margin-left: 0; margin-right: 0;}
+  .ContenidoVistaFuentes .Div-Fuente {width: 100%; margin-left: 0; margin-right: 0; min-height: 7em;}
   .ContenidoVistaConfiguracion .NavBar { margin-top: 2em;}
   .ContenidoVistaConfiguracion .NavBar > li{ margin-bottom: 3em;}
   .ContenidoVistaConfiguracion #subtitulo-vista {margin-top: 0;}
