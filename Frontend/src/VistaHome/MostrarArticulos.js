@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import InfiniteScroll from "react-infinite-scroll-component";
 import config from '../config.js';
 import { toast } from 'react-toastify';
+import EmptyBox from '../Assets/EmptyBox.png';
+import { NavLink } from 'react-router-dom';
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -19,12 +21,15 @@ class MostrarArticulos extends Component{
       hasMoreRecomendados: true,
       hasMoreGuardados: true
   }
-
-    notify_success = (texto) => {
-        toast.success(texto, {
-          position: toast.POSITION.TOP_CENTER
-        });
-      }
+  componentDidMount() {
+      this.fetchNoticiasRecomendadas();
+      this.fetchNoticiasGuardadas();
+  }
+  notify_success = (texto) => {
+      toast.success(texto, {
+      position: toast.POSITION.TOP_CENTER
+      });
+  }
   fetchNoticiasRecomendadas(){
     fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
         method: 'GET',
@@ -54,7 +59,6 @@ class MostrarArticulos extends Component{
               this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
           }
         });
-
       } else {
       }
     })
@@ -94,13 +98,12 @@ class MostrarArticulos extends Component{
     .catch(function(error) {
     });
   }
-
   HandleGuardarNoticia(event,noticia,i){
    var recomendados_filtrados = this.state.recomendados_filtrados;
    var recomendados = this.state.recomendados;
    recomendados[noticia.index_lista_recomendados].saved = 1;
    recomendados_filtrados[i].saved = 1;
-   this.setState({isLoadingGuardados:true, recomendados_filtrados});
+   this.setState({isLoadingGuardados:true, recomendados_filtrados, recomendados});
    this.notify_success('Artículo guardado');
    fetch("http://"+ config.base_url +":" + config.port + "/api/create_content_user" , {
      method: "post",
@@ -121,49 +124,35 @@ class MostrarArticulos extends Component{
      .catch(function(error) {
      });
  }
-
  HandleRemoverGuardado(event,id){
-  var guardados = this.state.guardados;
-  for(var i=0; i<guardados.length;i++){
-    console.log(id);
-    if(id === guardados[i].id){
-       guardados.splice(i, 1);
+    var guardados = this.state.guardados;
+    var recomendados = this.state.recomendados;
+    for(var i=0; i<guardados.length;i++){
+      if(id === guardados[i].id){
+         guardados.splice(i, 1);
+      }
     }
-  }
-  this.setState({guardados_filtrados:guardados, guardados: guardados});
-  this.FiltrarArticulosGuardados();
-  fetch("http://"+ config.base_url +":" + config.port + "/api/remove_content_user" , {
-    method: "put",
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'user_id': this.props.user.id,
-      'content_id':id,
+    for(var i=0; i<recomendados.length;i++){
+      if(id === recomendados[i].id){
+         recomendados.splice(i, 1);
+      }
+    }
+    this.setState({guardados: guardados, recomendados:recomendados});
+    this.FiltrarArticulosGuardados();
+    this.FiltrarArticulosRecomendados();
+    fetch("http://"+ config.base_url +":" + config.port + "/api/remove_content_user" , {
+      method: "put",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'user_id': this.props.user.id,
+        'content_id':id,
+      })
     })
-  })
-}
-
-
-
-
-
-
-    componentDidMount() {
-             this.fetchNoticiasRecomendadas();
-             this.fetchNoticiasGuardadas();
-         }
-
-
-
-
-
-
+  }
   fetchMoreDataRecomendados = () => {
-    // a fake async api call like which sends
-    // 20 more records in 1.5 secs
-
     setTimeout(() => {
       if(this.state.indexRecomendados + 3 < this.state.recomendados_filtrados.length ){
           this.setState({indexRecomendados: this.state.indexRecomendados + 3});
@@ -174,25 +163,17 @@ class MostrarArticulos extends Component{
       else{ this.setState({indexRecomendados: this.state.recomendados_filtrados.length}); }
     }, 1500);
   };
-
-
-
-    fetchMoreDataGuardados = () => {
-      // a fake async api call like which sends
-      // 20 more records in 1.5 secs
-      setTimeout(() => {
-        if(this.state.indexGuardados + 3 < this.state.guardados_filtrados.length ){
-            this.setState({indexGuardados: this.state.indexGuardados + 3});
-        }
-        else if(this.state.indexGuardados  === this.state.guardados_filtrados.length ){
+  fetchMoreDataGuardados = () => {
+    setTimeout(() => {
+      if(this.state.indexGuardados + 3 < this.state.guardados_filtrados.length ){
+          this.setState({indexGuardados: this.state.indexGuardados + 3});
+      }
+      else if(this.state.indexGuardados  === this.state.guardados_filtrados.length ){
           this.setState({hasMoreGuardados:false});
-        }
-        else{ this.setState({indexGuardados: this.state.guardados_filtrados.length}); }
+      }
+      else{ this.setState({indexGuardados: this.state.guardados_filtrados.length}); }
       }, 1500);
     };
-
-
-
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
         if(this.props.activo === 'Recomendados'){this.OrdenarArticulosRecomendados(this.props.orden);}
@@ -203,8 +184,6 @@ class MostrarArticulos extends Component{
        if(this.props.activo === 'Guardados'){this.FiltrarArticulosGuardados(this.props.search);}
     }
   }
-
-
   OrdenarArticulosRecomendados(orden) {
     var recomendados_filtrados = this.state.recomendados_filtrados;
     var recomendados_ordenados;
@@ -226,7 +205,6 @@ class MostrarArticulos extends Component{
       return recomendados_filtrados;
     }
   }
-
   OrdenarArticulosGuardados(orden) {
     var guardados_filtrados = this.state.guardados_filtrados;
     var guardados_ordenados;
@@ -248,7 +226,6 @@ class MostrarArticulos extends Component{
       return guardados_filtrados;
     }
   }
-
   OrdenarFuente(a,b) {
       var nameA=a.source_name.toLowerCase();
       var nameB=b.source_name.toLowerCase();
@@ -258,7 +235,6 @@ class MostrarArticulos extends Component{
         return 1;
       return 0;
   }
-
   OrdenarFecha(a,b) {
       var nameA=a.published;
       var nameB=b.published;
@@ -268,9 +244,8 @@ class MostrarArticulos extends Component{
         return -1;
       return 0;
   }
-
   FiltrarArticulosRecomendados(search) {
-    if(search){
+    if(search!==undefined){
       var recomendados_filtrados = this.state.recomendados.filter(function (el) {
         var bool = false;
         for(var i=0;i<el.topics.length;i++){
@@ -292,9 +267,8 @@ class MostrarArticulos extends Component{
       }
     }
   }
-
   FiltrarArticulosGuardados(search) {
-    if(search){
+    if(search!==undefined){
       var guardados_filtrados = this.state.guardados.filter(function (el) {
         var bool = false;
         for(var i=0;i<el.topics.length;i++){
@@ -316,10 +290,6 @@ class MostrarArticulos extends Component{
       }
     }
   }
-
-
-
-  /**/
   DesplegarGuardados(articulo,i){
     var topico1,topico2,topico3;
       if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
@@ -346,11 +316,7 @@ class MostrarArticulos extends Component{
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
           </div>);
-
-
-
   }
-
   DesplegarRecomendados(articulo,i){
     var topico1,topico2,topico3,span_guardar;
     if(articulo.saved){
@@ -382,95 +348,101 @@ class MostrarArticulos extends Component{
             <div className="div-resumen">
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
-
           </div>);
   }
-
-
   render(){
     var articulos =[];
     var i;
     var activo = this.props.activo;
+    var indexGuardados = this.state.indexGuardados;
+    var indexRecomendados = this.state.indexRecomendados;
+    var hasMoreRecomendados = this.state.hasMoreRecomendados;
+    var hasMoreGuardados = this.state.hasMoreGuardados;
+    var recomendados = this.state.recomendados_filtrados;
+    var guardados = this.state.recomendados_filtrados;
+    var loading_svg = <div className="loader loader--style2" title="1">
+                      <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
+                      <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
+                      <animateTransform attributeType="xml"attributeName="transform"
+                      type="rotate"
+                      from="0 25 25"
+                      to="360 25 25"
+                      dur="0.6s"
+                      repeatCount="indefinite"/>
+                      </path>
+                      </svg>
+                      </div>
     if(activo === 'Recomendados'){
         if(!(this.state.isLoadingRecomendados)){
-        var recomendados = this.state.recomendados_filtrados;
-        for(i = 0; i < this.state.indexRecomendados; i++){
-          articulos.push(this.DesplegarRecomendados(recomendados[i],i));
-        }
-        return(
-          <div className="ContenidoArticulos">
-          <InfiniteScroll
-           dataLength={articulos.length}
-           next={this.fetchMoreDataRecomendados}
-           hasMore={this.state.hasMoreRecomendados}
-           loader={<h1 className="texto-cargando">...</h1>}
-         >
-           {articulos.map((i, index) => (
-             <div  key={index}>
-              {i}
-             </div>
-           ))}
-         </InfiniteScroll>
-         </div>
-      );
+            if(this.state.recomendados.length === 0){
+              return(
+                <div className="MensajeSinTemas">
+                	<img id = "EmptyBox" src={EmptyBox} alt="EmptyBox" />
+                  <p> No te has suscrito a temas aún</p>
+                  <NavLink  to='/topicos' className="gradient-button gradient-button-1" >Ir a temas</NavLink>
+                </div>);
+            }
+            else{
+                if(this.state.indexRecomendados > recomendados.length) {
+                    indexRecomendados = recomendados.length;
+                    hasMoreRecomendados = false;
+                  }
+                for(i = 0; i < indexRecomendados; i++){
+                    articulos.push(this.DesplegarRecomendados(recomendados[i],i));
+                }
+              return(
+                <div className="ContenidoArticulos">
+                <InfiniteScroll
+                 dataLength={articulos.length}
+                 next={this.fetchMoreDataRecomendados}
+                 hasMore={hasMoreRecomendados}
+                 loader={<h1 className="texto-cargando">...</h1>}
+               >
+                 {articulos.map((i, index) => (
+                   <div  key={index}>
+                    {i}
+                   </div>
+                 ))}
+               </InfiniteScroll>
+               </div>
+            );
+          }
       }
       else{
-          return(<div className="loader loader--style2" title="1">
-          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
-          <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-            <animateTransform attributeType="xml"
-              attributeName="transform"
-              type="rotate"
-              from="0 25 25"
-              to="360 25 25"
-              dur="0.6s"
-              repeatCount="indefinite"/>
-            </path>
-          </svg>
-        </div>);
+          return(loading_svg);
       }
     }
       if(activo === 'Guardados'){
         if(!(this.state.isLoadingGuardados)){
-          var guardados = this.state.guardados_filtrados;
-          for(i = 0; i < this.state.indexGuardados; i++){
-            articulos.push(this.DesplegarGuardados(guardados[i],i));
-          }
-          return(
-            <div className="ContenidoArticulos">
-            <InfiniteScroll
-             dataLength={articulos.length}
-             next={this.fetchMoreDataGuardados}
-             hasMore={this.state.hasMoreGuardados}
-             loader={<h1 className="texto-cargando">...</h1>}
-           >
-             {articulos.map((i, index) => (
-               <div  key={index}>
-                {i}
+              if(this.state.indexGuardados > guardados.length){
+                indexGuardados = guardados.length;
+                hasMoreGuardados = false;
+              }
+              for(i = 0; i < indexGuardados; i++){
+                articulos.push(this.DesplegarGuardados(guardados[i],i));
+              }
+              return(
+                <div className="ContenidoArticulos">
+                <InfiniteScroll
+                 dataLength={articulos.length}
+                 next={this.fetchMoreDataGuardados}
+                 hasMore={hasMoreGuardados}
+                 loader={<h1 className="texto-cargando">...</h1>}
+               >
+                 {articulos.map((i, index) => (
+                   <div  key={index}>
+                    {i}
+                   </div>
+                 ))}
+               </InfiniteScroll>
                </div>
-             ))}
-           </InfiniteScroll>
-           </div>
-        );
+             );
+          }
+
       }
       else{
-          return(<div className="loader loader--style2" title="1">
-          <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-             width="12.5em" height="12.5em" viewBox="0 0 50 50"  xmlSpace="preserve">
-          <path fill="#36454E" d="M25.251,6.461c-10.318,0-18.683,8.365-18.683,18.683h4.068c0-8.071,6.543-14.615,14.615-14.615V6.461z">
-            <animateTransform attributeType="xml"
-              attributeName="transform"
-              type="rotate"
-              from="0 25 25"
-              to="360 25 25"
-              dur="0.6s"
-              repeatCount="indefinite"/>
-            </path>
-          </svg>
-        </div>);
+          return(loading_svg);
       }
-    }
   }
 }
 

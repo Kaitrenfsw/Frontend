@@ -44,8 +44,9 @@
 .wrap-topicos {margin-top: 0.8em;}
 .ContenidoArticulos .glyphicon-bookmark.active{ color: #FEDD34;}
 .ContenidoArticulos .infinite-scroll-component {margin-left: -0.916%; margin-right: -0.916%;}
-
-
+.ContenidoVistaHome .MensajeSinTemas {text-align: center; color: #6B828F; margin-top: 5em; font-size: 1.1em; font-weight: bold;}
+.ContenidoVistaHome .MensajeSinTemas > a {margin-top: 2em;}
+.ContenidoVistaHome .MensajeSinTemas #EmptyBox { width: 10em; margin-bottom: 2em;}
 
 
 
