@@ -319,10 +319,10 @@ class MostrarArticulos extends Component{
     if (prevProps.orden !== this.props.orden) {
         if(this.props.orden === 'Fecha'){
           if(this.props.activo === 'Recomendados'){
-            this.setState({recomendados_filtrados: this.state.recomendados});
+            this.FiltrarArticulosRecomendados(this.props.search);
             this.OrdenarArticulosRecomendados(this.props.orden);}
           if(this.props.activo === 'Guardados'){
-            this.setState({recomendados_guardados: this.state.guardados});
+            this.FiltrarArticulosGuardados(this.props.search);
             this.OrdenarArticulosGuardados(this.props.orden);
           }
         }
@@ -357,7 +357,7 @@ class MostrarArticulos extends Component{
         return recomendados_ordenados;
     }
     if(orden ==='Fuentes Favoritas'){
-        var recomendados = this.state.recomendados;
+        var recomendados = this.state.recomendados_filtrados;
         var new_recomendados = [];
         for(var i =0; i<recomendados.length ; i++){
           if(recomendados[i].fav_source ===1){
@@ -388,7 +388,7 @@ class MostrarArticulos extends Component{
         return guardados_ordenados;
     }
     if(orden ==='Fuentes Favoritas'){
-        var guardados = this.state.guardados;
+        var guardados = this.state.guardados_filtrados;
         var new_guardados = [];
         for(var i =0; i<guardados.length ; i++){
           if(guardados[i].fav_source ===1){
@@ -413,7 +413,7 @@ class MostrarArticulos extends Component{
   OrdenarFecha(a,b) {
       var nameA=a.published;
       var nameB=b.published;
-      if (nameA < nameB)
+      if (nameA <= nameB)
         return 1;
       if (nameA > nameB)
         return -1;
@@ -472,7 +472,13 @@ class MostrarArticulos extends Component{
     }
   }
   DesplegarGuardados(articulo,i){
-    var topico1,topico2,topico3,span_like,span_dislike;
+    var topico1,topico2,topico3,span_like,span_dislike,span_favorite;
+      if(articulo.fav_source){
+          span_favorite =  <span className="glyphicon glyphicon-star active" ></span>
+      }
+      else {
+          span_favorite = null;
+      }
       if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
       if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
       if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
@@ -504,7 +510,7 @@ class MostrarArticulos extends Component{
             {topico3}
             </div>
             <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
-            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name}</h5></a>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name} {span_favorite}</h5></a>
             <div className="div-resumen">
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
@@ -556,7 +562,7 @@ class MostrarArticulos extends Component{
             </div>
             <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
             <div>
-            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name} {span_favorite}</h5></a>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name}</h5></a>  {span_favorite}
             </div>
             <div className="div-resumen">
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
