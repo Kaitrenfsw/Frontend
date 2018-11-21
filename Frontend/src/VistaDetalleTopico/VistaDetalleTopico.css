@@ -23,6 +23,10 @@
 .ContenidoVistaDetalleTopico .unsub-button { float: left; margin-top: 10px}
 .ContenidoVistaDetalleTopico .sub-button { float: left; margin-top: 10px}
 .ContenidoVistaDetalleTopico .row-SeccionGraficos {margin-top: 60px;}
+.ContenidoVistaDetalleTopico .graph-div { width: 37%; float:left; margin-left: 5%;}
+.ContenidoVistaDetalleTopico .noticas-div {width: 58%; float: left;}
+.ContenidoVistaDetalleTopico .wrap-cloud-div { width: 37%; float:left; margin-left: 5%;}
+.ContenidoVistaDetalleTopico .wrap-freq-div {width: 58%; float: left;}
 
 .recharts-tooltip-wrapper .recharts-default-tooltip-graph{
   background:rgba(255,255,255,0.6)!important;
@@ -43,22 +47,16 @@
   clear: both;
   font-weight: bold;
 }
-.box-text {
-  color: black;
-}
+.box-text { color:#cfd1d1; }
 
-.red {
-  background-color: #FF5C55;
-  border-radius: 17px;
-}
+.red { background-color: #FF5C55; border-radius: 17px; }
 
+.green { background-color: #87D597; border-radius: 17px; }
 
-.green {
-  background-color: #87D597;
-  border-radius: 17px;
-}
-
-.orange {
-  background-color: #ECB775;
-  border-radius: 17px;
+.orange { background-color: #ECB775; border-radius: 17px; }
+@media (max-width: 1025px) {
+  .ContenidoVistaDetalleTopico .graph-div { width: 100%; }
+  .ContenidoVistaDetalleTopico .noticas-div {width: 100%;}
+  .ContenidoVistaDetalleTopico .wrap-cloud-div { width: 100%;}
+  .ContenidoVistaDetalleTopico .wrap-freq-div {width: 100%;}
 }

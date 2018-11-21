@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import SideNavBar from '../SideNavBar';
 import Contrasena from './Contrasena';
 import Datos from './Datos';
-import VistaCuentas from '../VistaCuentas/VistaCuentas';
 import Entrenamiento from './Entrenamiento';
 import Fuentes from './Fuentes';
 import {

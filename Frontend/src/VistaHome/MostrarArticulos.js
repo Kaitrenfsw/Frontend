@@ -16,12 +16,14 @@ class MostrarArticulos extends Component{
   state = {
       isLoadingRecomendados: true,
       isLoadingGuardados: true,
+      isLoadingTemasUsuario:true,
       indexRecomendados: 0,
       indexGuardados: 0,
       hasMoreRecomendados: true,
       hasMoreGuardados: true
   }
   componentDidMount() {
+      this.fetchTemasUsuarios();
       this.fetchNoticiasRecomendadas();
       this.fetchNoticiasGuardadas();
   }
@@ -29,6 +31,24 @@ class MostrarArticulos extends Component{
       toast.success(texto, {
       position: toast.POSITION.TOP_CENTER
       });
+  }
+  fetchTemasUsuarios(){
+    fetch("http://"+ config.base_url +":" + config.port + "/api/topicUser/" + this.props.user.id)
+   .then((response) => {
+     if(response.ok) {
+       response.json().then(data => ({
+             data: data,
+             status: response.status
+         })
+       ).then(res => {
+         this.setState({usrTopics:res.data,isLoadingTemasUsuario:false});
+       });
+
+     } else {
+     }
+   })
+   .catch(function(error) {
+   });
   }
   fetchNoticiasRecomendadas(){
     fetch("http://" + config.base_url + ":" + config.port + "/api/suggestions", {
@@ -134,7 +154,7 @@ class MostrarArticulos extends Component{
     }
     for(i=0; i<recomendados.length;i++){
       if(id === recomendados[i].id){
-         recomendados.splice(i, 1);
+         recomendados[i].saved = 0;
       }
     }
     this.setState({guardados: guardados, recomendados:recomendados});
@@ -494,7 +514,9 @@ class MostrarArticulos extends Component{
             {topico3}
             </div>
             <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
-            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name}</h5></a>
+            <div>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name} <span className="glyphicon glyphicon-star active" ></span></h5></a>
+            </div>
             <div className="div-resumen">
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>
             </div>
@@ -523,8 +545,8 @@ class MostrarArticulos extends Component{
                       </svg>
                       </div>
     if(activo === 'Recomendados'){
-        if(!(this.state.isLoadingRecomendados)){
-            if(this.state.recomendados.length === 0){
+        if(!(this.state.isLoadingRecomendados) && !(this.state.isLoadingTemasUsuario)){
+            if(this.state.usrTopics.length === 0){
               return(
                 <div className="MensajeSinTemas">
                 	<img id = "EmptyBox" src={EmptyBox} alt="EmptyBox" />

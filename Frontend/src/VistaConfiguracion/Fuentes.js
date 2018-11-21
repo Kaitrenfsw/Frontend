@@ -37,15 +37,15 @@ class Fuentes extends Component{
       }
     }
     this.setState({fuentes});
-    fetch("http://"+ config.base_url +":" + config.port + "/api/" , {
-      method: "post",
+    fetch("http://"+ config.base_url +":" + config.port + "/api/user_source/?action=1" , {
+      method: "put",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         'user_id': this.props.user.id,
-        'source_id':fuente.sourceUser_id
+        'source_id':fuente.id,
       })
     })
   }
@@ -57,20 +57,20 @@ class Fuentes extends Component{
       }
     }
     this.setState({fuentes});
-    fetch("http://"+ config.base_url +":" + config.port + "/api/" , {
-      method: "DELETE",
+    fetch("http://"+ config.base_url +":" + config.port + "/api/user_source/?action=0" , {
+      method: "put",
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
         'user_id': this.props.user.id,
-        'source_id':fuente.sourceUser_id
+        'source_id':fuente.id,
       })
     })
   }
   fetchFuentes(){
-    fetch("http://"+ config.base_url +":" + config.port + "/api/get_sources/", {
+    fetch("http://"+ config.base_url +":" + config.port + "/api/get_sources/?user_id=" + this.props.user.id, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -78,8 +78,7 @@ class Fuentes extends Component{
           'authorization': 'Bearer ' + this.props.user.token
         },
         body: null
-    })
-    .then((response) => {
+  }).then((response) => {
       if(response.ok) {
         response.json().then(data => ({
               data: data,
