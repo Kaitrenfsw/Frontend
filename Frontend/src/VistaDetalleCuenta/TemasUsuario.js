@@ -6,7 +6,6 @@ import config from '../config.js';
 class TemasUsuario extends Component{
 
   constructor(props){
-    console.log(props);
       super(props);
       this.state={
         topics:[{topic_name:"Tema 1"},{topic_name:"Tema 2"},{topic_name:"Tema 3"}],
@@ -16,9 +15,9 @@ class TemasUsuario extends Component{
   }
 
 
-  /*
+
   componentDidMount(){
-    fetch("http://"+  config.base_url + ":" + config.port + "/api/users/" + this.props.id, {
+    fetch("http://"+  config.base_url + ":" + config.port + "/api/idms_topics?user_id=" + this.props.id, {
         method: 'GET',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -34,7 +33,9 @@ class TemasUsuario extends Component{
               log: response.status
           })
         ).then(res => {
-          this.setState({topics:res.data.topics})
+          var obj=res.data
+          //console.log(obj);
+          this.setState({topics:obj})
         });
 
       } else {
@@ -42,7 +43,7 @@ class TemasUsuario extends Component{
     })
     .catch(function(error) {
     });
-  }*/
+  }
 
   addRows(tipo){
     var out=[];
@@ -50,8 +51,8 @@ class TemasUsuario extends Component{
 
     if (tipo==="topics") {
       for (row in this.state.topics){
-        console.log(this.state.topics[row]);
-        out.push(<tr><td>{this.state.topics[row].topic_name}</td></tr>)
+        //console.log(this.state.topics[row]);
+        out.push(<tr><td>{this.state.topics[row].name}</td></tr>)
       }
 
     }
