@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { BarChart,Bar ,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
-//import './TopicsChart.css';
+import EmptyBox from '../Assets/EmptyBox.png'
 import config from '../config.js';
 //import 'moment/locale/es'
 
@@ -27,9 +27,9 @@ class TopicsChart extends Component{
 
       }
     }
-    dataCero(data,key){
-      for (var i = 0; i < data.length; i++) {
-        if (data[i][key]!==0) return false;
+    dataCero(datos,key){
+      for (var i = 0; i < datos.length; i++) {
+        if (datos[i][key]!==0) return false;
       }
 
       return true
@@ -58,7 +58,6 @@ class TopicsChart extends Component{
          ).then(res => {
 
            var obj = res.data.topics;
-           console.log(obj);
            this.setState({data2: obj});
            this.setState({isLoading:false});
          });
@@ -73,20 +72,25 @@ class TopicsChart extends Component{
 
       if(this.state.isLoading){
         return(null);
-      }/*
-      else if (this.dataCero(this.state.data2, "uv")){
-        return(<p>Sin topicos para mostrar</p>)
-      }*/
+      }
+      else if ( typeof this.state.data2 !=="undefined" && this.dataCero(this.state.data2, "user_amount")){
+          return(
+            <div className="MensajeSinTemas">
+              <img id = "EmptyBox" src={EmptyBox} alt="EmptyBox" />
+              <p> Tus usuarios secundarios no se han suscrito a ningun tema todavía</p>
+            </div>);
 
+      }
       else{
       return (
                 <div>
-                <ResponsiveContainer width={700} height={400}>
+                  <h4 className="subtitulo-vista">Cantidad de suscriptores por tema</h4>
+                <ResponsiveContainer width={700} height={480}>
                   <BarChart data={this.state.data2}>
-                    <XAxis dataKey="topic_name" stroke="#fff"  textAnchor="start" tick={{ angle: 45, dy:5 }} height={100} interval={0}  />
+                    <XAxis dataKey="topic_name" stroke="#fff"  textAnchor="start" tick={{ angle: 45, dy:5 }} height={180} interval={0}  />
                     <YAxis stroke="#fff" />
                     <Tooltip cursor={false}/>
-                    <Bar dataKey="user_amount" fill="#73DB9A" name="Suscripciones" />
+                    <Bar dataKey="user_amount" fill="#73DB9A" name="Usuarios suscritos" />
                   </BarChart>
                 </ResponsiveContainer>
                 </div>

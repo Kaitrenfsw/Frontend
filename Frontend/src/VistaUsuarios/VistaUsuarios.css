@@ -30,3 +30,11 @@
   .ContenidoVistaConfiguracion .NavBar > li{ margin-bottom: 3em;}
   .ContenidoVistaConfiguracion #subtitulo-vista {margin-top: 0;}
 }
+
+
+/* Mensajes si no hay temas*/
+.MensajeSinTemas {text-align: center; color: #6B828F; margin-top: 5em; font-size: 1.1em; font-weight: bold;}
+.MensajeSinTemas > a {margin-top: 2em;}
+.MensajeSinTemas #EmptyBox { width: 10em; margin-bottom: 2em;}
+
+.subtitulo-vista{color: #EDEEEF; margin: 30px 10px; font-weight: bold;}
