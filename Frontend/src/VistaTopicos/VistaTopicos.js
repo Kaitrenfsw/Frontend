@@ -6,9 +6,6 @@ import './VistaTopicos.css';
 import {CSSTransition,TransitionGroup} from 'react-transition-group';
 
 class VistaTopicos extends Component{
-
-
-
 	state = {
 	      activo: 'Explorar temas',
         search: '',
@@ -16,20 +13,14 @@ class VistaTopicos extends Component{
         topicos: [],
         usrTopics: [],
 	 };
-
-
-
   HandleNavTabs(event,valor) {
     if(this.state.activo !== valor){
 	     this.setState({ activo: valor });
      }
   }
-
-
   HandleDetalleTopico(event,valor, valor2) {
 	  this.setState({ ver_detalle: valor, topico: valor2 });
   }
-
   HandleSearch(event) {
     if (true) {
        const target = event.target;
@@ -40,9 +31,7 @@ class VistaTopicos extends Component{
   HandleOrden(event,valor) {
        if(this.state.orden !== valor){ this.setState({ orden: valor }); }
    }
-
   render(){
-
     return (
       <div className="container-fluid ContenidoVistaTopicos">
         <h2 className = "titulo-vista">Temas de interés</h2>
@@ -50,7 +39,7 @@ class VistaTopicos extends Component{
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis temas","Explorar temas"]} />
           <Paginacion  search_text= {"busca un tema"} HandleSearch= {this.HandleSearch.bind(this)} HandleOrden= {this.HandleOrden.bind(this)} orden = {this.state.orden} options = {['Nombre','Coherencia']}/>
         </ul>
-        <TransitionGroup appear={true}>
+        <TransitionGroup appear={true} exit={false}>
            <CSSTransition
              key = {this.state.activo}
              timeout={500}

@@ -75,20 +75,8 @@ class TopicGraph extends Component{
   var svgHeight = this.state.h;
   var circleRadius = 15;
   var colores_nodos = ['#FF5C55','#ECB775', ' #87D597'];
-  var colores_arcos = ['#FF5C55','#ECB775', ' #87D597'];
+  var colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
 
-  if(false){
-    colores_nodos = ["#6B828F","#6B828F", "#6B828F"];
-    colores_arcos = ["#6B828F","#6B828F", "#6B828F"];
-  }
-  if(false){
-    colores_nodos = ["#ffbfc5","#fc6271", "#ff0018"];
-    colores_arcos = ["#ffbfc5","#fc6271", "#ff0018"];
-  }
-
-  if(true){
-      colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
-  }
 
   var dataset = {
       nodes: [
@@ -154,40 +142,28 @@ class TopicGraph extends Component{
 dataset.nodes[0].x = svgWidth/2;
 dataset.nodes[0].y = svgHeight/2;
 
-  var max = 0,min=10;
+  var max = 0,min=10000;
   for( i = 0; i < dataset.edges.length ; i++){
-
     if(dataset.edges[i].value>max) { max = dataset.edges[i].value}
     if(dataset.edges[i].value< min){min = dataset.edges[i].value}
   }
 
-  var interval = [Math.min(svgHeight,svgWidth)/10,Math.min(svgHeight,svgWidth)/3.7];
-
+  var interval = [Math.min(svgHeight,svgWidth)/7,Math.min(svgHeight,svgWidth)/2.7];
   for(i = 0; i < dataset.edges.length ; i++){
     const w = ((interval[1] - interval[0]) * (dataset.edges[i].value - min) / (max - min)) + interval[0];
     dataset.edges[i].value = interval[1] - w   + interval[0];
     dataset.nodes[i +1].value = interval[1] - w  + interval[0];
-
   }
-
-
   for(i = 0; i < dataset.nodes.length ; i++){
     dataset.nodes[i].index = i;
   }
-
-
-  for(i = 0; i < dataset.edges.length ; i++){
-
-  }
-
-
 
 
 
   var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d,i) {
               return i;
-          }).strength (function (d) {return d.value/400;}).distance(function (d) {return 1.3*d.value ;}))
+          }).strength (function (d) {return d.value/400;}).distance(function (d) {return Math.min(svgHeight,svgWidth)/3.5 ;}))
           .force("center", d3.forceCenter(svgWidth / 2,svgHeight / 2.4))
           .force('charge', function(d){
               var charge = -500;
@@ -229,21 +205,21 @@ dataset.nodes[0].y = svgHeight/2;
           .append("circle")
           .attr("r", function(d){
               var r;
-              if(true){r = interval[1]*5/d.value} else { r = 15}
+              if(true){r = interval[1]*4/d.value} else { r = 15}
               if (d.index === 0) r = 25;
               return r;
           })
 
             .style("stroke-width", function(d) { return 3; })
           .attr("stroke", function(d) {
-            if(d.value>=0.95 * interval[1]) return colores_nodos[0];
-            else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
+            if(d.value>=0.8 * interval[1]) return colores_nodos[0];
+            else if(d.value>=0.5 * interval[1]) return colores_nodos[1];
             else if(d.value>=0) return colores_nodos[2];
             else return '#5CACC4';
             })
           .attr('fill',function (d,i) {
-              if(d.value>=0.95 * interval[1]) return colores_nodos[0];
-              else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
+              if(d.value>=0.8 * interval[1]) return colores_nodos[0];
+              else if(d.value>=0.5 * interval[1]) return colores_nodos[1];
               else if(d.value>=0) return colores_nodos[2];
               else return'#5CACC4';
           })
@@ -267,16 +243,16 @@ dataset.nodes[0].y = svgHeight/2;
           .attr("dx", function(d) {
             if(d.index === (((dataset.nodes.length -1 )/4) +1)){ return 0;}
             else if(d.index === (((dataset.nodes.length -1 )*3/4) +1)){ return 0;}
-            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index !== 0){ return d.name.length*1.3;}
-            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index !== 0 ){ return d.name.length*1.3;}
-            else if(((dataset.nodes.length -1) /4) <= d.index && d.index < ((dataset.nodes.length -1) * 3/4) && d.index !== 0 ){ return -d.name.length*1.3;}
+            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index !== 0){ return d.name.length*2;}
+            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index !== 0 ){ return d.name.length*2;}
+            else if(((dataset.nodes.length -1) /4) <= d.index && d.index < ((dataset.nodes.length -1) * 3/4) && d.index !== 0 ){ return -d.name.length*2;}
             else{ return 0;}})
 
           .attr("dy", function(d) {
             if(d.index === 0 ){ return 45;}
-            if(d.index <= (dataset.nodes.length /2) ){ return (interval[1]*8/d.value)  + 10;}
-            else return ( - interval[1]*8.5/d.value);})
-          .style('fill', '#5C7582')
+            if(d.index <= (dataset.nodes.length /2) ){ return (interval[1]*10/d.value)  + 10;}
+            else return ( - interval[1]*7/d.value);})
+          .style('fill', '#cfd1d1') /*#5C7582*/
           .style('font-weight', 'bold')
           .style('font-size','0.9em')
           .text(function(d) {
@@ -352,7 +328,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return (interval[1]*5/d.value) *1.2})
+      .attr("r", function(d){return (interval[1]*4/d.value) *1.2})
 
       /*
           var matrix = this.getScreenCTM()
@@ -378,7 +354,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return interval[1]*5/d.value})
+      .attr("r", function(d){return interval[1]*4/d.value})
       div.style("opacity", 0);
     }
 
