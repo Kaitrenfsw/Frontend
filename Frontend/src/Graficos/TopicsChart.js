@@ -86,7 +86,7 @@ class TopicsChart extends Component{
                     <XAxis dataKey="topic_name" stroke="#fff"  textAnchor="start" tick={{ angle: 45, dy:5 }} height={100} interval={0}  />
                     <YAxis stroke="#fff" />
                     <Tooltip cursor={false}/>
-                    <Bar dataKey="count" fill="#73DB9A" name="Suscripciones" />
+                    <Bar dataKey="user_amount" fill="#73DB9A" name="Suscripciones" />
                   </BarChart>
                 </ResponsiveContainer>
                 </div>
