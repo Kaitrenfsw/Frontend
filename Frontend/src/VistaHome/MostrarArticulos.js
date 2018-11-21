@@ -67,6 +67,7 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
+          console.log(res.data);
           for(var i = 0; i<res.data.length;i++){
             res.data[i].index_lista_recomendados = i;
           }
@@ -316,8 +317,22 @@ class MostrarArticulos extends Component{
     };
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
-        if(this.props.activo === 'Recomendados'){this.OrdenarArticulosRecomendados(this.props.orden);}
-        if(this.props.activo === 'Guardados'){this.OrdenarArticulosGuardados(this.props.orden);}
+        if(this.props.orden === 'Fecha'){
+          if(this.props.activo === 'Recomendados'){
+            this.setState({recomendados_filtrados: this.state.recomendados});
+            this.OrdenarArticulosRecomendados(this.props.orden);}
+          if(this.props.activo === 'Guardados'){
+            this.setState({recomendados_guardados: this.state.guardados});
+            this.OrdenarArticulosGuardados(this.props.orden);
+          }
+        }
+        else {
+          if(this.props.activo === 'Recomendados'){
+            this.OrdenarArticulosRecomendados(this.props.orden);}
+          if(this.props.activo === 'Guardados'){
+            this.OrdenarArticulosGuardados(this.props.orden);
+          }
+        }
     }
     if (prevProps.search !== this.props.search) {
        if(this.props.activo === 'Recomendados'){this.FiltrarArticulosRecomendados(this.props.search);}
@@ -341,6 +356,16 @@ class MostrarArticulos extends Component{
         });
         return recomendados_ordenados;
     }
+    if(orden ==='Fuentes Favoritas'){
+        var recomendados = this.state.recomendados;
+        var new_recomendados = [];
+        for(var i =0; i<recomendados.length ; i++){
+          if(recomendados[i].fav_source ===1){
+            new_recomendados.push(recomendados[i]);
+          }
+        }
+        this.setState({recomendados_filtrados:new_recomendados});
+    }
     else {
       return recomendados_filtrados;
     }
@@ -361,6 +386,16 @@ class MostrarArticulos extends Component{
           guardados_filtrados: guardados_ordenados
         });
         return guardados_ordenados;
+    }
+    if(orden ==='Fuentes Favoritas'){
+        var guardados = this.state.guardados;
+        var new_guardados = [];
+        for(var i =0; i<guardados.length ; i++){
+          if(guardados[i].fav_source ===1){
+            new_guardados.push(guardados[i]);
+          }
+        }
+        this.setState({guardados_filtrados:new_guardados});
     }
     else {
       return guardados_filtrados;
@@ -476,7 +511,13 @@ class MostrarArticulos extends Component{
           </div>);
   }
   DesplegarRecomendados(articulo,i){
-    var topico1,topico2,topico3,span_guardar,span_like,span_dislike;
+    var topico1,topico2,topico3,span_guardar,span_like,span_dislike,span_favorite;
+    if(articulo.fav_source){
+        span_favorite =  <span className="glyphicon glyphicon-star active" ></span>
+    }
+    else {
+        span_favorite = null;
+    }
     if(articulo.saved){
         span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
     }
@@ -515,7 +556,7 @@ class MostrarArticulos extends Component{
             </div>
             <a href = {articulo.url} ><h4 className="titulo-articulo">{articulo.title}</h4></a>
             <div>
-            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name} <span className="glyphicon glyphicon-star active" ></span></h5></a>
+            <a href = {articulo.url} ><h5 className="fuente-articulo">Fuente: {articulo.source_name} {span_favorite}</h5></a>
             </div>
             <div className="div-resumen">
             <p className="resumen-articulo">{articulo.summary.substring(0, 150)}</p>

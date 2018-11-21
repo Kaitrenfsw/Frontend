@@ -128,7 +128,7 @@ li a:hover{ cursor: pointer; text-decoration: none; }
 .paginacion{margin-top: 20px;}
 .paginacion span > *{}
 .paginacion .dropdown,
-.paginacion .dropdown-toggle{ float: right; width: 90px; background-color: #1A252D; border-color: #1A252D; font-weight: bold; padding-right: 0; outline: none;  font-size: 13px;}
+.paginacion .dropdown-toggle{ float: right; width: 150px; background-color: #1A252D; border-color: #1A252D; font-weight: bold; padding-right: 0; outline: none;  font-size: 13px;}
 .dropdown-toggle.btn-primary:active,.dropdown-toggle.btn-primary:focus,.open>.dropdown-toggle.btn-primary:hover,.open>.dropdown-toggle.btn-primary:focus,
 .btn-primary.active, .btn-primary:active, .open>.dropdown-toggle.btn-primary,.open>.dropdown-toggle.btn-primary:active {align-items: center;background-color: #1A252D; border-color: #1A252D;outline: none;}
 .paginacion .caret {float: right;margin-top: 7px;}
@@ -140,6 +140,7 @@ li a:hover{ cursor: pointer; text-decoration: none; }
 .paginacion .dot { height:4px; width: 4px; background-color: red; border-radius: 50%; display: inline-block; margin-bottom: 5px; }
 .paginacion .dropdown-menu li:hover > a {color:black;}
 .paginacion .no-padding{padding: 0 !important;}
+
 
 /*NavTabs*/
 .NavTabs li{	text-align: center;padding-bottom: 8px;margin: 0;font-size: 0.85em !important; padding-top: 8px; border-radius: 1px; border-bottom: 1px solid rgba(88,114,124,0.8);}

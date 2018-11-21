@@ -45,7 +45,7 @@ class VistaHome extends Component{
         <h2 className = "titulo-vista">Artículos</h2>
         <ul className="ListasHome">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Recomendados","Guardados"]} />
-          <Paginacion search_text= {"busca un artículo"} orden = {this.state.orden}  HandleOrden= {this.HandleOrden.bind(this)} HandleSearch= {this.HandleSearch.bind(this)} options = {["Fecha","Fuentes"]} />
+          <Paginacion search_text= {"busca un artículo"} orden = {this.state.orden}  HandleOrden= {this.HandleOrden.bind(this)} HandleSearch= {this.HandleSearch.bind(this)} options = {["Fecha","Fuentes Favoritas"]} />
         </ul>
         <MostrarArticulos user={this.props.user} search = {this.state.search} orden = {this.state.orden} activo = {this.state.activo}/>
      </div>
