@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import SideNavBar from '../SideNavBar';
 import VistaCuentas from '../VistaCuentas/VistaCuentas';
+import Estadisticas from './Estadisticas'
 import {
   CSSTransition,
   TransitionGroup,
@@ -16,7 +17,7 @@ class VistaUsuarios extends Component{
   }
 
   state = {
-    activo:'Estadísticas'
+    activo:'Cuentas'
   }
 
 
@@ -34,7 +35,7 @@ class VistaUsuarios extends Component{
       return <VistaCuentas user = {this.props.user}/>
     }
     if(activo === 'Estadísticas'){
-      return  <VistaCuentas user = {this.props.user}/>;
+      return  <Estadisticas user = {this.props.user}/>;
     }
 
   }
@@ -46,7 +47,7 @@ class VistaUsuarios extends Component{
   render(){
 
     var activo = this.state.activo;
-    var options = ['Estadísticas', 'Cuentas'];
+    var options = ['Cuentas','Estadísticas'];
     return (
       <div className = "container-fluid ContenidoVistaUsuarios">
       <h2 className="titulo-vista" >Configuración</h2>
