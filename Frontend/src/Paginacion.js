@@ -8,6 +8,8 @@ class PaginacionTopicos extends Component{
 
 
   render(){
+   var orden_text = "Ordenar por";
+   if(this.props.orden_text){  orden_text = "Mostrar por";}
    var orden = this.props.orden;
    var options = this.props.options;
    var options_html = [];
@@ -34,7 +36,7 @@ class PaginacionTopicos extends Component{
                   {options_html}
                 </ul>
               </div>
-                <h6  id="ordenar-por">Mostrar por</h6>
+                <h6  id="ordenar-por">{orden_text}</h6>
               </span>
             </div>
           </div>

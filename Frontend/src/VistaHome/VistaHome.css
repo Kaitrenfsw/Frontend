@@ -9,6 +9,8 @@
 .ContenidoVistaHome .col-lg-3{ padding: 0; }
 .ContenidoVistaHome {position: absolute;left: 0;right: 0;}
 .ContenidoVistaHome .row{ margin-left:0; margin-right: 0;}
+.ContenidoVistaHome .paginacion .dropdown,
+.ContenidoVistaHome .paginacion .dropdown-toggle{ width: 140px;}
 
 
 
@@ -23,8 +25,8 @@
 .ContenidoArticulos .margin-bottom{margin-bottom: 30px;}
 .ContenidoArticulos .Div-Articulo{ float: left;height: 22em; background-color: #25353C; margin:0.916%; overflow-y: hidden; text-overflow: ellipsis; width: 31.5%; position:relative; margin-top: 0; margin-bottom: 20px;}
 .ContenidoArticulos img {width:100%; object-fit: cover; height: 100%;}
-.ContenidoArticulos .titulo-articulo {width: 100%;margin-bottom: 0.526em;font-weight: bold;color: #EDEEEF;  font-size: 1.1875em; padding-left: 10px; padding-right: 10px; margin-top:2.5em;  overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2; /* number of lines to show */ line-height: 22px;        /* fallback */ max-height: 44px;}
-.ContenidoArticulos .fuente-articulo {margin-bottom: 0.714em;color: #627E89;padding-left: 10px; padding-right: 10px; font-weight: bold; font-style:italic; font-size: 0.875em;}
+.ContenidoArticulos .titulo-articulo {width: 100%;font-weight: bold;color: #EDEEEF;  font-size: 1.1875em; padding-left: 10px; padding-right: 10px; margin-top:2.5em;  overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2; /* number of lines to show */ line-height: 22px;        /* fallback */ max-height: 44px;}
+.ContenidoArticulos .fuente-articulo {margin-bottom: 0.714em;color: #627E89;padding-left: 10px; padding-right: 10px; font-weight: bold; font-style:italic; font-size: 0.875em;display: inline-block;}
 .ContenidoArticulos .resumen-articulo{color: #EDEEEF; padding-left: 10px; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.1em;        /* fallback */ max-height: 3.2em;}
 .resumen-articulo:after {content: '...'; margin-left: 0em;}
 .ContenidoArticulos .Blue {float:left; background-color: #16a3aa; border-radius: 10px;width: max-content; height: 1.5625em; margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
@@ -35,7 +37,7 @@
 .div-image{height: 38%;}
 .wrap-topicos {margin-top: 0.8em;}
 .ContenidoArticulos .glyphicon-star.active{color:#FEDD34;border: 0;}
-.ContenidoArticulos .glyphicon-star{margin-left: 0.4em;font-size: 1em;color:#EDEEEF; display: inline;}
+.ContenidoArticulos .glyphicon-star{margin-left: -5px;font-size: 1.2em;color:#EDEEEF; display: inline; top:0.15em;}
 
 
 /* Botones like dislike y guardar*/

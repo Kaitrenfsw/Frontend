@@ -121,7 +121,7 @@ class WordCloud extends Component{
                      .data(words)
                      .enter().append("text")
 
-                     .style("font-size", function(d) { return d.size })
+                     .style("font-size", function(d) { return d.size +"px" })
                      .style("fill", function(d, i) { return color(i); })
                      .attr("transform", function(d) {
                          return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";

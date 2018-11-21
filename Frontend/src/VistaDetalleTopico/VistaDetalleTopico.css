@@ -47,7 +47,9 @@
   clear: both;
   font-weight: bold;
 }
-.box-text { color:#cfd1d1; }
+.boxLeyenda {width: 15em;}
+.TextoLeyenda { color:#cfd1d1; font-weight: bold; font-size: 1.1em;}
+.box-text { color:#cfd1d1; font-weight: bold;font-size: 1.1em;}
 
 .red { background-color: #FF5C55; border-radius: 17px; }
 
