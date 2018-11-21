@@ -262,7 +262,7 @@ class MostrarArticulos extends Component{
            if(guardados[i].voted ===1){
              guardados[i].up_votes = guardados[i].up_votes -1;
            }
-           guardados[i].voted=0;
+           guardados[i].voted=2;
            guardados[i].down_votes = guardados[i].down_votes +1;
         }
       }
@@ -271,7 +271,7 @@ class MostrarArticulos extends Component{
            if(recomendados[i].voted ===1){
              recomendados[i].up_votes = recomendados[i].up_votes -1;
            }
-           recomendados[i].voted =0;
+           recomendados[i].voted =2;
            recomendados[i].down_votes = recomendados[i].down_votes +1;
         }
       }
@@ -514,7 +514,7 @@ class MostrarArticulos extends Component{
                   <p className="likes_count">{articulo.up_votes}</p>
                   </div>
       }
-      if(articulo.voted ===0){
+      if(articulo.voted ===2){
           div_dislike = <div className="div-thumbs-down active">
                       <span className="glyphicon glyphicon-thumbs-down active" ></span>
                       <p className="dislikes_count">{articulo.down_votes}</p>
@@ -575,7 +575,7 @@ class MostrarArticulos extends Component{
                 <p className="likes_count">{articulo.up_votes}</p>
                 </div>
     }
-    if(articulo.voted ===0){
+    if(articulo.voted ===2){
         div_dislike = <div className="div-thumbs-down active">
                     <span className="glyphicon glyphicon-thumbs-down active" ></span>
                     <p className="dislikes_count">{articulo.down_votes}</p>
