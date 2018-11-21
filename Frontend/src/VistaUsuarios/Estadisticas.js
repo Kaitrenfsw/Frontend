@@ -12,7 +12,7 @@ class Estadisticas extends Component{
           <h3 id ="subtitulo-vista">Estadísticas</h3>
           <div className="topics-chart-container">
 
-          <TopicsChart/>
+          <TopicsChart user = {this.props.user}/>
 
           </div>
           </div>

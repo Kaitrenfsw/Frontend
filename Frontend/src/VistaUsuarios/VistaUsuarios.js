@@ -50,7 +50,7 @@ class VistaUsuarios extends Component{
     var options = ['Cuentas','Estadísticas'];
     return (
       <div className = "container-fluid ContenidoVistaUsuarios">
-      <h2 className="titulo-vista" >Configuración</h2>
+      <h2 className="titulo-vista" >Usuarios</h2>
         <div className="row row-no-padding no-margin">
           <div className="col-sm-2 no-padding">
           <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  user_type  = {this.props.user.permissions[0].group} activo = {activo} options={options}/>
