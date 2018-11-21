@@ -58,7 +58,7 @@ class VistaDetalleTopico extends Component{
                status: response.status
            })
          ).then(res => {
-           var order_relations = [];
+
             /*
 
            for (var i = res.data.relations.length -1; i>=0;i--) {
@@ -71,21 +71,7 @@ class VistaDetalleTopico extends Component{
              order_relations.push(res.data.relations[res.data.relations.length-i-1]);
            }
           */
-           order_relations.push(res.data.relations[0]);
-           order_relations.push(res.data.relations[11]);
-           order_relations.push(res.data.relations[3]);
-           order_relations.push(res.data.relations[6]);
-           order_relations.push(res.data.relations[1]);
-           order_relations.push(res.data.relations[10]);
-           order_relations.push(res.data.relations[4]);
-           order_relations.push(res.data.relations[7]);
-           order_relations.push(res.data.relations[2]);
-           order_relations.push(res.data.relations[9]);
-           order_relations.push(res.data.relations[5]);
-           order_relations.push(res.data.relations[8]);
 
-
-           res.data.relations  = order_relations;
 
            var GraphFormatData = {nodes:[], edges:[]}
            GraphFormatData.nodes.push({name:res.data.topic_name,"id":res.data.topic_id});
@@ -213,15 +199,15 @@ class VistaDetalleTopico extends Component{
              {this.state.esta_suscrito && <a   onClick = {this.handleDesuscripcion.bind(this)}className="gradient-button gradient-button-2 unsub-button">Suscrito</a>}
              {!this.state.esta_suscrito && <a   onClick = {this.handleSubscripcion.bind(this)} className="gradient-button gradient-button-1 sub-button">Suscribirme</a>}
              <SeccionGraficos topicId={this.props.match.params.id} key = {this.state.topico[0].id}  words = {this.state.topico[0].keyword_topic}/>
-             <div className="col-md-offset-1 col-md-4  col-md-push-7  no-padding graph-div">
-              <h4 id="subtitulo-vista">Temas relacionados <span data-tip data-for='LeyendaGrafo' className="glyphicon glyphicon-question-sign"></span></h4>
-            <TopicGraph dataset={this.state.dataGrafo}  />
-            </div>
-            <div className="col-md-7  col-md-pull-5 no-padding">
+            <div className="noticas-div">
              <h4 id="subtitulo-vista">Últimos Artículos</h4>
               <SeccionNoticias key = {"topic" + this.state.topico[0].id} id = {this.state.topico[0].id} user = {this.props.user} search = {""}/>
              </div>
-             <ReactTooltip id='LeyendaGrafo' place='right' type = "light">
+              <div className="graph-div">
+               <h4 id="subtitulo-vista">Temas relacionados <span data-tip data-for='LeyendaGrafo' className="glyphicon glyphicon-question-sign"></span></h4>
+             <TopicGraph dataset={this.state.dataGrafo}  />
+             </div>
+             <ReactTooltip id='LeyendaGrafo' place='right'>
                 <div className="box-text">
                   <div className='box green'></div> Relación fuerte</div><br/>
                 <div className="box-text">

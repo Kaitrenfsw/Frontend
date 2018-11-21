@@ -27,13 +27,15 @@
 .ContenidoArticulos .fuente-articulo {margin-bottom: 0.714em;color: #627E89;padding-left: 10px; padding-right: 10px; font-weight: bold; font-style:italic; font-size: 0.875em;}
 .ContenidoArticulos .resumen-articulo{color: #EDEEEF; padding-left: 10px; padding-right: 10px; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; /* number of lines to show */ line-height: 1.1em;        /* fallback */ max-height: 3.2em;}
 .resumen-articulo:after {content: '...'; margin-left: 0em;}
-.ContenidoArticulos .Blue {float:left; background-color: #46ADC1; border-radius: 10px;width: max-content; height: 1.5625em; margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
-.ContenidoArticulos .Green {float:left; background-color: #80CF9F; border-radius: 10px;width: max-content; height: 1.5625em; margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
-.ContenidoArticulos .Orange {float:left; background-color: #FFB061; border-radius: 10px;width: max-content; height: 1.5625em;   margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
-.Div-Topico h5 {color: white;font-style:normal; font-size:0.74em; padding-left: 10px; padding-right: 10px; font-weight: bold; }
+.ContenidoArticulos .Blue {float:left; background-color: #16a3aa; border-radius: 10px;width: max-content; height: 1.5625em; margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
+.ContenidoArticulos .Green {float:left; background-color: #4a9e7c; border-radius: 10px;width: max-content; height: 1.5625em; margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
+.ContenidoArticulos .Orange {float:left; background-color: #f7934c; border-radius: 10px;width: max-content; height: 1.5625em;   margin-bottom: 0.8em; margin-left: 10px; display: flex; align-items: center;}
+.Div-Topico h5 {color: white;font-style:normal; font-size:0.76em; padding-left: 10px; padding-right: 10px; font-weight: bold; }
 .texto-cargando{ text-align: center;color: white}
 .div-image{height: 38%;}
 .wrap-topicos {margin-top: 0.8em;}
+.ContenidoArticulos .glyphicon-star.active{color:#FEDD34;border: 0;}
+.ContenidoArticulos .glyphicon-star{margin-left: 0.4em;font-size: 1em;color:#EDEEEF; display: inline;}
 
 
 /* Botones like dislike y guardar*/

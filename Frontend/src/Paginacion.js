@@ -34,7 +34,7 @@ class PaginacionTopicos extends Component{
                   {options_html}
                 </ul>
               </div>
-                <h6  id="ordenar-por">Ordenar por</h6>
+                <h6  id="ordenar-por">Mostrar por</h6>
               </span>
             </div>
           </div>

@@ -181,7 +181,6 @@ class Datos extends Component{
 
 
   render(){
-    var user_type = this.props.user.permissions[0].group;
     var bloquear = "Bloquear";
     if(this.state.activa===false) {bloquear="Desbloquear"}
     return (
