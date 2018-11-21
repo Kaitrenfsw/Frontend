@@ -8,6 +8,7 @@ import CreatableSelect from 'react-select';
 import { toast } from 'react-toastify';
 import AutosizeInput from 'react-input-autosize';
 import config from '../config.js';
+import EmptyBox from '../Assets/EmptyBox.png';
 
 
 
@@ -253,6 +254,10 @@ class VistaDashboard extends Component{
 
 
   render(){
+		var MensajeSinGraficos =   <div className="MensajeSinGraficos">
+				<img id = "EmptyBox" src={EmptyBox} alt="EmptyBox" />
+				<p>Añade gráficos haciendo click en el modo editar.</p>
+			</div>
 		var modo = this.state.modo;
 		var opciones_modo_edicion = null;
     if(modo === "modo-edicion"){
@@ -275,6 +280,7 @@ class VistaDashboard extends Component{
 			  <div className= "div-titulo">
         <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
         </div>
+				{(this.state.user_dashboard.graphs_selected.length === 0) && MensajeSinGraficos }
 				{opciones_modo_edicion}
 				{this.state.user_dashboard.graphs_selected.map((grafico,i,arr) => (
 				 this.DesplegarGrafico(grafico,i)

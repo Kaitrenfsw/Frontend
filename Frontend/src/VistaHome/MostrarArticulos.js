@@ -190,11 +190,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=1;
+           guardados[i].up_vote = guardados[i].up_vote +1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =1;
+           recomendados[i].up_vote = recomendados[i].up_vote +1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -220,11 +222,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=0;
+           guardados[i].up_vote = guardados[i].up_vote -1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =0;
+           recomendados[i].up_vote = recomendados[i].up_vote -1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -250,11 +254,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=2;
+           guardados[i].down_vote = guardados[i].down_vote +1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =2;
+           recomendados[i].down_vote = recomendados[i].down_vote +1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -280,11 +286,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=0;
+           guardados[i].down_vote = guardados[i].down_vote -1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =0;
+           recomendados[i].down_vote = recomendados[i].down_vote -1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -472,7 +480,7 @@ class MostrarArticulos extends Component{
     }
   }
   DesplegarGuardados(articulo,i){
-    var topico1,topico2,topico3,span_like,span_dislike,span_favorite;
+    var topico1,topico2,topico3,div_like,div_dislike,span_favorite;
       if(articulo.fav_source){
           span_favorite =  <span className="glyphicon glyphicon-star active" ></span>
       }
@@ -483,23 +491,36 @@ class MostrarArticulos extends Component{
       if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
       if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
       if(articulo.voted ===1){
-          span_like = <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+          div_like = <div className="div-thumbs-up active">
+                     <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+                    <p className="likes_count">{articulo.up_vote}</p>
+                    </div>
       }
       else{
-          span_like = <span className="glyphicon glyphicon-thumbs-up"  onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+        div_like = <div className="div-thumbs-up">
+                   <span className="glyphicon glyphicon-thumbs-up" onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+                  <p className="likes_count">{articulo.up_vote}</p>
+                  </div>
       }
       if(articulo.voted ===2){
-          span_dislike = <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+          div_dislike = <div className="div-thumbs-down active">
+                      <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+                      <p className="dislikes_count">{articulo.down_vote}</p>
+                      </div>
+
       }
       else{
-          span_dislike = <span className="glyphicon glyphicon-thumbs-down"  onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
+          div_dislike =  <div className="div-thumbs-down">
+                        <span className="glyphicon glyphicon-thumbs-down" onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
+                        <p className="dislikes_count">{articulo.down_vote}</p>
+                        </div>
       }
             return(
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
              <span className="glyphicon glyphicon glyphicon-bookmark active"  onClick= { (event) => this.HandleRemoverGuardado(event,articulo.id)}></span>
-             {span_like}
-             {span_dislike}
+             {div_like}
+             {div_dislike}
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
@@ -517,7 +538,7 @@ class MostrarArticulos extends Component{
           </div>);
   }
   DesplegarRecomendados(articulo,i){
-    var topico1,topico2,topico3,span_guardar,span_like,span_dislike,span_favorite;
+    var topico1,topico2,topico3,span_guardar,div_like,div_dislike,span_favorite;
     if(articulo.fav_source){
         span_favorite =  <span className="glyphicon glyphicon-star active" ></span>
     }
@@ -531,16 +552,29 @@ class MostrarArticulos extends Component{
         span_guardar =  <span className="glyphicon glyphicon glyphicon-bookmark"  onClick= { (event) => this.HandleGuardarNoticia(event,articulo,i)}></span>
     }
     if(articulo.voted ===1){
-        span_like = <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+        div_like = <div className="div-thumbs-up active">
+                   <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
+                  <p className="likes_count">{articulo.up_vote}</p>
+                  </div>
     }
     else{
-        span_like = <span className="glyphicon glyphicon-thumbs-up"  onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+      div_like = <div className="div-thumbs-up">
+                 <span className="glyphicon glyphicon-thumbs-up" onClick={(event) => {this.HandleLike(event,articulo)}}></span>
+                <p className="likes_count">{articulo.up_vote}</p>
+                </div>
     }
     if(articulo.voted ===2){
-        span_dislike = <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+        div_dislike = <div className="div-thumbs-down active">
+                    <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
+                    <p className="dislikes_count">{articulo.down_vote}</p>
+                    </div>
+
     }
     else{
-        span_dislike = <span className="glyphicon glyphicon-thumbs-down"  onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
+        div_dislike =  <div className="div-thumbs-down">
+                      <span className="glyphicon glyphicon-thumbs-down" onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
+                      <p className="dislikes_count">{articulo.down_vote}</p>
+                      </div>
     }
     if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
     if(articulo.topics[1]) topico2 = <div className="Div-Topico Green"><h5>{articulo.topics[1].topic_name}</h5></div>
@@ -549,8 +583,8 @@ class MostrarArticulos extends Component{
             <div key = {articulo.id} className="Div-Articulo">
             <div className="botones">
              {span_guardar}
-             {span_like}
-             {span_dislike}
+             {div_like}
+             {div_dislike}
             </div>
             <div className="div-image">
             <img src={articulo.main_image} alt={articulo.source_name} />
