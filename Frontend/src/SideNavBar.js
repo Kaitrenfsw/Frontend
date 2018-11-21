@@ -4,6 +4,26 @@ import React, { Component } from 'react'
 class SideNavBar extends Component{
 
 
+  renderTitle(val){
+    switch (val) {
+      case "Contraseña":
+        return "Cambiar Contraseña";
+        break;
+
+        case "Registro":
+          return "Registro de actividad"
+          break;
+
+        case "Suscripciones":
+          return "Temas Suscritos"
+          break;
+
+      default:
+        return val;
+
+    }
+  }
+
   render(){
 
 
@@ -12,7 +32,7 @@ class SideNavBar extends Component{
     var options_html = [];
     for(var i=0;i<options.length; i++ ){
         const val = options[i];
-        options_html.push(  <li key = {val} className={"is " + ((activo === val)? 'active' : 'inactive')}><a   onClick={ (event) => this.props.HandleNavBar(event,val)}  >{val}</a></li>);
+        options_html.push(  <li key = {val} className={"is " + ((activo === val)? 'active' : 'inactive')}><a   onClick={ (event) => this.props.HandleNavBar(event,val)}  >{this.renderTitle(val)}</a></li>);
     }
     return (
                 <div className="NavBar">
