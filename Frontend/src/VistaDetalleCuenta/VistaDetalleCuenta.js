@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import SideNavBar from '../SideNavBar';
 import Datos from './Datos';
 import Contrasena from './Contrasena';
+import Logs from './Logs';
+import TemasUsuario from './TemasUsuario';
 import {CSSTransition,TransitionGroup,} from 'react-transition-group';
 import './VistaDetalleCuenta.css';
 import left_icon from '../Assets/left.png';
@@ -12,7 +14,7 @@ class VistaDetalleCuenta extends Component{
 
 
 	state = {
-	      activo: 'Contraseña'
+	      activo: 'Suscripciones'
 	 };
 
 	 componentDidMount(){
@@ -32,6 +34,12 @@ class VistaDetalleCuenta extends Component{
     if(activo === 'Datos'){
       return  <Datos  id = {this.props.match.params.id}user = {this.props.user}/>
     }
+		if(activo === 'Suscripciones'){
+			return  <TemasUsuario  id = {this.props.match.params.id}user = {this.props.user}/>
+		}
+		if(activo === 'Registro'){
+			return  <Logs  id = {this.props.match.params.id}user = {this.props.user}/>
+		}
   }
 
 
@@ -39,14 +47,15 @@ class VistaDetalleCuenta extends Component{
 
 
   render(){
+		console.log(this.props.match);
 		var options;
 		var activo = this.state.activo;
 		if(this.props.user.permissions[0].group === "admin") {options = ["Datos"]; activo = 'Datos'};
-		if(this.props.user.permissions[0].group === "owner") {options = ["Contraseña"]; activo = 'Contraseña'};
+		if(this.props.user.permissions[0].group === "owner") {options = ["Suscripciones","Registro","Contraseña"]; };
     return (
       <div className = "container-fluid ContenidoVistaDetalleCuenta">
         <NavLink to='/usuarios'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
-        <h2 className="titulo-vista no-margin-top" >Cuenta</h2>
+        <h2 className="titulo-vista no-margin-top" >Cuenta {this.props.match.params.email}</h2>
         <div className="row row-no-padding">
             <div className="col-lg-2 no-padding">
               <SideNavBar HandleNavBar= {this.HandleNavBar.bind(this)}  tipo_usuario  = {1} activo = {activo} options={options}/>
@@ -60,7 +69,7 @@ class VistaDetalleCuenta extends Component{
                            >
                {this.RenderContent(this.state.activo)}
                </CSSTransition>
-             </TransitionGroup>)
+             </TransitionGroup>
             </div>
           </div>
      </div>
