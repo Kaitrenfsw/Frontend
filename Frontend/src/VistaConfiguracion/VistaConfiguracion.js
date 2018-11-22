@@ -44,7 +44,6 @@ class VistaConfiguracion extends Component{
     if(activo === 'Fuentes'){
       return <Fuentes user = {this.props.user}/>
     }
-
   }
 
 
