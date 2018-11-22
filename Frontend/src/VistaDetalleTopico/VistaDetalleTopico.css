@@ -39,7 +39,7 @@
 .ContenidoVistaDetalleTopico .glyphicon-question-sign:hover {  border-color:#FEDD34;color: #FEDD34;}
 
 
-.box {
+.ContenidoVistaDetalleTopico .box {
   float: left;
   height: 20px;
   width: 20px;
@@ -47,9 +47,9 @@
   clear: both;
   font-weight: bold;
 }
-.boxLeyenda {width: 15em;}
-.TextoLeyenda { color:#cfd1d1; font-weight: bold; font-size: 1.1em;}
-.box-text { color:#cfd1d1; font-weight: bold;font-size: 1.1em;}
+.ContenidoVistaDetalleTopico .boxLeyenda {width: 15em;}
+.ContenidoVistaDetalleTopico  .TextoLeyenda { color:#cfd1d1; font-weight: bold; font-size: 1.1em;}
+.ContenidoVistaDetalleTopico  .box-text { color:#cfd1d1; font-weight: bold;font-size: 1.1em;}
 
 .red { background-color: #FF5C55; border-radius: 17px; }
 

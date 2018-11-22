@@ -207,7 +207,7 @@ class VistaDetalleTopico extends Component{
                <h4 id="subtitulo-vista">Temas relacionados <span data-tip data-for='LeyendaGrafo' className="glyphicon glyphicon-question-sign"></span></h4>
              <TopicGraph dataset={this.state.dataGrafo}  />
              </div>
-             <ReactTooltip id='LeyendaGrafo' place='right'>
+             <ReactTooltip effect = "solid"  id='LeyendaGrafo' place='right'>
                 <div className="box-text">
                   <div className='box green'></div> Relación fuerte</div><br/>
                 <div className="box-text">

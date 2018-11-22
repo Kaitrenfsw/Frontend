@@ -95,12 +95,49 @@ class Fuentes extends Component{
     .catch(function(error) {
     });
   }
+  fetchFuentesAdmin(){
+    fetch("http://"+ config.base_url +":" + config.port + "/api/admin/sources/?user_id=" + this.props.user.id, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + this.props.user.token
+        },
+        body: null
+  }).then((response) => {
+      if(response.ok) {
+        response.json().then(data => ({
+              data: data,
+              status: response.status
+          })
+        ).then(res => {
+          console.log(res.data);
+          this.setState({fuentes:res.data,isLoading:false});
+        });
+
+      } else {
+      }
+    })
+    .catch(function(error) {
+    });
+  }
  componentDidMount(){
-   this.fetchFuentes();
+   if(this.props.user.permissions[0].group==="admin"){
+       this.fetchFuentesAdmin();
+   }
+   else{
+       this.fetchFuentes();
+   }
  }
   MostrarFuentes(fuente){
-     var span_favorite;
+     var span_favorite,div_dislike;
      var nombre_fuente = fuente.name;
+     if(this.props.user.permissions[0].group==='admin'){
+       div_dislike =  <div className="div-thumbs-down">
+                     <span className="glyphicon glyphicon-thumbs-down"></span>
+                     <p className="dislikes_count">{fuente.down_votes}</p>
+                     </div>;
+     }
      if(nombre_fuente.length>70){
         nombre_fuente = nombre_fuente.substring(0, 70) + "...";
      }
@@ -113,6 +150,7 @@ class Fuentes extends Component{
       return(
           <div key = {fuente.id} className="Div-Fuente">
           {span_favorite}
+          {div_dislike}
           <h4 className="nombre-fuente">{nombre_fuente}</h4>
           <p className="url-fuente">{fuente.site}</p>
           </div>
