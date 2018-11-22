@@ -192,7 +192,7 @@ class VistaDashboard extends Component{
 			if(modo === 'modo-edicion'){
 				tooltip =   <ReactTooltip effect = "solid"  id={'LeyendaGrafico' + graph_number} place='right'>
 						<div className = "boxLeyenda">
-						 <p className = "TextoLeyenda"> Gráfico que muestra que tanta coherencia y frecuencia acumulada de publicaciones tiene un tema, en donde aquellos temas más coherentes se muestran más la derecha, mientras que aquellos temas con más frecuencia acumulada se muestran más arriba. </p>
+						 <p className = "TextoLeyenda"> Gráfico que muestra que tanta coherencia y frecuencia acumulada de publicaciones tiene tuvo un Tema el último mes, en donde aquellos temas más coherentes se muestran más la derecha, mientras que aquellos temas con más frecuencia acumulada se muestran más arriba. </p>
 						</div>
 					 </ReactTooltip>
 			}
