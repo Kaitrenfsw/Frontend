@@ -2,10 +2,18 @@ import React, { Component } from 'react'
 import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
 import config from '../config.js';
+import moment from  'moment';
+import 'moment/locale/es'
 
 class Logs extends Component{
 
   constructor(props){
+    moment.locale('es',{
+      months: 'Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Diciembre'.split('_'),
+      monthsShort: 'Enero._Feb._Mar_Abr._May_Jun_Jul._Ago_Sept._Oct._Nov._Dec.'.split('_'),
+      weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
+      weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
+      weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')})
     console.log(props);
       super(props);
       this.state={
@@ -18,9 +26,9 @@ class Logs extends Component{
   }
 
 
-/*
+
   componentDidMount(){
-    fetch("http://"+  config.base_url + ":" + config.port + "/api/users/" + this.props.id, {
+    fetch("http://"+  config.base_url + ":" + config.port + "/api/idms_logs?user_id=" + this.props.id, {
         method: 'GET',
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -36,7 +44,8 @@ class Logs extends Component{
               log: response.status
           })
         ).then(res => {
-          this.setState({logins:res.data.logins,subscriptions:res.data.subscriptions,desubs:res.data.desubs})
+          console.log(res.data);
+          this.setState({logins:res.data.logins,subscriptions:res.data.subscriptions,desubs:res.data.unsubscriptions})
         });
 
       } else {
@@ -44,30 +53,32 @@ class Logs extends Component{
     })
     .catch(function(error) {
     });
-  }*/
+  }
 
   addRows(tipo){
     var out=[];
     var row;
+    var dateInputFormat="YYYY-MM-DD[T]HH:mm:ss";
+    var dateOutputFormat="DD/MMMM/YYYY HH:mm:ss";
 
     if (tipo==="logs") {
       for (row in this.state.logins){
         console.log(this.state.logins[row]);
-        out.push(<tr><td>{this.state.logins[row].date}</td></tr>)
+        out.push(<tr><td>{moment(this.state.logins[row].inserted_at,dateInputFormat).subtract(3, 'hours').format(dateOutputFormat)}</td></tr>)
       }
 
     }
     else if(tipo ==="subscriptions") {
       for (row in this.state.subscriptions){
-        console.log(this.state.subscriptions[row]);
-        out.push(<tr><td>{this.state.subscriptions[row].topic_name}</td><td>{this.state.subscriptions[row].date}</td></tr>)
+        //console.log(this.state.subscriptions[row]);
+        out.push(<tr><td>{this.state.subscriptions[row].topic_name}</td><td>{moment(this.state.subscriptions[row].inserted_at,dateInputFormat).subtract(3, 'hours').format(dateOutputFormat)}</td></tr>)
       }
 
     }
     else if (tipo ==="desubs") {
       for (row in this.state.desubs){
-        console.log(this.state.desubs[row]);
-        out.push(<tr><td>{this.state.desubs[row].topic_name}</td><td>{this.state.desubs[row].date}</td></tr>)
+        //console.log(this.state.desubs[row]);
+        out.push(<tr><td>{this.state.desubs[row].topic_name}</td><td>{moment(this.state.desubs[row].inserted_at,dateInputFormat).subtract(3, 'hours').format(dateOutputFormat)}</td></tr>)
       }
 
     }
