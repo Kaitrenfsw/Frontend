@@ -6,3 +6,14 @@
 .ContenidoVistaDetalleCuenta { position: absolute;left: 0; right: 0;}
 .ContenidoVistaDetalleCuenta #volver{color: #6B828F; font-weight: bold; margin: 0; margin-top: 0px; margin-bottom: 5px; cursor: pointer;}
 .ContenidoVistaDetalleCuenta #left-icon{margin-bottom: 2px;}
+
+.Logs .subtitulo-logs{color: #EDEEEF; margin: 30px 10px; font-weight: bold;}
+.Logs {color: #fff}
+.Logs .table-hover tbody tr:hover td, .Logs .table-hover tbody tr:hover th {
+  background-color: #25353c!important;
+}
+.Logs .table-hover tbody tr td, .Logs .table-hover tbody tr th {
+  background-color: #23313A !important;
+}
+.Logs .table td{border: 0px}
+.Logs .table thead{    border-bottom: 3px solid #6C8491;}

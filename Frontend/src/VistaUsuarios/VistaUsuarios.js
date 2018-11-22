@@ -46,7 +46,7 @@ class VistaUsuarios extends Component{
   render(){
 
     var activo = this.state.activo;
-    var options = ['Estadísticas', 'Cuentas'];
+    var options = ['Cuentas','Estadísticas'];
     return (
       <div className = "container-fluid ContenidoVistaUsuarios">
       <h2 className="titulo-vista" >Configuración</h2>
