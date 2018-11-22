@@ -20,7 +20,7 @@
 /*Sección Articulos*/
 
 
-.botones{ background:linear-gradient(to right, rgba(0,0,0,0.001) 0%,rgba(0,0,0,0.18) 51%, rgba(0,0,0,0.6) 100%);height: 38%; width:70px;  position: absolute; right: 0;}
+.botones{ background:linear-gradient(to right, rgba(0,0,0,0.001) 0%,rgba(0,0,0,0.25) 51%, rgba(0,0,0,0.6) 100%);height: 38%; width:70px;  position: absolute; right: 0;}
 
 .ContenidoArticulos .margin-bottom{margin-bottom: 30px;}
 .ContenidoArticulos .Div-Articulo{ float: left;height: 22em; background-color: #25353C; margin:0.916%; overflow-y: hidden; text-overflow: ellipsis; width: 31.5%; position:relative; margin-top: 0; margin-bottom: 20px;}
@@ -39,6 +39,7 @@
 .ContenidoArticulos .glyphicon-star.active{color:#FEDD34;border: 0;}
 .ContenidoArticulos .glyphicon-star{margin-left: -5px;font-size: 1.2em;color:#EDEEEF; display: inline; top:0.15em;}
 .ContenidoArticulos #image_recomendados {background-image:url('../Assets/kom2.svg');   text-indent: -10000px; background-repeat: no-repeat;  background-size: 100% 100%;}
+.ContenidoArticulos #image_guardados {background-image:url('../Assets/kom2.svg');   text-indent: -10000px; background-repeat: no-repeat;  background-size: 100% 100%;}
 
 
 
