@@ -72,12 +72,12 @@ class MostrarArticulos extends Component{
             res.data[i].index_lista_recomendados = i;
           }
           this.setState({recomendados_filtrados:res.data,isLoadingRecomendados:false,recomendados:res.data });
-          this.OrdenarArticulosRecomendados(this.props.orden);
-          if(this.state.recomendados_filtrados.length > 15){
+          var recomendados = this.OrdenarArticulosRecomendados(this.props.orden, res.data);
+          if(recomendados.length > 15){
             this.setState({indexRecomendados: 15, hasMoreRecomendados:true});
           }
           else{
-              this.setState({indexRecomendados: this.state.recomendados_filtrados.length, hasMoreRecomendados:false});
+              this.setState({indexRecomendados: recomendados.length, hasMoreRecomendados:false});
           }
         });
       } else {
@@ -104,12 +104,12 @@ class MostrarArticulos extends Component{
           })
         ).then(res => {
           this.setState({guardados_filtrados:res.data,isLoadingGuardados:false,guardados:res.data });
-          this.OrdenarArticulosGuardados(this.props.orden);
-          if(this.state.guardados_filtrados.length > 15){
+          var guardados = this.OrdenarArticulosGuardados(this.props.orden,res.data);
+          if(guardados.length > 15){
             this.setState({indexGuardados: 15, hasMoreGuardados:true});
           }
           else{
-              this.setState({indexGuardados: this.state.guardados_filtrados.length, hasMoreGuardados:false});
+              this.setState({indexGuardados: guardados.length, hasMoreGuardados:false});
           }
         });
 
@@ -338,19 +338,29 @@ class MostrarArticulos extends Component{
   componentDidUpdate(prevProps,prevState){
     if (prevProps.orden !== this.props.orden) {
         if(this.props.orden === 'Fecha'){
-          if(this.props.activo === 'Recomendados'){
-            this.FiltrarArticulosRecomendados(this.props.search);
-            this.OrdenarArticulosRecomendados(this.props.orden);}
-          if(this.props.activo === 'Guardados'){
-            this.FiltrarArticulosGuardados(this.props.search);
-            this.OrdenarArticulosGuardados(this.props.orden);
+          if(!this.state.search){
+            if(this.props.activo === 'Recomendados'){
+              this.OrdenarArticulosRecomendados(this.props.orden,this.state.recomendados);}
+            if(this.props.activo === 'Guardados'){
+              this.OrdenarArticulosGuardados(this.props.orden,this.state.guardados);
+            }
           }
+          else{
+            if(this.props.activo === 'Recomendados'){
+              this.FiltrarArticulosRecomendados(this.props.search);
+              this.OrdenarArticulosRecomendados(this.props.orden,this.state.recomendados_filtrados);}
+            if(this.props.activo === 'Guardados'){
+              this.FiltrarArticulosGuardados(this.props.search);
+              this.OrdenarArticulosGuardados(this.props.orden,this.state.guardados_filtrados);
+            }
+          }
+
         }
         else {
           if(this.props.activo === 'Recomendados'){
-            this.OrdenarArticulosRecomendados(this.props.orden);}
+            this.OrdenarArticulosRecomendados(this.props.orden,this.state.recomendados_filtrados);}
           if(this.props.activo === 'Guardados'){
-            this.OrdenarArticulosGuardados(this.props.orden);
+            this.OrdenarArticulosGuardados(this.props.orden,this.state.guardados_filtrados);
           }
         }
     }
@@ -359,8 +369,8 @@ class MostrarArticulos extends Component{
        if(this.props.activo === 'Guardados'){this.FiltrarArticulosGuardados(this.props.search);}
     }
   }
-  OrdenarArticulosRecomendados(orden) {
-    var recomendados_filtrados = this.state.recomendados_filtrados;
+  OrdenarArticulosRecomendados(orden,data) {
+    var recomendados_filtrados = data;
     var recomendados_ordenados;
     if(orden ==='Fuentes'){
         recomendados_ordenados = recomendados_filtrados.sort(this.OrdenarFuente);
@@ -385,13 +395,14 @@ class MostrarArticulos extends Component{
           }
         }
         this.setState({recomendados_filtrados:new_recomendados});
+        return recomendados_ordenados;
     }
     else {
       return recomendados_filtrados;
     }
   }
-  OrdenarArticulosGuardados(orden) {
-    var guardados_filtrados = this.state.guardados_filtrados;
+  OrdenarArticulosGuardados(orden,data) {
+    var guardados_filtrados = data;
     var guardados_ordenados;
     if(orden ==='Fuentes'){
         guardados_ordenados = guardados_filtrados.sort(this.OrdenarFuente);
@@ -416,6 +427,7 @@ class MostrarArticulos extends Component{
           }
         }
         this.setState({guardados_filtrados:new_guardados});
+        return guardados_ordenados;
     }
     else {
       return guardados_filtrados;
@@ -703,11 +715,12 @@ class MostrarArticulos extends Component{
                </div>
              );
           }
+          else{
+              return(loading_svg);
+          }
 
       }
-      else{
-          return(loading_svg);
-      }
+
   }
 }
 
