@@ -548,7 +548,7 @@ class MostrarArticulos extends Component{
              {div_dislike}
             </div>
             <div className="div-image">
-            <img src={articulo.main_image} alt={articulo.source_name} />
+            <img id="image_guardados"  src={articulo.main_image}  />
             </div>
             <div className="wrap-topicos">
             {topico1}
