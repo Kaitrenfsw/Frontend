@@ -4,6 +4,7 @@ import config from '../config.js';
 import { toast } from 'react-toastify';
 import EmptyBox from '../Assets/EmptyBox.png';
 import { NavLink } from 'react-router-dom';
+import logo from '../Assets/kom2.svg';
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -561,6 +562,7 @@ class MostrarArticulos extends Component{
             </div>
           </div>);
   }
+
   DesplegarRecomendados(articulo,i){
     var topico1,topico2,topico3,span_guardar,div_like,div_dislike,span_favorite;
     if(articulo.fav_source){
@@ -611,7 +613,7 @@ class MostrarArticulos extends Component{
              {div_dislike}
             </div>
             <div className="div-image">
-            <img src={articulo.main_image} alt={articulo.source_name} />
+            <img id="image_recomendados" src={articulo.main_image} onerror="this.style.display='none'" />
             </div>
             <div className="wrap-topicos">
             {topico1}
