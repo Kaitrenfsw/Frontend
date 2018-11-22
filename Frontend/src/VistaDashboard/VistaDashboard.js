@@ -9,7 +9,8 @@ import { toast } from 'react-toastify';
 import AutosizeInput from 'react-input-autosize';
 import config from '../config.js';
 import EmptyBox from '../Assets/EmptyBox.png';
-
+import ReactTooltip from 'react-tooltip';
+import {findDOMNode} from 'react-dom';
 
 
 
@@ -23,6 +24,7 @@ class VistaDashboard extends Component{
 	state = {
 		modo: "modo-visualizacion",
     isLoading: true,
+		NoGraphs: false,
     user_dashboard:  null,
 		selectedOption: null,
 		selectedMultiOption:[],
@@ -30,7 +32,14 @@ class VistaDashboard extends Component{
     graficos: [{"graph_type":1, "graph_id": 0, "graph_title": "Gráfico de Comportamiento", "topics": [ { "topic_name": "hola", "topic_id": 2, "weeks": [ { "week": "dd/mm/yyyy"}]}]},{ "graph_type": 2, "graph_id": 1, "graph_title":"Gráfico de Carrera",  "topics": [ { "topic_id": 8, "topic_name": "algo", "total_count": 5,  "growing": true, "avg_weight": 0.1	 } ] } ],
     topics_options: null
 	}
-
+	componentDidUpdate(prevProps,prevState){
+			if(prevState.NoGraphs !== this.state.NoGraphs){
+				 if(this.state.NoGraphs){
+					  console.log("hola");
+					 	 ReactTooltip.show(findDOMNode(this.refs.tooltip));
+				 }
+			}
+	}
   fetchTopicosUsuario(){
     fetch("http://" +config.base_url +":" + config.port + "/api/topicUser/" + this.props.user.id)
    .then((response) => {
@@ -74,6 +83,9 @@ class VistaDashboard extends Component{
               status: response.status
           })
         ).then(res => {
+					if(res.data.graphs_selected.length === 0){
+						this.setState({NoGraphs: true});
+					}
           this.setState({user_dashboard: res.data ,isLoading: false });
         });
 
@@ -126,6 +138,7 @@ class VistaDashboard extends Component{
   /*función para mostrar cada uno de los graficos del usuario*/
 	DesplegarGrafico(grafico,graph_number){
 		var modo = this.state.modo;
+		var tooltip;
 		var opcion_select_topicos = null;
 		var titulo_grafico = <h4 id= "titulo-grafico">{grafico.name} </h4>
 		var opcion_eliminar_grafico = null;
@@ -146,10 +159,17 @@ class VistaDashboard extends Component{
 					options={this.state.topics_options}
 			 />
 		 		</div>;
-				titulo_grafico = <div><AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span> </div>;
+				titulo_grafico = <div><AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span>   <span data-tip data-for={'LeyendaGrafico' + graph_number}  className="glyphicon glyphicon-question-sign"></span> </div>;
 				opcion_eliminar_grafico = <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>;
 	 }
 		if(grafico.graph_type ===1){
+			if(modo === 'modo-edicion'){
+				tooltip =   <ReactTooltip effect = "solid"  id={'LeyendaGrafico' + graph_number} place='right'>
+						<div className = "boxLeyenda">
+						 <p className = "TextoLeyenda"> Gráfico que muestra el número de publicaciones de artículos para los temas seleccionados en los últimos 6 meses</p>
+						</div>
+					 </ReactTooltip>
+			}
 			return (
 				<div className="row" key = {graph_number}>
 				<div className={"col-sm-2  col-sm-push-10 no-padding "  + this.state.modo }>
@@ -157,6 +177,7 @@ class VistaDashboard extends Component{
 				</div>
 					<div className={"col-sm-10 col-sm-pull-2 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
             <div className={"grafico"}>
+						  {tooltip}
 							{titulo_grafico}
 							{opcion_eliminar_grafico}
               <div className="grafico-frecuencia">
@@ -168,12 +189,20 @@ class VistaDashboard extends Component{
 			)
 		}
 		if(grafico.graph_type ===3){
+			if(modo === 'modo-edicion'){
+				tooltip =   <ReactTooltip effect = "solid"  id={'LeyendaGrafico' + graph_number} place='right'>
+						<div className = "boxLeyenda">
+						 <p className = "TextoLeyenda"> Gráfico que muestra que tanta coherencia y frecuencia acumulada de publicaciones tiene un tema, en donde aquellos temas más coherentes se muestran más la derecha, mientras que aquellos temas con más frecuencia acumulada se muestran más arriba. </p>
+						</div>
+					 </ReactTooltip>
+			}
       return (
 				<div className="row" key = {graph_number}>
 				<div className={"col-sm-2 col-sm-push-10 no-padding "  + this.state.modo }>
 				{opcion_select_topicos}
 				</div>
 					<div className={"col-sm-10  col-sm-pull-2 no-padding animated fadeIn"  + this.state.modo + ((this.state.modo === 'modo-edicion') ? " animated fadeIn" : "")}>
+						{tooltip}
 						{titulo_grafico}
 						{opcion_eliminar_grafico}
 						<div className="grafico-carrera">
@@ -254,10 +283,17 @@ class VistaDashboard extends Component{
 
 
   render(){
+
 		var MensajeSinGraficos =   <div className="MensajeSinGraficos">
 				<img id = "EmptyBox" src={EmptyBox} alt="EmptyBox" />
-				<p>Añade gráficos haciendo click en el modo editar.</p>
+				<p >Añade gráficos haciendo click en el modo editar <a onClick={() => { ReactTooltip.show(findDOMNode(this.refs.tooltip)) }}>(?)</a></p>
 			</div>
+		var tooltip =   <ReactTooltip effect = "solid"  event ="true" place='bottom' type = "info">
+					<div className="boxTooltip">
+				 	<p className="TextoTooltip"> Haz click sobre este icono para comenzar a editar.</p>
+				</div>
+			 </ReactTooltip>
+
 		var modo = this.state.modo;
 		var opciones_modo_edicion = null;
     if(modo === "modo-edicion"){
@@ -276,11 +312,12 @@ class VistaDashboard extends Component{
 		}
     if(!this.state.isLoading){
         return (
-      <div className="container-fluid ContenidoVistaDashboard">
+      <div  className="container-fluid ContenidoVistaDashboard">
 			  <div className= "div-titulo">
-        <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
-        </div>
-				{(this.state.user_dashboard.graphs_selected.length === 0) && MensajeSinGraficos }
+        <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span data-tip  ref='tooltip'  className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar" >Editar</span></div>
+				</div>
+				{(this.state.modo === 'modo-visualizacion') && (this.state.user_dashboard.graphs_selected.length === 0 )  && tooltip}
+				{(this.state.user_dashboard.graphs_selected.length === 0)  && (this.state.modo === "modo-visualizacion") && MensajeSinGraficos}
 				{opciones_modo_edicion}
 				{this.state.user_dashboard.graphs_selected.map((grafico,i,arr) => (
 				 this.DesplegarGrafico(grafico,i)
