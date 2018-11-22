@@ -38,6 +38,8 @@
 .wrap-topicos {margin-top: 0.8em;}
 .ContenidoArticulos .glyphicon-star.active{color:#FEDD34;border: 0;}
 .ContenidoArticulos .glyphicon-star{margin-left: -5px;font-size: 1.2em;color:#EDEEEF; display: inline; top:0.15em;}
+.ContenidoArticulos #image_recomendados {background-image:url('../Assets/kom2.svg');   text-indent: -10000px; background-repeat: no-repeat;  background-size: 100% 100%;}
+
 
 
 /* Botones like dislike y guardar*/
@@ -81,7 +83,7 @@
 }
 
 
-@media (max-width: 1025px) {
+@media (max-width: 1200px) {
   .ContenidoArticulos .Div-Articulo {width: 48%; }
 }
 
