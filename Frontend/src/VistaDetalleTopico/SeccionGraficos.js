@@ -3,7 +3,7 @@ import FrequencyChart from '../Graficos/FrequencyChart'
 //import MultiDataFrequencyChart from '../Graficos/MultiDataFrequencyChart'
 import WordCloud from '../Graficos/WordCloud'
 import ReactTooltip from 'react-tooltip';
-
+import {findDOMNode} from 'react-dom';
 
 class SeccionGraficos extends Component{
 
@@ -25,10 +25,12 @@ class SeccionGraficos extends Component{
         <div className="row row-no-padding row-SeccionGraficos">
           <div className=" wrap-freq-div no-padding">
             <h4 id="subtitulo-vista">Gráfico de comportamiento <span data-tip data-for='LeyendaGrafico' className="glyphicon glyphicon-question-sign"></span></h4>
+
             <div className="freq-div">
-            <FrequencyChart topicId={this.props.topicId} />
+            <FrequencyChart  topicId={this.props.topicId} />
             </div>
-            <ReactTooltip id='LeyendaGrafico' place='right'>
+
+            <ReactTooltip effect = "solid"  id='LeyendaGrafico' place='right'>
               <div className = "boxLeyenda">
                <p className = "TextoLeyenda"> Gráfico que muestra el número de publicaciones de artículos de este Tema en los últimos 6 meses</p>
               </div>
@@ -39,7 +41,7 @@ class SeccionGraficos extends Component{
             <div className="cloud-div">
               <WordCloud width ={this.state.width} words = {this.props.words} data = {[1,2]} />
             </div>
-            <ReactTooltip id='LeyendaNube' place='right'>
+            <ReactTooltip effect = "solid"  id='LeyendaNube' place='right'>
                <div className = "boxLeyenda">
                <p className = "TextoLeyenda"> Nube de palabras conformada por las keywords del Tema, mientras más grande la keyword más representa al Tema</p>
                  </div>

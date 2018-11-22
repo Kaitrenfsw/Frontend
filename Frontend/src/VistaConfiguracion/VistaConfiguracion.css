@@ -19,6 +19,9 @@
 .ContenidoVistaFuentes .glyphicon:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
 .ContenidoVistaFuentes .glyphicon-star.active{color:#FEDD34;border: 0;}
 .ContenidoVistaFuentes .wrap_fuentes {margin-left: -0.916%; margin-right: -0.916%;}
+.ContenidoVistaFuentes .div-thumbs-down { float: right; right: 10px; margin-top: 2.8em;color:  #e55834;   font-size: 1.875em;  position: absolute; color: #FCFCFC; }
+.ContenidoVistaFuentes .dislikes_count{ color: white; font-size: 0.5em; font-weight: bold; display: inline; float: left; margin-right: 5px;margin-top: 0.4em;}
+.ContenidoVistaFuentes .glyphicon-thumbs-down {color:white; }
 
 /*Sección Contrasena*/
 
@@ -61,6 +64,7 @@
 .ContenidoVistaFuentes .nombre-fuente{ font-size: 1em;}
 .ContenidoVistaFuentes .url-fuente{font-size: 0.8em;}
 .ContenidoVistaFuentes .Div-Fuente {min-height: 8em;}
+.ContenidoVistaFuentes .div-thumbs-down {  margin-top: 2.2em;}
 
 }
 

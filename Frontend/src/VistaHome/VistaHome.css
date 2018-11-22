@@ -42,7 +42,7 @@
 
 /* Botones like dislike y guardar*/
 .ContenidoArticulos .likes_count{   font-size: 0.5em; font-weight: bold; display: inline; float: left;  margin-right: 5px;margin-top: 0.6em; }
-.ContenidoArticulos .dislikes_count{  font-size: 0.5em; font-weight: bold; display: inline; float: left; margin-right: 5px;margin-top: 0.6em;}
+.ContenidoArticulos .dislikes_count{  font-size: 0.5em; font-weight: bold; display: inline; float: left; margin-right: 5px;margin-top: 0.3em;}
 
 
 .ContenidoArticulos .glyphicon-bookmark{ right: 10px; top: 15%; color:#FCFCFC; font-size: 1.5em;  position: absolute;}
