@@ -189,14 +189,20 @@ class MostrarArticulos extends Component{
       var recomendados = this.state.recomendados;
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
+           if(guardados[i].voted ===2){
+             guardados[i].down_votes = guardados[i].down_votes -1;
+           }
            guardados[i].voted=1;
-           guardados[i].up_vote = guardados[i].up_vote +1;
+           guardados[i].up_votes = guardados[i].up_votes +1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
+          if(recomendados[i].voted ===2){
+            recomendados[i].down_votes = recomendados[i].down_votes -1;
+           }
            recomendados[i].voted =1;
-           recomendados[i].up_vote = recomendados[i].up_vote +1;
+           recomendados[i].up_votes = recomendados[i].up_votes +1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -222,13 +228,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=0;
-           guardados[i].up_vote = guardados[i].up_vote -1;
+           guardados[i].up_votes = guardados[i].up_votes -1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =0;
-           recomendados[i].up_vote = recomendados[i].up_vote -1;
+           recomendados[i].up_votes = recomendados[i].up_votes -1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -253,14 +259,20 @@ class MostrarArticulos extends Component{
       var recomendados = this.state.recomendados;
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
+           if(guardados[i].voted ===1){
+             guardados[i].up_votes = guardados[i].up_votes -1;
+           }
            guardados[i].voted=2;
-           guardados[i].down_vote = guardados[i].down_vote +1;
+           guardados[i].down_votes = guardados[i].down_votes +1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
+           if(recomendados[i].voted ===1){
+             recomendados[i].up_votes = recomendados[i].up_votes -1;
+           }
            recomendados[i].voted =2;
-           recomendados[i].down_vote = recomendados[i].down_vote +1;
+           recomendados[i].down_votes = recomendados[i].down_votes +1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -276,7 +288,7 @@ class MostrarArticulos extends Component{
           'user_id': this.props.user.id,
           'new_id': articulo.id,
           'source_id':articulo.source_id,
-          'vote':2
+          'vote':0
         })
       })
   }
@@ -286,13 +298,13 @@ class MostrarArticulos extends Component{
       for(var i=0; i<guardados.length;i++){
         if(articulo.id === guardados[i].id){
            guardados[i].voted=0;
-           guardados[i].down_vote = guardados[i].down_vote -1;
+           guardados[i].down_votes = guardados[i].down_votes -1;
         }
       }
       for(i=0; i<recomendados.length;i++){
         if(articulo.id === recomendados[i].id){
            recomendados[i].voted =0;
-           recomendados[i].down_vote = recomendados[i].down_vote -1;
+           recomendados[i].down_votes = recomendados[i].down_votes -1;
         }
       }
       this.setState({guardados: guardados, recomendados:recomendados});
@@ -492,27 +504,27 @@ class MostrarArticulos extends Component{
       if(articulo.topics[2]) topico3 = <div className="Div-Topico Orange"><h5>{articulo.topics[2].topic_name}</h5></div>
       if(articulo.voted ===1){
           div_like = <div className="div-thumbs-up active">
-                     <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
-                    <p className="likes_count">{articulo.up_vote}</p>
+                     <span className="glyphicon glyphicon-thumbs-up active" ></span>
+                    <p className="likes_count">{articulo.up_votes}</p>
                     </div>
       }
       else{
         div_like = <div className="div-thumbs-up">
                    <span className="glyphicon glyphicon-thumbs-up" onClick={(event) => {this.HandleLike(event,articulo)}}></span>
-                  <p className="likes_count">{articulo.up_vote}</p>
+                  <p className="likes_count">{articulo.up_votes}</p>
                   </div>
       }
       if(articulo.voted ===2){
           div_dislike = <div className="div-thumbs-down active">
-                      <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
-                      <p className="dislikes_count">{articulo.down_vote}</p>
+                      <span className="glyphicon glyphicon-thumbs-down active" ></span>
+                      <p className="dislikes_count">{articulo.down_votes}</p>
                       </div>
 
       }
       else{
           div_dislike =  <div className="div-thumbs-down">
                         <span className="glyphicon glyphicon-thumbs-down" onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
-                        <p className="dislikes_count">{articulo.down_vote}</p>
+                        <p className="dislikes_count">{articulo.down_votes}</p>
                         </div>
       }
             return(
@@ -553,27 +565,27 @@ class MostrarArticulos extends Component{
     }
     if(articulo.voted ===1){
         div_like = <div className="div-thumbs-up active">
-                   <span className="glyphicon glyphicon-thumbs-up active" onClick={(event) => {this.HandleRemoveLike(event,articulo)}}></span>
-                  <p className="likes_count">{articulo.up_vote}</p>
+                   <span className="glyphicon glyphicon-thumbs-up active" ></span>
+                  <p className="likes_count">{articulo.up_votes}</p>
                   </div>
     }
     else{
       div_like = <div className="div-thumbs-up">
                  <span className="glyphicon glyphicon-thumbs-up" onClick={(event) => {this.HandleLike(event,articulo)}}></span>
-                <p className="likes_count">{articulo.up_vote}</p>
+                <p className="likes_count">{articulo.up_votes}</p>
                 </div>
     }
     if(articulo.voted ===2){
         div_dislike = <div className="div-thumbs-down active">
-                    <span className="glyphicon glyphicon-thumbs-down active" onClick={(event) => {this.HandleRemoveDislike(event,articulo)}}></span>
-                    <p className="dislikes_count">{articulo.down_vote}</p>
+                    <span className="glyphicon glyphicon-thumbs-down active" ></span>
+                    <p className="dislikes_count">{articulo.down_votes}</p>
                     </div>
 
     }
     else{
         div_dislike =  <div className="div-thumbs-down">
                       <span className="glyphicon glyphicon-thumbs-down" onClick={(event) => {this.HandleDislike(event,articulo)}}></span>
-                      <p className="dislikes_count">{articulo.down_vote}</p>
+                      <p className="dislikes_count">{articulo.down_votes}</p>
                       </div>
     }
     if(articulo.topics[0]) topico1 =   <div className="Div-Topico Blue"><h5>{articulo.topics[0].topic_name}</h5></div>
