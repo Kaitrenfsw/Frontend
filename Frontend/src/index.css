@@ -71,7 +71,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 @media (min-width: 768px) {
  .navbar-nav.navbar-center {
    position: absolute;
-   left: 50%;
+   left: 48%;
    transform: translatex(-50%);
   }
 }

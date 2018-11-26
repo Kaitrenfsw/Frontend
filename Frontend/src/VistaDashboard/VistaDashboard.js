@@ -159,7 +159,7 @@ class VistaDashboard extends Component{
 					options={this.state.topics_options}
 			 />
 		 		</div>;
-				titulo_grafico = <div><AutosizeInput maxlength = "80" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span>   <span data-tip data-for={'LeyendaGrafico' + graph_number}  className="glyphicon glyphicon-question-sign"></span> </div>;
+				titulo_grafico = <div><AutosizeInput maxLength = "3O" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span>   <span data-tip data-for={'LeyendaGrafico' + graph_number}  className="glyphicon glyphicon-question-sign"></span> </div>;
 				opcion_eliminar_grafico = <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>;
 	 }
 		if(grafico.graph_type ===1){

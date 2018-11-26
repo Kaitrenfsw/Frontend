@@ -85,7 +85,6 @@ class Fuentes extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           this.setState({fuentes:res.data,isLoading:false});
         });
 
@@ -111,7 +110,6 @@ class Fuentes extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           this.setState({fuentes:res.data,isLoading:false});
         });
 

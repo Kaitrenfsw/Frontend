@@ -6,7 +6,6 @@ import {withRouter} from "react-router-dom";
 import config from '../config.js';
 class MostrarCuentas extends Component{
   state = {
-      cuentas: [{"id":1,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "owner" } ]},{"id":2,"profile": {"name":"Michael","last_name":"Jackson", "phone": "+98762517" }, "active":1,"email":"MJ@cl","permissions": [  {  "group": "idm" } ]}],
       isLoading: true
   };
 
@@ -97,7 +96,7 @@ class MostrarCuentas extends Component{
             })
           ).then(res => {
             this.notify_success('Cuenta eliminada exitosamente');
-            this.props.history.push('/configuracion');
+            this.props.history.push('/usuarios');
           });
 
         } else {

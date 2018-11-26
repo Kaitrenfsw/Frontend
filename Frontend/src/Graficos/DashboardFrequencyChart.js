@@ -209,12 +209,13 @@ class DashboardFrequencyChart extends Component{
         out.push(
           <Area
             type="monotoneX"
+            key={"count"+i}
             dataKey={"count"+i}
             stroke={colors[i]}
             strokeWidth={2}
             name={this.state.names[i]}
             fillOpacity={0}
-            id={i}
+            id={""+i}
             hide={this.state.visibility[i]}
           />
       );

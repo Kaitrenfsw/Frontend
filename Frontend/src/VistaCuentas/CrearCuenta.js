@@ -197,7 +197,7 @@ class CrearCuenta extends Component{
 
                 <Textbox
                   tabIndex="2" //Optional.[String or Number].Default: -1.
-                  id={'contraseña'} //Optional.[String].Default: "".  Input ID.
+                  id={'contraseña2'} //Optional.[String].Default: "".  Input ID.
                   name="password_confirmation" //Optional.[String].Default: "". Input name.
                   type="password" //Optional.[String].Default: "text". Input type [text, password, phone, number].
                   value={this.state.password_confirmation} //Optional.[String].Default: "".
