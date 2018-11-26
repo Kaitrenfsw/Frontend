@@ -21,13 +21,13 @@ class PaginacionTopicos extends Component{
     return (
     	<div className= "paginacion">
           <div className="row row-no-padding no-margin">
-            <div className="col-sm-2 no-padding">
                 <div className="form-group has-feedback" >
+                <div className="col-sm-2 no-padding">
                   <input onChange={this.props.HandleSearch.bind(this)} type="text" className="form-control" name="search" id="search" placeholder={search_text}></input>
                     <span className="glyphicon glyphicon-search form-control-feedback"></span>
                 </div>
             </div>
-            <div  className="col-xs-7 col-sm-offset-3 no-padding" >
+            <div  className="col-sm-10 no-padding" >
                 <span>
                 <div className="dropdown">
                 <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">

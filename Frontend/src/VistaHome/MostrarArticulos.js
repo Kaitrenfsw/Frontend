@@ -4,7 +4,6 @@ import config from '../config.js';
 import { toast } from 'react-toastify';
 import EmptyBox from '../Assets/EmptyBox.png';
 import { NavLink } from 'react-router-dom';
-import logo from '../Assets/kom2.svg';
 /*
 import left_guardar from '../Assets/left-guardar.png';
 import right_guardar from '../Assets/right-guardar.png';
@@ -613,7 +612,7 @@ class MostrarArticulos extends Component{
              {div_dislike}
             </div>
             <div className="div-image">
-            <img id="image_recomendados" src={articulo.main_image} onerror="this.style.display='none'" />
+            <img id="image_recomendados" src={articulo.main_image}    />
             </div>
             <div className="wrap-topicos">
             {topico1}

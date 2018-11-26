@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BarChart,Bar ,CartesianAxis,CartesianGrid,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
+import { BarChart,Bar ,XAxis,YAxis,Tooltip,ResponsiveContainer } from 'recharts';
 import EmptyBox from '../Assets/EmptyBox.png'
 import config from '../config.js';
 //import 'moment/locale/es'
@@ -11,20 +11,7 @@ class TopicsChart extends Component{
       this.state = {
         chartData: null,
         data:null,
-        isLoading: false,
-        data : [
-            {name: 'Topic AdsdnjA', uv: 0, pv: 300, amt: 2400},
-            {name: 'Topic B', uv: 0, pv: 245, amt: 2210},
-            {name: 'Topic C', uv: 0, pv: 230, amt: 2290},
-            {name: 'Topic D', uv: 0, pv: 220, amt: 2000},
-            {name: 'Topic E', uv: 0, pv: 210, amt: 2181},
-            {name: 'Topic F', uv: 0, pv: 200, amt: 2500},
-            {name: 'Topic G', uv: 0, pv: 113, amt: 2100},
-            {name: 'Topic E', uv: 0, pv: 80, amt: 2181},
-            {name: 'Topic F', uv: 0, pv: 66, amt: 2500},
-            {name: 'Topic G', uv: 0, pv: 20, amt: 2100},
-      ]
-
+        isLoading: true,
       }
     }
     dataCero(datos,key){
@@ -36,10 +23,6 @@ class TopicsChart extends Component{
     }
 
     componentDidMount(){
-
-
-      var topicId=7;
-      var date="2015-09-01"
       fetch("http://"+ config.base_url + ":" + config.port + "/api/idms_sources", {
           method: 'GET',
           headers: {

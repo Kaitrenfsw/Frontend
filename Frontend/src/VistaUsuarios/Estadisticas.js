@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 import TopicsChart from '../Graficos/TopicsChart.js';
-import { toast } from 'react-toastify';
-import config from '../config.js';
 
 class Estadisticas extends Component{
 

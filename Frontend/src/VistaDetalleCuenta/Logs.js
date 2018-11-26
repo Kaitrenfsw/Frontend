@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { toast } from 'react-toastify';
 import {withRouter} from "react-router-dom";
 import config from '../config.js';
 import moment from  'moment';

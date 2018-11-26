@@ -8,22 +8,14 @@ class SideNavBar extends Component{
     switch (val) {
       case "Contraseña":
         return "Cambiar Contraseña";
-        break;
-
         case "Registro":
           return "Registro de actividad"
-          break;
-
         case "Suscripciones":
           return "Temas Suscritos"
-          break;
-
       default:
         return val;
-
     }
   }
-
   render(){
 
 
