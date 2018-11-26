@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Switch, Route, Redirect,withRouter} from 'react-router-dom';
+import {withRouter} from 'react-router-dom';
 
 class ScrollToTop extends Component {
   componentDidUpdate(prevProps) {

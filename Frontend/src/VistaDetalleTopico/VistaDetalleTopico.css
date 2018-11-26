@@ -57,8 +57,8 @@
 
 .orange { background-color: #ECB775; border-radius: 17px; }
 @media (max-width: 1025px) {
-  .ContenidoVistaDetalleTopico .graph-div { width: 100%; }
+  .ContenidoVistaDetalleTopico .graph-div { width: 100%; margin-left: 0;}
   .ContenidoVistaDetalleTopico .noticas-div {width: 100%;}
-  .ContenidoVistaDetalleTopico .wrap-cloud-div { width: 100%;}
+  .ContenidoVistaDetalleTopico .wrap-cloud-div { width: 100%; margin-left: 0}
   .ContenidoVistaDetalleTopico .wrap-freq-div {width: 100%;}
 }
