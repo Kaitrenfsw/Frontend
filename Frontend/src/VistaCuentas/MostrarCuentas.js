@@ -160,8 +160,8 @@ DesplegarCuentasIDM(cuenta,search){
           <div className="col-xs-12 no-padding"  /*onClick={ (event) => this.props.HandleDetalleTopico(event,'SI',topico)}*/ >
             <div className="div-cuenta-idm  ">
               <div className="div-datos-idm">
-                <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
                 <h5 className="email-idm">{cuenta.email}</h5>
+                <h4 className="nombre-idm">{cuenta.profile.name} {cuenta.profile.last_name}</h4>
               </div>
               <a   data-toggle="modal" data-target={"#ModalEliminar" +cuenta.id} className="gradient-button gradient-button-3 eliminar_button"  >Eliminar</a>
               <NavLink   className="gradient-button gradient-button-3 ver_button" to={{ pathname: '/cuentas/'+cuenta.id, cuenta: cuenta}} >Ver</NavLink>

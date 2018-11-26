@@ -55,16 +55,17 @@ body { overflow-y: scroll; overflow-x: hidden; }
 
 @media (max-width: 767px) {
 	.container-fluid {padding-left: 2%; padding-right: 2%;}
-  	#logo{  font-size: 1.5em}
-	.navbar-collapse { border: 1px solid black !important;position: absolute; width: 100%; z-index: 1000000; background-color: rgba(39, 57, 62,3); overflow-x: hidden;}
+  	#logo{  font-size: 2em; padding-left:9px; margin-top: 10px !important;}
+	.navbar-collapse { border-bottom: 1px solid white !important; position: absolute; width: 100%; z-index: 1000000; background-color: rgba(39, 57, 62,3); overflow-x: hidden; }
 	.navbar-nav { margin-top: 0; margin-bottom: 0;}
 	.navbar-right {margin-left: 0px;}
 	.navbar-right li > a{ padding-left: 0.8em;}
 	.navbar-center > li{ font-size: 1.3em;}
 	.navbar-right > li { font-size: 1.3em;}
 	.NavBar { margin-top: 2em !important;}
-	.NavBar > li { padding-right: 0px !important; margin-bottom:  1em !important; margin-left:  0em !important; text-align: center!important;}
-	.NavBar  li.active{ background-color: #1A252D!important; border-bottom: 2px solid #E95476 !important; border-right: 0 !important;}
+	.NavBar > li { padding-right: 0px !important; margin-bottom:  0.5em !important; margin-left:  0em !important; text-align: center!important;}
+	.NavBar  li.active{  border-bottom: 3px solid #E95476 !important; border-right: 0 !important;}
+	.container-fluid.header { padding-left: 0%; padding-right: 0%; }
 }
 
 @media (min-width: 768px) {
@@ -127,7 +128,7 @@ li a:hover{ cursor: pointer; text-decoration: none; }
 
 
 /*NavTabs*/
-.NavTabs li{	text-align: center;padding-bottom: 8px;margin: 0;font-size: 0.85em !important; padding-top: 8px; border-radius: 1px; border-bottom: 1px solid rgba(88,114,124,0.8);}
+.NavTabs li{list-style-type: none ; 	text-align: center;padding-bottom: 8px;margin: 0;font-size: 0.85em !important; padding-top: 8px; border-radius: 1px; border-bottom: 1px solid rgba(88,114,124,0.8);}
 .NavTabs a{color: #6B828F;font-weight: bold; }
 .NavTabs li.active{ border-bottom: 3px solid #6C8491;padding-bottom: 7px; background-color: rgba(88,114,124,0);}
 .NavTabs li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none; }
