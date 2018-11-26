@@ -20,8 +20,7 @@
 /*Sección Articulos*/
 
 
-.botones{ background:linear-gradient(to right, rgba(0,0,0,0.001) 0%,rgba(0,0,0,0.25) 51%, rgba(0,0,0,0.6) 100%);height: 38%; width:70px;  position: absolute; right: 0;}
-
+.botones{ background:linear-gradient(to right, rgba(0,0,0,0.001) 0%,rgba(0,0,0,0.6) 51%, rgba(0,0,0,0.8) 100%);height: 38%; width:70px;  position: absolute; right: 0;}
 .ContenidoArticulos .margin-bottom{margin-bottom: 30px;}
 .ContenidoArticulos .Div-Articulo{ float: left;height: 22em; background-color: #25353C; margin:0.916%; overflow-y: hidden; text-overflow: ellipsis; width: 31.5%; position:relative; margin-top: 0; margin-bottom: 20px;}
 .ContenidoArticulos img {width:100%; object-fit: cover; height: 100%;}
@@ -46,8 +45,6 @@
 /* Botones like dislike y guardar*/
 .ContenidoArticulos .likes_count{   font-size: 0.5em; font-weight: bold; display: inline; float: left;  margin-right: 5px;margin-top: 0.6em; }
 .ContenidoArticulos .dislikes_count{  font-size: 0.5em; font-weight: bold; display: inline; float: left; margin-right: 5px;margin-top: 0.3em;}
-
-
 .ContenidoArticulos .glyphicon-bookmark{ right: 10px; top: 15%; color:#FCFCFC; font-size: 1.5em;  position: absolute;}
 .ContenidoArticulos .glyphicon-bookmark:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
 .ContenidoArticulos .glyphicon-thumbs-up:hover {border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
@@ -89,6 +86,8 @@
 }
 
 @media (max-width: 767px) {
+    .ContenidoArticulos .fuente-articulo {margin-top: 0px; padding-top: 0px;}
+    .ContenidoArticulos .titulo-articulo {margin-bottom: 0px;}
     .ContenidoArticulos .botones { right: 0;}
 	  .ContenidoVistaHome .col-sm-4 {padding: 0; margin-bottom: 40px;}
     .ContenidoVistaHome .margin-bottom {margin-bottom: 0px;}
@@ -96,5 +95,8 @@
     .Div-Topico h5 {font-size: 0.85em;}
     .ContenidoArticulos .col-sm-4 {margin-bottom: 2em}
     .ContenidoArticulos .titulo-articulo{font-size: 1.2em}
+    .ContenidoArticulos .glyphicon-bookmark{font-size: 1.75em; top: 10%}
+    .ContenidoArticulos .div-thumbs-up {font-size: 1.75em;  top: 40%}
+    .ContenidoArticulos .div-thumbs-down { font-size: 1.75em; top: 70%}
 
 }

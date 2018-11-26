@@ -73,8 +73,6 @@
   .ContenidoVistaFuentes .wrap_fuentes {margin-left: -2%; margin-right: -2%;}
   .Datos .row {margin-top:40px}
   .Contrasena form {margin-top: 30px}
-  .NavBar  li{ margin-bottom: 30px;}
-  .NavBar {margin-top: 50px;}
 
 }
 
@@ -85,7 +83,5 @@
   .ContenidoVistaFuentes .margin-top {margin-top: 1.5em;}
     .ContenidoVistaFuentes .wrap_fuentes {margin-left: 0; margin-right: 0;}
   .ContenidoVistaFuentes .Div-Fuente {width: 100%; margin-left: 0; margin-right: 0; min-height: 7em;}
-  .ContenidoVistaConfiguracion .NavBar { margin-top: 2em;}
-  .ContenidoVistaConfiguracion .NavBar > li{ margin-bottom: 3em;}
   .ContenidoVistaConfiguracion #subtitulo-vista {margin-top: 0;}
 }

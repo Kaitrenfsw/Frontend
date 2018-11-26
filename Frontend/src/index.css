@@ -44,42 +44,28 @@ body { overflow-y: scroll; overflow-x: hidden; }
 @media (max-width: 1360px) {
 	  html,body{font-size:13px;}
 		.container-fluid { padding-left: 4%; padding-right: 4%; }
-
-		/*
-		.Datos label {font-size: 13px;}
-		.CrearCuenta label {font-size: 13px;}
-		.ContenidoVistaLogin label {font-size: 13px;}
-		*/
 }
 
 @media (max-width: 1024px) {
 	  html,body{font-size:12px;}
 		.container-fluid { padding-left: 1%; padding-right: 1%; }
 		.main .navbar-center > li{ padding-left:0.6em; padding-right:0.6em; }
-
+		.NavBar  li{margin-left: 1em!important;}
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 	.container-fluid {padding-left: 2%; padding-right: 2%;}
-	#logo{  font-size: 1.5em}
-	.ContenidoVistaConfiguracion .NavBar  li{  text-align: left;  margin-left: 0; max-width: 10em; padding-left: 5px;}
-	.ContenidoVistaUsuarios .NavBar  li{  text-align: left;  margin-left: 0; max-width: 10em; padding-left: 5px; margin-bottom: 40px;}
-	.ContenidoVistaUsuarios .NavBar {  margin-top: 30px;}
+  	#logo{  font-size: 1.5em}
+	.navbar-collapse { border: 1px solid black !important;position: absolute; width: 100%; z-index: 1000000; background-color: rgba(39, 57, 62,3); overflow-x: hidden;}
+	.navbar-nav { margin-top: 0; margin-bottom: 0;}
+	.navbar-right {margin-left: 0px;}
+	.navbar-right li > a{ padding-left: 0.8em;}
+	.navbar-center > li{ font-size: 1.3em;}
+	.navbar-right > li { font-size: 1.3em;}
+	.NavBar { margin-top: 2em !important;}
+	.NavBar > li { padding-right: 0px !important; margin-bottom:  1em !important; margin-left:  0em !important; text-align: center!important;}
+	.NavBar  li.active{ background-color: #1A252D!important; border-bottom: 2px solid #E95476 !important; border-right: 0 !important;}
 }
-
-
-@media (max-width: 600px) {
-
-}
-
-@media (max-width: 480px) {
-
-
-}
-
-
-
-
 
 @media (min-width: 768px) {
  .navbar-nav.navbar-center {
@@ -87,7 +73,6 @@ body { overflow-y: scroll; overflow-x: hidden; }
    left: 50%;
    transform: translatex(-50%);
   }
-
 }
 
 
@@ -105,7 +90,7 @@ body { overflow-y: scroll; overflow-x: hidden; }
 .fade-exit { opacity: 1; }
 .fade-exit.fade-exit-active { opacity: 0; transition: opacity 100ms linear; }
 
-/*nav bar */
+/*nav bar  superior*/
 .navbar-center > li{ padding-left:0.95em; padding-right:0.95em; }
 .navbar-default .navbar-nav > li  > a.active,
 .navbar-default .navbar-nav > li  > a.active:hover,
@@ -137,7 +122,6 @@ li a:hover{ cursor: pointer; text-decoration: none; }
 .paginacion .dropdown-menu li > a:focus {color:red}
 .paginacion #ordenar-por {float: right; color: #6B828F;font-weight: bold;}
 .paginacion #search{ background-color: #151E25; border-color: #151E25; border-radius: 10px; height:30px; font-size: 12px; color: #6B828F; }
-.paginacion .dot { height:4px; width: 4px; background-color: red; border-radius: 50%; display: inline-block; margin-bottom: 5px; }
 .paginacion .dropdown-menu li:hover > a {color:black;}
 .paginacion .no-padding{padding: 0 !important;}
 
@@ -153,8 +137,8 @@ li a:hover{ cursor: pointer; text-decoration: none; }
 /*Navbar  izquierdo configuración*/
 
 
-.NavBar  li{ padding-right: 3px; height: 30px; max-width: 900px;margin-bottom: 60px; list-style-type: none ; text-align: right; padding-top: 5px; margin-left: 4vw;}
-.NavBar  a{color: #6B828F;font-weight: bold; padding-right: 20px; font-size: 0.85em;}
+.NavBar  li{ padding-right: 3px; height: 30px; max-width: 900px;margin-bottom: 4em; list-style-type: none ; text-align: right; padding-top: 5px; margin-left: 2em;}
+.NavBar  a{color: #6B828F;font-weight: bold; padding-right: 20px; font-size: 0.95em;}
 .NavBar  li.active{ background-color: #25353C; border-right: 3px solid #E95476; padding-right: 0px;}
 .NavBar  li.active > a{font-weight: bold; color: #EDEEEF;text-decoration:none;  }
 .NavBar {margin-top: 15vh;}

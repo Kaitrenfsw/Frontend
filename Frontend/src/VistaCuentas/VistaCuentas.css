@@ -31,10 +31,11 @@
 /*Cuenta IDM*/
 
 .div-cuenta-idm { background-color: #23313A; height: 5em;  padding-left: 3.5em; padding-right: 1.25em; margin-bottom:1.25em;}
-.div-cuenta-idm  .email-idm{color: #6B828F;margin-top: 0;font-weight: bold; max-width:60%; font-size: 1em;}
+.div-cuenta-idm  .email-idm{color: #6B828F;margin-top: 0;font-weight: bold;  font-size: 1em;}
 .ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
 .ContenidoVistaCuentas .nombre-idm{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; padding-top: 20px;}
 .div-cuenta-idm > a.gradient-button { float: right; position: absolute; top: 20%; right: 5%;font-size: 0.9em;}
+.div-datos-idm {width: 30%; word-wrap: break-word;}
 .row-cuenta-idm{ margin-bottom: 25px; }
 .div-cuenta-idm img {height: 100%; float: left;}
 .ContenidoVistaCuentas .col-izq{padding-left: 0; padding-top: 0;}
@@ -81,7 +82,7 @@
 }
 
 @media (max-width: 767px) {
-
+  .div-datos-idm {height: 7em;}
   .ContenidoVistaDetalleCuenta .NavBar { margin-top: 2em;}
   .ContenidoVistaDetalleCuenta .NavBar > li{ margin-bottom: 3em;}
   .ContenidoVistaDetalleCuenta #subtitulo-vista {margin-top: 0;}

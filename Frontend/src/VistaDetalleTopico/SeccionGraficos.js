@@ -3,7 +3,6 @@ import FrequencyChart from '../Graficos/FrequencyChart'
 //import MultiDataFrequencyChart from '../Graficos/MultiDataFrequencyChart'
 import WordCloud from '../Graficos/WordCloud'
 import ReactTooltip from 'react-tooltip';
-import {findDOMNode} from 'react-dom';
 
 class SeccionGraficos extends Component{
 
