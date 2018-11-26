@@ -85,6 +85,9 @@ class TopicsChart extends Component{
       return (
                 <div>
                   <h4 className="subtitulo-vista">Cantidad de suscriptores por tema</h4>
+                  <style>
+                    {"svg:not(:root) {overflow: visible;}"}
+                  </style>
                 <ResponsiveContainer width={700} height={480}>
                   <BarChart data={this.state.data2}>
                     <XAxis dataKey="topic_name" stroke="#fff"  textAnchor="start" tick={{ angle: 45, dy:5 }} height={180} interval={0}  />

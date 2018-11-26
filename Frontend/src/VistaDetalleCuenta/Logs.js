@@ -16,10 +16,10 @@ class Logs extends Component{
       weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')})
     console.log(props);
       super(props);
-      this.state={
+      this.state={/*
         logins:[{date:"Fecha1"},{date:"Fecha2"},{date:"Fecha3"}],
         subscriptions:[{date :"Fecha 1",topic_name:"Topico 1"},{date :"Fecha 2",topic_name:"Topico 2"}],
-        desubs:[{date :"Fecha 1",topic_name:"Topico 1"},{date :"Fecha 2",topic_name:"Topico 2"}]
+        desubs:[{date :"Fecha 1",topic_name:"Topico 1"},{date :"Fecha 2",topic_name:"Topico 2"}]*/
       }
 
 
