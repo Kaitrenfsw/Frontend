@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Header from './Header';
 import VistaLogin from './VistaLogin/VistaLogin';
+import ScrollToTop from './ScrollToTop';
 import { ToastContainer } from 'react-toastify';
 import { Switch, Route, Redirect,withRouter} from 'react-router-dom';
 import { CSSTransition, TransitionGroup, } from 'react-transition-group';
@@ -96,6 +97,7 @@ class App extends Component {
             <Header  {...this.state}  user = {this.state.user} />
           </div>}
           <Route render = {({location}) => (
+          <ScrollToTop>
           <TransitionGroup component={null} >
            <CSSTransition
                        key = {location.key}
@@ -113,7 +115,8 @@ class App extends Component {
              <PrivateRoute Logged = {this.state.Logged}  user = {this.state.user} location={this.props.location}   path='/dashboard'  component= {VistaDashboard}/>
          </Switch>
          </CSSTransition>
-         </TransitionGroup>)}
+         </TransitionGroup>
+          </ScrollToTop>)}
          />
         </div>
 
