@@ -15,7 +15,7 @@ class SeccionNoticias extends Component{
     DesplegarNoticia(noticia,search){
       return(
 
-      <div className="Div-Articulo">
+      <div className="Div-Articulo" key = {""+ noticia.id}>
       <div className="row">
       <div className="col-sm-3 no-padding-left">
       <img alt = {noticia.title} className= "imagen-articulo" src={noticia.main_image} />
