@@ -67,7 +67,6 @@ class MostrarArticulos extends Component{
               status: response.status
           })
         ).then(res => {
-          console.log(res.data);
           for(var i = 0; i<res.data.length;i++){
             res.data[i].index_lista_recomendados = i;
           }

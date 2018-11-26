@@ -125,9 +125,9 @@ class CareerChart extends Component{
                     </thead>
                     <tbody>
                       {payload[0].payload.data.map((entry, index) => (
-                      <tr>
-                        <th scope="row">{entry.orden}</th>
-                          <td><a className="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td>                </tr>
+                      <tr key = {entry.topic_id}>
+                      <th scope="row">{entry.orden}</th>
+                      <td><a className="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td></tr>
                     ))}
                     {payload[1].payload.data.map((entry, index) => (
                     <tr>
@@ -141,7 +141,7 @@ class CareerChart extends Component{
                 <br/>
                   {
                     payload.map((entry, index) => (
-                    <div>
+                    <div key = {"payload" + index}>
                     <svg height="14" width="18">
                       <circle  cx="7" cy="7"r="7" fill={entry.color} />
                     </svg>
@@ -172,6 +172,16 @@ class CareerChart extends Component{
           } else {
             return null;
           }
+      }
+
+      const CareerChartDot = (props)=>{
+              const radius = 2.5;
+              const diameter = radius * 2;
+              return (
+                    <svg width={diameter} height={diameter} style={{"overflow": "visible","cursor":"pointer"}}>
+                        <circle cx={props.cx} cy={props.cy} r="11" stroke={props.color} strokeWidth="2" fill="#1F2931" />
+                    </svg>
+                );
       }
 
       const default_graph = (
@@ -205,15 +215,6 @@ class CareerChart extends Component{
       </div>);
 
 
-      const CareerChartDot = (props)=>{
-          const radius = 2.5;
-          const diameter = radius * 2;
-          return (
-              <svg width={diameter} height={diameter} style={{"overflow": "visible","cursor":"pointer"}}>
-                  <circle cx={props.cx} cy={props.cy} r="11" stroke={props.color} strokeWidth="2" fill="#1F2931" />
-              </svg>
-          );
-      }
       if(this.state.isLoading){
         return(<div className="loader loader--style2" title="1">
         <svg version="1.1" id="loader-1" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
