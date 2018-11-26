@@ -92,7 +92,7 @@ class App extends Component {
 		return(
           <div>
           <ToastContainer />
-          {this.state.Logged && <div className="container-fluid">
+          {this.state.Logged && <div className="container-fluid header">
             <Header  {...this.state}  user = {this.state.user} />
           </div>}
           <Route render = {({location}) => (

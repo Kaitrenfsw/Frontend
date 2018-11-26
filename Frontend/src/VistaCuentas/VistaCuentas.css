@@ -35,7 +35,7 @@
 .ContenidoVistaCuentas  h6{	color: #6B828F;font-weight: bold;}
 .ContenidoVistaCuentas .nombre-idm{color: #EDEEEF; margin-top: 0px; margin-bottom: 5px; font-weight: bold; padding-top: 20px;}
 .div-cuenta-idm > a.gradient-button { float: right; position: absolute; top: 20%; right: 5%;font-size: 0.9em;}
-.div-datos-idm {width: 30%; word-wrap: break-word;}
+.div-datos-idm {width: 30%; word-wrap: break-word; padding-top: 1em;}
 .row-cuenta-idm{ margin-bottom: 25px; }
 .div-cuenta-idm img {height: 100%; float: left;}
 .ContenidoVistaCuentas .col-izq{padding-left: 0; padding-top: 0;}
@@ -83,6 +83,8 @@
 
 @media (max-width: 767px) {
   .div-datos-idm {height: 7em;}
+  .div-cuenta-idm {padding-left: 1em;}
+  .div-cuenta-idm > a.gradient-button{ font-size: 0.7em};
   .ContenidoVistaDetalleCuenta .NavBar { margin-top: 2em;}
   .ContenidoVistaDetalleCuenta .NavBar > li{ margin-bottom: 3em;}
   .ContenidoVistaDetalleCuenta #subtitulo-vista {margin-top: 0;}
