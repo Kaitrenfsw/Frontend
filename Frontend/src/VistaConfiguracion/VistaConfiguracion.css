@@ -16,7 +16,7 @@
 .ContenidoVistaFuentes .margin-top{margin-top: 10vh;}
 .ContenidoVistaFuentes .glyphicon-star{font-size: 1.875em;color:#EDEEEF;float: right;}
 .ContenidoVistaFuentes {position: absolute;right: 0;left: 0; top: 0;}
-.ContenidoVistaFuentes .glyphicon:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
+.ContenidoVistaFuentes .glyphicon-star:hover{border-bottom: solid; border-width: 2px;  border-color:rgba(88,114,124,1); color: rgba(88,114,124,1);}
 .ContenidoVistaFuentes .glyphicon-star.active{color:#FEDD34;border: 0;}
 .ContenidoVistaFuentes .wrap_fuentes {margin-left: -0.916%; margin-right: -0.916%;}
 .ContenidoVistaFuentes .div-thumbs-down { float: right; right: 10px; margin-top: 2.8em;color:  #e55834;   font-size: 1.875em;  position: absolute; color: #FCFCFC; }
