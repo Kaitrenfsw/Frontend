@@ -212,14 +212,14 @@ dataset.nodes[0].y = svgHeight/2;
 
             .style("stroke-width", function(d) { return 3; })
           .attr("stroke", function(d) {
-            if(d.value>=0.8 * interval[1]) return colores_nodos[0];
-            else if(d.value>=0.5 * interval[1]) return colores_nodos[1];
+            if(d.value>=0.85 * interval[1]) return colores_nodos[0];
+            else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
             else if(d.value>=0) return colores_nodos[2];
             else return '#5CACC4';
             })
           .attr('fill',function (d,i) {
-              if(d.value>=0.8 * interval[1]) return colores_nodos[0];
-              else if(d.value>=0.5 * interval[1]) return colores_nodos[1];
+              if(d.value>=0.85 * interval[1]) return colores_nodos[0];
+              else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
               else if(d.value>=0) return colores_nodos[2];
               else return'#5CACC4';
           })

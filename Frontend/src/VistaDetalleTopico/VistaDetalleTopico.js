@@ -75,8 +75,8 @@ class VistaDetalleTopico extends Component{
 
            var GraphFormatData = {nodes:[], edges:[]}
            GraphFormatData.nodes.push({name:res.data.topic_name,"id":res.data.topic_id});
-           for(var i=0; i<res.data.relations.length; i++){
-              GraphFormatData.edges.push({"source":i + 1, "target":0, "value":res.data.relations[i].distance});
+           for(var i=res.data.relations.length -1; i>=0; i--){
+              GraphFormatData.edges.push({"source":i + 1, "target":0, "value": 1- res.data.relations[i].distance});
               GraphFormatData.nodes.push({name:res.data.relations[i].r_topic_name,  "id":res.data.relations[i].r_topic_id});
            }
            this.setState({dataGrafo:GraphFormatData});
