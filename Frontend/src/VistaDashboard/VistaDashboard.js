@@ -159,7 +159,7 @@ class VistaDashboard extends Component{
 					options={this.state.topics_options}
 			 />
 		 		</div>;
-				titulo_grafico = <div><AutosizeInput maxLength = "3O" value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span>   <span data-tip data-for={'LeyendaGrafico' + graph_number}  className="glyphicon glyphicon-question-sign"></span> </div>;
+				titulo_grafico = <div><AutosizeInput value = {grafico.name} style ={{fontSize:"1em"}} name ="input-titulo" className = "input-titulo" onChange= {(event) => this.HandleNameChange(event,graph_number) } placeholder = {grafico.name} /> 	 <span className= "glyphicon glyphicon-pencil"></span>   <span data-tip data-for={'LeyendaGrafico' + graph_number}  className="glyphicon glyphicon-question-sign"></span> </div>;
 				opcion_eliminar_grafico = <div onClick= { (event) => this.handleRemove(event,graph_number)} className = {"div-span-eliminar-grafico " + this.state.modo} > <span className = {"span-eliminar-grafico " } >Eliminar</span> <span className = {"glyphicon glyphicon-remove-circle span-grafico " + this.state.modo} > </span> </div>;
 	 }
 		if(grafico.graph_type ===1){
@@ -192,7 +192,7 @@ class VistaDashboard extends Component{
 			if(modo === 'modo-edicion'){
 				tooltip =   <ReactTooltip effect = "solid"  id={'LeyendaGrafico' + graph_number} place='right'>
 						<div className = "boxLeyenda">
-						 <p className = "TextoLeyenda"> Gráfico que muestra que tanta coherencia y frecuencia acumulada de publicaciones tiene tuvo un Tema el último mes, en donde aquellos temas más coherentes se muestran más la derecha, mientras que aquellos temas con más frecuencia acumulada se muestran más arriba. </p>
+						 <p className = "TextoLeyenda"> Gráfico que muestra que tanta coherencia y frecuencia acumulada de publicaciones tiene tuvo un Tema el último mes, en donde aquellos temas más coherentes se muestran más a la derecha, mientras que aquellos temas con más frecuencia acumulada se muestran más arriba. </p>
 						</div>
 					 </ReactTooltip>
 			}
