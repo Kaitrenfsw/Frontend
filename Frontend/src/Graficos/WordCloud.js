@@ -60,27 +60,23 @@ class WordCloud extends Component{
        var h = this.state.h/1.5;
        var keywords = this.props.words;
        var frequency_list = [];
+       //Se obtienen valores minimos y maximos del peso de la palabra.
        var max = 0,min=10;
        for( var i = 0; i < keywords.length ; i++){
          if(keywords[i].weight>max) { max = keywords[i].weight}
          if(keywords[i].weight < min){min = keywords[i].weight}
        }
+       //intervalo de tamaños
        var interval = [15,60];
+       //Se normaliza el tamaño de las palabras utilizando el itervalo anterior
        for(i = 0; i < keywords.length ; i++){
-
          const w = ((interval[1] - interval[0]) * (keywords[i].weight - min) / (max - min)) + interval[0];
          frequency_list.push({"text" : keywords[i].name, "size":w});
        }
-
-
       var color = scaleLinear()
            .domain([0,1,2,3,4,5,6,10,15,20,100])
            .range(["#eee", "#ddd", "#ccc", "#bbb", "#aaa", "#999", "#888", "#777", "#666", "#555", "#555", "#555"]);
-
       const node = this.node
-
-
-
      select(node)
         .selectAll('rect')
         .data(this.props.data)

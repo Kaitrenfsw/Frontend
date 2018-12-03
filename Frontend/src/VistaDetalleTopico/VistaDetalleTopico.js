@@ -58,26 +58,11 @@ class VistaDetalleTopico extends Component{
                status: response.status
            })
          ).then(res => {
-
-            /*
-
-           for (var i = res.data.relations.length -1; i>=0;i--) {
-
-             order_relations.push(res.data.relations[i]);
-           }
-
-           for (var i = 0; i<6;i++) {
-             order_relations.push(res.data.relations[i]);
-             order_relations.push(res.data.relations[res.data.relations.length-i-1]);
-           }
-          */
-
-
            var GraphFormatData = {nodes:[], edges:[]}
-           GraphFormatData.nodes.push({name:res.data.topic_name,"id":res.data.topic_id});
+           GraphFormatData.nodes.push({name:res.data.topic_name,"id":res.data.topic_id, "index":  0});
            for(var i=res.data.relations.length -1; i>=0; i--){
               GraphFormatData.edges.push({"source":i + 1, "target":0, "value": 1- res.data.relations[i].distance});
-              GraphFormatData.nodes.push({name:res.data.relations[i].r_topic_name,  "id":res.data.relations[i].r_topic_id});
+              GraphFormatData.nodes.push({name:res.data.relations[i].r_topic_name,  "id":res.data.relations[i].r_topic_id, "value": 1- res.data.relations[i].distance, "index": res.data.relations.length - i});
            }
            this.setState({dataGrafo:GraphFormatData});
 
@@ -193,7 +178,7 @@ class VistaDetalleTopico extends Component{
 
           if(!(this.state.isLoading)){
           return (
-            <div className="container-fluid ContenidoVistaDetalleTopico">
+            <div className="animated fadeIn container-fluid ContenidoVistaDetalleTopico">
             <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
              <h2  className="titulo-vista no-margin-top" >{this.state.topico[0].name}</h2>
              {this.state.esta_suscrito && <a   onClick = {this.handleDesuscripcion.bind(this)}className="gradient-button gradient-button-2 unsub-button">Suscrito</a>}
@@ -221,7 +206,7 @@ class VistaDetalleTopico extends Component{
         }
         else {
           return(
-            <div className="container-fluid ContenidoVistaDetalleTopico">
+            <div className="animated fadeIn container-fluid ContenidoVistaDetalleTopico">
             <NavLink  to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
            </div>
 

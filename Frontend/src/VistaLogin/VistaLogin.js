@@ -84,7 +84,7 @@ class VistaLogin extends Component{
 
   render(){
     return (
-      <div className="ContenidoVistaLogin">
+      <div className="animated fadeIn ContenidoVistaLogin">
         <div className="row row-no-padding">
            <div className ="max-width">
            	<img id = "logo-login" src={logo} alt="logo" />

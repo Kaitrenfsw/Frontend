@@ -24,7 +24,9 @@ class TopicGraph extends Component{
       h: document.getElementsByClassName('graph-div')[0].clientHeight,
       w: document.getElementsByClassName('graph-div')[0].clientWidth
       });
-      this.createGraph();
+      if(this.props.dataset !=null){
+          this.createGraph();
+      }
       window.addEventListener('resize', this.resize);
   }
 
@@ -35,7 +37,7 @@ class TopicGraph extends Component{
      h: document.getElementsByClassName('graph-div')[0].clientHeight,
      w: document.getElementsByClassName('graph-div')[0].clientWidth
    });
- }
+  }
  }
 
 
@@ -66,16 +68,13 @@ class TopicGraph extends Component{
 
 
   createGraph(){
-
   const nodo = this.node;
-  var svg = select(nodo).append("svg")
-            .attr("class", "graph");
-
+  var svg = select(nodo).append("svg").attr("class", "graph");
   var svgWidth = this.state.w;
   var svgHeight = this.state.h;
-  var circleRadius = 15;
+  var responsiveCoef = Math.min(svgWidth,svgHeight)/45;
   var colores_nodos = ['#FF5C55','#ECB775', ' #87D597'];
-  var colores_arcos = ["#5C7582","#5C7582", "#5C7582"];
+
 
 
   var dataset = {
@@ -112,58 +111,38 @@ class TopicGraph extends Component{
   if(this.props.dataset!=null){
     dataset = this.props.dataset;
   }
-  //Initialize a default force layout, using the nodes and edges in dataset
-  //var force = d3.forceSimulation()
-  //            .nodes(dataset.nodes)
-  //            .links(dataset.edges)
-  //            .size([w, h])
-  //            .linkDistance([50])
-  //            .charge([-100]);
-
-
-
-
-
-  var        width = svgWidth,
-             height = svgHeight,
-             angle,
-             x,
-             y,
-             i;
+  //Se calcula la posición mediante angulos.
+  var    angle,x,y,i;
          for (i=0; i<dataset.nodes.length - 1; i++) {
-          angle = (i / ((dataset.nodes.length - 1)/2)) * Math.PI; // Calculate the angle at which the element will be placed.
-                                                // For a semicircle, we would use (i / numNodes) * Math.PI.
-          x = (svgWidth * Math.cos(angle)) + (width/2); // Calculate the x position of the element.
-          y = (svgHeight * Math.sin(angle)) + (height/2); // Calculate the y position of the element.
+          angle = (i / ((dataset.nodes.length - 1)/2)) * Math.PI; // Calcula el angulo
+          x = (svgWidth * Math.cos(angle)) + (svgWidth/2); // Calcula la posición x
+          y = (svgHeight * Math.sin(angle)) + (svgHeight/2); // Calcula la posición y
           dataset.nodes[i+1].x = x;
           dataset.nodes[i+1].y = y;
+  }
+  //Se centra el nodo principal.
+  dataset.nodes[0].x = svgWidth/2;
+  dataset.nodes[0].y = svgHeight/2;
+  //Se establece la longitud  de arcos.
+  var length = Math.min(svgHeight,svgWidth)/3;
 
-}
-dataset.nodes[0].x = svgWidth/2;
-dataset.nodes[0].y = svgHeight/2;
-
-  var max = 0,min=10000;
+  //se obtienen el max y min.
+  var max = 0,min=10;
   for( i = 0; i < dataset.edges.length ; i++){
     if(dataset.edges[i].value>max) { max = dataset.edges[i].value}
     if(dataset.edges[i].value< min){min = dataset.edges[i].value}
   }
-
-  var interval = [Math.min(svgHeight,svgWidth)/7,Math.min(svgHeight,svgWidth)/2.7];
+  var interval = [0.1,1];
   for(i = 0; i < dataset.edges.length ; i++){
     const w = ((interval[1] - interval[0]) * (dataset.edges[i].value - min) / (max - min)) + interval[0];
-    dataset.edges[i].value = interval[1] - w   + interval[0];
-    dataset.nodes[i +1].value = interval[1] - w  + interval[0];
+    dataset.edges[i].value =  w ;
+    dataset.nodes[i +1].value =  w;
   }
-  for(i = 0; i < dataset.nodes.length ; i++){
-    dataset.nodes[i].index = i;
-  }
-
-
 
   var simulation = d3.forceSimulation()
           .force("link", d3.forceLink().id(function(d,i) {
               return i;
-          }).strength (function (d) {return d.value/400;}).distance(function (d) {return Math.min(svgHeight,svgWidth)/3.7 ;}))
+          }).strength (function (d) {return 0.2;}).distance(function (d) {return length ;}))
           .force("center", d3.forceCenter(svgWidth / 2,svgHeight / 2.4))
           .force('charge', function(d){
               var charge = -500;
@@ -188,10 +167,7 @@ dataset.nodes[0].y = svgHeight/2;
           .append("line")
           .style("stroke-width", function(d) { return 1; })
           .attr("stroke", function(d) {
-            if(d.value>=0.8 * interval[1]) return colores_arcos[0];
-            if(d.value>=0.6 * interval[1]) return colores_arcos[1];
-            if(d.value>=0) return colores_arcos[2];
-            else return "#6B828F";
+              return "#6B828F";
             })
 
 
@@ -204,24 +180,22 @@ dataset.nodes[0].y = svgHeight/2;
           .enter()
           .append("circle")
           .attr("r", function(d){
-              var r;
-              if(true){r = interval[1]*4/d.value} else { r = 15}
-              if (d.index === 0) r = 25;
-              return r;
+              if(d.index === 0){ return responsiveCoef * 2}
+              return  d.value * responsiveCoef;
           })
 
             .style("stroke-width", function(d) { return 3; })
-          .attr("stroke", function(d) {
-            if(d.value>=0.85 * interval[1]) return colores_nodos[0];
-            else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
-            else if(d.value>=0) return colores_nodos[2];
-            else return '#5CACC4';
+            .attr("stroke", function(d) {
+            if(d.value>=0.7 ) return colores_nodos[2];
+            else if(d.value>=0.4) return colores_nodos[1];
+            else if(d.value>=0) return colores_nodos[0];
+            else if(d.index ===0 )return '#5CACC4';
             })
           .attr('fill',function (d,i) {
-              if(d.value>=0.85 * interval[1]) return colores_nodos[0];
-              else if(d.value>=0.7 * interval[1]) return colores_nodos[1];
-              else if(d.value>=0) return colores_nodos[2];
-              else return'#5CACC4';
+              if(d.value>=0.7 ) return colores_nodos[2];
+              else if(d.value>=0.4) return colores_nodos[1];
+              else if(d.value>=0) return colores_nodos[0];
+              else if(d.index ===0 ) return '#5CACC4';
           })
           .on("click", this.HandleMouseClick)
           .on("mouseover", mouseover)
@@ -243,21 +217,23 @@ dataset.nodes[0].y = svgHeight/2;
           .attr("dx", function(d) {
             if(d.index === (((dataset.nodes.length -1 )/4) +1)){ return 0;}
             else if(d.index === (((dataset.nodes.length -1 )*3/4) +1)){ return 0;}
-            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index !== 0){ return d.name.length*2;}
-            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index !== 0 ){ return d.name.length*2;}
-            else if(((dataset.nodes.length -1) /4) <= d.index && d.index < ((dataset.nodes.length -1) * 3/4) && d.index !== 0 ){ return -d.name.length*2;}
+            else if(d.index >= ((dataset.nodes.length )* 3/4) && d.index !== 0){ return d.name.length*1.2;}
+            else if(d.index <= ((dataset.nodes.length -1) /4) && d.index !== 0 ){ return d.name.length*1.2;}
+            else if(((dataset.nodes.length -1) /4) <= d.index && d.index < ((dataset.nodes.length -1) * 3/4) && d.index !== 0 ){ return -d.name.length*1.2;}
             else{ return 0;}})
 
           .attr("dy", function(d) {
             if(d.index === 0 ){ return 45;}
-            if(d.index <= (dataset.nodes.length /2) ){ return (interval[1]*10/d.value)  + 10;}
-            else return ( - interval[1]*7/d.value);})
+            if(d.index <= (dataset.nodes.length /2) ){ return (d.value*responsiveCoef) + responsiveCoef * 1.5;}
+            else return ( - d.value *responsiveCoef) -responsiveCoef/2;})
           .style('fill', '#cfd1d1') /*#5C7582*/
           .style('font-weight', 'bold')
+          .style('cursor', 'pointer')
           .style('font-size','0.9em')
           .text(function(d) {
               return  d.name;
-          });
+          })
+          .on("click", this.HandleMouseClick);
 
   simulation
           .nodes(dataset.nodes)
@@ -270,25 +246,25 @@ dataset.nodes[0].y = svgHeight/2;
               .attr("x1", function (d) {
                   var xPos = d.source.x;
                   if (xPos < 0) return 0;
-                  if (xPos > (svgWidth - circleRadius)) return (svgWidth - circleRadius);
+                  if (xPos > (svgWidth - responsiveCoef)) return (svgWidth - responsiveCoef);
                   return xPos;
               })
               .attr("y1", function (d) {
                   var yPos = d.source.y;
                   if (yPos < 0) return 0;
-                  if (yPos > (svgHeight - circleRadius)) return (svgHeight - circleRadius);
+                  if (yPos > (svgHeight - responsiveCoef)) return (svgHeight - responsiveCoef);
                   return yPos;
               })
               .attr("x2", function (d) {
                   var xPos = d.target.x;
                   if (xPos < 0) return 0;
-                  if (xPos > (svgWidth - circleRadius)) return (svgWidth - circleRadius);
+                  if (xPos > (svgWidth - responsiveCoef)) return (svgWidth - responsiveCoef);
                   return xPos;
               })
               .attr("y2", function (d) {
                   var yPos = d.target.y;
                   if (yPos < 0) return 0;
-                  if (yPos > (svgHeight - circleRadius)) return (svgHeight - circleRadius);
+                  if (yPos > (svgHeight - responsiveCoef)) return (svgHeight - responsiveCoef);
                   return yPos;
               });
 
@@ -296,13 +272,13 @@ dataset.nodes[0].y = svgHeight/2;
               .attr("cx", function (d) {
                   var xPos = d.x;
                   if (xPos < 0) return 0;
-                  if (xPos > (svgWidth - circleRadius)) return (svgWidth - circleRadius);
+                  if (xPos > (svgWidth - responsiveCoef)) return (svgWidth - responsiveCoef);
                   return xPos;
               })
               .attr("cy", function (d) {
                   var yPos = d.y;
                   if (yPos < 0) return 0;
-                  if (yPos > (svgHeight - circleRadius)) return (svgHeight - circleRadius);
+                  if (yPos > (svgHeight - responsiveCoef)) return (svgHeight - responsiveCoef);
                   return yPos;
               });
 
@@ -310,13 +286,13 @@ dataset.nodes[0].y = svgHeight/2;
               .attr("x", function(d) {
                   var xPos = d.x;
                   if (xPos < 0) return 0;
-                  if (xPos > (svgWidth - circleRadius)) return (svgWidth - circleRadius);
+                  if (xPos > (svgWidth - responsiveCoef)) return (svgWidth - responsiveCoef);
                   return xPos;
               })
               .attr("y", function(d) {
                   var yPos = d.y;
                   if (yPos < 0) return 0;
-                  if (yPos > (svgHeight - circleRadius)) return (svgHeight - circleRadius);
+                  if (yPos > (svgHeight - responsiveCoef)) return (svgHeight - responsiveCoef);
                   return yPos;
               });
   }
@@ -328,7 +304,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return (interval[1]*4/d.value) *1.2})
+      .attr("r", function(d){return (d.value *responsiveCoef) *1.2})
 
       /*
           var matrix = this.getScreenCTM()
@@ -354,7 +330,7 @@ dataset.nodes[0].y = svgHeight/2;
     if(d.index !== 0){
        d3.select(this).transition()
       .duration(250)
-      .attr("r", function(d){return interval[1]*4/d.value})
+      .attr("r", function(d){return d.value *responsiveCoef})
       div.style("opacity", 0);
     }
 

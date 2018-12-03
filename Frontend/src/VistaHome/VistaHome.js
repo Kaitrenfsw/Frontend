@@ -41,7 +41,7 @@ class VistaHome extends Component{
 
   render(){
     return (
-      <div className="container-fluid ContenidoVistaHome">
+      <div className="animated fadeIn container-fluid ContenidoVistaHome">
         <h2 className = "titulo-vista">Artículos</h2>
         <ul className="ListasHome">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Recomendados","Guardados"]} />

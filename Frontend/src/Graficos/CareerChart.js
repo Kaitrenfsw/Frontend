@@ -130,7 +130,7 @@ class CareerChart extends Component{
                       <td><a className="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td></tr>
                     ))}
                     {payload[1].payload.data.map((entry, index) => (
-                    <tr>
+                    <tr key = {"payload" + index}>
                       <th scope="row">{entry.orden}</th>
                       <td><a className="legendLink" href={"/topicos/"+entry.topic_id}>{entry.topic_name}</a></td>
                     </tr>

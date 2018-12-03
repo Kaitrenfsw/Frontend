@@ -64,7 +64,7 @@ class VistaConfiguracion extends Component{
       options =  ['Datos personales','Fuentes'];
     }
     return (
-      <div className = "container-fluid ContenidoVistaConfiguracion">
+      <div className = "animated fadeIn container-fluid ContenidoVistaConfiguracion">
       <h2 className="titulo-vista" >Configuración</h2>
         <div className="row row-no-padding no-margin">
           <div className="col-sm-2 no-padding">

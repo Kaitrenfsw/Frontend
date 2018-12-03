@@ -546,7 +546,7 @@ class MostrarArticulos extends Component{
              {div_dislike}
             </div>
             <div className="div-image">
-            <img id="image_guardados"  src={articulo.main_image}  />
+            <img id="image_guardados"  src={articulo.main_image} alt= {articulo.title}  />
             </div>
             <div className="wrap-topicos">
             {topico1}
@@ -611,7 +611,7 @@ class MostrarArticulos extends Component{
              {div_dislike}
             </div>
             <div className="div-image">
-            <img id="image_recomendados" src={articulo.main_image}    />
+            <img id="image_recomendados" src={articulo.main_image}  alt= {articulo.title}   />
             </div>
             <div className="wrap-topicos">
             {topico1}
