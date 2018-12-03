@@ -15,7 +15,7 @@
 .ContenidoVistaLogin label { color: #6B828F; font-size: 15px; margin-bottom: 15px;}
 .ContenidoVistaLogin input {font-size: 17px; color: white; background-color: #1A252D; opacity: 1; border-radius: 0; border-width: 1px; border-color: rgba(88,114,124,0.5)}
 .ContenidoVistaLogin #lineas {bottom: 0; width: 100vw; height: 20vh;}
-.ContenidoVistaLogin .form-group{ text-align: left; width: 30%; margin: 0px auto; min-width: 300px;}
+.ContenidoVistaLogin .form-group{ text-align: left; width: 30%; margin: 0px auto; min-width: 200px;}
 .ContenidoVistaLogin #contraseña { font-size: 17px;}
 .ContenidoVistaLogin .max-width {  justify-content: center;width: 80%; margin-left: 10%; margin-left: 10%; text-align: center;}
 .ContenidoVistaLogin #recordarme { color: #6B828F; float: left;display: inline;  font-size: 13px}

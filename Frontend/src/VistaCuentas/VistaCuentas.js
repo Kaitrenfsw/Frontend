@@ -60,7 +60,7 @@ class VistaCuentas extends Component{
   render(){
 
     return (
-      <div className="ContenidoVistaCuentas">
+      <div className="animated fadeIn ContenidoVistaCuentas">
           <h3 id ="subtitulo-vista">Cuentas</h3>
 					<div className="margin-top">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Explorar cuentas","Crear cuenta"]} />

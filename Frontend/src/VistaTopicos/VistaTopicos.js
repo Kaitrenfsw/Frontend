@@ -33,7 +33,7 @@ class VistaTopicos extends Component{
    }
   render(){
     return (
-      <div className="container-fluid ContenidoVistaTopicos">
+      <div className="animated fadeIn container-fluid ContenidoVistaTopicos">
         <h2 className = "titulo-vista">Temas de interés</h2>
         <ul className="ListasTopicos">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis temas","Explorar temas"]} />

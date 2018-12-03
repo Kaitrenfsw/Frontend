@@ -13,11 +13,10 @@ class MyLink extends Component {
 
 
 class Header extends Component{
-
-
  handleClick(event){
+   this.props.HandleUserLogIn(null);
    localStorage.setItem('user', null);
-   this.props.history.push('/login');
+
  }
 
 
@@ -48,7 +47,7 @@ class Header extends Component{
 						<li  ><MyLink history ={this.props.history}to='/configuracion'>Configuración</MyLink></li>
 						</ul>
 			    <ul  className="nav navbar-nav navbar-right">
-          	<li ><a href = "/ "onClick={this.handleClick.bind(this) }>Salir</a></li>
+          	<li ><a onClick={this.handleClick.bind(this) }>Salir</a></li>
 			    </ul>
 			  </div>
 			</nav>

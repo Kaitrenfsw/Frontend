@@ -49,7 +49,7 @@ class VistaUsuarios extends Component{
     var activo = this.state.activo;
     var options = ['Cuentas','Estadísticas'];
     return (
-      <div className = "container-fluid ContenidoVistaUsuarios">
+      <div className = "animated fadeIn container-fluid ContenidoVistaUsuarios">
       <h2 className="titulo-vista" >Usuarios</h2>
         <div className="row row-no-padding no-margin">
           <div className="col-sm-2 no-padding">

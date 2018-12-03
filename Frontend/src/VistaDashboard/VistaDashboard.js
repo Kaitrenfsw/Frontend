@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import './VistaDashboard.css';
-import 'animate.css';
 import DashboardFrequencyChart from '../Graficos/DashboardFrequencyChart';
 import CareerChart from '../Graficos/CareerChart';
 import Select from 'react-select';
@@ -312,7 +311,7 @@ class VistaDashboard extends Component{
 		}
     if(!this.state.isLoading){
         return (
-      <div  className="container-fluid ContenidoVistaDashboard">
+      <div  className="animated fadeIn container-fluid ContenidoVistaDashboard">
 			  <div className= "div-titulo">
         <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span data-tip  ref='tooltip'  className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar" >Editar</span></div>
 				</div>
@@ -326,9 +325,9 @@ class VistaDashboard extends Component{
     }
     if(this.state.isLoading){
     return (
-      <div className="container-fluid ContenidoVistaDashboard">
+      <div className="animated fadeIn container-fluid ContenidoVistaDashboard">
 			  <div className= "div-titulo">
-        <h2 id = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
+        <h2 className = "titulo-vista">Dashboard </h2> <div className = {"div-span-editar-dashboard " + this.state.modo} > <span className = {"glyphicon glyphicon-cog span-editar-dashboard " + this.state.modo} onClick= { this.changeModo.bind(this) }> </span> <span className = {"span-editar-dashboard " + this.state.modo}  onClick= { this.changeModo.bind(this) } id="texto-editar">Editar</span></div>
        	</div>
 		 	</div>
 
