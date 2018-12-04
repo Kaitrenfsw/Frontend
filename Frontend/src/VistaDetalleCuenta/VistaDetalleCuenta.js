@@ -47,13 +47,12 @@ class VistaDetalleCuenta extends Component{
 
 
   render(){
-		console.log(this.props.match);
 		var options;
 		var activo = this.state.activo;
 		if(this.props.user.permissions[0].group === "admin") {options = ["Datos"]; activo = 'Datos'};
 		if(this.props.user.permissions[0].group === "owner") {options = ["Suscripciones","Registro","Contraseña"]; };
     return (
-      <div className = "animated fadeIn container-fluid ContenidoVistaDetalleCuenta">
+      <div className = "animated fadeIn  ContenidoVistaDetalleCuenta">
         <NavLink to='/usuarios'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Cuentas</h5></NavLink>
         <h2 className="titulo-vista no-margin-top" >Cuenta {this.props.match.params.email}</h2>
         <div className="row row-no-padding">

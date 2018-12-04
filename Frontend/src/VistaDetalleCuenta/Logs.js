@@ -13,7 +13,6 @@ class Logs extends Component{
       weekdays: 'Domingo_Lunes_Martes_Miercoles_Jueves_Viernes_Sabado'.split('_'),
       weekdaysShort: 'Dom._Lun._Mar._Mier._Jue._Vier._Sab.'.split('_'),
       weekdaysMin: 'Do_Lu_Ma_Mi_Ju_Vi_Sa'.split('_')})
-    console.log(props);
       super(props);
       this.state={/*
         logins:[{date:"Fecha1"},{date:"Fecha2"},{date:"Fecha3"}],
@@ -43,7 +42,6 @@ class Logs extends Component{
               log: response.status
           })
         ).then(res => {
-          console.log(res.data);
           this.setState({logins:res.data.logins,subscriptions:res.data.subscriptions,desubs:res.data.unsubscriptions})
         });
 
@@ -62,7 +60,6 @@ class Logs extends Component{
 
     if (tipo==="logs") {
       for (row in this.state.logins){
-        console.log(this.state.logins[row]);
         out.push(<tr><td>{moment(this.state.logins[row].inserted_at,dateInputFormat).subtract(3, 'hours').format(dateOutputFormat)}</td></tr>)
       }
 

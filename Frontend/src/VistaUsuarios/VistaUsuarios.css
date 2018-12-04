@@ -1,33 +1,12 @@
 
 
 /* Css generales de la vista*/
-.ContenidoVistaUsuarios {position: absolute;left: 0;right: 0;}
+
 .ContenidoVistaUsuarios .no-padding{padding: 0;}
 .ContenidoVistaUsuarios #subtitulo-vista{color: #EDEEEF; margin-top: 2vh;}
+.Estadisticas {position: absolute;right: 0;left: 0;}
 
 
-
-
-
-@media (max-width: 1400px) {
-
-.ContenidoVistaFuentes .nombre-fuente{ font-size: 1em;}
-.ContenidoVistaFuentes .url-fuente{font-size: 0.8em;}
-.ContenidoVistaFuentes .Div-Fuente {min-height: 8em;}
-
-}
-
-@media (max-width: 1199px) {
-  .NavBar  li{ margin-bottom: 30px;}
-  .NavBar {margin-top: 50px;}
-}
-
-
-
-
-@media (max-width: 767px) {
-  .ContenidoVistaConfiguracion #subtitulo-vista {margin-top: 0;}
-}
 
 
 /* Mensajes si no hay temas*/

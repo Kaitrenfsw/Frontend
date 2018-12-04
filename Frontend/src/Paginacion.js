@@ -5,7 +5,9 @@ import React, { Component } from 'react'
 
 class PaginacionTopicos extends Component{
 
-
+  state = {
+    search: ""
+  }
 
   render(){
    var orden_text = "Ordenar por";
@@ -22,24 +24,26 @@ class PaginacionTopicos extends Component{
     	<div className= "paginacion">
           <div className="row row-no-padding no-margin">
                 <div className="form-group has-feedback" >
-                <div className="col-sm-2 no-padding">
-                  <input onChange={this.props.HandleSearch.bind(this)} type="text" className="form-control" name="search" id="search" placeholder={search_text}></input>
-                    <span className="glyphicon glyphicon-search form-control-feedback"></span>
+                <div className="col-sm-4 no-padding">
+                  <input  onChange = {(e) => {this.setState({ search: e.target.value })}} type="text" className="form-control" name="search" id="search-input" placeholder={search_text}></input>
+
+                      <button onClick={(event) => {this.props.HandleSearch(event,this.state.search)}} type="button" id = "search-button"><span className="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+
                 </div>
-            </div>
-            <div  className="col-sm-10 no-padding" >
-                <span>
-                <div className="dropdown">
-                <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
-                <span className="caret"></span>{orden}</button>
-                <ul className="dropdown-menu">
-                  {options_html}
-                </ul>
+                <div  className="col-sm-8 no-padding" >
+                    <span>
+                    <div className="dropdown">
+                    <button className="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    <span className="caret"></span>{orden}</button>
+                    <ul className="dropdown-menu">
+                      {options_html}
+                    </ul>
+                  </div>
+                    <h6  id="ordenar-por">{orden_text}</h6>
+                  </span>
+                </div>
               </div>
-                <h6  id="ordenar-por">{orden_text}</h6>
-              </span>
             </div>
-          </div>
       </div>
     );
   }

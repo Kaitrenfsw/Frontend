@@ -285,7 +285,7 @@ class MostrarTopicos extends Component{
     if(!this.state.isLoading){
       if(activo === "Explorar temas"){
         return (
-          <div >
+          <div className = "animated fadeIn" >
              {topicos.map((topico,i,arr) => (
               this.DesplegarTopicosExplorar(topico,search)
             ))}
@@ -294,7 +294,7 @@ class MostrarTopicos extends Component{
       }
       else if(activo === "Mis temas"){
         return (
-          <div>
+          <div  className = "animated fadeIn">
           {usrTopics.map((topico,i,arr) => (
            this.DesplegarMisTopicos(topico,search)
           ))}

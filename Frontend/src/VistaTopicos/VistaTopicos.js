@@ -21,19 +21,15 @@ class VistaTopicos extends Component{
   HandleDetalleTopico(event,valor, valor2) {
 	  this.setState({ ver_detalle: valor, topico: valor2 });
   }
-  HandleSearch(event) {
-    if (true) {
-       const target = event.target;
-       const valor_busqueda = target.value;
-       this.setState({ search: valor_busqueda });
-    }
+  HandleSearch(event,valor) {
+       this.setState({ search: valor});
   }
   HandleOrden(event,valor) {
        if(this.state.orden !== valor){ this.setState({ orden: valor }); }
    }
   render(){
     return (
-      <div className="animated fadeIn container-fluid ContenidoVistaTopicos">
+      <div className="animated fadeIn  ContenidoVistaTopicos">
         <h2 className = "titulo-vista">Temas de interés</h2>
         <ul className="ListasTopicos">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Mis temas","Explorar temas"]} />

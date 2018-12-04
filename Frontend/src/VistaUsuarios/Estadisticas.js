@@ -6,12 +6,10 @@ class Estadisticas extends Component{
 
   render(){
     return (
-          <div className="Entrenamiento">
+          <div className="Estadisticas">
           <h3 id ="subtitulo-vista">Estadísticas</h3>
           <div className="topics-chart-container">
-
           <TopicsChart user = {this.props.user}/>
-
           </div>
           </div>
       );

@@ -58,13 +58,8 @@ class SeccionNoticias extends Component{
            }
 
 
-  HandleSearch(event) {
-    if (true) {
-       const target = event.target;
-       const valor_busqueda = target.value;
-       this.setState({search: valor_busqueda});
-    }
-
+  HandleSearch(event,valor) {
+       this.setState({search: valor});
   }
   HandleOrden(event,valor) {
        if(this.state.orden !== valor){
