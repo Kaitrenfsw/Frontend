@@ -6,7 +6,7 @@
 .ContenidoVistaTopicos .row{ margin-left:0; margin-right: 0;}
 .ContenidoVistaTopicos .row-no-padding > [class*="col-"] { padding-left: 0 !important; padding-right: 0 !important; }
 .ContenidoVistaTopicos .col-lg-6{ padding: 0; }
-.ContenidoVistaTopicos {position: absolute;left: 0;right: 0;}
+
 
 
 

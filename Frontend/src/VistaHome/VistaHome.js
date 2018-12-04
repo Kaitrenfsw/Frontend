@@ -21,14 +21,10 @@ class VistaHome extends Component{
    }
 
 
-  HandleSearch(event) {
-    if (true) {
-       const target = event.target;
-       const valor_busqueda = target.value;
+  HandleSearch(event,valor) {
        this.setState({
-        search: valor_busqueda
+        search: valor
        });
-    }
   }
 
   HandleOrden(event,valor) {
@@ -41,7 +37,7 @@ class VistaHome extends Component{
 
   render(){
     return (
-      <div className="animated fadeIn container-fluid ContenidoVistaHome">
+      <div className="animated fadeIn  ContenidoVistaHome">
         <h2 className = "titulo-vista">Artículos</h2>
         <ul className="ListasHome">
           <NavTabs activo = {this.state.activo} HandleNavTabs= {this.HandleNavTabs.bind(this)} tabs= {["Recomendados","Guardados"]} />

@@ -7,7 +7,6 @@
 .ListasHome{	list-style-type: none ;padding:0;}
 .ContenidoVistaHome .col-lg-6{ padding: 0; }
 .ContenidoVistaHome .col-lg-3{ padding: 0; }
-.ContenidoVistaHome {position: absolute;left: 0;right: 0;}
 .ContenidoVistaHome .row{ margin-left:0; margin-right: 0;}
 .ContenidoVistaHome .paginacion .dropdown,
 .ContenidoVistaHome .paginacion .dropdown-toggle{ width: 140px;}

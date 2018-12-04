@@ -3,7 +3,6 @@
 
 /*Css generales de la vista*/
 .ContenidoVistaDashboard .titulo-vista{display: inline-block;}
-.ContenidoVistaDashboard {position: absolute;left: 0;right: 0;}
 .ContenidoVistaDashboard .añadir-multiple__div { width: 100%; float: left;}
 .ContenidoVistaDashboard .div-titulo{margin-bottom: 2em;}
 .ContenidoVistaDashboard #texto-editar {margin-right: 2px;color: #6B828F;font-weight: bold; font-size: 10px; margin-left: -35px; margin-top: -20px;}

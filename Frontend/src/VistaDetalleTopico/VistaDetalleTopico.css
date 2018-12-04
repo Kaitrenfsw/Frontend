@@ -3,7 +3,6 @@
 /* Css generales de la vista*/
 .ContenidoVistaDetalleTopico .no-padding{padding: 0;}
 .ContenidoVistaDetalleTopico #subtitulo-vista{color: #EDEEEF; margin-top: 60px; font-weight: bold;}
-.ContenidoVistaDetalleTopico { position: absolute;left: 0; right: 0;}
 .ContenidoVistaDetalleTopico #volver{color: #6B828F; font-weight: bold; margin: 0; margin-top: 0px; margin-bottom: 5px; cursor: pointer;}
 .ContenidoVistaDetalleTopico #left-icon{margin-bottom: 2px;}
 

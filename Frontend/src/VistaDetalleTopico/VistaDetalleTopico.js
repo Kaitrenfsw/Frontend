@@ -178,7 +178,7 @@ class VistaDetalleTopico extends Component{
 
           if(!(this.state.isLoading)){
           return (
-            <div className="animated fadeIn container-fluid ContenidoVistaDetalleTopico">
+            <div className="animated fadeIn  ContenidoVistaDetalleTopico">
             <NavLink to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
              <h2  className="titulo-vista no-margin-top" >{this.state.topico[0].name}</h2>
              {this.state.esta_suscrito && <a   onClick = {this.handleDesuscripcion.bind(this)}className="gradient-button gradient-button-2 unsub-button">Suscrito</a>}
@@ -206,7 +206,7 @@ class VistaDetalleTopico extends Component{
         }
         else {
           return(
-            <div className="animated fadeIn container-fluid ContenidoVistaDetalleTopico">
+            <div className="animated fadeIn  ContenidoVistaDetalleTopico">
             <NavLink  to='/topicos'><h5 id="volver"   ><img id = "left-icon" alt="left-arrow" src = {left_icon}/> Temas</h5></NavLink>
            </div>
 
